@@ -1,25 +1,34 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
-
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
+/*
+ * YING-LI TEA — HOME PAGE
+ * Section order:
+ * Navbar → Hero → Marquee → Featured Product → About → Marquee →
+ * Products → Why → Quote → FAQ → Contact/Footer
  */
-export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import MarqueeBanner from "@/components/MarqueeBanner";
+import FeaturedSection from "@/components/FeaturedSection";
+import AboutSection from "@/components/AboutSection";
+import ProductsSection from "@/components/ProductsSection";
+import WhySection from "@/components/WhySection";
+import QuoteSection from "@/components/QuoteSection";
+import FaqSection from "@/components/FaqSection";
+import ContactFooter from "@/components/ContactFooter";
 
+export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
+    <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+      <Navbar />
+      <HeroSection />
+      <MarqueeBanner />
+      <FeaturedSection />
+      <AboutSection />
+      <MarqueeBanner />
+      <ProductsSection />
+      <WhySection />
+      <QuoteSection />
+      <FaqSection />
+      <ContactFooter />
     </div>
   );
 }
