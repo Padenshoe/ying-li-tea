@@ -8,8 +8,9 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Link, useLocation } from "wouter";
-import { Globe, ShoppingBag } from "lucide-react";
+import { Globe, ShoppingBag, ClipboardList } from "lucide-react";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
@@ -30,6 +31,7 @@ export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
   const { formatPrice, convertPrice } = useCurrency();
   const { items, removeItem, total } = useCart();
+  const { isAuthenticated } = useAuth();
   const [, navigate] = useLocation();
 
   useEffect(() => {
@@ -118,6 +120,18 @@ export default function Navbar() {
               中文
             </button>
           </div>
+
+          {/* Orders History Link (authenticated users only) */}
+          {isAuthenticated && (
+            <Link
+              to="/orders"
+              className="p-2 rounded-lg transition-all duration-300 hover:bg-gray-100 flex items-center justify-center"
+              aria-label={language === "zh" ? "訂單記錄" : "Order History"}
+              title={language === "zh" ? "訂單記錄" : "Order History"}
+            >
+              <ClipboardList size={20} style={{ color: "oklch(0.500 0.060 145)" }} />
+            </Link>
+          )}
 
           {/* Shopping Cart Icon */}
           <div className="relative">

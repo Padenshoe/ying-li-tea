@@ -94,3 +94,11 @@
 ## Cart Dropdown Mobile Crop Fix (Completed)
 
 - [x] Fix cart dropdown still cropping/overflowing on mobile screens (switched to fixed positioning centered in viewport)
+
+## Three New Features (Completed)
+
+- [x] Translate Cart page UI to Mandarin (buttons, labels, empty state message) — already fully implemented with inline bilingual translations
+- [x] Create Order History page at /orders for logged-in customers — auth guard, order list with items/status/total, bilingual, currency-aware
+- [x] Add contact form to ContactFooter (name, email, message fields) — validation, tRPC mutation, notifyOwner notification, bilingual labels and errors
+- [x] Add Orders icon to Navbar (visible when logged in) linking to /orders
+- [x] Write 6 unit tests for contact.submitInquiry (17 total tests passing across 4 test files)
