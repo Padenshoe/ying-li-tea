@@ -144,11 +144,11 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         className={`md:hidden transition-all duration-400 overflow-hidden ${
-          menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
         style={{ background: "oklch(0.990 0.004 95)" }}
       >
-        <div className="container py-6 flex flex-col gap-4">
+        <div className="px-4 md:px-6 py-6 flex flex-col gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -166,7 +166,7 @@ export default function Navbar() {
           <a
             href="#products"
             onClick={(e) => { e.preventDefault(); scrollTo("#products"); }}
-            className="mt-2 inline-flex items-center justify-center px-5 py-3 text-xs font-['Lato'] tracking-[0.15em] uppercase border"
+            className="mt-4 w-full flex items-center justify-center px-5 py-3 text-xs font-['Lato'] tracking-[0.15em] uppercase border rounded"
             style={{
               color: "oklch(0.500 0.060 145)",
               borderColor: "oklch(0.500 0.060 145)",
