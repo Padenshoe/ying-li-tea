@@ -1,14 +1,15 @@
 /*
  * YING-LI TEA — HOME PAGE
  * Section order:
- * Navbar → Hero → Marquee → Featured Product → About → Marquee →
- * Products → Why → Quote → FAQ → Contact/Footer
+ * Navbar → Hero → Marquee → Featured Product → About → Storefront →
+ * Marquee → Products → Why → Quote → FAQ → Contact/Footer
  */
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import FeaturedSection from "@/components/FeaturedSection";
 import AboutSection from "@/components/AboutSection";
+import StorefrontSection from "@/components/StorefrontSection";
 import ProductsSection from "@/components/ProductsSection";
 import WhySection from "@/components/WhySection";
 import QuoteSection from "@/components/QuoteSection";
@@ -23,6 +24,7 @@ export default function Home() {
       <MarqueeBanner />
       <FeaturedSection />
       <AboutSection />
+      <StorefrontSection />
       <MarqueeBanner />
       <ProductsSection />
       <WhySection />

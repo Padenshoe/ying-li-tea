@@ -1,8 +1,7 @@
 /*
  * YING-LI TEA — PRODUCTS SECTION
  * Design: Clean 3-column grid with generous breathing room.
- * Warm white background. Cards in cream with subtle shadow on hover.
- * Featured product (Cold Brew) gets a larger card.
+ * Content: Taiwan oolong specialization with multiple price points
  */
 import { useEffect, useRef } from "react";
 
@@ -12,34 +11,57 @@ const TEA_BAGS_IMG  = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/
 const products = [
   {
     id: 1,
-    name: "Oolong Cold Brew Tea",
-    tag: "Signature",
+    name: "Premium High-Mountain Oolong",
+    tag: "Rare Selection",
     description:
-      "A smooth, refreshing Taiwanese oolong crafted for cold brewing. Light, floral, and easy to enjoy — perfect for a crisp and calming tea experience.",
-    price: "From $18",
+      "Single-origin oolong from Alishan, Lishan & Dayuling. Complex floral notes, smooth finish. Officially certified.",
+    price: "From $280",
     image: COLD_BREW_IMG,
-    featured: true,
   },
   {
     id: 2,
-    name: "Oolong Tea Bags",
-    tag: "Everyday",
+    name: "Cold Brew Oolong",
+    tag: "Convenient",
     description:
-      "Convenient Taiwanese oolong tea bags with a clean, fragrant flavor. Easy to brew anytime while still preserving the elegance of traditional tea.",
-    price: "From $14",
+      "Ready-to-brew format. All elevations available. Perfect for busy days without compromising on quality.",
+    price: "From $120",
     image: TEA_BAGS_IMG,
-    featured: false,
   },
   {
     id: 3,
-    name: "Coming Soon",
-    tag: "Collection",
+    name: "Entry-Level Oolong",
+    tag: "Everyday",
     description:
-      "More Taiwanese tea varieties are on their way. Our next collection will explore the full depth of Taiwan's extraordinary tea landscape.",
-    price: "—",
-    image: null,
-    featured: false,
-    comingSoon: true,
+      "Accessible quality oolong from Shanlinxi & Cuifeng. Smooth, approachable taste. Great for newcomers.",
+    price: "From $80",
+    image: COLD_BREW_IMG,
+  },
+  {
+    id: 4,
+    name: "Gift Collections",
+    tag: "Special Edition",
+    description:
+      "Beautifully packaged multi-origin sets. Includes tasting notes. Perfect for gifting tea lovers.",
+    price: "From $380",
+    image: TEA_BAGS_IMG,
+  },
+  {
+    id: 5,
+    name: "Specialty Blends",
+    tag: "Limited Edition",
+    description:
+      "Curated blends combining multiple regions. Unique flavor profiles. Officially certified.",
+    price: "From $200",
+    image: COLD_BREW_IMG,
+  },
+  {
+    id: 6,
+    name: "Loose Leaf Selection",
+    tag: "Traditional",
+    description:
+      "Whole leaf oolong from all 6 regions. Full flavor, authentic experience. Multiple elevations.",
+    price: "From $150",
+    image: TEA_BAGS_IMG,
   },
 ];
 
@@ -84,14 +106,14 @@ export default function ProductsSection() {
                 lineHeight: 1.15,
               }}
             >
-              Teas from Taiwan
+              Taiwan Oolong<br />
+              <em>For Every Palate</em>
             </h2>
             <p
               className="font-['Lato'] font-300 max-w-xs reveal"
               style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
             >
-              Each tea is selected for its purity, fragrance, and ability to bring
-              a quiet clarity to your day.
+              From entry-level to premium, all elevations, all officially certified. Loose leaf, cold brew, and gift collections.
             </p>
           </div>
         </div>
@@ -101,62 +123,19 @@ export default function ProductsSection() {
           {products.map((product, idx) => (
             <div
               key={product.id}
-              className={`reveal flex flex-col group ${product.featured ? "md:col-span-1" : ""}`}
+              className="reveal flex flex-col group"
               style={{ transitionDelay: `${idx * 80}ms` }}
             >
               {/* Image Area */}
               <div
                 className="overflow-hidden mb-5 relative"
-                style={{
-                  aspectRatio: "3/4",
-                  background: product.comingSoon
-                    ? "oklch(0.962 0.008 90)"
-                    : "oklch(0.962 0.008 90)",
-                }}
+                style={{ aspectRatio: "3/4" }}
               >
-                {product.image ? (
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-3">
-                    {/* Tea leaf SVG placeholder */}
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M24 4C24 4 8 14 8 28C8 36.837 15.163 44 24 44C32.837 44 40 36.837 40 28C40 14 24 4 24 4Z"
-                        stroke="oklch(0.840 0.030 140)"
-                        strokeWidth="1.5"
-                        fill="none"
-                      />
-                      <path
-                        d="M24 44C24 44 24 24 24 14"
-                        stroke="oklch(0.840 0.030 140)"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M24 30C24 30 16 24 12 20"
-                        stroke="oklch(0.840 0.030 140)"
-                        strokeWidth="1"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M24 26C24 26 32 20 36 16"
-                        stroke="oklch(0.840 0.030 140)"
-                        strokeWidth="1"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <span
-                      className="eyebrow"
-                      style={{ color: "oklch(0.840 0.030 140)" }}
-                    >
-                      Coming Soon
-                    </span>
-                  </div>
-                )}
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
 
                 {/* Tag Badge */}
                 <span
@@ -191,25 +170,21 @@ export default function ProductsSection() {
                   >
                     {product.price}
                   </span>
-                  {!product.comingSoon && (
-                    <button
-                      className="text-xs font-['Lato'] font-400 tracking-[0.15em] uppercase px-4 py-2 border transition-all duration-300"
-                      style={{
-                        color: "oklch(0.500 0.060 145)",
-                        borderColor: "oklch(0.500 0.060 145)",
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
-                        (e.currentTarget as HTMLElement).style.color = "#FAFAF7";
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.background = "transparent";
-                        (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.060 145)";
-                      }}
-                    >
-                      Add to Cart
-                    </button>
-                  )}
+                  <button
+                    className="text-xs font-['Lato'] font-400 tracking-[0.15em] uppercase px-4 py-2 transition-all duration-300"
+                    style={{
+                      background: "oklch(0.500 0.060 145)",
+                      color: "#FAFAF7",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.background = "oklch(0.420 0.060 145)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
+                    }}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>

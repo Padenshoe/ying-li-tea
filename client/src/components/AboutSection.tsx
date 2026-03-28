@@ -1,8 +1,7 @@
 /*
  * YING-LI TEA — ABOUT SECTION
  * Design: 60/40 text-image split layout. Cream background.
- * Asymmetric — text left, image right with slight overlap/offset.
- * Dark charcoal text on cream background.
+ * Content: Taiwan oolong specialization, multiple regions, certifications
  */
 import { useEffect, useRef } from "react";
 
@@ -39,7 +38,7 @@ export default function AboutSection() {
       <div className="container">
         {/* Section Header */}
         <div className="mb-16 md:mb-20">
-          <span className="eyebrow reveal">Our Story</span>
+          <span className="eyebrow reveal">About Ying-Li</span>
           <div className="divider-short mt-3 mb-5 reveal" />
           <h2
             className="font-['Playfair_Display'] font-400 reveal"
@@ -50,8 +49,8 @@ export default function AboutSection() {
               lineHeight: 1.15,
             }}
           >
-            Rooted in Taiwan,<br />
-            <em>Crafted for Calm</em>
+            Taiwan's Premier<br />
+            <em>Oolong Tea</em>
           </h2>
         </div>
 
@@ -63,35 +62,69 @@ export default function AboutSection() {
               className="font-['Lato'] font-300 leading-loose reveal"
               style={{ fontSize: "1.0625rem", color: "oklch(0.380 0.015 55)" }}
             >
-              Ying-Li was born from a deep respect for Taiwan's extraordinary tea heritage.
-              Nestled among high-altitude mountains and wrapped in perpetual mist, Taiwan has
-              cultivated some of the world's most celebrated teas for centuries — and it is
-              from this living tradition that Ying-Li draws its spirit.
+              Ying-Li specializes exclusively in authentic Taiwanese oolong tea, sourced from the island's most renowned high-altitude regions. Every tea is officially certified and carefully selected to showcase the unique terroir and masterful craftsmanship that define Taiwan's tea heritage.
             </p>
             <p
               className="font-['Lato'] font-300 leading-loose reveal"
               style={{ fontSize: "1.0625rem", color: "oklch(0.380 0.015 55)" }}
             >
-              We believe that great tea is an act of simplicity. It asks nothing of you except
-              a moment of stillness. Our teas are selected for their purity, their fragrance,
-              and their ability to bring a quiet clarity to the everyday.
+              From entry-level selections to premium single-origin oolong, we offer teas across all price points and elevations. Our collection includes traditional loose leaf, convenient cold brew, and beautifully crafted gift boxes — each one a gateway to Taiwan's tea culture.
             </p>
             <p
               className="font-['Lato'] font-300 leading-loose reveal"
               style={{ fontSize: "1.0625rem", color: "oklch(0.380 0.015 55)" }}
             >
-              From the floral lightness of high-mountain oolong to the smooth depth of a
-              cold brew, every Ying-Li tea is an invitation to slow down — and to savour
-              what is truly good.
+              Whether you're exploring the floral notes of Alishan or the robust character of Dayuling, every Ying-Li tea is an invitation to discover the mountains, the mist, and the moment of stillness in every cup.
             </p>
 
-            {/* Values Row */}
-            <div className="grid grid-cols-2 gap-6 mt-4 reveal">
+            {/* Tea Regions */}
+            <div className="reveal mt-6">
+              <h3
+                className="font-['Playfair_Display'] font-400 mb-4"
+                style={{
+                  fontSize: "1.1rem",
+                  color: "oklch(0.265 0.015 55)",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                Our Tea Regions
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  "杉林溪 Shanlinxi",
+                  "阿里山 Alishan",
+                  "翠峰 Cuifeng",
+                  "梨山 Lishan",
+                  "福壽山 Fushoushan",
+                  "大禹嶺 Dayuling",
+                ].map((origin) => (
+                  <div
+                    key={origin}
+                    className="flex items-center gap-2 py-2"
+                    style={{ borderBottom: "1px solid oklch(0.870 0.018 130)" }}
+                  >
+                    <span
+                      className="w-2 h-2 rounded-full"
+                      style={{ background: "oklch(0.500 0.060 145)" }}
+                    />
+                    <span
+                      className="font-['Lato'] font-300 text-sm"
+                      style={{ color: "oklch(0.400 0.015 55)" }}
+                    >
+                      {origin}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Key Features */}
+            <div className="grid grid-cols-2 gap-6 mt-6 reveal">
               {[
-                { label: "Origin", value: "Taiwan" },
-                { label: "Philosophy", value: "Simplicity" },
-                { label: "Character", value: "Refined" },
-                { label: "Experience", value: "Timeless" },
+                { label: "Certification", value: "Official" },
+                { label: "Specialization", value: "Oolong" },
+                { label: "Range", value: "All Elevations" },
+                { label: "Formats", value: "Loose & Cold Brew" },
               ].map((item) => (
                 <div key={item.label} className="flex flex-col gap-1">
                   <span
