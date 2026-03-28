@@ -186,24 +186,25 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    <Link href="/cart">
-                      <a
-                        onClick={() => setCartOpen(false)}
-                        className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300"
-                        style={{
-                          background: "oklch(0.500 0.060 145)",
-                          color: "#FAFAF7",
-                        }}
-                        onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.opacity = "0.9";
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLElement).style.opacity = "1";
-                        }}
-                      >
-                        {language === "en" ? "View Cart" : "查看購物車"}
-                      </a>
-                    </Link>
+                    <button
+                      onClick={() => {
+                        setCartOpen(false);
+                        window.location.href = "/cart";
+                      }}
+                      className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300 border-none cursor-pointer"
+                      style={{
+                        background: "oklch(0.500 0.060 145)",
+                        color: "#FAFAF7",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.opacity = "0.9";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.opacity = "1";
+                      }}
+                    >
+                      {language === "en" ? "View Cart" : "查看購物車"}
+                    </button>
                   </>
                 )}
               </div>
