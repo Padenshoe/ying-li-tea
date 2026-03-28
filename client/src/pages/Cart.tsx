@@ -132,7 +132,7 @@ export default function Cart() {
                           className="font-['Lato'] font-600 mb-2"
                           style={{ color: "oklch(0.265 0.015 55)" }}
                         >
-                          {item.name}
+                          {item.nameKey ? t(item.nameKey) : item.name}
                         </h3>
                         <p
                           className="font-['Lato'] text-sm mb-4"

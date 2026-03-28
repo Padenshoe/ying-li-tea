@@ -73,3 +73,9 @@
 - [x] Fix product cards not centered on mobile carousel (scroll-snap center + padding offset)
 - [x] Implement proper CSS scroll-snap for left/right swipe with dot indicators
 - [x] Add currency toggle (USD/TWD) above the product carousel
+
+## Three New Improvements (Completed)
+
+- [x] Translate product names in cart dropdown and Cart page when language is 中文 (nameKey stored in cart, translated at render time)
+- [x] Add floating back-to-top button (visible after 400px scroll, smooth scroll to top)
+- [x] Implement Stripe webhook handler at /api/stripe/webhook to update order status (4 tests passing)

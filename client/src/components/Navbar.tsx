@@ -154,7 +154,7 @@ export default function Navbar() {
                           {/* Product Details */}
                           <div className="flex-1 min-w-0">
                             <p className="font-['Lato'] font-500 text-sm truncate" style={{ color: "oklch(0.265 0.015 55)" }}>
-                              {item.name}
+                              {item.nameKey ? t(item.nameKey) : item.name}
                             </p>
                             <p className="font-['Lato'] text-xs" style={{ color: "oklch(0.552 0.016 285.938)" }}>
                               {formatPrice(convertPrice(item.price))} × {item.quantity}

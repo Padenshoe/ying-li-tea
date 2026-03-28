@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import CheckoutCancel from "./pages/CheckoutCancel";
+import BackToTop from "./components/BackToTop";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -38,6 +39,7 @@ function App() {
               <TooltipProvider>
                 <Toaster />
                 <Router />
+                <BackToTop />
               </TooltipProvider>
             </ThemeProvider>
           </LanguageProvider>

@@ -71,6 +71,7 @@ export default function ProductsSection() {
     addItem({
       id: product.id.toString(),
       name: t(product.nameKey),
+      nameKey: product.nameKey,  // Store key for re-translation
       price: product.priceUSD,
       quantity: 1,
       image: product.image,

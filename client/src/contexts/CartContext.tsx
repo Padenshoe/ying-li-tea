@@ -2,7 +2,8 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 
 export interface CartItem {
   id: string;
-  name: string;
+  name: string;       // Resolved display name (kept for fallback)
+  nameKey?: string;   // Translation key — used to re-translate on language change
   price: number;
   quantity: number;
   image?: string;
