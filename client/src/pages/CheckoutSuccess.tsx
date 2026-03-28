@@ -3,18 +3,16 @@
  * Displays after successful Stripe payment
  */
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { Link } from "wouter";
 
 export default function CheckoutSuccess() {
-  const [location] = useLocation();
-  const sessionId = new URLSearchParams(location.split('?')[1]).get('session_id') || '';
+  // Use window.location.search to reliably read query params after Stripe redirect
+  const sessionId = new URLSearchParams(window.location.search).get('session_id') || '';
   const { language } = useLanguage();
   const [orderDetails, setOrderDetails] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   const getOrder = trpc.stripe.getOrder.useQuery(
     { sessionId: sessionId || "" },
@@ -24,11 +22,12 @@ export default function CheckoutSuccess() {
   useEffect(() => {
     if (getOrder.data) {
       setOrderDetails(getOrder.data);
-      setIsLoading(false);
     }
   }, [getOrder.data]);
 
-  if (isLoading || !sessionId) {
+  const isLoading = !!sessionId && getOrder.isLoading;
+
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#FAFAF7]">
         <div className="text-center">

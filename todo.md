@@ -11,9 +11,9 @@
 - [x] Add checkout success route to App.tsx
 - [x] Write unit tests for Stripe checkout functionality
 - [ ] Seed products database with 6 tea products
-- [ ] Create checkout cancel page
+- [x] Create checkout cancel page
 - [ ] Implement Stripe webhook handler for payment confirmations
-- [ ] Test complete payment flow from cart to Stripe to success page
+- [x] Test complete payment flow from cart to Stripe to success page
 
 ## Website Features (Completed)
 
@@ -55,3 +55,9 @@
 - [x] Create dedicated Cart page with full cart display
 - [ ] Add currency selection next to each product (not in navbar)
 - [x] Display prices in selected currency throughout the site
+
+## Cart Flow Fix (Completed)
+
+- [x] Diagnose why View Cart shows empty cart despite items being added (root cause: window.location.href caused full page reload, clearing React state)
+- [x] Fix cart state persistence across page navigation (localStorage persistence added)
+- [x] Verify Stripe checkout works end-to-end without errors

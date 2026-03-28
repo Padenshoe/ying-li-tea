@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useCart } from "@/contexts/CartContext";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Globe, ShoppingBag } from "lucide-react";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
@@ -20,6 +20,7 @@ export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
   const { formatPrice, convertPrice } = useCurrency();
   const { items, removeItem, total } = useCart();
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -189,7 +190,7 @@ export default function Navbar() {
                     <button
                       onClick={() => {
                         setCartOpen(false);
-                        window.location.href = "/cart";
+                        navigate("/cart");
                       }}
                       className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300 border-none cursor-pointer"
                       style={{

@@ -8,13 +8,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Trash2, Minus, Plus, Loader2 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 export default function CartSection() {
   const { items, removeItem, updateQuantity, total, clearCart } = useCart();
   const { language } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
   const createCheckout = trpc.stripe.createCheckout.useMutation();
 
   return (
@@ -204,10 +203,8 @@ export default function CartSection() {
                       }
                     } catch (error) {
                       console.error("Checkout error:", error);
-                      toast({
-                        title: language === "en" ? "Error" : "錯誤",
+                      toast.error(language === "en" ? "Checkout failed" : "結帳失敗", {
                         description: language === "en" ? "Failed to create checkout session" : "無法建立結帳會話",
-                        variant: "destructive",
                       });
                       setIsLoading(false);
                     }
