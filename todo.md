@@ -84,3 +84,9 @@
 
 - [x] Fix cart dropdown mobile layout — responsive width using min(24rem, 100vw - 1.5rem)
 - [x] Fix product name not translating to Mandarin in cart (added PRODUCT_NAME_KEYS fallback map for legacy localStorage items)
+
+## Map Integration (Completed)
+
+- [x] Search Google Maps for Ying-Li Tea location in Taichung, Taiwan (迎利茶葉 茶葉送禮, 4.9★, No. 135 Yongchun E Rd, Nantun District)
+- [x] Add real address, phone number to the Visit Us section
+- [x] Embed interactive Google Map with hover overlay and clickable "View on Google Maps" link in ContactFooter

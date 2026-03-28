@@ -2,16 +2,23 @@
  * YING-LI TEA — CONTACT & FOOTER
  * Design: Warm charcoal background (dark section) for contrast.
  * Light cream text on dark background.
- * Minimal contact info, social links, copyright.
- * Includes Logo in footer.
+ * Contact info, real address with interactive Google Maps embed.
  */
 import { useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
+// Real Ying-Li Tea location in Taichung, Taiwan
+const STORE_ADDRESS_EN = "No. 135, Yongchun E Rd, Nantun District, Taichung City, Taiwan 40855";
+const STORE_ADDRESS_ZH = "台灣台中市南屯區永春東路135號";
+const STORE_PHONE = "+886 4 3704 2800";
+const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/%E8%BF%8E%E5%88%A9%E8%8C%B6%E8%91%89+%E8%8C%B6%E8%91%89%E9%80%81%E7%A6%AE/@24.1347331,120.6523198,17z";
+// Embed URL using coordinates for the store
+const MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3641.0!2d120.6523198!3d24.1347331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d3da9bb8229%3A0x6cc77d197ddb462!2z6L-I5Yip6Iy25pmu!5e0!3m2!1szh-TW!2stw!4v1700000000000!5m2!1szh-TW!2stw";
+
 export default function ContactFooter() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -31,6 +38,8 @@ export default function ContactFooter() {
     return () => observer.disconnect();
   }, []);
 
+  const storeAddress = language === "zh" ? STORE_ADDRESS_ZH : STORE_ADDRESS_EN;
+
   return (
     <>
       {/* Contact Section */}
@@ -42,7 +51,7 @@ export default function ContactFooter() {
       >
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 md:gap-24">
-            {/* Left — Heading */}
+            {/* Left — Heading + Map */}
             <div className="flex flex-col gap-6">
               <span
                 className="eyebrow reveal"
@@ -70,10 +79,107 @@ export default function ContactFooter() {
               >
                 {t("contact.description")}
               </p>
+
+              {/* Interactive Google Map */}
+              <div className="reveal mt-2 rounded-lg overflow-hidden" style={{ border: "1px solid oklch(0.380 0.015 55)" }}>
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative group"
+                  aria-label="View on Google Maps"
+                >
+                  <iframe
+                    title="Ying-Li Tea Location"
+                    src={MAPS_EMBED_URL}
+                    width="100%"
+                    height="240"
+                    style={{ border: 0, display: "block" }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  {/* Overlay on hover */}
+                  <div
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "oklch(0.265 0.015 55 / 0.6)" }}
+                  >
+                    <span
+                      className="font-['Lato'] font-400 tracking-[0.1em] uppercase text-sm px-4 py-2 rounded"
+                      style={{
+                        color: "oklch(0.962 0.008 90)",
+                        background: "oklch(0.400 0.060 75)",
+                      }}
+                    >
+                      {language === "zh" ? "在 Google 地圖上查看" : "View on Google Maps"}
+                    </span>
+                  </div>
+                </a>
+              </div>
             </div>
 
             {/* Right — Contact Info */}
             <div className="flex flex-col gap-8 justify-center">
+              {/* Address */}
+              <div className="reveal flex flex-col gap-2">
+                <span
+                  className="eyebrow"
+                  style={{ color: "oklch(0.730 0.070 75)" }}
+                >
+                  {language === "zh" ? "地址" : "Address"}
+                </span>
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-['Lato'] font-300 leading-relaxed transition-colors duration-300"
+                  style={{ fontSize: "0.9375rem", color: "oklch(0.840 0.008 90)" }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "oklch(0.840 0.008 90)";
+                  }}
+                >
+                  {storeAddress}
+                </a>
+              </div>
+
+              {/* Divider */}
+              <div
+                className="reveal divider-line"
+                style={{ background: "oklch(0.400 0.015 55)" }}
+              />
+
+              {/* Phone */}
+              <div className="reveal flex flex-col gap-2">
+                <span
+                  className="eyebrow"
+                  style={{ color: "oklch(0.730 0.070 75)" }}
+                >
+                  {language === "zh" ? "電話" : "Phone"}
+                </span>
+                <a
+                  href={`tel:${STORE_PHONE}`}
+                  className="font-['Playfair_Display'] font-400 transition-colors duration-300"
+                  style={{ fontSize: "1.125rem", color: "oklch(0.962 0.008 90)" }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "oklch(0.962 0.008 90)";
+                  }}
+                >
+                  {STORE_PHONE}
+                </a>
+              </div>
+
+              {/* Divider */}
+              <div
+                className="reveal divider-line"
+                style={{ background: "oklch(0.400 0.015 55)" }}
+              />
+
               {/* Email */}
               <div className="reveal flex flex-col gap-2">
                 <span
@@ -134,7 +240,7 @@ export default function ContactFooter() {
                 style={{ background: "oklch(0.400 0.015 55)" }}
               />
 
-              {/* Social Links Placeholder */}
+              {/* Social Links */}
               <div className="reveal flex flex-col gap-2">
                 <span
                   className="eyebrow"
