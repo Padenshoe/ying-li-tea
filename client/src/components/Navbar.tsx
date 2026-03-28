@@ -137,11 +137,21 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Cart Dropdown */}
+            {/* Cart Dropdown — fixed on mobile so it never overflows viewport */}
             {cartOpen && (
               <div
-                className="absolute right-0 top-full mt-2 rounded-lg shadow-lg p-4 z-50"
-                style={{ width: "min(24rem, calc(100vw - 1.5rem))", right: 0, background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
+                className="rounded-lg shadow-lg p-4 z-50"
+                style={{
+                  position: "fixed",
+                  top: "4.5rem",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "min(24rem, calc(100vw - 2rem))",
+                  maxHeight: "calc(100vh - 6rem)",
+                  overflowY: "auto",
+                  background: "#FAFAF7",
+                  border: "1px solid oklch(0.870 0.018 130)",
+                }}
               >
                 {items.length === 0 ? (
                   <p className="text-center font-['Lato'] text-sm" style={{ color: "oklch(0.552 0.016 285.938)" }}>

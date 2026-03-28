@@ -90,3 +90,7 @@
 - [x] Search Google Maps for Ying-Li Tea location in Taichung, Taiwan (迎利茶葉 茶葉送禮, 4.9★, No. 135 Yongchun E Rd, Nantun District)
 - [x] Add real address, phone number to the Visit Us section
 - [x] Embed interactive Google Map with hover overlay and clickable "View on Google Maps" link in ContactFooter
+
+## Cart Dropdown Mobile Crop Fix (Completed)
+
+- [x] Fix cart dropdown still cropping/overflowing on mobile screens (switched to fixed positioning centered in viewport)
