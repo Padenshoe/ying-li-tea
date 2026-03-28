@@ -46,3 +46,4 @@
 - [x] Move shopping cart from top section to navbar (cart icon with item count)
 - [x] Remove CartSection from Home page
 - [x] Update About section title to be more readable (changed to "Our Heritage")
+- [x] Update navbar background to white for better visibility
