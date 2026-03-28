@@ -41,6 +41,15 @@ const translations: Record<Language, Record<string, string>> = {
     // About Section
     "about.title": "About Ying-Li",
     "about.description": "Ying-Li specializes exclusively in premium Taiwanese oolong teas. From entry-level to ultra-premium selections, we source from six renowned regions: Shanlinxi, Alishan, Cuifeng, Lishan, Fushoushan, and Dayuling. Every tea is officially certified and crafted with over a century of traditional processing expertise.",
+    "about.teaRegions": "Tea Regions",
+    "about.certification": "Certification",
+    "about.certificationValue": "Official",
+    "about.specialization": "Specialization",
+    "about.specializationValue": "Oolong",
+    "about.range": "Range",
+    "about.rangeValue": "All Elevations",
+    "about.formats": "Formats",
+    "about.formatsValue": "Loose & Cold Brew",
 
     // Storefront Section
     "storefront.title": "Our Storefront",
@@ -96,6 +105,7 @@ const translations: Record<Language, Record<string, string>> = {
     "product.loosePrice": "From $150",
 
     // FAQ Section
+    "faq.description": "Everything you need to know about our teas, sourcing, and how to enjoy them at their best.",
     "faq.title": "Frequently Asked Questions",
     "faq.q1": "What makes Ying-Li different?",
     "faq.a1": "We specialize exclusively in premium Taiwanese oolong from six renowned regions. All teas are officially certified and processed using century-old traditional methods.",
@@ -155,6 +165,15 @@ const translations: Record<Language, Record<string, string>> = {
     // About Section
     "about.title": "關於迎利",
     "about.description": "迎利專門提供高級台灣烏龍茶。從入門級到超高級選擇，我們從六個著名產區採購：杉林溪、阿里山、翠峰、梨山、福壽山和大禹嶺。每款茶葉都經過官方認證，並採用超過一百年的傳統製茶工藝精心製作。",
+    "about.teaRegions": "茶葉產區",
+    "about.certification": "認證",
+    "about.certificationValue": "官方認證",
+    "about.specialization": "專業",
+    "about.specializationValue": "烏龍茶",
+    "about.range": "海拔範圍",
+    "about.rangeValue": "全海拔",
+    "about.formats": "茶葉形式",
+    "about.formatsValue": "散茶與冷泡茶",
 
     // Storefront Section
     "storefront.title": "我們的門市",
@@ -210,6 +229,7 @@ const translations: Record<Language, Record<string, string>> = {
     "product.loosePrice": "起價 $150",
 
     // FAQ Section
+    "faq.description": "關於我們的茶葉、產地來源，以及如何以最佳方式享用，您需要知道的一切。",
     "faq.title": "常見問題",
     "faq.q1": "迎利有什麼不同之處？",
     "faq.a1": "我們專門提供來自六個著名產區的高級台灣烏龍茶。所有茶葉都經過官方認證，並採用百年傳統製茶方法製作。",

@@ -90,7 +90,7 @@ export default function AboutSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  Tea Regions
+                  {t("about.teaRegions")}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {[
@@ -124,23 +124,23 @@ export default function AboutSection() {
               {/* Key Features */}
               <div className="grid grid-cols-2 gap-6 reveal">
                 {[
-                  { label: "Certification", value: "Official" },
-                  { label: "Specialization", value: "Oolong" },
-                  { label: "Range", value: "All Elevations" },
-                  { label: "Formats", value: "Loose & Cold Brew" },
-                ].map((item: any) => (
-                  <div key={item.label} className="flex flex-col gap-1">
+                  { labelKey: "about.certification", valueKey: "about.certificationValue" },
+                  { labelKey: "about.specialization", valueKey: "about.specializationValue" },
+                  { labelKey: "about.range", valueKey: "about.rangeValue" },
+                  { labelKey: "about.formats", valueKey: "about.formatsValue" },
+                ].map((item) => (
+                  <div key={item.labelKey} className="flex flex-col gap-1">
                     <span
                       className="eyebrow"
                       style={{ color: "oklch(0.730 0.070 75)" }}
                     >
-                      {t(`about.${item.label.toLowerCase().replace(" ", "")}`)}
+                      {t(item.labelKey)}
                     </span>
                     <span
                       className="font-['Playfair_Display'] font-400 text-lg"
                       style={{ color: "#FAFAF7" }}
                     >
-                      {item.value}
+                      {t(item.valueKey)}
                     </span>
                   </div>
                 ))}

@@ -61,3 +61,9 @@
 - [x] Diagnose why View Cart shows empty cart despite items being added (root cause: window.location.href caused full page reload, clearing React state)
 - [x] Fix cart state persistence across page navigation (localStorage persistence added)
 - [x] Verify Stripe checkout works end-to-end without errors
+
+## i18n Translation Fixes (Completed)
+
+- [x] Remove raw "ABOUT.*" keys from About section labels (now use proper translation keys)
+- [x] Fix "faq.description" raw key showing in FAQ section (added EN + ZH translations)
+- [x] Add Mandarin translations for Featured Product (title, description, labels)

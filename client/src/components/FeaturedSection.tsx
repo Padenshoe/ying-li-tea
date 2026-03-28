@@ -4,6 +4,7 @@
  * Cream background. Highlights Tea Gift Box as the hero product.
  */
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const GIFT_BOX_IMAGES = [
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒1_f7114db0.jpg",
@@ -14,6 +15,7 @@ const GIFT_BOX_IMAGES = [
 export default function FeaturedSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { t } = useLanguage();
 
   // Auto-rotate images every 4 seconds
   useEffect(() => {
@@ -98,7 +100,7 @@ export default function FeaturedSection() {
             className="eyebrow reveal mb-4"
             style={{ color: "oklch(0.730 0.070 75)" }}
           >
-            Featured Product
+            {t("featured.label")}
           </span>
           <div className="divider-short reveal mb-6" />
 
@@ -110,24 +112,22 @@ export default function FeaturedSection() {
               lineHeight: 1.2,
             }}
           >
-            Premium Tea Gift Box
+            {t("featured.title")}
           </h2>
 
           <p
             className="font-['Lato'] font-300 leading-loose reveal mb-8"
             style={{ fontSize: "1rem", color: "oklch(0.520 0.020 60)", maxWidth: "38ch" }}
           >
-            Beautifully packaged Taiwanese oolong tea gift sets, perfect for sharing or gifting.
-            Each box contains premium tea selections from our finest regions — a thoughtful way
-            to introduce someone to the art of Taiwanese tea culture.
+            {t("featured.description")}
           </p>
 
           {/* Details */}
           <div className="grid grid-cols-3 gap-4 mb-10 reveal">
             {[
-              { label: "Format", value: "Gift Box" },
-              { label: "Origin", value: "Taiwan" },
-              { label: "Perfect For", value: "Gifting" },
+              { label: t("featured.format"), value: t("featured.giftBox") },
+              { label: t("featured.origin"), value: t("featured.taiwan") },
+              { label: t("featured.perfectFor"), value: t("featured.gifting") },
             ].map((detail) => (
               <div key={detail.label} className="flex flex-col gap-1 border-l pl-4" style={{ borderColor: "oklch(0.870 0.018 130)" }}>
                 <span className="eyebrow" style={{ color: "oklch(0.500 0.060 145)" }}>
@@ -156,7 +156,7 @@ export default function FeaturedSection() {
                 (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
               }}
             >
-              Shop Now
+              {t("hero.shopNow")}
             </button>
           </div>
         </div>
