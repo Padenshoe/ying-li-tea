@@ -10,7 +10,6 @@ import MarqueeBanner from "@/components/MarqueeBanner";
 import FeaturedSection from "@/components/FeaturedSection";
 import AboutSection from "@/components/AboutSection";
 import StorefrontSection from "@/components/StorefrontSection";
-import TeaCeremonySection from "@/components/TeaCeremonySection";
 import ProductsSection from "@/components/ProductsSection";
 import WhySection from "@/components/WhySection";
 import QuoteSection from "@/components/QuoteSection";
@@ -26,7 +25,6 @@ export default function Home() {
       <FeaturedSection />
       <AboutSection />
       <StorefrontSection />
-      <TeaCeremonySection />
       <MarqueeBanner />
       <ProductsSection />
       <WhySection />
