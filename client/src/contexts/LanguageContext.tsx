@@ -21,6 +21,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.shopNow": "SHOP NOW",
 
     // Hero Section
+    "hero.title": "Ying-Li",
     "hero.tagline": "Taiwanese Tea, Calm in Every Cup",
     "hero.intro": "Ying-Li brings you the finest teas originating from the misty mountains of Taiwan — crafted for those who seek stillness in every sip.",
     "hero.shopNow": "Shop Now",
@@ -125,7 +126,8 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.shopNow": "立即購買",
 
     // Hero Section
-    "hero.tagline": "台灣烏龍茶，每一口都是寧靜",
+    "hero.title": "迎利",
+    "hero.tagline": "台灣茶，每一杯的寧靜",
     "hero.intro": "迎利為您帶來源自台灣霧氣繚繞山脈的最優質茶葉 — 為那些在每一口中尋求寧靜的人而精心製作。",
     "hero.shopNow": "立即購買",
     "hero.exploreTea": "探索我們的茶",

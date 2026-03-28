@@ -35,27 +35,20 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 container flex flex-col items-center text-center px-6">
-        {/* Logo */}
-        <img
-          src={LOGO}
-          alt="Ying-Li Logo"
-          className="w-56 md:w-80 mb-8 animate-fade-in drop-shadow-lg"
-          style={{ animationDelay: "0.1s", opacity: 0, animation: "fadeInUp 0.8s ease-out 0.1s forwards", filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))" }}
-        />
 
-        {/* Brand Name — hidden since it's now in the logo */}
+        {/* Brand Name */}
         <h1
-          className="font-['Playfair_Display'] font-400 leading-none mb-4 hidden"
+          className="font-['Playfair_Display'] font-400 leading-none mb-4"
           style={{
-            fontSize: "clamp(3.5rem, 11vw, 8rem)",
+            fontSize: "clamp(2.5rem, 8vw, 5rem)",
             color: "#FAFAF7",
             letterSpacing: "-0.02em",
             textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             opacity: 0,
-            animation: "fadeInUp 0.9s ease-out 0.3s forwards",
+            animation: "fadeInUp 0.9s ease-out 0.2s forwards",
           }}
         >
-          Ying-Li
+          {t("hero.title")}
         </h1>
 
         {/* Tagline */}
