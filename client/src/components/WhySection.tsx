@@ -16,8 +16,8 @@ const features = [
         <path d="M14 17C14 17 19 14 21 12" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
       </svg>
     ),
-    heading: "Tea Inspired by Taiwan",
-    body: "Every leaf we source comes from the high-mountain tea gardens of Taiwan, a region celebrated worldwide for its exceptional oolong and tea craftsmanship.",
+    heading: "Qingxin Oolong — Taiwan's Legacy",
+    body: "All our teas are crafted from Qingxin (青心烏龍) — a tea varietal invented by Taiwanese growers. Our processing methods have evolved over a century, creating a flavor profile that is uniquely Taiwanese and unmatched worldwide. Taiwan oolong is simply the best.",
   },
   {
     icon: (
