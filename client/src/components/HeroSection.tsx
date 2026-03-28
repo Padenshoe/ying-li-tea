@@ -37,8 +37,8 @@ export default function HeroSection() {
         <img
           src={LOGO}
           alt="Ying-Li Logo"
-          className="w-48 md:w-64 mb-8 animate-fade-in"
-          style={{ animationDelay: "0.1s", opacity: 0, animation: "fadeInUp 0.8s ease-out 0.1s forwards" }}
+          className="w-56 md:w-80 mb-8 animate-fade-in drop-shadow-lg"
+          style={{ animationDelay: "0.1s", opacity: 0, animation: "fadeInUp 0.8s ease-out 0.1s forwards", filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))" }}
         />
 
         {/* Brand Name — hidden since it's now in the logo */}
@@ -136,22 +136,7 @@ export default function HeroSection() {
           </button>
         </div>
 
-        {/* Scroll indicator */}
-        <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          style={{ opacity: 0, animation: "fadeInUp 0.9s ease-out 1.1s forwards" }}
-        >
-          <span
-            className="eyebrow"
-            style={{ color: "#C4A96A", letterSpacing: "0.2em" }}
-          >
-            Scroll
-          </span>
-          <div
-            className="w-px h-10 animate-pulse"
-            style={{ background: "linear-gradient(to bottom, #C4A96A, transparent)" }}
-          />
-        </div>
+
       </div>
 
       <style>{`
