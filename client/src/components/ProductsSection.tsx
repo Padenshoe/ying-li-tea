@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const COLD_BREW_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-cold-brew-agse5jexCShDqGcKJ96SoK.webp";
 const TEA_BAGS_IMG  = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-tea-bags-BQ6hFsR5su8dVrfZPRo3ZW.webp";
@@ -13,61 +14,56 @@ const TEA_BAGS_IMG  = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/
 const products = [
   {
     id: 1,
-    name: "Premium High-Mountain Oolong",
-    tag: "Rare Selection",
-    description:
-      "Single-origin oolong from Alishan, Lishan & Dayuling. Complex floral notes, smooth finish. Officially certified.",
-    price: "From $280",
+    nameKey: "product.premium",
+    tagKey: "product.premiumTag",
+    descKey: "product.premiumDesc",
+    priceKey: "product.premiumPrice",
     image: COLD_BREW_IMG,
   },
   {
     id: 2,
-    name: "Cold Brew Oolong",
-    tag: "Convenient",
-    description:
-      "Ready-to-brew format. All elevations available. Perfect for busy days without compromising on quality.",
-    price: "From $120",
+    nameKey: "product.coldBrew",
+    tagKey: "product.coldBrewTag",
+    descKey: "product.coldBrewDesc",
+    priceKey: "product.coldBrewPrice",
     image: TEA_BAGS_IMG,
   },
   {
     id: 3,
-    name: "Entry-Level Oolong",
-    tag: "Everyday",
-    description:
-      "Accessible quality oolong from Shanlinxi & Cuifeng. Smooth, approachable taste. Great for newcomers.",
-    price: "From $80",
+    nameKey: "product.entry",
+    tagKey: "product.entryTag",
+    descKey: "product.entryDesc",
+    priceKey: "product.entryPrice",
     image: COLD_BREW_IMG,
   },
   {
     id: 4,
-    name: "Gift Collections",
-    tag: "Special Edition",
-    description:
-      "Beautifully packaged multi-origin sets. Includes tasting notes. Perfect for gifting tea lovers.",
-    price: "From $380",
+    nameKey: "product.gift",
+    tagKey: "product.giftTag",
+    descKey: "product.giftDesc",
+    priceKey: "product.giftPrice",
     image: TEA_BAGS_IMG,
   },
   {
     id: 5,
-    name: "Specialty Blends",
-    tag: "Limited Edition",
-    description:
-      "Curated blends combining multiple regions. Unique flavor profiles. Officially certified.",
-    price: "From $200",
+    nameKey: "product.specialty",
+    tagKey: "product.specialtyTag",
+    descKey: "product.specialtyDesc",
+    priceKey: "product.specialtyPrice",
     image: COLD_BREW_IMG,
   },
   {
     id: 6,
-    name: "Loose Leaf Selection",
-    tag: "Traditional",
-    description:
-      "Whole leaf oolong from all 6 regions. Full flavor, authentic experience. Multiple elevations.",
-    price: "From $150",
+    nameKey: "product.loose",
+    tagKey: "product.looseTag",
+    descKey: "product.looseDesc",
+    priceKey: "product.loosePrice",
     image: TEA_BAGS_IMG,
   },
 ];
 
 export default function ProductsSection() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -105,7 +101,7 @@ export default function ProductsSection() {
       ...prev,
       [product.id]: (prev[product.id] || 0) + 1,
     }));
-    toast.success(`${product.name} added to cart!`, {
+    toast.success(`${t(product.nameKey)} added to cart!`, {
       description: `Quantity: ${(cart[product.id] || 0) + 1}`,
     });
   };
@@ -137,7 +133,7 @@ export default function ProductsSection() {
       <div className="container">
         {/* Section Header */}
         <div className="mb-16 md:mb-20">
-          <span className="eyebrow reveal">Our Collection</span>
+          <span className="eyebrow reveal">{t("products.label")}</span>
           <div className="divider-short mt-3 mb-5 reveal" />
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2
@@ -148,14 +144,14 @@ export default function ProductsSection() {
                 lineHeight: 1.15,
               }}
             >
-              Taiwan Oolong<br />
-              <em>For Every Palate</em>
+              {t("products.title")}<br />
+              <em>{t("products.titleEmph")}</em>
             </h2>
             <p
               className="font-['Lato'] font-300 max-w-xs reveal"
               style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
             >
-              From entry-level to premium, all elevations, all officially certified. Loose leaf, cold brew, and gift collections.
+              {t("products.description")}
             </p>
           </div>
         </div>
@@ -196,7 +192,7 @@ export default function ProductsSection() {
                 >
                   <img
                     src={product.image}
-                    alt={product.name}
+                    alt={t(product.nameKey)}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
 
@@ -208,7 +204,7 @@ export default function ProductsSection() {
                       color: "oklch(0.500 0.060 145)",
                     }}
                   >
-                    {product.tag}
+                    {t(product.tagKey)}
                   </span>
                 </div>
 
@@ -218,20 +214,20 @@ export default function ProductsSection() {
                     className="font-['Playfair_Display'] font-400"
                     style={{ fontSize: "1.25rem", color: "oklch(0.265 0.015 55)" }}
                   >
-                    {product.name}
+                    {t(product.nameKey)}
                   </h3>
                   <p
                     className="font-['Lato'] font-300 leading-relaxed flex-1"
                     style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
                   >
-                    {product.description}
+                    {t(product.descKey)}
                   </p>
                   <div className="flex items-center justify-between mt-2 pt-4 border-t" style={{ borderColor: "oklch(0.870 0.018 130)" }}>
                     <span
                       className="font-['Playfair_Display'] font-400"
                       style={{ fontSize: "1.0625rem", color: "oklch(0.265 0.015 55)" }}
                     >
-                      {product.price}
+                      {t(product.priceKey)}
                     </span>
                     <button
                       onClick={() => handleAddToCart(product)}
@@ -247,7 +243,7 @@ export default function ProductsSection() {
                         (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
                       }}
                     >
-                      Add to Cart
+                      {t("products.addToCart")}
                     </button>
                   </div>
                 </div>

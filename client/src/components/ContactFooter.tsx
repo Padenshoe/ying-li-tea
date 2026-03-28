@@ -6,10 +6,12 @@
  * Includes Logo in footer.
  */
 import { useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function ContactFooter() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function ContactFooter() {
                 className="eyebrow reveal"
                 style={{ color: "oklch(0.730 0.070 75)" }}
               >
-                Get in Touch
+                {t("contact.label")}
               </span>
               <div
                 className="divider-short reveal"
@@ -60,15 +62,13 @@ export default function ContactFooter() {
                   lineHeight: 1.15,
                 }}
               >
-                We'd love to<br />
-                <em>hear from you</em>
+                {t("contact.title")}
               </h2>
               <p
                 className="font-['Lato'] font-300 leading-loose reveal"
                 style={{ fontSize: "0.9375rem", color: "oklch(0.780 0.010 60)" }}
               >
-                Whether you have a question about our teas, a wholesale inquiry, or simply
-                want to share your experience — we are always happy to connect.
+                {t("contact.description")}
               </p>
             </div>
 
@@ -80,7 +80,7 @@ export default function ContactFooter() {
                   className="eyebrow"
                   style={{ color: "oklch(0.730 0.070 75)" }}
                 >
-                  Email
+                  {t("contact.email")}
                 </span>
                 <a
                   href="mailto:yinglitea@gmail.com"
@@ -109,7 +109,7 @@ export default function ContactFooter() {
                   className="eyebrow"
                   style={{ color: "oklch(0.730 0.070 75)" }}
                 >
-                  Instagram
+                  {t("contact.instagram")}
                 </span>
                 <a
                   href="https://instagram.com/yinglitea"
@@ -140,7 +140,7 @@ export default function ContactFooter() {
                   className="eyebrow"
                   style={{ color: "oklch(0.730 0.070 75)" }}
                 >
-                  Follow Us
+                  {t("contact.followUs")}
                 </span>
                 <div className="flex gap-5 mt-1">
                   {["Instagram", "Facebook", "Pinterest"].map((social) => (
@@ -196,13 +196,13 @@ export default function ContactFooter() {
 
           {/* Nav Links */}
           <nav className="flex gap-6">
-            {["Home", "About", "Shop", "FAQ"].map((item) => (
+            {[{label: "Home", key: "nav.home"}, {label: "About", key: "nav.about"}, {label: "Shop", key: "nav.shop"}, {label: "FAQ", key: "nav.faq"}].map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+                key={item.label}
+                href={`#${item.label.toLowerCase()}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  const el = document.querySelector(`#${item === "Shop" ? "products" : item.toLowerCase()}`);
+                  const el = document.querySelector(`#${item.label === "Shop" ? "products" : item.label.toLowerCase()}`);
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="text-xs font-['Lato'] font-400 tracking-[0.12em] uppercase transition-colors duration-300"
@@ -214,7 +214,7 @@ export default function ContactFooter() {
                   (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.010 90)";
                 }}
               >
-                {item}
+                {t(item.key)}
               </a>
             ))}
           </nav>

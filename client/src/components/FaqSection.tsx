@@ -5,31 +5,18 @@
  * Elegant, readable, no clutter.
  */
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const faqs = [
-  {
-    q: "Where does Ying-Li tea come from?",
-    a: "Our teas are inspired by and sourced from Taiwan, known for its rich tea culture and exceptional tea craftsmanship. Taiwan's high-altitude mountains and misty climate produce some of the world's most prized oolong teas.",
-  },
-  {
-    q: "What is oolong cold brew tea?",
-    a: "Oolong cold brew tea is a refreshing way to enjoy tea by steeping it in cold water over time — typically 6 to 12 hours in the refrigerator. This slow, cold extraction creates a smooth, naturally sweet, and less bitter flavor that is perfect for warm days or whenever you want a calm, refreshing drink.",
-  },
-  {
-    q: "How do I brew the tea bags?",
-    a: "Steep one tea bag in freshly boiled water (around 90°C / 194°F) for 3 to 5 minutes, depending on your preferred strength. For a lighter, more delicate cup, steep for less time. You can also let it cool and serve over ice for a refreshing iced tea.",
-  },
-  {
-    q: "Can I cold brew the tea bags?",
-    a: "Yes — our tea bags work beautifully for cold brewing. Simply place one or two tea bags in a pitcher of cold water and refrigerate for 6 to 12 hours. The result is a lighter, smoother tea with a naturally sweet and floral character.",
-  },
-  {
-    q: "Are more tea flavors coming?",
-    a: "Yes, we plan to expand our collection with more Taiwanese tea varieties in the future. We are exploring the full depth of Taiwan's tea landscape — from high-mountain green teas to roasted oolongs. Stay connected with us to be the first to know.",
-  },
+const faqKeys = [
+  { qKey: "faq.q1", aKey: "faq.a1" },
+  { qKey: "faq.q2", aKey: "faq.a2" },
+  { qKey: "faq.q3", aKey: "faq.a3" },
+  { qKey: "faq.q4", aKey: "faq.a4" },
+  { qKey: "faq.q5", aKey: "faq.a5" },
 ];
 
 export default function FaqSection() {
+  const { t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -61,7 +48,7 @@ export default function FaqSection() {
         <div className="grid md:grid-cols-5 gap-12 md:gap-20">
           {/* Left — Header */}
           <div className="md:col-span-2 flex flex-col gap-5 md:sticky md:top-28 self-start">
-            <span className="eyebrow reveal">Questions</span>
+            <span className="eyebrow reveal">{t("faq.label")}</span>
             <div className="divider-short reveal" />
             <h2
               className="font-['Playfair_Display'] font-400 reveal"
@@ -71,20 +58,19 @@ export default function FaqSection() {
                 lineHeight: 1.2,
               }}
             >
-              Frequently<br />
-              <em>Asked</em>
+              {t("faq.title")}
             </h2>
             <p
               className="font-['Lato'] font-300 leading-loose reveal"
               style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
             >
-              Everything you need to know about Ying-Li tea and how to enjoy it.
+              {t("faq.description")}
             </p>
           </div>
 
           {/* Right — Accordion */}
           <div className="md:col-span-3 flex flex-col">
-            {faqs.map((faq, idx) => (
+            {faqKeys.map((faq, idx) => (
               <div
                 key={idx}
                 className="reveal border-t"
@@ -107,7 +93,7 @@ export default function FaqSection() {
                         : "oklch(0.265 0.015 55)",
                     }}
                   >
-                    {faq.q}
+                    {t(faq.qKey)}
                   </span>
                   {/* Plus / Minus icon */}
                   <span
@@ -138,7 +124,7 @@ export default function FaqSection() {
                     className="font-['Lato'] font-300 leading-loose pb-6"
                     style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
                   >
-                    {faq.a}
+                    {t(faq.aKey)}
                   </p>
                 </div>
               </div>

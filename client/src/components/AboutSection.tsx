@@ -4,10 +4,12 @@
  * Content: Taiwan oolong specialization, multiple regions, certifications
  */
 import { useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ABOUT_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC02931_e578eeb9.webp";
 
 export default function AboutSection() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function AboutSection() {
               className="eyebrow reveal"
               style={{ color: "oklch(0.730 0.070 75)" }}
             >
-              About Ying-Li
+              {t("about.title")}
             </span>
             <div
               className="divider-short mt-3 mb-5 reveal"
@@ -66,8 +68,7 @@ export default function AboutSection() {
                 lineHeight: 1.15,
               }}
             >
-              Taiwan's Premier<br />
-              <em>Oolong Tea</em>
+              {t("about.title")}
             </h2>
           </div>
 
@@ -79,19 +80,7 @@ export default function AboutSection() {
                 className="font-['Lato'] font-300 leading-loose reveal"
                 style={{ fontSize: "1.0625rem", color: "oklch(0.900 0.010 90)" }}
               >
-                Ying-Li specializes exclusively in authentic Taiwanese oolong tea, sourced from the island's most renowned high-altitude regions. Every tea is officially certified and carefully selected to showcase the unique terroir and masterful craftsmanship that define Taiwan's tea heritage.
-              </p>
-              <p
-                className="font-['Lato'] font-300 leading-loose reveal"
-                style={{ fontSize: "1.0625rem", color: "oklch(0.900 0.010 90)" }}
-              >
-                From entry-level selections to premium single-origin oolong, we offer teas across all price points and elevations. Our collection includes traditional loose leaf, convenient cold brew, and beautifully crafted gift boxes — each one a gateway to Taiwan's tea culture.
-              </p>
-              <p
-                className="font-['Lato'] font-300 leading-loose reveal"
-                style={{ fontSize: "1.0625rem", color: "oklch(0.900 0.010 90)" }}
-              >
-                Whether you're exploring the floral notes of Alishan or the robust character of Dayuling, every Ying-Li tea is an invitation to discover the mountains, the mist, and the moment of stillness in every cup.
+                {t("about.description")}
               </p>
             </div>
 
@@ -107,7 +96,7 @@ export default function AboutSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  Our Tea Regions
+                  Tea Regions
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {[
@@ -145,13 +134,13 @@ export default function AboutSection() {
                   { label: "Specialization", value: "Oolong" },
                   { label: "Range", value: "All Elevations" },
                   { label: "Formats", value: "Loose & Cold Brew" },
-                ].map((item) => (
+                ].map((item: any) => (
                   <div key={item.label} className="flex flex-col gap-1">
                     <span
                       className="eyebrow"
                       style={{ color: "oklch(0.730 0.070 75)" }}
                     >
-                      {item.label}
+                      {t(`about.${item.label.toLowerCase().replace(" ", "")}`)}
                     </span>
                     <span
                       className="font-['Playfair_Display'] font-400 text-lg"

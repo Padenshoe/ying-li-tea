@@ -4,11 +4,13 @@
  * Dark wood background → white/cream text with strong contrast.
  * Logo positioned prominently in the center.
  */
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03082_6e053fb9.webp";
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -68,7 +70,7 @@ export default function HeroSection() {
             animation: "fadeInUp 0.9s ease-out 0.5s forwards",
           }}
         >
-          Taiwanese Tea, Calm in Every Cup
+          {t("hero.tagline")}
         </p>
 
         {/* Divider */}
@@ -92,8 +94,7 @@ export default function HeroSection() {
             animation: "fadeInUp 0.9s ease-out 0.7s forwards",
           }}
         >
-          Ying-Li brings you the finest teas originating from the misty mountains of Taiwan —
-          crafted for those who seek stillness in every sip.
+          {t("hero.intro")}
         </p>
 
         {/* CTA Buttons */}
@@ -115,7 +116,7 @@ export default function HeroSection() {
               (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
             }}
           >
-            Shop Now
+            {t("hero.shopNow")}
           </button>
           <button
             onClick={() => scrollTo("#about")}
@@ -132,7 +133,7 @@ export default function HeroSection() {
               (e.currentTarget as HTMLElement).style.background = "transparent";
             }}
           >
-            Explore Our Tea
+            {t("hero.exploreTea")}
           </button>
         </div>
 

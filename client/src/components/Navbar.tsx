@@ -2,15 +2,18 @@
  * YING-LI TEA — NAVBAR COMPONENT
  * Design: Zen Modernism — minimal, transparent on hero, frosted on scroll
  * Colors: warm white bg, charcoal text, moss green accent
- * Now includes Logo image with text
+ * Now includes Logo image with text and language toggle
  */
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Globe } from "lucide-react";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -19,11 +22,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Shop", href: "#products" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Contact", href: "#contact" },
+    { label: t("nav.home"), href: "#home" },
+    { label: t("nav.about"), href: "#about" },
+    { label: t("nav.shop"), href: "#products" },
+    { label: t("nav.faq"), href: "#faq" },
   ];
 
   const scrollTo = (href: string) => {
@@ -56,8 +58,8 @@ export default function Navbar() {
 
         {/* Desktop Nav Links */}
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.slice(0, 4).map((link) => (
-            <li key={link.label}>
+          {navLinks.map((link) => (
+            <li key={link.href}>
               <a
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
@@ -70,46 +72,73 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <a
-          href="#products"
-          onClick={(e) => { e.preventDefault(); scrollTo("#products"); }}
-          className="hidden md:inline-flex items-center gap-2 px-5 py-2 text-xs font-['Lato'] font-400 tracking-[0.15em] uppercase transition-all duration-300 border"
-          style={{
-            color: "oklch(0.500 0.060 145)",
-            borderColor: "oklch(0.500 0.060 145)",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor = "oklch(0.500 0.060 145)";
-            (e.currentTarget as HTMLElement).style.color = "#FAFAF7";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-            (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.060 145)";
-          }}
-        >
-          Shop Now
-        </a>
+        {/* Right Section: Language Toggle + Shop Now */}
+        <div className="flex items-center gap-4">
+          {/* Language Toggle */}
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full" style={{ background: "oklch(0.950 0.005 90)" }}>
+            <button
+              onClick={() => setLanguage("en")}
+              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
+              style={{
+                background: language === "en" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: language === "en" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
+              }}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage("zh")}
+              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
+              style={{
+                background: language === "zh" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: language === "zh" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
+              }}
+            >
+              中文
+            </button>
+          </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className={`block h-px w-6 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
-            style={{ background: "oklch(0.265 0.015 55)" }}
-          />
-          <span
-            className={`block h-px w-6 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
-            style={{ background: "oklch(0.265 0.015 55)" }}
-          />
-          <span
-            className={`block h-px w-6 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-            style={{ background: "oklch(0.265 0.015 55)" }}
-          />
-        </button>
+          {/* Desktop CTA */}
+          <a
+            href="#products"
+            onClick={(e) => { e.preventDefault(); scrollTo("#products"); }}
+            className="hidden md:inline-flex items-center gap-2 px-5 py-2 text-xs font-['Lato'] font-400 tracking-[0.15em] uppercase transition-all duration-300 border"
+            style={{
+              color: "oklch(0.500 0.060 145)",
+              borderColor: "oklch(0.500 0.060 145)",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = "oklch(0.500 0.060 145)";
+              (e.currentTarget as HTMLElement).style.color = "#FAFAF7";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.060 145)";
+            }}
+          >
+            {t("nav.shopNow")}
+          </a>
+
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden flex flex-col gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`block h-px w-6 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+              style={{ background: "oklch(0.265 0.015 55)" }}
+            />
+            <span
+              className={`block h-px w-6 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+              style={{ background: "oklch(0.265 0.015 55)" }}
+            />
+            <span
+              className={`block h-px w-6 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+              style={{ background: "oklch(0.265 0.015 55)" }}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -122,7 +151,7 @@ export default function Navbar() {
         <div className="container py-6 flex flex-col gap-4">
           {navLinks.map((link) => (
             <a
-              key={link.label}
+              key={link.href}
               href={link.href}
               onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
               className="text-sm font-['Lato'] font-400 tracking-wide py-2 border-b"
@@ -143,7 +172,7 @@ export default function Navbar() {
               borderColor: "oklch(0.500 0.060 145)",
             }}
           >
-            Shop Now
+            {t("nav.shopNow")}
           </a>
         </div>
       </div>
