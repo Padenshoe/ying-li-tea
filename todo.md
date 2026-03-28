@@ -79,3 +79,8 @@
 - [x] Translate product names in cart dropdown and Cart page when language is 中文 (nameKey stored in cart, translated at render time)
 - [x] Add floating back-to-top button (visible after 400px scroll, smooth scroll to top)
 - [x] Implement Stripe webhook handler at /api/stripe/webhook to update order status (4 tests passing)
+
+## Cart Dropdown Fixes (Completed)
+
+- [x] Fix cart dropdown mobile layout — responsive width using min(24rem, 100vw - 1.5rem)
+- [x] Fix product name not translating to Mandarin in cart (added PRODUCT_NAME_KEYS fallback map for legacy localStorage items)

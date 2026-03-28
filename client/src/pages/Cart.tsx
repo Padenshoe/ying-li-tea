@@ -3,6 +3,16 @@
  * Full cart display with item management and checkout
  */
 import { useCart } from "@/contexts/CartContext";
+
+// Fallback map: product ID → nameKey for items stored before nameKey was added
+const PRODUCT_NAME_KEYS: Record<string, string> = {
+  "1": "product.premium",
+  "2": "product.coldBrew",
+  "3": "product.entry",
+  "4": "product.gift",
+  "5": "product.specialty",
+  "6": "product.loose",
+};
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { trpc } from "@/lib/trpc";
@@ -132,7 +142,7 @@ export default function Cart() {
                           className="font-['Lato'] font-600 mb-2"
                           style={{ color: "oklch(0.265 0.015 55)" }}
                         >
-                          {item.nameKey ? t(item.nameKey) : item.name}
+                          {t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}
                         </h3>
                         <p
                           className="font-['Lato'] text-sm mb-4"

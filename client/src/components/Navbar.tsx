@@ -13,6 +13,16 @@ import { Globe, ShoppingBag } from "lucide-react";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
+// Fallback map: product ID → nameKey for items stored before nameKey was added
+const PRODUCT_NAME_KEYS: Record<string, string> = {
+  "1": "product.premium",
+  "2": "product.coldBrew",
+  "3": "product.entry",
+  "4": "product.gift",
+  "5": "product.specialty",
+  "6": "product.loose",
+};
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -130,8 +140,8 @@ export default function Navbar() {
             {/* Cart Dropdown */}
             {cartOpen && (
               <div
-                className="absolute right-0 top-full mt-2 w-96 rounded-lg shadow-lg p-4 z-50"
-                style={{ background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
+                className="absolute right-0 top-full mt-2 rounded-lg shadow-lg p-4 z-50"
+                style={{ width: "min(24rem, calc(100vw - 1.5rem))", right: 0, background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
               >
                 {items.length === 0 ? (
                   <p className="text-center font-['Lato'] text-sm" style={{ color: "oklch(0.552 0.016 285.938)" }}>
@@ -154,7 +164,7 @@ export default function Navbar() {
                           {/* Product Details */}
                           <div className="flex-1 min-w-0">
                             <p className="font-['Lato'] font-500 text-sm truncate" style={{ color: "oklch(0.265 0.015 55)" }}>
-                              {item.nameKey ? t(item.nameKey) : item.name}
+                              {t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}
                             </p>
                             <p className="font-['Lato'] text-xs" style={{ color: "oklch(0.552 0.016 285.938)" }}>
                               {formatPrice(convertPrice(item.price))} × {item.quantity}
