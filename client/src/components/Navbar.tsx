@@ -2,11 +2,11 @@
  * YING-LI TEA — NAVBAR COMPONENT
  * Design: Zen Modernism — minimal, transparent on hero, frosted on scroll
  * Colors: warm white bg, charcoal text, moss green accent
- * Now includes Logo image
+ * Now includes Logo image with text
  */
 import { useState, useEffect } from "react";
 
-const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-1_2c19a919.png";
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,36 +41,22 @@ export default function Navbar() {
       }`}
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
-        {/* Brand Logo + Text */}
+        {/* Brand Logo */}
         <a
           href="#home"
           onClick={(e) => { e.preventDefault(); scrollTo("#home"); }}
-          className="flex items-center gap-3 group"
+          className="flex items-center gap-2 group"
         >
           <img
             src={LOGO}
             alt="Ying-Li Logo"
-            className="w-10 md:w-12 h-auto transition-transform duration-300 group-hover:scale-110"
+            className="w-12 md:w-14 h-auto transition-transform duration-300 group-hover:scale-110"
           />
-          <div className="flex flex-col leading-none">
-            <span
-              className="font-['Playfair_Display'] text-lg md:text-xl font-medium tracking-wide"
-              style={{ color: "oklch(0.265 0.015 55)" }}
-            >
-              Ying-Li
-            </span>
-            <span
-              className="text-[0.5rem] tracking-[0.2em] uppercase font-['Lato'] font-400 mt-0.5"
-              style={{ color: "oklch(0.500 0.060 145)" }}
-            >
-              Tea
-            </span>
-          </div>
         </a>
 
         {/* Desktop Nav Links */}
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {navLinks.slice(0, 4).map((link) => (
             <li key={link.label}>
               <a
                 href={link.href}

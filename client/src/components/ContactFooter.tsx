@@ -7,7 +7,7 @@
  */
 import { useEffect, useRef } from "react";
 
-const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-1_2c19a919.png";
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function ContactFooter() {
   const sectionRef = useRef<HTMLElement>(null);

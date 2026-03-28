@@ -6,7 +6,7 @@
  */
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03082_6e053fb9.webp";
-const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-1_2c19a919.png";
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function HeroSection() {
   const scrollTo = (href: string) => {
@@ -37,13 +37,13 @@ export default function HeroSection() {
         <img
           src={LOGO}
           alt="Ying-Li Logo"
-          className="w-24 md:w-32 mb-8 animate-fade-in"
+          className="w-32 md:w-40 mb-8 animate-fade-in"
           style={{ animationDelay: "0.1s", opacity: 0, animation: "fadeInUp 0.8s ease-out 0.1s forwards" }}
         />
 
-        {/* Brand Name */}
+        {/* Brand Name — hidden since it's now in the logo */}
         <h1
-          className="font-['Playfair_Display'] font-400 leading-none mb-4"
+          className="font-['Playfair_Display'] font-400 leading-none mb-4 hidden"
           style={{
             fontSize: "clamp(3.5rem, 11vw, 8rem)",
             color: "#FAFAF7",
