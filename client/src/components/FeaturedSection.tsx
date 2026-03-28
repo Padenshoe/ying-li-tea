@@ -1,14 +1,27 @@
 /*
  * YING-LI TEA — FEATURED PRODUCT SECTION
- * Design: Full-width asymmetric layout. Large image left, text right.
- * Cream background. Highlights Oolong Cold Brew as the hero product.
+ * Design: Full-width asymmetric layout. Rotating gift box carousel left, text right.
+ * Cream background. Highlights Tea Gift Box as the hero product.
  */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const COLD_BREW_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-cold-brew-agse5jexCShDqGcKJ96SoK.webp";
+const GIFT_BOX_IMAGES = [
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒1_f7114db0.jpg",
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒2_6c03d7a5.jpg",
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包封面_0c270434.jpg",
+];
 
 export default function FeaturedSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Auto-rotate images every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % GIFT_BOX_IMAGES.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,14 +52,39 @@ export default function FeaturedSection() {
       style={{ background: "oklch(0.990 0.004 95)" }}
     >
       <div className="grid md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
-        {/* Image — Left */}
-        <div className="relative overflow-hidden" style={{ minHeight: "400px" }}>
-          <img
-            src={COLD_BREW_IMG}
-            alt="Oolong Cold Brew Tea — Ying-Li's signature product"
-            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-            style={{ objectPosition: "center top" }}
-          />
+        {/* Image Carousel — Left */}
+        <div className="relative overflow-hidden flex items-center justify-center" style={{ minHeight: "400px", background: "#F5F1E8" }}>
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* Images with fade transition */}
+            {GIFT_BOX_IMAGES.map((img, idx) => (
+              <img
+                key={idx}
+                src={img}
+                alt={`Tea Gift Box - View ${idx + 1}`}
+                className="absolute w-4/5 h-auto max-h-4/5 object-contain transition-opacity duration-1000"
+                style={{
+                  opacity: idx === currentImageIndex ? 1 : 0,
+                  pointerEvents: idx === currentImageIndex ? "auto" : "none",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+            {GIFT_BOX_IMAGES.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentImageIndex(idx)}
+                className="w-2 h-2 rounded-full transition-all duration-300"
+                style={{
+                  background: idx === currentImageIndex ? "oklch(0.500 0.060 145)" : "oklch(0.800 0.020 95)",
+                }}
+                aria-label={`View image ${idx + 1}`}
+              />
+            ))}
+          </div>
+
           {/* Subtle overlay */}
           <div
             className="absolute inset-0"
@@ -72,24 +110,24 @@ export default function FeaturedSection() {
               lineHeight: 1.2,
             }}
           >
-            Oolong Cold Brew Tea
+            Premium Tea Gift Box
           </h2>
 
           <p
             className="font-['Lato'] font-300 leading-loose reveal mb-8"
             style={{ fontSize: "1rem", color: "oklch(0.520 0.020 60)", maxWidth: "38ch" }}
           >
-            A smooth, refreshing Taiwanese oolong crafted for cold brewing.
-            Light, floral, and effortlessly elegant — this is Ying-Li's signature tea.
-            Simply steep overnight and wake up to calm in a glass.
+            Beautifully packaged Taiwanese oolong tea gift sets, perfect for sharing or gifting.
+            Each box contains premium tea selections from our finest regions — a thoughtful way
+            to introduce someone to the art of Taiwanese tea culture.
           </p>
 
           {/* Details */}
           <div className="grid grid-cols-3 gap-4 mb-10 reveal">
             {[
+              { label: "Format", value: "Gift Box" },
               { label: "Origin", value: "Taiwan" },
-              { label: "Brew", value: "Cold" },
-              { label: "Character", value: "Floral" },
+              { label: "Perfect For", value: "Gifting" },
             ].map((detail) => (
               <div key={detail.label} className="flex flex-col gap-1 border-l pl-4" style={{ borderColor: "oklch(0.870 0.018 130)" }}>
                 <span className="eyebrow" style={{ color: "oklch(0.500 0.060 145)" }}>
