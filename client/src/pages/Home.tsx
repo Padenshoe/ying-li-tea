@@ -1,7 +1,7 @@
 /*
  * YING-LI TEA — HOME PAGE
  * Section order:
- * Navbar → Hero → Marquee → Featured Product → About → Storefront →
+ * Navbar → Cart → Hero → Marquee → Featured Product → About → Storefront →
  * Marquee → Products → Why → Quote → FAQ → Contact/Footer
  */
 import Navbar from "@/components/Navbar";
@@ -21,6 +21,7 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
       <Navbar />
+      <CartSection />
       <HeroSection />
       <MarqueeBanner />
       <FeaturedSection />
@@ -28,7 +29,6 @@ export default function Home() {
       <StorefrontSection />
       <MarqueeBanner />
       <ProductsSection />
-      <CartSection />
       <WhySection />
       <QuoteSection />
       <FaqSection />
