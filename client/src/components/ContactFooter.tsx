@@ -83,7 +83,7 @@ export default function ContactFooter() {
                   Email
                 </span>
                 <a
-                  href="mailto:hello@yingli.tea"
+                  href="mailto:yinglitea@gmail.com"
                   className="font-['Playfair_Display'] font-400 transition-colors duration-300"
                   style={{ fontSize: "1.125rem", color: "oklch(0.962 0.008 90)" }}
                   onMouseEnter={(e) => {
@@ -93,7 +93,7 @@ export default function ContactFooter() {
                     (e.currentTarget as HTMLElement).style.color = "oklch(0.962 0.008 90)";
                   }}
                 >
-                  hello@yingli.tea
+                  yinglitea@gmail.com
                 </a>
               </div>
 

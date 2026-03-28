@@ -50,7 +50,7 @@ export default function Navbar() {
           <img
             src={LOGO}
             alt="Ying-Li Logo"
-            className="w-12 md:w-14 h-auto transition-transform duration-300 group-hover:scale-110"
+            className="w-16 md:w-20 h-auto transition-transform duration-300 group-hover:scale-110"
           />
         </a>
 

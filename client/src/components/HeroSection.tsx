@@ -37,7 +37,7 @@ export default function HeroSection() {
         <img
           src={LOGO}
           alt="Ying-Li Logo"
-          className="w-32 md:w-40 mb-8 animate-fade-in"
+          className="w-48 md:w-64 mb-8 animate-fade-in"
           style={{ animationDelay: "0.1s", opacity: 0, animation: "fadeInUp 0.8s ease-out 0.1s forwards" }}
         />
 
