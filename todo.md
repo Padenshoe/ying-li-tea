@@ -51,6 +51,7 @@
 ## New Feature Requests (Completed)
 
 - [x] Add product images to cart dropdown display
-- [x] Fix "View Cart" button navigation to cart section
-- [x] Implement currency toggle (USD/TWD) in navbar
+- [x] Remove currency toggle from navbar
+- [x] Create dedicated Cart page with full cart display
+- [ ] Add currency selection next to each product (not in navbar)
 - [x] Display prices in selected currency throughout the site

@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useCart } from "@/contexts/CartContext";
+import { Link } from "wouter";
 import { Globe, ShoppingBag } from "lucide-react";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
@@ -17,7 +18,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
-  const { currency, setCurrency, formatPrice, convertPrice } = useCurrency();
+  const { formatPrice, convertPrice } = useCurrency();
   const { items, removeItem, total } = useCart();
 
   useEffect(() => {
@@ -107,30 +108,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Currency Toggle */}
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full" style={{ background: "oklch(0.950 0.005 90)" }}>
-            <button
-              onClick={() => setCurrency("USD")}
-              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
-              style={{
-                background: currency === "USD" ? "oklch(0.500 0.060 145)" : "transparent",
-                color: currency === "USD" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
-              }}
-            >
-              USD
-            </button>
-            <button
-              onClick={() => setCurrency("TWD")}
-              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
-              style={{
-                background: currency === "TWD" ? "oklch(0.500 0.060 145)" : "transparent",
-                color: currency === "TWD" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
-              }}
-            >
-              TWD
-            </button>
-          </div>
-
           {/* Shopping Cart Icon */}
           <div className="relative">
             <button
@@ -209,23 +186,24 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    <a
-                      href="#cart"
-                      onClick={() => scrollTo("#cart")}
-                      className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300"
-                      style={{
-                        background: "oklch(0.500 0.060 145)",
-                        color: "#FAFAF7",
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.opacity = "0.9";
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.opacity = "1";
-                      }}
-                    >
-                      {language === "en" ? "View Cart" : "查看購物車"}
-                    </a>
+                    <Link href="/cart">
+                      <a
+                        onClick={() => setCartOpen(false)}
+                        className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300"
+                        style={{
+                          background: "oklch(0.500 0.060 145)",
+                          color: "#FAFAF7",
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.opacity = "0.9";
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.opacity = "1";
+                        }}
+                      >
+                        {language === "en" ? "View Cart" : "查看購物車"}
+                      </a>
+                    </Link>
                   </>
                 )}
               </div>
