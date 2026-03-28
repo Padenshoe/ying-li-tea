@@ -67,3 +67,9 @@
 - [x] Remove raw "ABOUT.*" keys from About section labels (now use proper translation keys)
 - [x] Fix "faq.description" raw key showing in FAQ section (added EN + ZH translations)
 - [x] Add Mandarin translations for Featured Product (title, description, labels)
+
+## Mobile Product Carousel Fix (Completed)
+
+- [x] Fix product cards not centered on mobile carousel (scroll-snap center + padding offset)
+- [x] Implement proper CSS scroll-snap for left/right swipe with dot indicators
+- [x] Add currency toggle (USD/TWD) above the product carousel
