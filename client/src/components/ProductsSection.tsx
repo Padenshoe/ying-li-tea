@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCart } from "@/contexts/CartContext";
 
 const COLD_BREW_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-cold-brew-agse5jexCShDqGcKJ96SoK.webp";
 const TEA_BAGS_IMG  = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-tea-bags-BQ6hFsR5su8dVrfZPRo3ZW.webp";
@@ -64,11 +65,11 @@ const products = [
 
 export default function ProductsSection() {
   const { t } = useLanguage();
+  const { addItem } = useCart();
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [cart, setCart] = useState<{ [key: number]: number }>({});
 
   // Check scroll position
   const checkScroll = () => {
@@ -97,12 +98,23 @@ export default function ProductsSection() {
   };
 
   const handleAddToCart = (product: typeof products[0]) => {
-    setCart((prev) => ({
-      ...prev,
-      [product.id]: (prev[product.id] || 0) + 1,
-    }));
+    const prices: { [key: number]: number } = {
+      1: 89.99,
+      2: 49.99,
+      3: 29.99,
+      4: 199.99,
+      5: 129.99,
+      6: 39.99,
+    };
+    addItem({
+      id: product.id.toString(),
+      name: t(product.nameKey),
+      price: prices[product.id] || 49.99,
+      quantity: 1,
+      image: product.image,
+    });
     toast.success(`${t(product.nameKey)} added to cart!`, {
-      description: `Quantity: ${(cart[product.id] || 0) + 1}`,
+      description: t("cart.addedSuccess"),
     });
   };
 

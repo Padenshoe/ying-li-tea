@@ -116,6 +116,15 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.label": "Questions",
     "faq.q5": "Are more tea flavors coming?",
     "faq.a5": "Yes, we plan to expand our collection with more Taiwanese tea varieties in the future. We are exploring the full depth of Taiwan's tea landscape — from high-mountain green teas to roasted oolongs. Stay connected with us to be the first to know.",
+
+    "cart.title": "Shopping Cart",
+    "cart.orderSummary": "Order Summary",
+    "cart.subtotal": "Subtotal",
+    "cart.shipping": "Shipping",
+    "cart.free": "Free",
+    "cart.total": "Total",
+    "cart.checkout": "Proceed to Checkout",
+    "cart.addedSuccess": "Successfully added to cart!",
   },
   zh: {
     // Navigation
@@ -221,6 +230,15 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.label": "問題",
     "faq.q5": "會有更多茶葉風味嗎？",
     "faq.a5": "是的，我們計劃在未來擴展我們的收藏，推出更多台灣茶葉品種。我們正在探索台灣茶葉景觀的全部深度 — 從高山綠茶到烘焙烏龍茶。與我們保持聯繫，成為首先了解的人。",
+
+    "cart.title": "購物車",
+    "cart.orderSummary": "訂單摘要",
+    "cart.subtotal": "小計",
+    "cart.shipping": "運費",
+    "cart.free": "免費",
+    "cart.total": "總計",
+    "cart.checkout": "前往結帳",
+    "cart.addedSuccess": "已成功加入購物車！",
   },
 };
 
