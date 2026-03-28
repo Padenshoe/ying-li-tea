@@ -51,10 +51,8 @@ export default function CheckoutSuccess() {
           <p className="font-['Lato'] mb-6" style={{ color: "oklch(0.552 0.016 285.938)" }}>
             {language === "en" ? "Unable to retrieve order details" : "無法取得訂單詳情"}
           </p>
-          <Link href="/">
-            <a className="inline-block px-6 py-3 rounded font-['Lato'] font-500" style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}>
-              {language === "en" ? "Return to Home" : "返回首頁"}
-            </a>
+          <Link href="/" className="inline-block px-6 py-3 rounded font-['Lato'] font-500" style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}>
+            {language === "en" ? "Return to Home" : "返回首頁"}
           </Link>
         </div>
       </div>
@@ -204,22 +202,21 @@ export default function CheckoutSuccess() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/">
-            <a
-              className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
-              style={{
-                background: "oklch(0.500 0.060 145)",
-                color: "#FAFAF7",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.opacity = "0.9";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.opacity = "1";
-              }}
-            >
-              {language === "en" ? "Continue Shopping" : "繼續購物"}
-            </a>
+          <Link
+            href="/"
+            className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
+            style={{
+              background: "oklch(0.500 0.060 145)",
+              color: "#FAFAF7",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.opacity = "0.9";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.opacity = "1";
+            }}
+          >
+            {language === "en" ? "Continue Shopping" : "繼續購物"}
           </Link>
           <a
             href="mailto:yinglitea@gmail.com"

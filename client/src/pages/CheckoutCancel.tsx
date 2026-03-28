@@ -100,22 +100,21 @@ export default function CheckoutCancel() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/">
-            <a
-              className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
-              style={{
-                background: "oklch(0.500 0.060 145)",
-                color: "#FAFAF7",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.opacity = "0.9";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.opacity = "1";
-              }}
-            >
-              {language === "en" ? "Back to Shopping" : "返回購物"}
-            </a>
+          <Link
+            href="/"
+            className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
+            style={{
+              background: "oklch(0.500 0.060 145)",
+              color: "#FAFAF7",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.opacity = "0.9";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.opacity = "1";
+            }}
+          >
+            {language === "en" ? "Back to Shopping" : "返回購物"}
           </Link>
           <a
             href="mailto:yinglitea@gmail.com"

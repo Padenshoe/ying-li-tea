@@ -78,22 +78,21 @@ export default function Cart() {
             >
               {language === "en" ? "Your cart is empty" : "您的購物車是空的"}
             </p>
-            <Link href="/">
-              <a
-                className="inline-block px-8 py-3 rounded font-['Lato'] font-500 transition-all duration-300"
-                style={{
-                  background: "oklch(0.500 0.060 145)",
-                  color: "#FAFAF7",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.opacity = "0.9";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.opacity = "1";
-                }}
-              >
-                {language === "en" ? "Continue Shopping" : "繼續購物"}
-              </a>
+            <Link
+              href="/"
+              className="inline-block px-8 py-3 rounded font-['Lato'] font-500 transition-all duration-300"
+              style={{
+                background: "oklch(0.500 0.060 145)",
+                color: "#FAFAF7",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.opacity = "0.9";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.opacity = "1";
+              }}
+            >
+              {language === "en" ? "Continue Shopping" : "繼續購物"}
             </Link>
           </div>
         ) : (
@@ -212,23 +211,22 @@ export default function Cart() {
                 </div>
 
                 {/* Continue Shopping */}
-                <Link href="/">
-                  <a
-                    className="inline-block mt-6 px-6 py-2 rounded font-['Lato'] font-500 transition-all duration-300"
-                    style={{
-                      background: "transparent",
-                      border: "1px solid oklch(0.500 0.060 145)",
-                      color: "oklch(0.500 0.060 145)",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145 / 0.1)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.background = "transparent";
-                    }}
-                  >
-                    {language === "en" ? "← Continue Shopping" : "← 繼續購物"}
-                  </a>
+                <Link
+                  href="/"
+                  className="inline-block mt-6 px-6 py-2 rounded font-['Lato'] font-500 transition-all duration-300"
+                  style={{
+                    background: "transparent",
+                    border: "1px solid oklch(0.500 0.060 145)",
+                    color: "oklch(0.500 0.060 145)",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145 / 0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "transparent";
+                  }}
+                >
+                  {language === "en" ? "← Continue Shopping" : "← 繼續購物"}
                 </Link>
               </div>
             </div>
