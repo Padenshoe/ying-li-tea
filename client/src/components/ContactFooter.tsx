@@ -3,8 +3,11 @@
  * Design: Warm charcoal background (dark section) for contrast.
  * Light cream text on dark background.
  * Minimal contact info, social links, copyright.
+ * Includes Logo in footer.
  */
 import { useEffect, useRef } from "react";
+
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-1_2c19a919.png";
 
 export default function ContactFooter() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -168,20 +171,27 @@ export default function ContactFooter() {
         style={{ background: "oklch(0.220 0.012 55)", borderTop: "1px solid oklch(0.320 0.012 55)" }}
       >
         <div className="container py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Brand */}
-          <div className="flex flex-col items-center sm:items-start gap-0.5">
-            <span
-              className="font-['Playfair_Display'] font-400 text-lg tracking-wide"
-              style={{ color: "oklch(0.840 0.008 90)" }}
-            >
-              Ying-Li
-            </span>
-            <span
-              className="eyebrow"
-              style={{ color: "oklch(0.500 0.010 90)", letterSpacing: "0.18em" }}
-            >
-              Taiwanese Tea
-            </span>
+          {/* Brand with Logo */}
+          <div className="flex items-center gap-3">
+            <img
+              src={LOGO}
+              alt="Ying-Li Logo"
+              className="w-8 h-auto"
+            />
+            <div className="flex flex-col gap-0.5">
+              <span
+                className="font-['Playfair_Display'] font-400 text-lg tracking-wide"
+                style={{ color: "oklch(0.840 0.008 90)" }}
+              >
+                Ying-Li
+              </span>
+              <span
+                className="eyebrow"
+                style={{ color: "oklch(0.500 0.010 90)", letterSpacing: "0.18em" }}
+              >
+                Taiwanese Tea
+              </span>
+            </div>
           </div>
 
           {/* Nav Links */}

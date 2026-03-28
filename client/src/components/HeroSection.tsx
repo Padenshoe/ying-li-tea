@@ -1,11 +1,12 @@
 /*
  * YING-LI TEA — HERO SECTION
- * Design: Full-bleed image with centered text floating over misty background.
- * Light background image → dark charcoal text with subtle overlay.
- * Scroll-triggered reveal animations.
+ * Design: Full-bleed display wall image with centered text and logo.
+ * Dark wood background → white/cream text with strong contrast.
+ * Logo positioned prominently in the center.
  */
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/hero-bg-PeHWnXQBhUnfWdqsUAhVr8.webp";
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03082_6e053fb9.webp";
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-1_2c19a919.png";
 
 export default function HeroSection() {
   const scrollTo = (href: string) => {
@@ -23,31 +24,33 @@ export default function HeroSection() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${HERO_BG})` }}
       />
-      {/* Soft warm overlay — light image so use subtle cream overlay */}
+      
+      {/* Dark overlay for text contrast — wood is dark so use subtle dark overlay */}
       <div
         className="absolute inset-0"
-        style={{ background: "linear-gradient(to bottom, rgba(250,250,247,0.25) 0%, rgba(250,250,247,0.55) 60%, rgba(250,250,247,0.85) 100%)" }}
+        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.55) 100%)" }}
       />
 
       {/* Content */}
       <div className="relative z-10 container flex flex-col items-center text-center px-6">
-        {/* Eyebrow */}
-        <span
-          className="eyebrow mb-6 animate-fade-in"
-          style={{ animationDelay: "0.2s", opacity: 0, animation: "fadeInUp 0.8s ease-out 0.2s forwards" }}
-        >
-          Est. Taiwan
-        </span>
+        {/* Logo */}
+        <img
+          src={LOGO}
+          alt="Ying-Li Logo"
+          className="w-24 md:w-32 mb-8 animate-fade-in"
+          style={{ animationDelay: "0.1s", opacity: 0, animation: "fadeInUp 0.8s ease-out 0.1s forwards" }}
+        />
 
         {/* Brand Name */}
         <h1
           className="font-['Playfair_Display'] font-400 leading-none mb-4"
           style={{
-            fontSize: "clamp(4rem, 12vw, 9rem)",
-            color: "oklch(0.265 0.015 55)",
+            fontSize: "clamp(3.5rem, 11vw, 8rem)",
+            color: "#FAFAF7",
             letterSpacing: "-0.02em",
+            textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             opacity: 0,
-            animation: "fadeInUp 0.9s ease-out 0.4s forwards",
+            animation: "fadeInUp 0.9s ease-out 0.3s forwards",
           }}
         >
           Ying-Li
@@ -57,11 +60,12 @@ export default function HeroSection() {
         <p
           className="font-['Playfair_Display'] italic font-400 mb-8"
           style={{
-            fontSize: "clamp(1rem, 3vw, 1.5rem)",
-            color: "oklch(0.400 0.015 55)",
+            fontSize: "clamp(0.9rem, 2.5vw, 1.4rem)",
+            color: "#F2EDE4",
             letterSpacing: "0.02em",
+            textShadow: "0 1px 4px rgba(0,0,0,0.3)",
             opacity: 0,
-            animation: "fadeInUp 0.9s ease-out 0.6s forwards",
+            animation: "fadeInUp 0.9s ease-out 0.5s forwards",
           }}
         >
           Taiwanese Tea, Calm in Every Cup
@@ -70,7 +74,11 @@ export default function HeroSection() {
         {/* Divider */}
         <span
           className="divider-short mb-8"
-          style={{ opacity: 0, animation: "fadeInUp 0.9s ease-out 0.7s forwards" }}
+          style={{
+            background: "#C4A96A",
+            opacity: 0,
+            animation: "fadeInUp 0.9s ease-out 0.6s forwards",
+          }}
         />
 
         {/* Brand Intro */}
@@ -78,9 +86,10 @@ export default function HeroSection() {
           className="font-['Lato'] font-300 max-w-lg mb-10 leading-relaxed"
           style={{
             fontSize: "1rem",
-            color: "oklch(0.380 0.015 55)",
+            color: "#E8DFD0",
+            textShadow: "0 1px 3px rgba(0,0,0,0.3)",
             opacity: 0,
-            animation: "fadeInUp 0.9s ease-out 0.8s forwards",
+            animation: "fadeInUp 0.9s ease-out 0.7s forwards",
           }}
         >
           Ying-Li brings you the finest teas originating from the misty mountains of Taiwan —
@@ -90,7 +99,7 @@ export default function HeroSection() {
         {/* CTA Buttons */}
         <div
           className="flex flex-col sm:flex-row gap-4"
-          style={{ opacity: 0, animation: "fadeInUp 0.9s ease-out 1.0s forwards" }}
+          style={{ opacity: 0, animation: "fadeInUp 0.9s ease-out 0.9s forwards" }}
         >
           <button
             onClick={() => scrollTo("#products")}
@@ -112,17 +121,15 @@ export default function HeroSection() {
             onClick={() => scrollTo("#about")}
             className="px-8 py-3.5 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase border transition-all duration-300"
             style={{
-              color: "oklch(0.265 0.015 55)",
-              borderColor: "oklch(0.265 0.015 55)",
+              color: "#FAFAF7",
+              borderColor: "#FAFAF7",
               background: "transparent",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "oklch(0.265 0.015 55)";
-              (e.currentTarget as HTMLElement).style.color = "#FAFAF7";
+              (e.currentTarget as HTMLElement).style.background = "rgba(250,250,247,0.15)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "oklch(0.265 0.015 55)";
             }}
           >
             Explore Our Tea
@@ -132,12 +139,17 @@ export default function HeroSection() {
         {/* Scroll indicator */}
         <div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          style={{ opacity: 0, animation: "fadeInUp 0.9s ease-out 1.3s forwards" }}
+          style={{ opacity: 0, animation: "fadeInUp 0.9s ease-out 1.1s forwards" }}
         >
-          <span className="eyebrow" style={{ color: "oklch(0.520 0.020 60)" }}>Scroll</span>
+          <span
+            className="eyebrow"
+            style={{ color: "#C4A96A", letterSpacing: "0.2em" }}
+          >
+            Scroll
+          </span>
           <div
             className="w-px h-10 animate-pulse"
-            style={{ background: "linear-gradient(to bottom, oklch(0.730 0.070 75), transparent)" }}
+            style={{ background: "linear-gradient(to bottom, #C4A96A, transparent)" }}
           />
         </div>
       </div>
