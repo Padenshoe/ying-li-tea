@@ -40,3 +40,9 @@
 5. Optional: Add customer testimonials section
 6. Optional: Add product detail pages
 7. Optional: Implement order tracking system
+
+## UI Refinements (Completed)
+
+- [x] Move shopping cart from top section to navbar (cart icon with item count)
+- [x] Remove CartSection from Home page
+- [x] Update About section title to be more readable (changed to "Our Heritage")

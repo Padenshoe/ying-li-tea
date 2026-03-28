@@ -49,14 +49,8 @@ export default function AboutSection() {
         <div className="container">
           {/* Section Header */}
           <div className="mb-16 md:mb-20">
-            <span
-              className="eyebrow reveal"
-              style={{ color: "oklch(0.730 0.070 75)" }}
-            >
-              {t("about.title")}
-            </span>
             <div
-              className="divider-short mt-3 mb-5 reveal"
+              className="divider-short mb-5 reveal"
               style={{ background: "oklch(0.730 0.070 75)" }}
             />
             <h2
@@ -68,7 +62,7 @@ export default function AboutSection() {
                 lineHeight: 1.15,
               }}
             >
-              {t("about.title")}
+              Our Heritage
             </h2>
           </div>
 

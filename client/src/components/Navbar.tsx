@@ -2,18 +2,21 @@
  * YING-LI TEA — NAVBAR COMPONENT
  * Design: Zen Modernism — minimal, transparent on hero, frosted on scroll
  * Colors: warm white bg, charcoal text, moss green accent
- * Now includes Logo image with text and language toggle
+ * Now includes Logo image with text, language toggle, and shopping cart
  */
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Globe } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { Globe, ShoppingBag } from "lucide-react";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { items, removeItem, updateQuantity, total, clearCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -33,6 +36,8 @@ export default function Navbar() {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <nav
@@ -72,7 +77,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Section: Language Toggle + Shop Now */}
+        {/* Right Section: Language Toggle + Cart + Shop Now */}
         <div className="flex items-center gap-4">
           {/* Language Toggle */}
           <div className="flex items-center gap-2 px-3 py-1 rounded-full" style={{ background: "oklch(0.950 0.005 90)" }}>
@@ -96,6 +101,96 @@ export default function Navbar() {
             >
               中文
             </button>
+          </div>
+
+          {/* Shopping Cart Icon */}
+          <div className="relative">
+            <button
+              onClick={() => setCartOpen(!cartOpen)}
+              className="relative p-2 rounded-lg transition-all duration-300 hover:bg-gray-100"
+              aria-label="Shopping cart"
+            >
+              <ShoppingBag size={20} style={{ color: "oklch(0.500 0.060 145)" }} />
+              {totalItems > 0 && (
+                <span
+                  className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-['Lato'] font-600 flex items-center justify-center text-white"
+                  style={{ background: "oklch(0.500 0.060 145)" }}
+                >
+                  {totalItems}
+                </span>
+              )}
+            </button>
+
+            {/* Cart Dropdown */}
+            {cartOpen && (
+              <div
+                className="absolute right-0 top-full mt-2 w-80 rounded-lg shadow-lg p-4 z-50"
+                style={{ background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
+              >
+                {items.length === 0 ? (
+                  <p className="text-center font-['Lato'] text-sm" style={{ color: "oklch(0.552 0.016 285.938)" }}>
+                    {language === "en" ? "Your cart is empty" : "您的購物車是空的"}
+                  </p>
+                ) : (
+                  <>
+                    <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
+                      {items.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between text-sm" style={{ borderBottom: "1px solid oklch(0.870 0.018 130)", paddingBottom: "0.75rem" }}>
+                          <div className="flex-1">
+                            <p className="font-['Lato'] font-500" style={{ color: "oklch(0.265 0.015 55)" }}>
+                              {item.name}
+                            </p>
+                            <p className="font-['Lato'] text-xs" style={{ color: "oklch(0.552 0.016 285.938)" }}>
+                              ${item.price.toFixed(2)} × {item.quantity}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => removeItem(item.id)}
+                            className="text-xs px-2 py-1 rounded hover:bg-red-50 transition-colors"
+                            style={{ color: "oklch(0.577 0.245 27.325)" }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="border-t pt-3 mb-4" style={{ borderColor: "oklch(0.870 0.018 130)" }}>
+                      <div className="flex justify-between mb-3">
+                        <span className="font-['Lato'] font-600" style={{ color: "oklch(0.265 0.015 55)" }}>
+                          {language === "en" ? "Total" : "總計"}
+                        </span>
+                        <span className="font-['Lato'] font-600" style={{ color: "oklch(0.500 0.060 145)" }}>
+                          ${total.toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <a
+                      href="#cart"
+                      onClick={() => {
+                        setCartOpen(false);
+                        const cartEl = document.querySelector("#cart");
+                        if (cartEl) cartEl.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300"
+                      style={{
+                        background: "oklch(0.500 0.060 145)",
+                        color: "#FAFAF7",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.opacity = "0.9";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.opacity = "1";
+                      }}
+                    >
+                      {language === "en" ? "View Cart" : "查看購物車"}
+                    </a>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Desktop CTA */}
