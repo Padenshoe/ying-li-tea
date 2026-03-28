@@ -2,10 +2,11 @@
  * YING-LI TEA — NAVBAR COMPONENT
  * Design: Zen Modernism — minimal, transparent on hero, frosted on scroll
  * Colors: warm white bg, charcoal text, moss green accent
- * Now includes Logo image with text, language toggle, and shopping cart
+ * Now includes Logo image with text, language toggle, currency toggle, and shopping cart
  */
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { useCart } from "@/contexts/CartContext";
 import { Globe, ShoppingBag } from "lucide-react";
 
@@ -16,7 +17,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
-  const { items, removeItem, updateQuantity, total, clearCart } = useCart();
+  const { currency, setCurrency, formatPrice, convertPrice } = useCurrency();
+  const { items, removeItem, total } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -33,11 +35,13 @@ export default function Navbar() {
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);
+    setCartOpen(false);
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const convertedTotal = convertPrice(total);
 
   return (
     <nav
@@ -77,8 +81,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Section: Language Toggle + Cart + Shop Now */}
-        <div className="flex items-center gap-4">
+        {/* Right Section: Language Toggle + Currency Toggle + Cart + Shop Now */}
+        <div className="flex items-center gap-3">
           {/* Language Toggle */}
           <div className="flex items-center gap-2 px-3 py-1 rounded-full" style={{ background: "oklch(0.950 0.005 90)" }}>
             <button
@@ -103,6 +107,30 @@ export default function Navbar() {
             </button>
           </div>
 
+          {/* Currency Toggle */}
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full" style={{ background: "oklch(0.950 0.005 90)" }}>
+            <button
+              onClick={() => setCurrency("USD")}
+              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
+              style={{
+                background: currency === "USD" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: currency === "USD" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
+              }}
+            >
+              USD
+            </button>
+            <button
+              onClick={() => setCurrency("TWD")}
+              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
+              style={{
+                background: currency === "TWD" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: currency === "TWD" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
+              }}
+            >
+              TWD
+            </button>
+          </div>
+
           {/* Shopping Cart Icon */}
           <div className="relative">
             <button
@@ -124,7 +152,7 @@ export default function Navbar() {
             {/* Cart Dropdown */}
             {cartOpen && (
               <div
-                className="absolute right-0 top-full mt-2 w-80 rounded-lg shadow-lg p-4 z-50"
+                className="absolute right-0 top-full mt-2 w-96 rounded-lg shadow-lg p-4 z-50"
                 style={{ background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
               >
                 {items.length === 0 ? (
@@ -133,20 +161,35 @@ export default function Navbar() {
                   </p>
                 ) : (
                   <>
-                    <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
+                    <div className="space-y-3 mb-4 max-h-72 overflow-y-auto">
                       {items.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between text-sm" style={{ borderBottom: "1px solid oklch(0.870 0.018 130)", paddingBottom: "0.75rem" }}>
-                          <div className="flex-1">
-                            <p className="font-['Lato'] font-500" style={{ color: "oklch(0.265 0.015 55)" }}>
+                        <div key={item.id} className="flex gap-3 items-start" style={{ borderBottom: "1px solid oklch(0.870 0.018 130)", paddingBottom: "0.75rem" }}>
+                          {/* Product Image */}
+                          {item.image && (
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-16 h-16 object-cover rounded"
+                            />
+                          )}
+                          
+                          {/* Product Details */}
+                          <div className="flex-1 min-w-0">
+                            <p className="font-['Lato'] font-500 text-sm truncate" style={{ color: "oklch(0.265 0.015 55)" }}>
                               {item.name}
                             </p>
                             <p className="font-['Lato'] text-xs" style={{ color: "oklch(0.552 0.016 285.938)" }}>
-                              ${item.price.toFixed(2)} × {item.quantity}
+                              {formatPrice(convertPrice(item.price))} × {item.quantity}
+                            </p>
+                            <p className="font-['Lato'] text-xs font-600 mt-1" style={{ color: "oklch(0.500 0.060 145)" }}>
+                              {formatPrice(convertPrice(item.price * item.quantity))}
                             </p>
                           </div>
+
+                          {/* Remove Button */}
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="text-xs px-2 py-1 rounded hover:bg-red-50 transition-colors"
+                            className="text-xs px-2 py-1 rounded hover:bg-red-50 transition-colors flex-shrink-0"
                             style={{ color: "oklch(0.577 0.245 27.325)" }}
                           >
                             ✕
@@ -161,18 +204,14 @@ export default function Navbar() {
                           {language === "en" ? "Total" : "總計"}
                         </span>
                         <span className="font-['Lato'] font-600" style={{ color: "oklch(0.500 0.060 145)" }}>
-                          ${total.toFixed(2)}
+                          {formatPrice(convertedTotal)}
                         </span>
                       </div>
                     </div>
 
                     <a
                       href="#cart"
-                      onClick={() => {
-                        setCartOpen(false);
-                        const cartEl = document.querySelector("#cart");
-                        if (cartEl) cartEl.scrollIntoView({ behavior: "smooth" });
-                      }}
+                      onClick={() => scrollTo("#cart")}
                       className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300"
                       style={{
                         background: "oklch(0.500 0.060 145)",

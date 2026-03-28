@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { CartProvider } from "./contexts/CartContext";
+import { CurrencyProvider } from "./contexts/CurrencyContext";
 import Home from "./pages/Home";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import CheckoutCancel from "./pages/CheckoutCancel";
@@ -25,19 +26,21 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <CartProvider>
-        <LanguageProvider>
-          <ThemeProvider
-            defaultTheme="light"
-            // switchable
-          >
-            <TooltipProvider>
-              <Toaster />
-              <Router />
-            </TooltipProvider>
-          </ThemeProvider>
-        </LanguageProvider>
-      </CartProvider>
+      <CurrencyProvider>
+        <CartProvider>
+          <LanguageProvider>
+            <ThemeProvider
+              defaultTheme="light"
+              // switchable
+            >
+              <TooltipProvider>
+                <Toaster />
+                <Router />
+              </TooltipProvider>
+            </ThemeProvider>
+          </LanguageProvider>
+        </CartProvider>
+      </CurrencyProvider>
     </ErrorBoundary>
   );
 }

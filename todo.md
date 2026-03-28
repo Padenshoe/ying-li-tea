@@ -47,3 +47,10 @@
 - [x] Remove CartSection from Home page
 - [x] Update About section title to be more readable (changed to "Our Heritage")
 - [x] Update navbar background to white for better visibility
+
+## New Feature Requests (Completed)
+
+- [x] Add product images to cart dropdown display
+- [x] Fix "View Cart" button navigation to cart section
+- [x] Implement currency toggle (USD/TWD) in navbar
+- [x] Display prices in selected currency throughout the site
