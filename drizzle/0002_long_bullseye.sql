@@ -1,0 +1,1 @@
+ALTER TABLE `orders` ADD `customerLastName` varchar(255);

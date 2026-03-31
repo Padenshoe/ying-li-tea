@@ -9,6 +9,12 @@ import { eq } from "drizzle-orm";
 import { getDb } from "./db";
 import { orders } from "../drizzle/schema";
 
+function extractLastName(fullName: string | null | undefined): string {
+  if (!fullName) return "";
+  const parts = fullName.trim().split(/\s+/);
+  return parts[parts.length - 1]?.toLowerCase() ?? "";
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
 
@@ -45,9 +51,15 @@ export async function handleStripeWebhook(req: Request, res: Response) {
         if (paymentStatus === "paid") {
           const db = await getDb();
           if (db) {
-            const result = await db
+            const billingName = session.customer_details?.name;
+            const lastNameFromBilling = extractLastName(billingName);
+            await db
               .update(orders)
-              .set({ status: "completed" })
+              .set({
+                status: "completed",
+                ...(lastNameFromBilling ? { customerLastName: lastNameFromBilling } : {}),
+                ...(billingName ? { customerName: billingName } : {}),
+              })
               .where(eq(orders.stripeCheckoutSessionId, sessionId));
             console.log(`[Webhook] Order updated to completed for session: ${sessionId}`);
           }

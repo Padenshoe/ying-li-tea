@@ -55,6 +55,7 @@ export const orders = mysqlTable("orders", {
   items: text("items").notNull(), // JSON string of cart items
   customerEmail: varchar("customerEmail", { length: 320 }),
   customerName: varchar("customerName", { length: 255 }),
+  customerLastName: varchar("customerLastName", { length: 255 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

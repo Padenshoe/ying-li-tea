@@ -102,3 +102,16 @@
 - [x] Add contact form to ContactFooter (name, email, message fields) — validation, tRPC mutation, notifyOwner notification, bilingual labels and errors
 - [x] Add Orders icon to Navbar (visible when logged in) linking to /orders
 - [x] Write 6 unit tests for contact.submitInquiry (17 total tests passing across 4 test files)
+
+## Order Lookup by Order Number + Last Name (Completed)
+
+- [x] Add `customerLastName` column to orders table in schema.ts
+- [x] Run `pnpm db:push` to migrate the database
+- [x] Update Stripe checkout to collect billing name and extract/store last name
+- [x] Update webhook handler to store last name on checkout.session.completed
+- [x] Add `lookupOrder` publicProcedure that matches by order ID + last name (case-insensitive)
+- [x] Remove `getOrderHistory` protectedProcedure (replaced by lookup)
+- [x] Rewrite Orders page as a lookup form (order number + last name input)
+- [x] Show order details after successful lookup; show error if not found
+- [x] Remove Orders navbar icon (no longer login-gated)
+- [x] Write 9 unit tests for lookupOrder procedure (26 total tests passing across 5 test files)
