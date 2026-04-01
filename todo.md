@@ -134,3 +134,12 @@
 - [x] Set descriptive page title (34 chars, 30–60 range) via document.title in Home.tsx: "迎利茶 Ying-Li Tea — 台灣烏龍茶、冷泡茶與精緻茶葉禮盒"
 - [x] Add keyword meta tag in index.html (台灣茶,烏龍茶,冷泡茶,茶葉禮盒,高山茶,台灣烏龍,迎利茶,茶包,青心烏龍,東方美人茶)
 - [x] Update html lang attribute to zh-TW in index.html
+
+## 台灣付款流程審核 + 結帳改善 (Completed)
+
+- [x] 審核台灣付款方式（ECPay、貨到付款、ATM、超商代碼） — 貨到付款最適合小型茶艘
+- [x] 修複資料庫遷移：執行 `pnpm db:push` 補上 `customerLastName` 欄位
+- [x] 建立 /order-confirmation 頁面：顯示訂單編號、商品、配送方式、貨到付款說明
+- [x] 更新 Checkout.tsx：送出成功後導向 /order-confirmation（傳遞訂單資料）
+- [x] 在 App.tsx 中註冊 /order-confirmation 路由
+- [x] 所有 37 個測試通過（所 6 個測試檔案）

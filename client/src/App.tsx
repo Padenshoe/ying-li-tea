@@ -13,6 +13,7 @@ import CheckoutSuccess from "./pages/CheckoutSuccess";
 import CheckoutCancel from "./pages/CheckoutCancel";
 import Orders from "./pages/Orders";
 import Checkout from "./pages/Checkout";
+import OrderConfirmation from "./pages/OrderConfirmation";
 import BackToTop from "./components/BackToTop";
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -24,6 +25,7 @@ function Router() {
       <Route path={"/checkout/cancel"} component={CheckoutCancel} />
       <Route path={"/orders"} component={Orders} />
       <Route path={"/checkout"} component={Checkout} />
+      <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

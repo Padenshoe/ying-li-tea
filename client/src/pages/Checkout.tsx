@@ -58,8 +58,6 @@ export default function Checkout() {
     note: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
-  const [submitted, setSubmitted] = useState(false);
-  const [orderId, setOrderId] = useState<number | null>(null);
 
   const submitOrder = trpc.order.submitOrder.useMutation();
 
@@ -107,8 +105,23 @@ export default function Checkout() {
         totalAmount: total,
       });
 
-      setOrderId(result.orderId);
-      setSubmitted(true);
+      // Navigate to confirmation page with order data
+      const confirmationData = {
+        orderId: result.orderId,
+        method: form.deliveryMethod,
+        fullName: form.fullName,
+        phone: form.phone,
+        address: form.address,
+        storeCode: form.storeCode,
+        items: items.map((item) => ({
+          name: item.nameKey ? t(item.nameKey) : item.name,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        totalAmount: total,
+      };
+      const encodedData = encodeURIComponent(JSON.stringify(confirmationData));
+      navigate(`/order-confirmation?orderId=${result.orderId}&method=${form.deliveryMethod}&data=${encodedData}`);
       clearCart();
     } catch (err: any) {
       toast.error("訂單送出失敗，請稍後再試", {
@@ -120,62 +133,6 @@ export default function Checkout() {
   function set(field: keyof FormState, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
-  }
-
-  // ── Success screen ────────────────────────────────────────────────────────
-  if (submitted) {
-    return (
-      <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
-        <Navbar />
-        <main className="container pt-32 pb-24 max-w-xl mx-auto text-center">
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
-            style={{ background: `${accentGreen}22`, border: `2px solid ${accentGreen}` }}
-          >
-            <span style={{ color: accentGreen, fontSize: "1.75rem" }}>✓</span>
-          </div>
-          <h1
-            className="font-['Playfair_Display'] font-400 mb-4"
-            style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", color: "oklch(0.265 0.015 55)" }}
-          >
-            訂單已送出！
-          </h1>
-          <p
-            className="font-['Lato'] font-300 leading-relaxed mb-2"
-            style={{ fontSize: "1rem", color: "oklch(0.520 0.020 60)" }}
-          >
-            感謝您的訂購，我們已收到您的訂單。
-          </p>
-          {orderId && (
-            <p
-              className="font-['Lato'] font-600 mb-6"
-              style={{ fontSize: "1rem", color: accentGreen }}
-            >
-              訂單編號：#{orderId}
-            </p>
-          )}
-          <p
-            className="font-['Lato'] font-300 leading-relaxed mb-10"
-            style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
-          >
-            我們將盡快與您聯繫確認出貨事宜。如有疑問請來信{" "}
-            <a
-              href="mailto:yinglitea@gmail.com"
-              style={{ color: accentGreen }}
-            >
-              yinglitea@gmail.com
-            </a>
-          </p>
-          <Link
-            to="/"
-            className="inline-block px-8 py-3 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300"
-            style={{ background: accentGreen, color: "#FAFAF7" }}
-          >
-            返回首頁
-          </Link>
-        </main>
-      </div>
-    );
   }
 
   // ── Empty cart ────────────────────────────────────────────────────────────
