@@ -128,3 +128,9 @@
 - [x] StorefrontSection 文字改為中文：親臨迎利、親臨迎利茶的溫暖、踏入我們溫馨的茶空間…
 - [x] FeaturedSection 禮盒茶包圖片放大（w-[95%]，容器高度提升）
 - [x] 撰寫 11 個 order 單元測試（37 個測試全部通過，共 6 個測試檔案）
+
+## SEO Fixes (Completed)
+
+- [x] Set descriptive page title (34 chars, 30–60 range) via document.title in Home.tsx: "迎利茶 Ying-Li Tea — 台灣烏龍茶、冷泡茶與精緻茶葉禮盒"
+- [x] Add keyword meta tag in index.html (台灣茶,烏龍茶,冷泡茶,茶葉禮盒,高山茶,台灣烏龍,迎利茶,茶包,青心烏龍,東方美人茶)
+- [x] Update html lang attribute to zh-TW in index.html
