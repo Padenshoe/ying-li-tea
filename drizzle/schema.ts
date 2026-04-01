@@ -63,4 +63,26 @@ export const orders = mysqlTable("orders", {
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = typeof orders.$inferInsert;
 
+// Custom (non-Stripe) orders — COD delivery form submissions
+export const customOrders = mysqlTable("customOrders", {
+  id: int("id").autoincrement().primaryKey(),
+  // Customer info
+  fullName: varchar("fullName", { length: 255 }).notNull(),
+  gender: mysqlEnum("gender", ["male", "female", "other"]).notNull(),
+  phone: varchar("phone", { length: 30 }).notNull(),
+  // Delivery
+  deliveryMethod: mysqlEnum("deliveryMethod", ["home", "711"]).notNull(),
+  address: text("address"),          // used for home delivery
+  storeCode: varchar("storeCode", { length: 255 }), // 7-11 store name / code
+  // Order
+  items: text("items").notNull(),    // JSON string of CartItem[]
+  totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),
+  status: mysqlEnum("status", ["pending", "confirmed", "shipped", "delivered", "cancelled"]).default("pending").notNull(),
+  note: text("note"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type CustomOrder = typeof customOrders.$inferSelect;
+export type InsertCustomOrder = typeof customOrders.$inferInsert;
+
 // TODO: Add your additional tables here

@@ -53,9 +53,9 @@ export default function FeaturedSection() {
       className="py-0 overflow-hidden"
       style={{ background: "oklch(0.990 0.004 95)" }}
     >
-      <div className="grid md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
+      <div className="grid md:grid-cols-2 min-h-[650px] md:min-h-[780px]">
         {/* Image Carousel — Left */}
-        <div className="relative overflow-hidden flex items-center justify-center" style={{ minHeight: "400px", background: "#F5F1E8" }}>
+        <div className="relative overflow-hidden flex items-center justify-center" style={{ minHeight: "480px", background: "#F5F1E8" }}>
           <div className="relative w-full h-full flex items-center justify-center">
             {/* Images with fade transition */}
             {GIFT_BOX_IMAGES.map((img, idx) => (
@@ -63,8 +63,9 @@ export default function FeaturedSection() {
                 key={idx}
                 src={img}
                 alt={`Tea Gift Box - View ${idx + 1}`}
-                className="absolute w-4/5 h-auto max-h-4/5 object-contain transition-opacity duration-1000"
+                className="absolute w-[95%] h-auto object-contain transition-opacity duration-1000"
                 style={{
+                  maxHeight: "90%",
                   opacity: idx === currentImageIndex ? 1 : 0,
                   pointerEvents: idx === currentImageIndex ? "auto" : "none",
                 }}

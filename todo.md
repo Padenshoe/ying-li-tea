@@ -115,3 +115,16 @@
 - [x] Show order details after successful lookup; show error if not found
 - [x] Remove Orders navbar icon (no longer login-gated)
 - [x] Write 9 unit tests for lookupOrder procedure (26 total tests passing across 5 test files)
+
+## 中文化 + 自訂結帳表單 (Completed)
+
+- [x] 鎖定中文介面：LanguageContext 預設 zh，移除語言切換按鈕（Navbar）
+- [x] 新增 customOrders 資料表（姓名、性別、電話、配送方式、地址/門市、商品、總額）
+- [x] 執行 pnpm db:push 建立 customOrders 資料表
+- [x] 建立 server/routers/order.ts：submitOrder publicProcedure，儲存訂單並寄信至 yinglitea@gmail.com
+- [x] 在 routers.ts 中註冊 orderRouter
+- [x] 建立 /checkout 頁面：姓名、性別、電話、配送方式選擇（宅配/7-11）、地址/門市欄位、備註
+- [x] CartSection「前往結帳」按鈕改為導向 /checkout（移除 Stripe createCheckout 呼叫）
+- [x] StorefrontSection 文字改為中文：親臨迎利、親臨迎利茶的溫暖、踏入我們溫馨的茶空間…
+- [x] FeaturedSection 禮盒茶包圖片放大（w-[95%]，容器高度提升）
+- [x] 撰寫 11 個 order 單元測試（37 個測試全部通過，共 6 個測試檔案）

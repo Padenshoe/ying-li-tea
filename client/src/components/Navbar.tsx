@@ -95,30 +95,6 @@ export default function Navbar() {
 
         {/* Right Section: Language Toggle + Currency Toggle + Cart + Shop Now */}
         <div className="flex items-center gap-3">
-          {/* Language Toggle */}
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full" style={{ background: "oklch(0.950 0.005 90)" }}>
-            <button
-              onClick={() => setLanguage("en")}
-              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
-              style={{
-                background: language === "en" ? "oklch(0.500 0.060 145)" : "transparent",
-                color: language === "en" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
-              }}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage("zh")}
-              className="px-2 py-1 text-xs font-['Lato'] font-500 rounded transition-all duration-200"
-              style={{
-                background: language === "zh" ? "oklch(0.500 0.060 145)" : "transparent",
-                color: language === "zh" ? "#FAFAF7" : "oklch(0.520 0.020 60)",
-              }}
-            >
-              中文
-            </button>
-          </div>
-
           {/* Shopping Cart Icon */}
           <div className="relative">
             <button

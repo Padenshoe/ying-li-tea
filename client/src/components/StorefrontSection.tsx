@@ -49,7 +49,7 @@ export default function StorefrontSection() {
             className="eyebrow"
             style={{ color: "oklch(0.730 0.070 75)", letterSpacing: "0.18em" }}
           >
-            Visit Us
+            親臨迎利
           </span>
         </div>
 
@@ -63,7 +63,7 @@ export default function StorefrontSection() {
             textShadow: "0 2px 8px rgba(0,0,0,0.3)",
           }}
         >
-          Experience Ying-Li in Person
+          親臨迎利茶的溫暖
         </h2>
 
         <p
@@ -75,7 +75,7 @@ export default function StorefrontSection() {
             textShadow: "0 1px 4px rgba(0,0,0,0.2)",
           }}
         >
-          Step into our warm, welcoming tea space. Explore our full collection of certified Taiwan oolong, from accessible everyday selections to rare premium teas. Taste, learn, and discover your perfect cup.
+          踏入我們溫馨的茶空間，親自體驗台灣認證烏龍茶的完整系列——從日常平實之選到稀有的頂級茶葉。品茶、學茶，找到屬於您的那杯完美茶湯。
         </p>
 
         <div className="reveal flex flex-col sm:flex-row gap-4 mt-4">
@@ -98,7 +98,7 @@ export default function StorefrontSection() {
               (e.currentTarget as HTMLElement).style.background = "oklch(0.730 0.070 75)";
             }}
           >
-            Get in Touch
+            聯絡我們
           </a>
           <a
             href="#products"
@@ -120,7 +120,7 @@ export default function StorefrontSection() {
               (e.currentTarget as HTMLElement).style.background = "transparent";
             }}
           >
-            Shop Online
+            線上選購
           </a>
         </div>
       </div>

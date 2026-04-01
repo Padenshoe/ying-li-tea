@@ -5,16 +5,15 @@
  */
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Trash2, Minus, Plus, Loader2 } from "lucide-react";
-import { trpc } from "@/lib/trpc";
-import { useState } from "react";
-import { toast } from "sonner";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { Trash2, Minus, Plus } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function CartSection() {
-  const { items, removeItem, updateQuantity, total, clearCart } = useCart();
+  const { items, removeItem, updateQuantity, total } = useCart();
   const { language } = useLanguage();
-  const [isLoading, setIsLoading] = useState(false);
-  const createCheckout = trpc.stripe.createCheckout.useMutation();
+  const { formatPrice, convertPrice } = useCurrency();
+  const [, navigate] = useLocation();
 
   return (
     <section
@@ -157,61 +156,24 @@ export default function CartSection() {
 
                 <div className="flex justify-between mb-6">
                   <span className="font-['Lato'] font-600" style={{ color: "oklch(0.265 0.015 55)" }}>
-                    {language === "en" ? "Total" : "總計"}
+                    總計
                   </span>
                   <span
                     className="font-['Playfair_Display'] font-600"
                     style={{ fontSize: "1.5rem", color: "oklch(0.500 0.060 145)" }}
                   >
-                    ${total.toFixed(2)}
+                    {formatPrice(convertPrice(total))}
                   </span>
                 </div>
 
                 <button
                   className="w-full py-3 rounded font-['Lato'] font-500 tracking-wide transition-all duration-300 flex items-center justify-center gap-2"
-                  style={{
-                    background: isLoading ? "oklch(0.500 0.060 145 / 0.6)" : "oklch(0.500 0.060 145)",
-                    color: "#FAFAF7",
-                    cursor: isLoading ? "not-allowed" : "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isLoading) (e.currentTarget as HTMLElement).style.opacity = "0.9";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isLoading) (e.currentTarget as HTMLElement).style.opacity = "1";
-                  }}
-                  disabled={isLoading}
-                  onClick={async () => {
-                    setIsLoading(true);
-                    try {
-                      const checkoutItems = items.map((item) => ({
-                        productId: parseInt(item.id),
-                        quantity: item.quantity,
-                        name: item.name,
-                        price: item.price,
-                      }));
-
-                      const result = await createCheckout.mutateAsync({
-                        items: checkoutItems,
-                        origin: window.location.origin,
-                      });
-
-                      if (result.checkoutUrl) {
-                        // Clear cart before redirecting
-                        clearCart();
-                        window.location.href = result.checkoutUrl;
-                      }
-                    } catch (error) {
-                      console.error("Checkout error:", error);
-                      toast.error(language === "en" ? "Checkout failed" : "結帳失敗", {
-                        description: language === "en" ? "Failed to create checkout session" : "無法建立結帳會話",
-                      });
-                      setIsLoading(false);
-                    }
-                  }}
+                  style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7", cursor: "pointer" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.9"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+                  onClick={() => navigate("/checkout")}
                 >
-                  {isLoading && <Loader2 size={18} className="animate-spin" />}
-                  {language === "en" ? "Proceed to Checkout" : "前往結帳"}
+                  前往結帳
                 </button>
               </div>
             </div>
