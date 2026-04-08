@@ -64,14 +64,14 @@ export default function Checkout() {
   // ── Validation ────────────────────────────────────────────────────────────
   function validate(): boolean {
     const errs: FormErrors = {};
-    if (!form.fullName.trim()) errs.fullName = "請填寫姓名";
-    if (!form.gender) errs.gender = "請選擇性別";
-    if (!form.phone.trim() || form.phone.trim().length < 8) errs.phone = "請填寫有效電話號碼";
-    if (!form.deliveryMethod) errs.deliveryMethod = "請選擇配送方式";
+    if (!form.fullName.trim()) errs.fullName = t("checkout.errNameRequired");
+    if (!form.gender) errs.gender = t("checkout.errGenderRequired");
+    if (!form.phone.trim() || form.phone.trim().length < 8) errs.phone = t("checkout.errPhoneInvalid");
+    if (!form.deliveryMethod) errs.deliveryMethod = t("checkout.errDeliveryRequired");
     if (form.deliveryMethod === "home" && !form.address.trim())
-      errs.address = "宅配需填寫收件地址";
+      errs.address = t("checkout.errAddressRequired");
     if (form.deliveryMethod === "711" && !form.storeCode.trim())
-      errs.storeCode = "請填寫 7-11 門市名稱";
+      errs.storeCode = t("checkout.errStoreRequired");
     setErrors(errs);
     return Object.keys(errs).length === 0;
   }
@@ -80,7 +80,7 @@ export default function Checkout() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (items.length === 0) {
-      toast.error("購物車是空的，請先加入商品");
+      toast.error(t("checkout.errCartEmpty"));
       return;
     }
     if (!validate()) return;
@@ -124,8 +124,8 @@ export default function Checkout() {
       navigate(`/order-confirmation?orderId=${result.orderId}&method=${form.deliveryMethod}&data=${encodedData}`);
       clearCart();
     } catch (err: any) {
-      toast.error("訂單送出失敗，請稍後再試", {
-        description: err?.message ?? "未知錯誤",
+      toast.error(t("checkout.errSubmitFailed"), {
+        description: err?.message ?? t("checkout.errUnknown"),
       });
     }
   }
@@ -145,14 +145,14 @@ export default function Checkout() {
             className="font-['Lato'] font-300 mb-6"
             style={{ fontSize: "1rem", color: "oklch(0.520 0.020 60)" }}
           >
-            購物車是空的，請先加入商品再結帳。
+            {t("checkout.emptyCart")}
           </p>
           <Link
             to="/"
             className="inline-block px-8 py-3 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300"
             style={{ background: accentGreen, color: "#FAFAF7" }}
           >
-            返回選購
+            {t("checkout.backToShop")}
           </Link>
         </main>
       </div>
@@ -172,19 +172,19 @@ export default function Checkout() {
               className="eyebrow block mb-3"
               style={{ color: accentGreen }}
             >
-              結帳
+              {t("checkout.badge")}
             </span>
             <h1
               className="font-['Playfair_Display'] font-400"
               style={{ fontSize: "clamp(2rem, 5vw, 3rem)", color: "oklch(0.265 0.015 55)" }}
             >
-              填寫訂購資料
+              {t("checkout.title")}
             </h1>
             <p
               className="font-['Lato'] font-300 mt-2"
               style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
             >
-              所有訂單均採貨到付款，請確認資料後送出。
+              {t("checkout.subtitle")}
             </p>
           </div>
 
@@ -202,20 +202,20 @@ export default function Checkout() {
                     className="font-['Lato'] font-600 text-sm tracking-[0.08em] uppercase mb-5"
                     style={{ color: "oklch(0.265 0.015 55)" }}
                   >
-                    客戶資料
+                    {t("checkout.customerInfo")}
                   </h2>
 
                   {/* Full name */}
                   <div className="mb-4">
                     <label htmlFor="fullName" className={labelBase} style={{ color: accentGreen }}>
-                      姓名 *
+                      {t("checkout.fullName")} *
                     </label>
                     <input
                       id="fullName"
                       type="text"
                       value={form.fullName}
                       onChange={(e) => set("fullName", e.target.value)}
-                      placeholder="例：陳小明"
+                      placeholder={t("checkout.fullNamePlaceholder")}
                       className={inputBase}
                       style={{ border: errors.fullName ? borderError : borderDefault }}
                       onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
@@ -227,13 +227,13 @@ export default function Checkout() {
                   {/* Gender */}
                   <div className="mb-4">
                     <label className={labelBase} style={{ color: accentGreen }}>
-                      性別 *
+                      {t("checkout.gender")} *
                     </label>
                     <div className="flex gap-3">
                       {([
-                        { value: "male", label: "先生" },
-                        { value: "female", label: "女士" },
-                        { value: "other", label: "其他" },
+                        { value: "male", label: t("checkout.genderMale") },
+                        { value: "female", label: t("checkout.genderFemale") },
+                        { value: "other", label: t("checkout.genderOther") },
                       ] as const).map((opt) => (
                         <button
                           key={opt.value}
@@ -256,14 +256,14 @@ export default function Checkout() {
                   {/* Phone */}
                   <div>
                     <label htmlFor="phone" className={labelBase} style={{ color: accentGreen }}>
-                      聯絡電話 *
+                      {t("checkout.phone")} *
                     </label>
                     <input
                       id="phone"
                       type="tel"
                       value={form.phone}
                       onChange={(e) => set("phone", e.target.value)}
-                      placeholder="例：0912-345-678"
+                      placeholder={t("checkout.phonePlaceholder")}
                       className={inputBase}
                       style={{ border: errors.phone ? borderError : borderDefault }}
                       onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
@@ -282,7 +282,7 @@ export default function Checkout() {
                     className="font-['Lato'] font-600 text-sm tracking-[0.08em] uppercase mb-5"
                     style={{ color: "oklch(0.265 0.015 55)" }}
                   >
-                    配送方式
+                    {t("checkout.deliveryMethod")}
                   </h2>
 
                   {/* Delivery method selector */}
@@ -290,13 +290,13 @@ export default function Checkout() {
                     {([
                       {
                         value: "home",
-                        title: "宅配（貨到付款）",
-                        desc: "送到您指定的地址，收貨時付款",
+                        title: t("checkout.deliveryHomeTitle"),
+                        desc: t("checkout.deliveryHomeDesc"),
                       },
                       {
                         value: "711",
-                        title: "7-11 店到店（貨到付款）",
-                        desc: "取貨時在門市付款，僅限 7-ELEVEN",
+                        title: t("checkout.delivery711Title"),
+                        desc: t("checkout.delivery711Desc"),
                       },
                     ] as const).map((opt) => (
                       <button
@@ -346,14 +346,14 @@ export default function Checkout() {
                   {form.deliveryMethod === "home" && (
                     <div className="mt-2">
                       <label htmlFor="address" className={labelBase} style={{ color: accentGreen }}>
-                        收件地址 *
+                        {t("checkout.address")} *
                       </label>
                       <input
                         id="address"
                         type="text"
                         value={form.address}
                         onChange={(e) => set("address", e.target.value)}
-                        placeholder="例：台北市中正區忠孝東路一段1號"
+                        placeholder={t("checkout.addressPlaceholder")}
                         className={inputBase}
                         style={{ border: errors.address ? borderError : borderDefault }}
                         onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
@@ -367,14 +367,14 @@ export default function Checkout() {
                   {form.deliveryMethod === "711" && (
                     <div className="mt-2">
                       <label htmlFor="storeCode" className={labelBase} style={{ color: accentGreen }}>
-                        7-11 門市名稱 *
+                        {t("checkout.storeCode")} *
                       </label>
                       <input
                         id="storeCode"
                         type="text"
                         value={form.storeCode}
                         onChange={(e) => set("storeCode", e.target.value)}
-                        placeholder="例：台北忠孝門市"
+                        placeholder={t("checkout.storeCodePlaceholder")}
                         className={inputBase}
                         style={{ border: errors.storeCode ? borderError : borderDefault }}
                         onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
@@ -384,7 +384,7 @@ export default function Checkout() {
                         className="text-xs font-['Lato'] font-300 mt-1"
                         style={{ color: "oklch(0.550 0.020 60)" }}
                       >
-                        請填寫您要取貨的 7-ELEVEN 門市全名，例如「台北忠孝門市」
+                        {t("checkout.storeCodeHelp")}
                       </p>
                       <FieldError msg={errors.storeCode} />
                     </div>
@@ -400,12 +400,12 @@ export default function Checkout() {
                     className="font-['Lato'] font-600 text-sm tracking-[0.08em] uppercase mb-4"
                     style={{ color: "oklch(0.265 0.015 55)" }}
                   >
-                    備註（選填）
+                    {t("checkout.note")}
                   </h2>
                   <textarea
                     value={form.note}
                     onChange={(e) => set("note", e.target.value)}
-                    placeholder="如有特殊需求或說明，請在此填寫"
+                    placeholder={t("checkout.notePlaceholder")}
                     rows={3}
                     className={`${inputBase} resize-none`}
                     style={{ border: borderDefault }}
@@ -430,7 +430,7 @@ export default function Checkout() {
                       className="font-['Lato'] font-600 text-sm tracking-[0.08em] uppercase"
                       style={{ color: "oklch(0.265 0.015 55)" }}
                     >
-                      訂單摘要
+                      {t("checkout.summary")}
                     </h3>
                   </div>
 
@@ -472,7 +472,7 @@ export default function Checkout() {
                   >
                     <div className="flex justify-between text-sm">
                       <span className="font-['Lato'] font-300" style={{ color: "oklch(0.520 0.020 60)" }}>
-                        小計
+                        {t("checkout.subtotal")}
                       </span>
                       <span className="font-['Lato'] font-400" style={{ color: "oklch(0.265 0.015 55)" }}>
                         {formatPrice(convertPrice(total))}
@@ -480,18 +480,18 @@ export default function Checkout() {
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="font-['Lato'] font-300" style={{ color: "oklch(0.520 0.020 60)" }}>
-                        運費
+                        {t("checkout.shipping")}
                       </span>
                       <span className="font-['Lato'] font-400" style={{ color: accentGreen }}>
-                        免費
+                        {t("checkout.shippingFree")}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="font-['Lato'] font-300" style={{ color: "oklch(0.520 0.020 60)" }}>
-                        付款方式
+                        {t("checkout.paymentMethod")}
                       </span>
                       <span className="font-['Lato'] font-400" style={{ color: "oklch(0.265 0.015 55)" }}>
-                        貨到付款
+                        {t("checkout.paymentCod")}
                       </span>
                     </div>
                     <div
@@ -499,7 +499,7 @@ export default function Checkout() {
                       style={{ borderTop: "1px solid oklch(0.870 0.018 130)" }}
                     >
                       <span className="font-['Lato'] font-600 text-sm" style={{ color: "oklch(0.265 0.015 55)" }}>
-                        總計
+                        {t("checkout.total")}
                       </span>
                       <span
                         className="font-['Playfair_Display'] font-400 text-xl"
@@ -525,13 +525,13 @@ export default function Checkout() {
                         (e.currentTarget as HTMLElement).style.opacity = "1";
                       }}
                     >
-                      {submitOrder.isPending ? "送出中…" : "確認送出訂單"}
+                      {submitOrder.isPending ? t("checkout.submitting") : t("checkout.submit")}
                     </button>
                     <p
                       className="text-xs font-['Lato'] font-300 text-center mt-3"
                       style={{ color: "oklch(0.550 0.020 60)" }}
                     >
-                      送出後我們將以電話或 Email 確認訂單
+                      {t("checkout.submitHint")}
                     </p>
                   </div>
                 </div>
@@ -543,7 +543,7 @@ export default function Checkout() {
                     className="text-xs font-['Lato'] font-400 tracking-[0.08em] transition-colors duration-300"
                     style={{ color: accentGreen }}
                   >
-                    ← 繼續選購
+                    {t("checkout.continueShopping")}
                   </Link>
                 </div>
               </div>
