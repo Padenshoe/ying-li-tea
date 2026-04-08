@@ -9,7 +9,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useCart } from "@/contexts/CartContext";
 import { Link, useLocation } from "wouter";
-import { Globe, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
@@ -93,8 +93,43 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Section: Language Toggle + Currency Toggle + Cart + Shop Now */}
+        {/* Right Section: Language Toggle + Cart + Shop Now */}
         <div className="flex items-center gap-3">
+          {/* Language Toggle Bar */}
+          <div
+            className="hidden sm:flex items-center rounded-full p-1 border"
+            style={{
+              borderColor: "oklch(0.870 0.018 130)",
+              background: "oklch(0.975 0.004 95)",
+            }}
+            aria-label="Language toggle"
+          >
+            <button
+              type="button"
+              onClick={() => setLanguage("zh")}
+              className="px-2.5 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
+              style={{
+                background:
+                  language === "zh" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: language === "zh" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
+              }}
+            >
+              中文
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage("en")}
+              className="px-2.5 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
+              style={{
+                background:
+                  language === "en" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: language === "en" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
+              }}
+            >
+              EN
+            </button>
+          </div>
+
           {/* Shopping Cart Icon */}
           <div className="relative">
             <button
@@ -259,6 +294,40 @@ export default function Navbar() {
         style={{ background: "oklch(0.990 0.004 95)" }}
       >
         <div className="px-4 md:px-6 py-6 flex flex-col gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
+          {/* Mobile language toggle */}
+          <div
+            className="flex items-center rounded-full p-1 border w-fit"
+            style={{
+              borderColor: "oklch(0.870 0.018 130)",
+              background: "oklch(0.975 0.004 95)",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setLanguage("zh")}
+              className="px-3 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
+              style={{
+                background:
+                  language === "zh" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: language === "zh" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
+              }}
+            >
+              中文
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage("en")}
+              className="px-3 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
+              style={{
+                background:
+                  language === "en" ? "oklch(0.500 0.060 145)" : "transparent",
+                color: language === "en" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
+              }}
+            >
+              EN
+            </button>
+          </div>
+
           {navLinks.map((link) => (
             <a
               key={link.href}
