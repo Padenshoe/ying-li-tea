@@ -6,7 +6,7 @@
 import { useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const ABOUT_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC02931_e578eeb9.webp";
+const ABOUT_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC02885_189c2d3e.jpg";
 
 export default function AboutSection() {
   const { t } = useLanguage();

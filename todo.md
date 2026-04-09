@@ -151,3 +151,14 @@
 - [x] 在 Home.tsx 中插入 BrewingSection（ProductsSection 和 WhySection 之間）
 - [x] 修復 Cart.tsx 登入攔截問題：移除 Stripe 流程和 auth 檢查，改為導向 /checkout
 - [x] TypeScript 零錯誤，37 個測試全部通過
+
+## 照片整合 (Completed)
+
+- [x] 審核 122 張照片，選出 12 張最佳照片
+- [x] 上傳 12 張照片至 CDN
+- [x] HeroSection：更換為 DSC02930（茶室全景，圓燈籠、木桌、亞麻天花板）
+- [x] AboutSection：更換為 DSC02885（私人茶室，長木桌，溫暖燈光）
+- [x] StorefrontSection：重新設計為照片牆（外觀招牌 + 3 張店內照片 + 說明文字）
+- [x] 新增 TeaExperienceSection：茶室體驗區塊（茶具照 + 茶點照 + 抹茶蛋糕 + 4 個特色標籤）
+- [x] 在 Home.tsx 中加入 TeaExperienceSection（位於 StorefrontSection 之後）
+- [x] TypeScript 零錯誤，37 個測試全部通過
