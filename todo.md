@@ -143,3 +143,11 @@
 - [x] 更新 Checkout.tsx：送出成功後導向 /order-confirmation（傳遞訂單資料）
 - [x] 在 App.tsx 中註冊 /order-confirmation 路由
 - [x] 所有 37 個測試通過（所 6 個測試檔案）
+
+## 沖泡教學影片 + 結帳登入修復 (Completed)
+
+- [x] 上傳熱泡和冷泡影片至 CDN
+- [x] 建立 BrewingSection 元件：兩欄並排（桌面）/上下堆疊（手機），各含影片、步驟說明
+- [x] 在 Home.tsx 中插入 BrewingSection（ProductsSection 和 WhySection 之間）
+- [x] 修復 Cart.tsx 登入攔截問題：移除 Stripe 流程和 auth 檢查，改為導向 /checkout
+- [x] TypeScript 零錯誤，37 個測試全部通過

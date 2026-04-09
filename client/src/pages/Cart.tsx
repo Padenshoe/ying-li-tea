@@ -3,6 +3,9 @@
  * Full cart display with item management and checkout
  */
 import { useCart } from "@/contexts/CartContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Link, useLocation } from "wouter";
 
 // Fallback map: product ID → nameKey for items stored before nameKey was added
 const PRODUCT_NAME_KEYS: Record<string, string> = {
@@ -13,50 +16,17 @@ const PRODUCT_NAME_KEYS: Record<string, string> = {
   "5": "product.specialty",
   "6": "product.loose",
 };
-import { useCurrency } from "@/contexts/CurrencyContext";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { trpc } from "@/lib/trpc";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { useState } from "react";
-import { Link } from "wouter";
 
 export default function Cart() {
   const { items, removeItem, updateQuantity, total, clearCart } = useCart();
   const { formatPrice, convertPrice } = useCurrency();
   const { language, t } = useLanguage();
-  const { isAuthenticated } = useAuth();
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const checkoutMutation = trpc.stripe.createCheckout.useMutation();
+  const [, navigate] = useLocation();
 
   const convertedTotal = convertPrice(total);
 
-  const handleCheckout = async () => {
-    if (!isAuthenticated) {
-      alert(language === "en" ? "Please log in to checkout" : "請登入以進行結帳");
-      return;
-    }
-
-    setIsCheckingOut(true);
-    try {
-      const response = await checkoutMutation.mutateAsync({
-        items: items.map((item) => ({
-          productId: parseInt(item.id),
-          quantity: item.quantity,
-          name: item.name,
-          price: item.price,
-        })),
-        origin: window.location.origin,
-      });
-
-      if (response.checkoutUrl) {
-        window.location.href = response.checkoutUrl;
-      }
-    } catch (error) {
-      console.error("Checkout error:", error);
-      alert(language === "en" ? "Checkout failed. Please try again." : "結帳失敗。請重試。");
-    } finally {
-      setIsCheckingOut(false);
-    }
+  const handleCheckout = () => {
+    navigate("/checkout");
   };
 
   return (
@@ -286,26 +256,19 @@ export default function Cart() {
                 {/* Checkout Button */}
                 <button
                   onClick={handleCheckout}
-                  disabled={isCheckingOut}
-                  className="w-full py-3 rounded font-['Lato'] font-600 transition-all duration-300 disabled:opacity-50"
+                  className="w-full py-3 rounded font-['Lato'] font-600 transition-all duration-300"
                   style={{
                     background: "oklch(0.500 0.060 145)",
                     color: "#FAFAF7",
                   }}
                   onMouseEnter={(e) => {
-                    if (!isCheckingOut) (e.currentTarget as HTMLElement).style.opacity = "0.9";
+                    (e.currentTarget as HTMLElement).style.opacity = "0.9";
                   }}
                   onMouseLeave={(e) => {
-                    if (!isCheckingOut) (e.currentTarget as HTMLElement).style.opacity = "1";
+                    (e.currentTarget as HTMLElement).style.opacity = "1";
                   }}
                 >
-                  {isCheckingOut
-                    ? language === "en"
-                      ? "Processing..."
-                      : "處理中..."
-                    : language === "en"
-                    ? "Proceed to Checkout"
-                    : "進行結帳"}
+                  {language === "en" ? "Proceed to Checkout" : "進行結帳"}
                 </button>
 
                 {/* Clear Cart */}
