@@ -162,3 +162,15 @@
 - [x] 新增 TeaExperienceSection：茶室體驗區塊（茶具照 + 茶點照 + 抹茶蛋糕 + 4 個特色標籤）
 - [x] 在 Home.tsx 中加入 TeaExperienceSection（位於 StorefrontSection 之後）
 - [x] TypeScript 零錯誤，37 個測試全部通過
+
+## 商品名稱/價格更新 + 運費邏輯 (Completed)
+
+- [x] 更新 ProductsSection：7 個正確商品名稱（茶包禮盒 NT$980、阿里山 NT$1,100、阿里山烘焙 NT$1,400、翠峰 NT$1,300、梨山 NT$950、福壽山 NT$1,750、杉林溪 NT$400）
+- [x] 所有商品改為直接 TWD 定價（不再用 USD 換算）
+- [x] 更新 LanguageContext EN/ZH 兩組翻譯 key（7 個商品）
+- [x] 更新商品圖片：茶包禮盒用真實照片，其他用茶葉/茶杯照片
+- [x] Checkout.tsx 加入運費邏輯：宅配滿 NT$2,000 免運，未滿 NT$130；7-11 店到店免運
+- [x] 結帳頁面即時顯示「還差 NT$X 免運」或「✓ 已達免運門檻」提示
+- [x] 訂單確認頁面顯示小計、運費、總計（含運費）
+- [x] 後端 order.ts 加入 shippingFee 欄位，email 通知顯示正確運費
+- [x] 所有 37 個測試通過（6 個測試檔案）

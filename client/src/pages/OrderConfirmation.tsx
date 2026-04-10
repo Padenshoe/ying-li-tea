@@ -23,6 +23,8 @@ interface OrderData {
     quantity: number;
     price: number;
   }>;
+  subtotal?: number;
+  shippingFee?: number;
   totalAmount: number;
 }
 
@@ -218,20 +220,20 @@ export default function OrderConfirmation() {
                   小計
                 </span>
                 <span className="font-['Lato'] font-400" style={{ color: "oklch(0.265 0.015 55)" }}>
-                  NT${orderData.totalAmount.toFixed(0)}
+                  NT${(orderData.subtotal ?? orderData.totalAmount).toFixed(0)}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="font-['Lato'] font-300" style={{ color: "oklch(0.520 0.020 60)" }}>
                   運費
                 </span>
-                <span className="font-['Lato'] font-400" style={{ color: accentGreen }}>
-                  免費
+                <span className="font-['Lato'] font-400" style={{ color: (orderData.shippingFee ?? 0) === 0 ? accentGreen : "oklch(0.265 0.015 55)" }}>
+                  {(orderData.shippingFee ?? 0) === 0 ? "免費" : `NT$${orderData.shippingFee}`}
                 </span>
               </div>
               <div className="flex justify-between pt-3 mt-1" style={{ borderTop: "1px solid oklch(0.870 0.018 130)" }}>
                 <span className="font-['Lato'] font-600 text-sm" style={{ color: "oklch(0.265 0.015 55)" }}>
-                  總計
+                  總計（貨到付款）
                 </span>
                 <span
                   className="font-['Playfair_Display'] font-400 text-xl"

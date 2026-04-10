@@ -42,6 +42,9 @@ function FieldError({ msg }: { msg?: string }) {
   );
 }
 
+const SHIPPING_THRESHOLD = 2000; // TWD
+const SHIPPING_FEE = 130; // TWD
+
 export default function Checkout() {
   const { items, total, clearCart } = useCart();
   const { t } = useLanguage();
@@ -60,6 +63,14 @@ export default function Checkout() {
   const [errors, setErrors] = useState<FormErrors>({});
 
   const submitOrder = trpc.order.submitOrder.useMutation();
+
+  // Shipping fee: 7-11 always free; home delivery free if total >= NT$2000
+  const shippingFee = (deliveryMethod: string) => {
+    if (deliveryMethod === "711") return 0;
+    return total >= SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  };
+  const currentShipping = shippingFee(form.deliveryMethod);
+  const grandTotal = total + currentShipping;
 
   // ── Validation ────────────────────────────────────────────────────────────
   function validate(): boolean {
@@ -102,7 +113,8 @@ export default function Checkout() {
           quantity: item.quantity,
           image: item.image,
         })),
-        totalAmount: total,
+        totalAmount: grandTotal,
+        shippingFee: currentShipping,
       });
 
       // Navigate to confirmation page with order data
@@ -118,7 +130,9 @@ export default function Checkout() {
           quantity: item.quantity,
           price: item.price,
         })),
-        totalAmount: total,
+        subtotal: total,
+        shippingFee: currentShipping,
+        totalAmount: grandTotal,
       };
       const encodedData = encodeURIComponent(JSON.stringify(confirmationData));
       navigate(`/order-confirmation?orderId=${result.orderId}&method=${form.deliveryMethod}&data=${encodedData}`);
@@ -482,10 +496,22 @@ export default function Checkout() {
                       <span className="font-['Lato'] font-300" style={{ color: "oklch(0.520 0.020 60)" }}>
                         {t("checkout.shipping")}
                       </span>
-                      <span className="font-['Lato'] font-400" style={{ color: accentGreen }}>
-                        {t("checkout.shippingFree")}
+                      <span className="font-['Lato'] font-400" style={{ color: currentShipping === 0 ? accentGreen : "oklch(0.265 0.015 55)" }}>
+                        {currentShipping === 0
+                          ? t("checkout.shippingFree")
+                          : `NT$${currentShipping}`}
                       </span>
                     </div>
+                    {form.deliveryMethod === "home" && total < 2000 && (
+                      <p className="text-xs font-['Lato'] font-300" style={{ color: "oklch(0.550 0.020 60)" }}>
+                        滿 NT$2,000 免運（還差 NT${(2000 - total).toLocaleString()}）
+                      </p>
+                    )}
+                    {form.deliveryMethod === "home" && total >= 2000 && (
+                      <p className="text-xs font-['Lato'] font-300" style={{ color: accentGreen }}>
+                        ✓ 已達免運門溻！
+                      </p>
+                    )}
                     <div className="flex justify-between text-sm">
                       <span className="font-['Lato'] font-300" style={{ color: "oklch(0.520 0.020 60)" }}>
                         {t("checkout.paymentMethod")}
@@ -505,7 +531,7 @@ export default function Checkout() {
                         className="font-['Playfair_Display'] font-400 text-xl"
                         style={{ color: accentGreen }}
                       >
-                        {formatPrice(convertPrice(total))}
+                        NT${grandTotal.toLocaleString()}
                       </span>
                     </div>
                   </div>

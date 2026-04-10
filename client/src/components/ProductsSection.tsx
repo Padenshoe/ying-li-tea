@@ -10,16 +10,19 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
-const COLD_BREW_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-cold-brew-agse5jexCShDqGcKJ96SoK.webp";
-const TEA_BAGS_IMG  = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-tea-bags-BQ6hFsR5su8dVrfZPRo3ZW.webp";
+const TEA_BAGS_IMG   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒1_94ff1fac.jpg";
+const TEA_LEAVES_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03035_d872272f.jpg";
+const TEA_CUP_IMG    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03057_345e1efd.jpg";
 
+// All prices in TWD
 const products = [
-  { id: 1, nameKey: "product.premium",   tagKey: "product.premiumTag",   descKey: "product.premiumDesc",   priceUSD: 280, image: COLD_BREW_IMG },
-  { id: 2, nameKey: "product.coldBrew",  tagKey: "product.coldBrewTag",  descKey: "product.coldBrewDesc",  priceUSD: 120, image: TEA_BAGS_IMG  },
-  { id: 3, nameKey: "product.entry",     tagKey: "product.entryTag",     descKey: "product.entryDesc",     priceUSD: 80,  image: COLD_BREW_IMG },
-  { id: 4, nameKey: "product.gift",      tagKey: "product.giftTag",      descKey: "product.giftDesc",      priceUSD: 380, image: TEA_BAGS_IMG  },
-  { id: 5, nameKey: "product.specialty", tagKey: "product.specialtyTag", descKey: "product.specialtyDesc", priceUSD: 200, image: COLD_BREW_IMG },
-  { id: 6, nameKey: "product.loose",     tagKey: "product.looseTag",     descKey: "product.looseDesc",     priceUSD: 150, image: TEA_BAGS_IMG  },
+  { id: 1, nameKey: "product.teaBagGiftBox",  tagKey: "product.teaBagGiftBoxTag",  descKey: "product.teaBagGiftBoxDesc",  priceTWD: 980,  image: TEA_BAGS_IMG   },
+  { id: 2, nameKey: "product.alishan",         tagKey: "product.alishanTag",         descKey: "product.alishanDesc",         priceTWD: 1100, image: TEA_LEAVES_IMG },
+  { id: 3, nameKey: "product.alishanRoasted",  tagKey: "product.alishanRoastedTag",  descKey: "product.alishanRoastedDesc",  priceTWD: 1400, image: TEA_CUP_IMG    },
+  { id: 4, nameKey: "product.cuifeng",         tagKey: "product.cuifengTag",         descKey: "product.cuifengDesc",         priceTWD: 1300, image: TEA_LEAVES_IMG },
+  { id: 5, nameKey: "product.lishan",          tagKey: "product.lishanTag",          descKey: "product.lishanDesc",          priceTWD: 950,  image: TEA_CUP_IMG    },
+  { id: 6, nameKey: "product.fushoushan",      tagKey: "product.fushoushanTag",      descKey: "product.fushoushanDesc",      priceTWD: 1750, image: TEA_LEAVES_IMG },
+  { id: 7, nameKey: "product.shanlinxi",       tagKey: "product.shanlinxiTag",       descKey: "product.shanlinxiDesc",       priceTWD: 400,  image: TEA_CUP_IMG    },
 ];
 
 export default function ProductsSection() {
@@ -72,7 +75,7 @@ export default function ProductsSection() {
       id: product.id.toString(),
       name: t(product.nameKey),
       nameKey: product.nameKey,  // Store key for re-translation
-      price: product.priceUSD,
+      price: product.priceTWD,
       quantity: 1,
       image: product.image,
     });
@@ -281,9 +284,7 @@ export default function ProductsSection() {
                       className="font-['Playfair_Display'] font-400"
                       style={{ fontSize: "1rem", color: "oklch(0.265 0.015 55)" }}
                     >
-                      {currency === "TWD"
-                        ? `NT$${Math.round(product.priceUSD * 32)}`
-                        : `$${product.priceUSD}`}
+                      {`NT$${product.priceTWD.toLocaleString()}`}
                     </span>
                     <button
                       onClick={() => handleAddToCart(product)}

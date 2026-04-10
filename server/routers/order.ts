@@ -35,6 +35,7 @@ export const orderRouter = router({
         note: z.string().max(500).optional(),
         items: z.array(cartItemSchema).min(1, "購物車不能為空"),
         totalAmount: z.number().positive(),
+        shippingFee: z.number().min(0).optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -94,6 +95,10 @@ export const orderRouter = router({
           ? `收件地址：${input.address}`
           : `7-11 門市：${input.storeCode}`;
 
+      const shippingFee = input.shippingFee ?? 0;
+      const subtotal = input.totalAmount - shippingFee;
+      const shippingLabel = shippingFee === 0 ? "免費" : `NT$${shippingFee}`;
+
       const itemLines = input.items
         .map(
           (item) =>
@@ -120,8 +125,8 @@ ${input.note ? `備註：${input.note}` : ""}
 ── 訂購商品 ──────────────────
 ${itemLines}
 
-小計：NT$${input.totalAmount.toFixed(0)}
-運費：免費
+小計：NT$${subtotal.toFixed(0)}
+運費：${shippingLabel}
 總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）
 
 ═══════════════════════════════
