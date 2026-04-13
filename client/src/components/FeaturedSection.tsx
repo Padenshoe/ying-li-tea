@@ -1,29 +1,38 @@
 /*
  * YING-LI TEA — FEATURED PRODUCT SECTION
- * Design: Full-width asymmetric layout. Rotating gift box carousel left, text right.
- * Cream background. Highlights Tea Gift Box as the hero product.
+ * Design: Full-width asymmetric layout. 360° rotating gift box animation left, text right.
+ * Uses two images alternating with CSS 3D perspective to simulate a slow 360° rotation.
  */
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "wouter";
 
-const GIFT_BOX_IMAGES = [
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒1_f7114db0.jpg",
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒2_6c03d7a5.jpg",
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包封面_0c270434.jpg",
-];
+const BOX_IMG_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/teabox-angle1_3a6fa94f.jpg";
+const BOX_IMG_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/teabox-angle2_79a47807.jpg";
 
 export default function FeaturedSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { t } = useLanguage();
+  const [, navigate] = useLocation();
+  const [rotY, setRotY] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number | null>(null);
 
-  // Auto-rotate images every 4 seconds
+  // Smooth continuous rotation: 360° every 8 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % GIFT_BOX_IMAGES.length);
-    }, 4000);
-    return () => clearInterval(interval);
+    const speed = 360 / 8000; // degrees per ms
+    const animate = (timestamp: number) => {
+      if (lastTimeRef.current !== null) {
+        const delta = timestamp - lastTimeRef.current;
+        setRotY((prev) => (prev + speed * delta) % 360);
+      }
+      lastTimeRef.current = timestamp;
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -43,7 +52,18 @@ export default function FeaturedSection() {
     return () => observer.disconnect();
   }, []);
 
-  const [, navigate] = useLocation();
+  // Determine which face to show and its opacity based on rotation angle
+  // Front face (img1): visible when rotY is 0–90 or 270–360
+  // Back face (img2): visible when rotY is 90–270
+  // We use two images with scaleX transform to simulate 3D rotation
+  const normalizedRot = ((rotY % 360) + 360) % 360;
+
+  // Compute apparent scaleX: cos(rotY in radians)
+  const cosVal = Math.cos((normalizedRot * Math.PI) / 180);
+  const scaleX = Math.abs(cosVal);
+  // Which image to show: img1 when cosVal >= 0, img2 when cosVal < 0
+  const showImg1 = cosVal >= 0;
+  const currentImg = showImg1 ? BOX_IMG_1 : BOX_IMG_2;
 
   return (
     <section
@@ -52,44 +72,54 @@ export default function FeaturedSection() {
       style={{ background: "oklch(0.990 0.004 95)" }}
     >
       <div className="grid md:grid-cols-2 min-h-[650px] md:min-h-[780px]">
-        {/* Image Carousel — Left */}
-        <div className="relative overflow-hidden flex items-center justify-center" style={{ minHeight: "480px", background: "#F5F1E8" }}>
-          <div className="relative w-full h-full flex items-center justify-center">
-            {/* Images with fade transition */}
-            {GIFT_BOX_IMAGES.map((img, idx) => (
-              <img
-                key={idx}
-                src={img}
-                alt={`Tea Gift Box - View ${idx + 1}`}
-                className="absolute w-[95%] h-auto object-contain transition-opacity duration-1000"
-                style={{
-                  maxHeight: "90%",
-                  opacity: idx === currentImageIndex ? 1 : 0,
-                  pointerEvents: idx === currentImageIndex ? "auto" : "none",
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Carousel Indicators */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-            {GIFT_BOX_IMAGES.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentImageIndex(idx)}
-                className="w-2 h-2 rounded-full transition-all duration-300"
-                style={{
-                  background: idx === currentImageIndex ? "oklch(0.500 0.060 145)" : "oklch(0.800 0.020 95)",
-                }}
-                aria-label={`View image ${idx + 1}`}
-              />
-            ))}
+        {/* 360° Rotating Box — Left */}
+        <div
+          className="relative overflow-hidden flex items-center justify-center"
+          style={{ minHeight: "480px", background: "#F5F1E8" }}
+        >
+          <div
+            className="relative flex items-center justify-center"
+            style={{ width: "85%", maxWidth: "480px" }}
+          >
+            {/* Shadow under box */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-12px",
+                left: "50%",
+                transform: `translateX(-50%) scaleX(${0.6 + scaleX * 0.4})`,
+                width: "70%",
+                height: "18px",
+                borderRadius: "50%",
+                background: "radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)",
+                transition: "none",
+              }}
+            />
+            <img
+              src={currentImg}
+              alt="阿里山茶包禮盒"
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "contain",
+                transform: `scaleX(${scaleX})`,
+                transition: "none",
+                display: "block",
+                userSelect: "none",
+                pointerEvents: "none",
+              }}
+              draggable={false}
+            />
           </div>
 
           {/* Subtle overlay */}
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(to right, transparent 70%, oklch(0.990 0.004 95) 100%)" }}
+            style={{
+              background:
+                "linear-gradient(to right, transparent 70%, oklch(0.990 0.004 95) 100%)",
+              pointerEvents: "none",
+            }}
           />
         </div>
 
@@ -128,7 +158,11 @@ export default function FeaturedSection() {
               { label: t("featured.origin"), value: t("featured.taiwan") },
               { label: t("featured.perfectFor"), value: t("featured.gifting") },
             ].map((detail) => (
-              <div key={detail.label} className="flex flex-col gap-1 border-l pl-4" style={{ borderColor: "oklch(0.870 0.018 130)" }}>
+              <div
+                key={detail.label}
+                className="flex flex-col gap-1 border-l pl-4"
+                style={{ borderColor: "oklch(0.870 0.018 130)" }}
+              >
                 <span className="eyebrow" style={{ color: "oklch(0.500 0.060 145)" }}>
                   {detail.label}
                 </span>

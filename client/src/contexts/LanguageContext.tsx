@@ -199,10 +199,10 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Featured Section
     "featured.label": "精選商品",
-    "featured.title": "高級茶葉禮盒",
-    "featured.description": "精美包裝的台灣烏龍茶禮盒組合，完美適合分享或送禮。每個禮盒都包含來自我們最優質產區的精選茶葉 — 是介紹他人認識台灣茶文化藝術的絕佳方式。",
-    "featured.format": "包裝",
-    "featured.giftBox": "60入包裝",
+    "featured.title": "高級阿里山茶包禮盒",
+    "featured.description": "茶包禮盒送禮首選。茶包均選用阿里山一心二葉的茶葉，經傳統烘焙方式保留傳統的特色，結合現代泡茶風格，讓每一口都是高山茶的原汁原味。",
+    "featured.format": "包裝形式",
+    "featured.giftBox": "60入真空包裝",
     "featured.origin": "產地",
     "featured.taiwan": "台灣",
     "featured.perfectFor": "適合",
@@ -219,7 +219,7 @@ const translations: Record<Language, Record<string, string>> = {
     "about.range": "海拔範圍",
     "about.rangeValue": "全海拔",
     "about.formats": "茶葉形式",
-    "about.formatsValue": "散茶與冷泡茶",
+    "about.formatsValue": "真空包裝茶葉",
 
     // Storefront Section
     "storefront.title": "我們的門市",
@@ -240,7 +240,7 @@ const translations: Record<Language, Record<string, string>> = {
     "products.label": "我們的收藏",
     "products.title": "台灣烏龍茶",
     "products.titleEmph": "適合每一種口味",
-    "products.description": "從入門級到高級，所有海拔高度，全部經過官方認證。散茶、冷泡茶和禮盒組合。",
+    "products.description": "從入門級到高級，所有海拔高度，全部經過官方認證。真空包裝茶葉、冷泡茶和禮盒組合。",
     "products.addToCart": "加入購物車",
 
     // Product names and descriptions
@@ -278,7 +278,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q1": "迎利有什麼不同之處？",
     "faq.a1": "我們專門提供來自六個著名產區的高級台灣烏龍茶。所有茶葉都經過官方認證，並採用百年傳統製茶方法製作。",
      "faq.q2": "如何沖泡迎利茶？",
-    "faq.a2": "熱泡：茶葉與水比例 1:18，建議水溫 90–95°C，浸泡 60–80 秒，可回沖多次，越泡越顯茶香。\n\n冷泡：將茶葉放入冷水中，置於冰箱冷藏 6–8 小時，清甜順口，奶香更加細致，夏日首選。",
+    "faq.a2": "熱泡：茶葉與水比例 1:18，建議水溫 90–95°C，浸泡 60–80 秒，可回沖多次，越泡越顯茶香。\n\n冷泡：將茶葉放入冷水中，置於冰箱冷藏 6–8 小時，清甜順口，茶香更加細致，夏日首選。",
     "faq.q3": "你們的茶是有機的嗎？",
     "faq.a3": "我們的茶葉經過官方認證，來自台灣高級茶葉產區的信譽良好的種植者。我們優先考慮品質和真實性。",
     "faq.q4": "你們提供國際運送嗎？",
