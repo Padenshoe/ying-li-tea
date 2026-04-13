@@ -105,60 +105,76 @@ const QUESTIONS: Question[] = [
 ];
 
 // ─── Recommendation logic ────────────────────────────────────────────────────
+// Priority order:
+// 1. 香氣 → 烘焙茶 (overrides everything)
+// 2. 幾乎沒在喝茶 → 阿里山
+// 3. 濃厚 → 春茶
+// 4. 清淡 → 冬茶 / 重口味 → 春茶
+// 5. 回甘 → 春茶 / 滑順 → 冬茶
+// 6. 頻率越高 → 越貴款（福壽山 > 梨山 > 翠峰 > 阿里山 > 杉林溪）
 function recommend(answers: Record<number, string>): RecommendedProduct {
   const taste = answers[1];       // heavy / medium / light
   const frequency = answers[2];   // daily / weekly / monthly / rarely
   const texture = answers[3];     // aftertaste / smooth / aroma
-  const drink = answers[4];       // unsweetened / bubble_tea / coffee / none
+  // answers[4] drink preference is secondary context
   const flavor = answers[5];      // milky / floral / rich
 
-  // Roasted tea: coffee drinkers or rich flavor preference
-  if (drink === "coffee" || flavor === "rich") {
+  // Rule 1: 香氣 → 一律烘焙茶
+  if (texture === "aroma") {
     return ALL_PRODUCTS.find((p) => p.id === "RO1")!;
   }
 
-  // Milky flavor → Alishan (奶香)
-  if (flavor === "milky") {
-    if (taste === "heavy" || texture === "aftertaste") return ALL_PRODUCTS.find((p) => p.id === "A01")!;
-    return ALL_PRODUCTS.find((p) => p.id === "A02")!;
+  // Rule 2: 幾乎沒在喝茶 → 阿里山（依口味選春/冬）
+  if (frequency === "rarely") {
+    if (taste === "heavy" || texture === "aftertaste" || flavor === "rich") {
+      return ALL_PRODUCTS.find((p) => p.id === "A01")!; // 阿里山春茶
+    }
+    return ALL_PRODUCTS.find((p) => p.id === "A02")!; // 阿里山冬茶
   }
 
-  // Beginners / rarely drink tea → lighter options
-  if (frequency === "rarely" || drink === "none") {
-    if (texture === "smooth") return ALL_PRODUCTS.find((p) => p.id === "S02")!;
-    return ALL_PRODUCTS.find((p) => p.id === "R02")!;
+  // Rule 3: 濃厚 → 春茶（依頻率選等級）
+  if (flavor === "rich") {
+    if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;   // 福壽山春茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;  // 梨山春茶
+    return ALL_PRODUCTS.find((p) => p.id === "R01")!; // 翠峰春茶
   }
 
-  // Bubble tea drinkers → something approachable
-  if (drink === "bubble_tea") {
-    if (flavor === "floral") return ALL_PRODUCTS.find((p) => p.id === "L02")!;
-    return ALL_PRODUCTS.find((p) => p.id === "A01")!;
+  // Rule 4a: 清淡 → 冬茶（依頻率選等級）
+  if (taste === "light") {
+    if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D02")!;   // 福壽山冬茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L02")!;  // 梨山冬茶
+    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R02")!; // 翠峰冬茶
+    return ALL_PRODUCTS.find((p) => p.id === "A02")!; // 阿里山冬茶（monthly fallback）
   }
 
-  // Heavy taste + aftertaste → bold spring teas
-  if (taste === "heavy" && texture === "aftertaste") {
-    if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;
-    return ALL_PRODUCTS.find((p) => p.id === "R01")!;
+  // Rule 4b: 重口味 → 春茶（依頻率選等級）
+  if (taste === "heavy") {
+    if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;   // 福壽山春茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;  // 梨山春茶
+    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R01")!; // 翠峰春茶
+    return ALL_PRODUCTS.find((p) => p.id === "A01")!; // 阿里山春茶
   }
 
-  // Light taste + smooth → winter teas
-  if (taste === "light" && texture === "smooth") {
-    return ALL_PRODUCTS.find((p) => p.id === "L02")!;
+  // Rule 5a: 回甘 → 春茶（依頻率選等級）
+  if (texture === "aftertaste") {
+    if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;   // 福壽山春茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;  // 梨山春茶
+    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R01")!; // 翠峰春茶
+    return ALL_PRODUCTS.find((p) => p.id === "A01")!; // 阿里山春茶
   }
 
-  // Aroma lovers → floral winter teas
-  if (texture === "aroma" && flavor === "floral") {
-    if (taste === "light") return ALL_PRODUCTS.find((p) => p.id === "D02")!;
-    return ALL_PRODUCTS.find((p) => p.id === "R02")!;
+  // Rule 5b: 滑順 → 冬茶（依頻率選等級）
+  if (texture === "smooth") {
+    if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D02")!;   // 福壽山冬茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L02")!;  // 梨山冬茶
+    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R02")!; // 翠峰冬茶
+    return ALL_PRODUCTS.find((p) => p.id === "A02")!; // 阿里山冬茶
   }
 
-  // Medium taste, daily drinkers → Lishan spring (balanced)
-  if (taste === "medium" && frequency === "daily") {
-    return ALL_PRODUCTS.find((p) => p.id === "L01")!;
-  }
-
-  // Default fallback: Alishan winter (crowd pleaser)
-  return ALL_PRODUCTS.find((p) => p.id === "A02")!;
+  // Default: medium taste → 依頻率選等級，春冬各半
+  if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;
+  if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;
+  return ALL_PRODUCTS.find((p) => p.id === "A02")!; // 阿里山冬茶 fallback
 }
 
 // ─── Season badge colors ─────────────────────────────────────────────────────

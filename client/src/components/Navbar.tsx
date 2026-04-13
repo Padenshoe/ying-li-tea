@@ -46,11 +46,23 @@ export default function Navbar() {
     { label: t("nav.faq"), href: "#faq", type: "anchor" },
   ];
 
+  const [location] = useLocation();
+  const isHome = location === "/" || location === "";
+
   const scrollTo = (href: string) => {
     setMenuOpen(false);
     setCartOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (!isHome) {
+      // Navigate to home first, then scroll after page loads
+      navigate("/");
+      setTimeout(() => {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    } else {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -67,7 +79,7 @@ export default function Navbar() {
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Brand Logo */}
         <a
-          href="#home"
+          href="/"
           onClick={(e) => { e.preventDefault(); scrollTo("#home"); }}
           className="flex items-center gap-2 group"
         >
