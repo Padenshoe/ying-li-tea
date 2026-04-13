@@ -201,12 +201,12 @@ const translations: Record<Language, Record<string, string>> = {
     "featured.label": "精選商品",
     "featured.title": "高級茶葉禮盒",
     "featured.description": "精美包裝的台灣烏龍茶禮盒組合，完美適合分享或送禮。每個禮盒都包含來自我們最優質產區的精選茶葉 — 是介紹他人認識台灣茶文化藝術的絕佳方式。",
-    "featured.format": "格式",
-    "featured.giftBox": "禮盒",
+    "featured.format": "包裝",
+    "featured.giftBox": "60入包裝",
     "featured.origin": "產地",
     "featured.taiwan": "台灣",
     "featured.perfectFor": "適合",
-    "featured.gifting": "送禮",
+    "featured.gifting": "自用及送禮",
 
     // About Section
     "about.title": "關於迎利",

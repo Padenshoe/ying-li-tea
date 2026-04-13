@@ -1,8 +1,7 @@
 /*
  * YING-LI TEA — NAVBAR COMPONENT
  * Design: Zen Modernism — minimal, transparent on hero, frosted on scroll
- * Colors: warm white bg, charcoal text, moss green accent
- * Now includes Logo image with text, language toggle, currency toggle, and shopping cart
+ * All nav links (首頁/關於/精選商品/專屬選茶/常見問題) are in the same row as the logo.
  */
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -53,7 +52,6 @@ export default function Navbar() {
     setMenuOpen(false);
     setCartOpen(false);
     if (!isHome) {
-      // Navigate to home first, then scroll after page loads
       navigate("/");
       setTimeout(() => {
         const el = document.querySelector(href);
@@ -76,12 +74,13 @@ export default function Navbar() {
           : "bg-white"
       }`}
     >
-      <div className="container flex items-center justify-between h-16 md:h-20">
+      {/* Single row: Logo + Nav Links + Right Controls */}
+      <div className="container flex items-center h-16 md:h-20 gap-6">
         {/* Brand Logo */}
         <a
           href="/"
           onClick={(e) => { e.preventDefault(); scrollTo("#home"); }}
-          className="flex items-center gap-2 group"
+          className="flex items-center gap-2 group flex-shrink-0"
         >
           <img
             src={LOGO}
@@ -90,8 +89,8 @@ export default function Navbar() {
           />
         </a>
 
-        {/* Desktop Nav Links */}
-        <ul className="hidden md:flex items-center gap-8">
+        {/* Desktop Nav Links — inline with logo */}
+        <ul className="hidden md:flex items-center gap-6 flex-1">
           {navLinks.map((link) => (
             <li key={link.href}>
               {link.type === "route" ? (
@@ -116,8 +115,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Section: Language Toggle + Cart + Shop Now */}
-        <div className="flex items-center gap-3">
+        {/* Right Section: Language Toggle + Cart */}
+        <div className="flex items-center gap-3 ml-auto">
           {/* Language Toggle Bar */}
           <div
             className="hidden sm:flex items-center rounded-full p-1 border"
@@ -171,7 +170,7 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Cart Dropdown — fixed on mobile so it never overflows viewport */}
+            {/* Cart Dropdown */}
             {cartOpen && (
               <div
                 className="rounded-lg shadow-lg p-4 z-50"
@@ -196,7 +195,6 @@ export default function Navbar() {
                     <div className="space-y-3 mb-4 max-h-72 overflow-y-auto">
                       {items.map((item) => (
                         <div key={item.id} className="flex gap-3 items-start" style={{ borderBottom: "1px solid oklch(0.870 0.018 130)", paddingBottom: "0.75rem" }}>
-                          {/* Product Image */}
                           {item.image && (
                             <img
                               src={item.image}
@@ -204,8 +202,6 @@ export default function Navbar() {
                               className="w-16 h-16 object-cover rounded"
                             />
                           )}
-                          
-                          {/* Product Details */}
                           <div className="flex-1 min-w-0">
                             <p className="font-['Lato'] font-500 text-sm truncate" style={{ color: "oklch(0.265 0.015 55)" }}>
                               {t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}
@@ -217,8 +213,6 @@ export default function Navbar() {
                               {formatPrice(convertPrice(item.price * item.quantity))}
                             </p>
                           </div>
-
-                          {/* Remove Button */}
                           <button
                             onClick={() => removeItem(item.id)}
                             className="text-xs px-2 py-1 rounded hover:bg-red-50 transition-colors flex-shrink-0"
@@ -265,27 +259,6 @@ export default function Navbar() {
               </div>
             )}
           </div>
-
-          {/* Desktop CTA */}
-          <a
-            href="#products"
-            onClick={(e) => { e.preventDefault(); scrollTo("#products"); }}
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2 text-xs font-['Lato'] font-400 tracking-[0.15em] uppercase transition-all duration-300 border"
-            style={{
-              color: "oklch(0.500 0.060 145)",
-              borderColor: "oklch(0.500 0.060 145)",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "oklch(0.500 0.060 145)";
-              (e.currentTarget as HTMLElement).style.color = "#FAFAF7";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.060 145)";
-            }}
-          >
-            {t("nav.shopNow")}
-          </a>
 
           {/* Mobile Hamburger */}
           <button
@@ -380,17 +353,6 @@ export default function Navbar() {
               </a>
             )
           ))}
-          <a
-            href="#products"
-            onClick={(e) => { e.preventDefault(); scrollTo("#products"); }}
-            className="mt-4 w-full flex items-center justify-center px-5 py-3 text-xs font-['Lato'] tracking-[0.15em] uppercase border rounded"
-            style={{
-              color: "oklch(0.500 0.060 145)",
-              borderColor: "oklch(0.500 0.060 145)",
-            }}
-          >
-            {t("nav.shopNow")}
-          </a>
         </div>
       </div>
     </nav>

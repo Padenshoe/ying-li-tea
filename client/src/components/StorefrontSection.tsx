@@ -82,32 +82,16 @@ export default function StorefrontSection() {
               alt="迎利茶夜間外觀"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             />
-            <div
-              className="absolute bottom-0 left-0 right-0 p-6"
-              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%)" }}
-            >
-              <p
-                className="font-['Playfair_Display'] font-400 text-lg"
-                style={{ color: "#FAFAF7" }}
-              >
-                茶葉選購 · 現泡品茶
-              </p>
-              <p
-                className="font-['Lato'] font-300 text-sm mt-1"
-                style={{ color: "rgba(250,250,247,0.8)" }}
-              >
-                迎利 Ying-Li Tea
-              </p>
-            </div>
+
           </div>
 
           {/* Right: 2×2 grid of interior photos */}
           <div className="grid grid-cols-2 gap-4 md:gap-5">
             {[
-              { src: INTERIOR_PRIVATE, alt: "迎利茶室包廂", caption: "私人包廂" },
-              { src: INTERIOR_HALL, alt: "迎利茶室大廳", caption: "茶室大廳" },
-              { src: TEA_SNACKS, alt: "迎利品茶茶點", caption: "品茶茶點" },
-              { src: YINGLI_MUG, alt: "迎利品牌茶杯", caption: "品牌茶具" },
+              { src: INTERIOR_PRIVATE, alt: "迎利茶室包廂" },
+              { src: INTERIOR_HALL, alt: "迎利茶室大廳" },
+              { src: TEA_SNACKS, alt: "迎利品茶茶點" },
+              { src: YINGLI_MUG, alt: "迎利品牌茶杯" },
             ].map((photo, i) => (
               <div
                 key={i}
@@ -119,17 +103,6 @@ export default function StorefrontSection() {
                   alt={photo.alt}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
-                <div
-                  className="absolute bottom-0 left-0 right-0 px-3 py-2"
-                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)" }}
-                >
-                  <p
-                    className="font-['Lato'] font-300 text-xs"
-                    style={{ color: "rgba(250,250,247,0.9)" }}
-                  >
-                    {photo.caption}
-                  </p>
-                </div>
               </div>
             ))}
           </div>

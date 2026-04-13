@@ -5,6 +5,7 @@
  */
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocation } from "wouter";
 
 const GIFT_BOX_IMAGES = [
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒1_f7114db0.jpg",
@@ -42,10 +43,7 @@ export default function FeaturedSection() {
     return () => observer.disconnect();
   }, []);
 
-  const scrollTo = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  const [, navigate] = useLocation();
 
   return (
     <section
@@ -147,7 +145,7 @@ export default function FeaturedSection() {
           {/* CTA */}
           <div className="flex gap-4 reveal">
             <button
-              onClick={() => scrollTo("#products")}
+              onClick={() => navigate("/products")}
               className="px-7 py-3 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300"
               style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}
               onMouseEnter={(e) => {
