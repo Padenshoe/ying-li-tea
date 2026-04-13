@@ -121,7 +121,7 @@ export default function FaqSection() {
                   style={{ maxHeight: openIndex === idx ? "300px" : "0" }}
                 >
                   <p
-                    className="font-['Lato'] font-300 leading-loose pb-6"
+                    className="font-['Lato'] font-300 leading-loose pb-6 whitespace-pre-line"
                     style={{ fontSize: "0.9375rem", color: "oklch(0.520 0.020 60)" }}
                   >
                     {t(faq.aKey)}

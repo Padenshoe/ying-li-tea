@@ -5,12 +5,14 @@
  * Logo positioned prominently in the center.
  */
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocation } from "wouter";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC02930_c7fa2925.jpg";
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function HeroSection() {
   const { t } = useLanguage();
+  const [, navigate] = useLocation();
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -96,7 +98,7 @@ export default function HeroSection() {
           style={{ opacity: 0, animation: "fadeInUp 0.9s ease-out 0.9s forwards" }}
         >
           <button
-            onClick={() => scrollTo("#products")}
+            onClick={() => navigate("/products")}
             className="px-8 py-3.5 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300"
             style={{
               background: "oklch(0.500 0.060 145)",

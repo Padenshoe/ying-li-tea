@@ -1,18 +1,26 @@
 /*
  * YING-LI TEA — STOREFRONT SECTION
  * Design: Photo gallery grid showcasing the physical tea shop.
- * Left: large exterior sign photo + text overlay
+ * Left: large exterior night shot (DSC03078) + text overlay
  * Right: 2x2 grid of interior photos
  */
 import { useEffect, useRef } from "react";
+import { useLocation } from "wouter";
 
-const EXTERIOR_SIGN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03071_8de47b67.jpg";
-const INTERIOR_COUNTER_DAY = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC02971_a5b35621.jpg";
-const INTERIOR_COUNTER_NIGHT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03005_585dd919.jpg";
-const INTERIOR_FULL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03113_53d08a45.jpg";
+// Photo 2: DSC03078 — exterior night shot (main)
+const EXTERIOR_MAIN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03078_4b4719c5.webp";
+// Photo 3: DSC02964 — interior private room
+const INTERIOR_PRIVATE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC02964_5f8c68f4.webp";
+// Photo 4: DSC02966 — interior full hall
+const INTERIOR_HALL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC02966_97b08e16.webp";
+// Photo 5: DSC03059 — tea with snacks
+const TEA_SNACKS = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03059_cec64705.webp";
+// Photo 6: DSC03065 — 迎利 mug close-up
+const YINGLI_MUG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03065_3d7982e4.webp";
 
 export default function StorefrontSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -67,11 +75,11 @@ export default function StorefrontSection() {
 
         {/* Photo Gallery Grid */}
         <div className="grid md:grid-cols-2 gap-4 md:gap-5">
-          {/* Left: Large exterior sign photo */}
+          {/* Left: Large exterior night photo (main) */}
           <div className="reveal relative overflow-hidden rounded-sm" style={{ aspectRatio: "3/4" }}>
             <img
-              src={EXTERIOR_SIGN}
-              alt="迎利茶招牌"
+              src={EXTERIOR_MAIN}
+              alt="迎利茶夜間外觀"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             />
             <div
@@ -96,10 +104,10 @@ export default function StorefrontSection() {
           {/* Right: 2×2 grid of interior photos */}
           <div className="grid grid-cols-2 gap-4 md:gap-5">
             {[
-              { src: INTERIOR_COUNTER_DAY, alt: "迎利茶吧台（日間）", caption: "服務吧台" },
-              { src: INTERIOR_COUNTER_NIGHT, alt: "迎利茶吧台（夜間）", caption: "夜間氛圍" },
-              { src: INTERIOR_FULL, alt: "迎利茶室全景", caption: "茶葉展示" },
-              { src: EXTERIOR_SIGN, alt: "迎利茶招牌特寫", caption: "品牌識別" },
+              { src: INTERIOR_PRIVATE, alt: "迎利茶室包廂", caption: "私人包廂" },
+              { src: INTERIOR_HALL, alt: "迎利茶室大廳", caption: "茶室大廳" },
+              { src: TEA_SNACKS, alt: "迎利品茶茶點", caption: "品茶茶點" },
+              { src: YINGLI_MUG, alt: "迎利品牌茶杯", caption: "品牌茶具" },
             ].map((photo, i) => (
               <div
                 key={i}
@@ -150,13 +158,8 @@ export default function StorefrontSection() {
           >
             聯絡我們
           </a>
-          <a
-            href="#products"
-            onClick={(e) => {
-              e.preventDefault();
-              const el = document.querySelector("#products");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}
+          <button
+            onClick={() => navigate("/products")}
             className="px-8 py-3.5 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase border transition-all duration-300 inline-block"
             style={{
               color: "oklch(0.200 0.020 60)",
@@ -171,7 +174,7 @@ export default function StorefrontSection() {
             }}
           >
             線上選購
-          </a>
+          </button>
         </div>
       </div>
     </section>

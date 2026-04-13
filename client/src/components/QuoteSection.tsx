@@ -38,21 +38,21 @@ export default function QuoteSection() {
           style={{ background: "oklch(0.730 0.070 75)", margin: "0 auto" }}
         />
         <blockquote
-          className="font-['Playfair_Display'] italic font-400 reveal"
+          className="font-['Noto_Serif_TC'] font-400 reveal"
           style={{
             fontSize: "clamp(1.25rem, 3.5vw, 2.25rem)",
             color: "oklch(0.265 0.015 55)",
-            maxWidth: "34ch",
-            lineHeight: 1.5,
+            maxWidth: "24ch",
+            lineHeight: 1.6,
           }}
         >
-          "In every cup of Ying-Li, there is a mountain, a mist, and a moment of stillness."
+          讓「好茶」變簡單，不是把「茶」變簡單。
         </blockquote>
         <span
           className="eyebrow reveal"
           style={{ color: "oklch(0.500 0.060 145)" }}
         >
-          — The Ying-Li Philosophy
+          — 迎利的理念
         </span>
       </div>
     </section>
