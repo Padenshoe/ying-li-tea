@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { ShoppingCart, Check, Leaf } from "lucide-react";
+import { ShoppingCart, Check, Leaf, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import ContactFooter from "@/components/ContactFooter";
 
-// CDN URLs for product photos
+// CDN URLs for product photos (new real product photos)
 const IMG = {
-  sanlinxi:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-sanlinxi_4da392ea.png",
-  alishan:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-alishan_5381f9e8.png",
-  cuifeng:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-cuifeng_9c857ae0.png",
-  lishan:        "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-lishan_dc8c4644.png",
-  fushoushan:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-fushoushan_9c242185.png",
-  alishanRoasted:"https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/product-alishan-roasted_e5d1bdc8.png",
+  sanlinxi:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_gf0qa6gf0qa6gf0q_b079c890.png",
+  alishan:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_ubybu5ubybu5ubyb_3d5afa9f.jpg",
+  cuifeng:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_fumk61fumk61fumk_62be393b.jpg",
+  lishan:        "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_aify73aify73aify_a1bf72fd.png",
+  fushoushan:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png",
+  alishanRoasted:"https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_z5c0tsz5c0tsz5c0_c363d941.jpg",
 };
 
 interface Product {
@@ -213,6 +212,7 @@ function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { toast } = useToast();
   const [added, setAdded] = useState(false);
+  const [qty, setQty] = useState(1);
 
   const handleAddToCart = () => {
     addItem({
@@ -220,13 +220,13 @@ function ProductCard({ product }: { product: Product }) {
       name: product.name,
       nameKey: product.nameKey,
       price: product.price,
-      quantity: 1,
+      quantity: qty,
       image: product.image,
     });
     setAdded(true);
     toast({
       title: "已加入購物車",
-      description: `${product.name} × 1`,
+      description: `${product.name} × ${qty}`,
     });
     setTimeout(() => setAdded(false), 2000);
   };
@@ -270,33 +270,56 @@ function ProductCard({ product }: { product: Product }) {
           ))}
         </div>
 
-        {/* Price + Add to cart */}
-        <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
+        {/* Price row */}
+        <div className="flex items-center justify-between mb-3 pt-3 border-t border-stone-100">
           <span className="text-lg font-bold text-stone-800">
             NT${product.price.toLocaleString()}
           </span>
-          <Button
-            size="sm"
-            onClick={handleAddToCart}
-            className={`transition-all duration-200 ${
-              added
-                ? "bg-emerald-600 hover:bg-emerald-600 text-white"
-                : "bg-stone-800 hover:bg-stone-700 text-white"
-            }`}
-          >
-            {added ? (
-              <>
-                <Check className="w-3.5 h-3.5 mr-1" />
-                已加入
-              </>
-            ) : (
-              <>
-                <ShoppingCart className="w-3.5 h-3.5 mr-1" />
-                加入購物車
-              </>
-            )}
-          </Button>
+          {/* Quantity selector */}
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+              aria-label="減少數量"
+            >
+              <Minus className="w-3 h-3" />
+            </button>
+            <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">
+              {qty}
+            </span>
+            <button
+              type="button"
+              onClick={() => setQty((q) => Math.min(99, q + 1))}
+              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+              aria-label="增加數量"
+            >
+              <Plus className="w-3 h-3" />
+            </button>
+          </div>
         </div>
+
+        {/* Add to cart button */}
+        <Button
+          onClick={handleAddToCart}
+          className={`w-full transition-all duration-200 ${
+            added
+              ? "bg-emerald-600 hover:bg-emerald-600 text-white"
+              : "bg-stone-800 hover:bg-stone-700 text-white"
+          }`}
+        >
+          {added ? (
+            <>
+              <Check className="w-3.5 h-3.5 mr-1.5" />
+              已加入購物車
+            </>
+          ) : (
+            <>
+              <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />
+              加入購物車
+            </>
+          )}
+        </Button>
       </div>
     </div>
   );
@@ -323,7 +346,7 @@ export default function ProductsPage() {
       </div>
 
       {/* Filter tabs */}
-      <div className="flex justify-center gap-2 px-4 mb-10">
+      <div className="flex justify-center gap-2 px-4 mb-10 flex-wrap">
         {(["全部", "春茶", "冬茶", "烘焙茶"] as const).map((tab) => (
           <button
             key={tab}

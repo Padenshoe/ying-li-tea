@@ -182,3 +182,17 @@
 - [x] 每個商品卡片有「加入購物車」按鈕
 - [x] Navbar 加入「精選商品」連結導向 /products
 - [x] TypeScript 零錯誤，37 個測試全部通過
+
+## 商品照片更換 + 數量選擇器 + 社群連結修正 + 選茶問卷頁面
+
+- [x] 上傳 6 張新商品照片至 CDN（杉林溪/阿里山/翠峰/梨山/福壽山/烘焙阿里山）
+- [x] 更新 Products.tsx 商品照片 CDN 網址
+- [x] 加入購物車旁新增數量輸入框（+/- 按鈕）
+- [x] 刪除 ContactFooter 中的 Pinterest 連結
+- [x] 更新 Instagram 連結至 https://www.instagram.com/yinglitea/
+- [x] 更新 Facebook 連結至 https://www.facebook.com/yinglitea?locale=zh_TW
+- [x] 建立 /tea-quiz 專屬選茶問卷頁面（5 個問題）
+- [x] 問卷結果推薦一款茶葉，可直接加入購物車
+- [x] Navbar 加入「專屬選茶」連結
+- [x] App.tsx 註冊 /tea-quiz 路由
+- [x] TypeScript 零錯誤，37 個測試全部通過

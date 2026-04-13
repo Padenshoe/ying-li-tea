@@ -16,6 +16,7 @@ import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import BackToTop from "./components/BackToTop";
 import ProductsPage from "./pages/Products";
+import TeaQuizPage from "./pages/TeaQuiz";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -28,6 +29,7 @@ function Router() {
       <Route path={"/checkout"} component={Checkout} />
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/products"} component={ProductsPage} />
+      <Route path={"/tea-quiz"} component={TeaQuizPage} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

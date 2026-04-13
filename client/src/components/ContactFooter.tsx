@@ -238,18 +238,28 @@ export default function ContactFooter() {
                   {t("contact.followUs")}
                 </span>
                 <div className="flex gap-5 mt-1">
-                  {["Instagram", "Facebook", "Pinterest"].map((social) => (
-                    <a
-                      key={social}
-                      href="#"
-                      className="text-xs font-['Lato'] font-400 tracking-[0.12em] uppercase transition-colors duration-300"
-                      style={{ color: "oklch(0.600 0.010 60)" }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.600 0.010 60)"; }}
-                    >
-                      {social}
-                    </a>
-                  ))}
+                  <a
+                    href="https://www.instagram.com/yinglitea/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-['Lato'] font-400 tracking-[0.12em] uppercase transition-colors duration-300"
+                    style={{ color: "oklch(0.600 0.010 60)" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.600 0.010 60)"; }}
+                  >
+                    Instagram
+                  </a>
+                  <a
+                    href="https://www.facebook.com/yinglitea?locale=zh_TW"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-['Lato'] font-400 tracking-[0.12em] uppercase transition-colors duration-300"
+                    style={{ color: "oklch(0.600 0.010 60)" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.600 0.010 60)"; }}
+                  >
+                    Facebook
+                  </a>
                 </div>
               </div>
             </div>
