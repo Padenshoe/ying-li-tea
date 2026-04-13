@@ -39,10 +39,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: t("nav.home"), href: "#home" },
-    { label: t("nav.about"), href: "#about" },
-    { label: t("nav.shop"), href: "#products" },
-    { label: t("nav.faq"), href: "#faq" },
+    { label: t("nav.home"), href: "#home", type: "anchor" },
+    { label: t("nav.about"), href: "#about", type: "anchor" },
+    { label: "精選商品", href: "/products", type: "route" },
+    { label: t("nav.faq"), href: "#faq", type: "anchor" },
   ];
 
   const scrollTo = (href: string) => {
@@ -81,14 +81,24 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
-                className="text-sm font-['Lato'] font-400 tracking-wide transition-colors duration-300 hover:text-[oklch(0.500_0.060_145)]"
-                style={{ color: "oklch(0.400 0.015 55)" }}
-              >
-                {link.label}
-              </a>
+              {link.type === "route" ? (
+                <Link
+                  href={link.href}
+                  className="text-sm font-['Lato'] font-400 tracking-wide transition-colors duration-300 hover:text-[oklch(0.500_0.060_145)]"
+                  style={{ color: "oklch(0.400 0.015 55)" }}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
+                  className="text-sm font-['Lato'] font-400 tracking-wide transition-colors duration-300 hover:text-[oklch(0.500_0.060_145)]"
+                  style={{ color: "oklch(0.400 0.015 55)" }}
+                >
+                  {link.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -329,18 +339,33 @@ export default function Navbar() {
           </div>
 
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
-              className="text-sm font-['Lato'] font-400 tracking-wide py-2 border-b"
-              style={{
-                color: "oklch(0.400 0.015 55)",
-                borderColor: "oklch(0.870 0.018 130)",
-              }}
-            >
-              {link.label}
-            </a>
+            link.type === "route" ? (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-['Lato'] font-400 tracking-wide py-2 border-b block"
+                style={{
+                  color: "oklch(0.400 0.015 55)",
+                  borderColor: "oklch(0.870 0.018 130)",
+                }}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
+                className="text-sm font-['Lato'] font-400 tracking-wide py-2 border-b"
+                style={{
+                  color: "oklch(0.400 0.015 55)",
+                  borderColor: "oklch(0.870 0.018 130)",
+                }}
+              >
+                {link.label}
+              </a>
+            )
           ))}
           <a
             href="#products"
