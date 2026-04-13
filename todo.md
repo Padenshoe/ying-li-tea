@@ -235,3 +235,8 @@
 - [x] FeaturedSection 禮盒名稱改為「高級阿里山茶包禮盒」
 - [x] FeaturedSection 禮盒描述更新（茶包禮盒送禮、一心二葉、傳統烘焙）
 - [x] FeaturedSection 禮盒展示改為兩張圖片 CSS 360° 旋轉動畫
+
+## 禮盒影片替換（第五批）
+
+- [x] 上傳茶包禮盒旋轉影片至 CDN
+- [x] FeaturedSection 改為靜音循環播放影片（移除 CSS 旋轉動畫）

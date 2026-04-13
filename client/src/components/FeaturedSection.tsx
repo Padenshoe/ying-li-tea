@@ -1,38 +1,29 @@
 /*
  * YING-LI TEA — FEATURED PRODUCT SECTION
- * Design: Full-width asymmetric layout. 360° rotating gift box animation left, text right.
- * Uses two images alternating with CSS 3D perspective to simulate a slow 360° rotation.
+ * Design: Full-width asymmetric layout. Muted looping video of gift box left, text right.
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "wouter";
 
-const BOX_IMG_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/teabox-angle1_3a6fa94f.jpg";
-const BOX_IMG_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/teabox-angle2_79a47807.jpg";
+const TEABOX_VIDEO_URL =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/teabox-rotation_67d9b0d7.mp4";
 
 export default function FeaturedSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { t } = useLanguage();
   const [, navigate] = useLocation();
-  const [rotY, setRotY] = useState(0);
-  const rafRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number | null>(null);
 
-  // Smooth continuous rotation: 360° every 8 seconds
+  // Ensure video plays on mount (autoplay may need user gesture on some browsers)
   useEffect(() => {
-    const speed = 360 / 8000; // degrees per ms
-    const animate = (timestamp: number) => {
-      if (lastTimeRef.current !== null) {
-        const delta = timestamp - lastTimeRef.current;
-        setRotY((prev) => (prev + speed * delta) % 360);
-      }
-      lastTimeRef.current = timestamp;
-      rafRef.current = requestAnimationFrame(animate);
-    };
-    rafRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    };
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.play().catch(() => {
+        // Autoplay blocked — video will play on first user interaction
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -43,6 +34,8 @@ export default function FeaturedSection() {
             entry.target.querySelectorAll(".reveal").forEach((el, i) => {
               setTimeout(() => el.classList.add("visible"), i * 120);
             });
+            // Resume video when section is visible
+            videoRef.current?.play().catch(() => {});
           }
         });
       },
@@ -52,19 +45,6 @@ export default function FeaturedSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Determine which face to show and its opacity based on rotation angle
-  // Front face (img1): visible when rotY is 0–90 or 270–360
-  // Back face (img2): visible when rotY is 90–270
-  // We use two images with scaleX transform to simulate 3D rotation
-  const normalizedRot = ((rotY % 360) + 360) % 360;
-
-  // Compute apparent scaleX: cos(rotY in radians)
-  const cosVal = Math.cos((normalizedRot * Math.PI) / 180);
-  const scaleX = Math.abs(cosVal);
-  // Which image to show: img1 when cosVal >= 0, img2 when cosVal < 0
-  const showImg1 = cosVal >= 0;
-  const currentImg = showImg1 ? BOX_IMG_1 : BOX_IMG_2;
-
   return (
     <section
       ref={sectionRef}
@@ -72,53 +52,32 @@ export default function FeaturedSection() {
       style={{ background: "oklch(0.990 0.004 95)" }}
     >
       <div className="grid md:grid-cols-2 min-h-[650px] md:min-h-[780px]">
-        {/* 360° Rotating Box — Left */}
+        {/* Video — Left */}
         <div
           className="relative overflow-hidden flex items-center justify-center"
           style={{ minHeight: "480px", background: "#F5F1E8" }}
         >
-          <div
-            className="relative flex items-center justify-center"
-            style={{ width: "85%", maxWidth: "480px" }}
-          >
-            {/* Shadow under box */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "-12px",
-                left: "50%",
-                transform: `translateX(-50%) scaleX(${0.6 + scaleX * 0.4})`,
-                width: "70%",
-                height: "18px",
-                borderRadius: "50%",
-                background: "radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)",
-                transition: "none",
-              }}
-            />
-            <img
-              src={currentImg}
-              alt="阿里山茶包禮盒"
-              style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "contain",
-                transform: `scaleX(${scaleX})`,
-                transition: "none",
-                display: "block",
-                userSelect: "none",
-                pointerEvents: "none",
-              }}
-              draggable={false}
-            />
-          </div>
+          <video
+            ref={videoRef}
+            src={TEABOX_VIDEO_URL}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
 
-          {/* Subtle overlay */}
+          {/* Subtle right-edge overlay to blend into the text section */}
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 pointer-events-none"
             style={{
               background:
                 "linear-gradient(to right, transparent 70%, oklch(0.990 0.004 95) 100%)",
-              pointerEvents: "none",
             }}
           />
         </div>
