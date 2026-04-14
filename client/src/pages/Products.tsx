@@ -1,29 +1,38 @@
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { ShoppingCart, Check, Leaf, Minus, Plus } from "lucide-react";
+import { ShoppingCart, Check, Leaf, Minus, Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import ContactFooter from "@/components/ContactFooter";
 
-// CDN URLs for product photos (new real product photos)
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/";
+
+// CDN URLs for product photos
 const IMG = {
-  sanlinxi:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_gf0qa6gf0qa6gf0q_b079c890.png",
-  alishan:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_ubybu5ubybu5ubyb_3d5afa9f.jpg",
-  cuifeng:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_fumk61fumk61fumk_62be393b.jpg",
-  lishan:        "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_aify73aify73aify_a1bf72fd.png",
-  fushoushan:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png",
-  alishanRoasted:"https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_z5c0tsz5c0tsz5c0_c363d941.jpg",
+  sanlinxi:      CDN + "Gemini_Generated_Image_gf0qa6gf0qa6gf0q_b079c890.png",
+  alishan:       CDN + "Gemini_Generated_Image_ubybu5ubybu5ubyb_3d5afa9f.jpg",
+  alishanExtra:  CDN + "alishan-extra_6bf7ef41.jpg",
+  cuifeng:       CDN + "Gemini_Generated_Image_fumk61fumk61fumk_62be393b.jpg",
+  cuifengExtra:  CDN + "cuifeng-extra_d1288c94.jpg",
+  lishan:        CDN + "Gemini_Generated_Image_aify73aify73aify_a1bf72fd.png",
+  lishanExtra:   CDN + "lishan-extra_03ca30ee.png",
+  fushoushan:    CDN + "Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png",
+  fushoushanExtra: CDN + "fushoushan-extra_508cb51c.jpg",
+  alishanRoasted: CDN + "Gemini_Generated_Image_z5c0tsz5c0tsz5c0_c363d941.jpg",
+  roastedExtra:  CDN + "roasted-extra_82dfc8cc.jpg",
+  jinxuan1:      CDN + "jinxuan-1_68efee9c.png",
+  jinxuan2:      CDN + "jinxuan-2_a1a4e289.png",
 };
 
 interface Product {
   id: string;
   code: string;
   name: string;
-  season: "春茶" | "冬茶" | "烘焙茶";
+  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶";
   weight: string;
   price: number;
-  image: string;
+  images: string[];   // first = main, rest = gallery
   notes: [string, string, string];
   nameKey: string;
 }
@@ -31,13 +40,9 @@ interface Product {
 const PRODUCTS: Product[] = [
   // 杉林溪
   {
-    id: "S01",
-    code: "S01",
-    name: "杉林溪春茶",
-    season: "春茶",
-    weight: "150g（四兩）",
-    price: 400,
-    image: IMG.sanlinxi,
+    id: "S01", code: "S01", name: "杉林溪春茶", season: "春茶",
+    weight: "150g（四兩）", price: 400,
+    images: [IMG.sanlinxi],
     nameKey: "product.sanlinxi.spring",
     notes: [
       "茶湯金黃透亮，入口濃郁甘醇",
@@ -46,13 +51,9 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "S02",
-    code: "S02",
-    name: "杉林溪冬茶",
-    season: "冬茶",
-    weight: "150g（四兩）",
-    price: 400,
-    image: IMG.sanlinxi,
+    id: "S02", code: "S02", name: "杉林溪冬茶", season: "冬茶",
+    weight: "150g（四兩）", price: 400,
+    images: [IMG.sanlinxi],
     nameKey: "product.sanlinxi.winter",
     notes: [
       "茶湯清澈淡雅，入口清香順口",
@@ -62,13 +63,9 @@ const PRODUCTS: Product[] = [
   },
   // 阿里山
   {
-    id: "A01",
-    code: "A01",
-    name: "阿里山春茶",
-    season: "春茶",
-    weight: "300g（半斤）",
-    price: 1100,
-    image: IMG.alishan,
+    id: "A01", code: "A01", name: "阿里山春茶", season: "春茶",
+    weight: "300g（半斤）", price: 1100,
+    images: [IMG.alishan, IMG.alishanExtra],
     nameKey: "product.alishan.spring",
     notes: [
       "高山雲霧孕育，茶湯蜜綠清亮",
@@ -77,13 +74,9 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "A02",
-    code: "A02",
-    name: "阿里山冬茶",
-    season: "冬茶",
-    weight: "300g（半斤）",
-    price: 1100,
-    image: IMG.alishan,
+    id: "A02", code: "A02", name: "阿里山冬茶", season: "冬茶",
+    weight: "300g（半斤）", price: 1100,
+    images: [IMG.alishan, IMG.alishanExtra],
     nameKey: "product.alishan.winter",
     notes: [
       "冬季低溫緩慢生長，香氣格外清揚",
@@ -93,13 +86,9 @@ const PRODUCTS: Product[] = [
   },
   // 翠峰
   {
-    id: "R01",
-    code: "R01",
-    name: "翠峰春茶",
-    season: "春茶",
-    weight: "300g（半斤）",
-    price: 1300,
-    image: IMG.cuifeng,
+    id: "R01", code: "R01", name: "翠峰春茶", season: "春茶",
+    weight: "300g（半斤）", price: 1300,
+    images: [IMG.cuifeng, IMG.cuifengExtra],
     nameKey: "product.cuifeng.spring",
     notes: [
       "中央山脈特選，茶湯翠綠鮮活",
@@ -108,13 +97,9 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "R02",
-    code: "R02",
-    name: "翠峰冬茶",
-    season: "冬茶",
-    weight: "300g（半斤）",
-    price: 1300,
-    image: IMG.cuifeng,
+    id: "R02", code: "R02", name: "翠峰冬茶", season: "冬茶",
+    weight: "300g（半斤）", price: 1300,
+    images: [IMG.cuifeng, IMG.cuifengExtra],
     nameKey: "product.cuifeng.winter",
     notes: [
       "冬季山嵐輕撫，茶葉清香細膩",
@@ -124,13 +109,9 @@ const PRODUCTS: Product[] = [
   },
   // 梨山
   {
-    id: "L01",
-    code: "L01",
-    name: "精緻梨山春茶",
-    season: "春茶",
-    weight: "150g（四兩）",
-    price: 950,
-    image: IMG.lishan,
+    id: "L01", code: "L01", name: "精緻梨山春茶", season: "春茶",
+    weight: "150g（四兩）", price: 950,
+    images: [IMG.lishan, IMG.lishanExtra],
     nameKey: "product.lishan.spring",
     notes: [
       "海拔兩千公尺以上，高山冷涼孕育",
@@ -139,13 +120,9 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "L02",
-    code: "L02",
-    name: "精緻梨山冬茶",
-    season: "冬茶",
-    weight: "150g（四兩）",
-    price: 950,
-    image: IMG.lishan,
+    id: "L02", code: "L02", name: "精緻梨山冬茶", season: "冬茶",
+    weight: "150g（四兩）", price: 950,
+    images: [IMG.lishan, IMG.lishanExtra],
     nameKey: "product.lishan.winter",
     notes: [
       "冬季高山嚴寒，茶葉緩慢積累精華",
@@ -155,13 +132,9 @@ const PRODUCTS: Product[] = [
   },
   // 福壽山
   {
-    id: "D01",
-    code: "D01",
-    name: "精緻福壽山春茶",
-    season: "春茶",
-    weight: "150g（四兩）",
-    price: 1750,
-    image: IMG.fushoushan,
+    id: "D01", code: "D01", name: "精緻福壽山春茶", season: "春茶",
+    weight: "150g（四兩）", price: 1750,
+    images: [IMG.fushoushan, IMG.fushoushanExtra],
     nameKey: "product.fushoushan.spring",
     notes: [
       "台灣頂級高山茶，海拔超過兩千五百公尺",
@@ -170,13 +143,9 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "D02",
-    code: "D02",
-    name: "精緻福壽山冬茶",
-    season: "冬茶",
-    weight: "150g（四兩）",
-    price: 1750,
-    image: IMG.fushoushan,
+    id: "D02", code: "D02", name: "精緻福壽山冬茶", season: "冬茶",
+    weight: "150g（四兩）", price: 1750,
+    images: [IMG.fushoushan, IMG.fushoushanExtra],
     nameKey: "product.fushoushan.winter",
     notes: [
       "冬季極寒高山，茶葉精華高度濃縮",
@@ -184,15 +153,11 @@ const PRODUCTS: Product[] = [
       "回甘持久悠長，是送禮自用的極品",
     ],
   },
-  // 阿里山烘焙茶（只有一個編號）
+  // 阿里山烘焙茶
   {
-    id: "RO1",
-    code: "RO1",
-    name: "阿里山烘焙茶",
-    season: "烘焙茶",
-    weight: "300g（半斤）",
-    price: 1400,
-    image: IMG.alishanRoasted,
+    id: "RO1", code: "RO1", name: "阿里山烘焙茶", season: "烘焙茶",
+    weight: "300g（半斤）", price: 1400,
+    images: [IMG.alishanRoasted, IMG.roastedExtra],
     nameKey: "product.alishan.roasted",
     notes: [
       "傳統炭焙工藝，焙火香氣深沉迷人",
@@ -200,14 +165,97 @@ const PRODUCTS: Product[] = [
       "焦糖甜香縈繞，暖胃養身四季皆宜",
     ],
   },
+  // 阿里山金萱茶（新商品）
+  {
+    id: "J01", code: "J01", name: "阿里山金萱茶", season: "金萱茶",
+    weight: "300g（半斤）", price: 1600,
+    images: [IMG.jinxuan1, IMG.jinxuan2],
+    nameKey: "product.alishan.jinxuan",
+    notes: [
+      "金萱品種特有天然奶香，清甜迷人",
+      "阿里山高海拔栽培，茶湯蜜黃柔順",
+      "入口滑嫩無苦澀，奶香餘韻悠長",
+    ],
+  },
 ];
 
 const SEASON_COLORS: Record<string, string> = {
-  春茶: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  冬茶: "bg-sky-100 text-sky-800 border-sky-200",
+  春茶:  "bg-emerald-100 text-emerald-800 border-emerald-200",
+  冬茶:  "bg-sky-100 text-sky-800 border-sky-200",
   烘焙茶: "bg-amber-100 text-amber-800 border-amber-200",
+  金萱茶: "bg-pink-100 text-pink-800 border-pink-200",
 };
 
+// ── Image Gallery sub-component ──────────────────────────────────────────────
+function ImageGallery({ images, name }: { images: string[]; name: string }) {
+  const [active, setActive] = useState(0);
+
+  const prev = () => setActive((i) => (i - 1 + images.length) % images.length);
+  const next = () => setActive((i) => (i + 1) % images.length);
+
+  return (
+    <div className="relative aspect-square overflow-hidden bg-stone-50 group">
+      {/* Main image */}
+      <img
+        src={images[active]}
+        alt={`${name} - 照片 ${active + 1}`}
+        className="w-full h-full object-cover transition-opacity duration-300"
+        loading="lazy"
+      />
+
+      {/* Prev / Next arrows — only shown when there are multiple images */}
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"
+            aria-label="上一張"
+          >
+            <ChevronLeft className="w-4 h-4 text-stone-700" />
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"
+            aria-label="下一張"
+          >
+            <ChevronRight className="w-4 h-4 text-stone-700" />
+          </button>
+
+          {/* Dot indicators */}
+          <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                  i === active ? "bg-white scale-125" : "bg-white/50"
+                }`}
+                aria-label={`切換至第 ${i + 1} 張`}
+              />
+            ))}
+          </div>
+
+          {/* Thumbnail strip at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 flex gap-1 p-1.5 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 justify-center">
+            {images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`w-10 h-10 rounded overflow-hidden border-2 transition-all duration-150 shrink-0 ${
+                  i === active ? "border-white" : "border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <img src={img} alt="" className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── Product Card ──────────────────────────────────────────────────────────────
 function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { toast } = useToast();
@@ -221,34 +269,24 @@ function ProductCard({ product }: { product: Product }) {
       nameKey: product.nameKey,
       price: product.price,
       quantity: qty,
-      image: product.image,
+      image: product.images[0],
     });
     setAdded(true);
-    toast({
-      title: "已加入購物車",
-      description: `${product.name} × ${qty}`,
-    });
+    toast({ title: "已加入購物車", description: `${product.name} × ${qty}` });
     setTimeout(() => setAdded(false), 2000);
   };
 
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-100 hover:shadow-md transition-shadow duration-300 flex flex-col">
-      {/* Product image */}
-      <div className="relative aspect-square overflow-hidden bg-stone-50">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          loading="lazy"
-        />
-        {/* Season badge overlay */}
-        <div className="absolute top-3 left-3">
+      {/* Image gallery with season badge & code overlay */}
+      <div className="relative">
+        <ImageGallery images={product.images} name={product.name} />
+        <div className="absolute top-3 left-3 z-20">
           <span className={`text-xs font-medium px-2.5 py-1 rounded-full border ${SEASON_COLORS[product.season]}`}>
             {product.season}
           </span>
         </div>
-        {/* Product code */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 z-20">
           <span className="text-xs font-mono bg-white/90 text-stone-600 px-2 py-1 rounded-md shadow-sm">
             {product.code}
           </span>
@@ -270,12 +308,11 @@ function ProductCard({ product }: { product: Product }) {
           ))}
         </div>
 
-        {/* Price row */}
+        {/* Price + quantity row */}
         <div className="flex items-center justify-between mb-3 pt-3 border-t border-stone-100">
           <span className="text-lg font-bold text-stone-800">
             NT${product.price.toLocaleString()}
           </span>
-          {/* Quantity selector */}
           <div className="flex items-center gap-1.5">
             <button
               type="button"
@@ -285,9 +322,7 @@ function ProductCard({ product }: { product: Product }) {
             >
               <Minus className="w-3 h-3" />
             </button>
-            <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">
-              {qty}
-            </span>
+            <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
             <button
               type="button"
               onClick={() => setQty((q) => Math.min(99, q + 1))}
@@ -299,7 +334,7 @@ function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
 
-        {/* Add to cart button */}
+        {/* Add to cart */}
         <Button
           onClick={handleAddToCart}
           className={`w-full transition-all duration-200 ${
@@ -309,15 +344,9 @@ function ProductCard({ product }: { product: Product }) {
           }`}
         >
           {added ? (
-            <>
-              <Check className="w-3.5 h-3.5 mr-1.5" />
-              已加入購物車
-            </>
+            <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
           ) : (
-            <>
-              <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />
-              加入購物車
-            </>
+            <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
           )}
         </Button>
       </div>
@@ -325,8 +354,9 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
+// ── Page ──────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶">("全部");
+  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶">("全部");
 
   const filtered = filter === "全部"
     ? PRODUCTS
@@ -347,7 +377,7 @@ export default function ProductsPage() {
 
       {/* Filter tabs */}
       <div className="flex justify-center gap-2 px-4 mb-10 flex-wrap">
-        {(["全部", "春茶", "冬茶", "烘焙茶"] as const).map((tab) => (
+        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setFilter(tab)}
@@ -367,8 +397,8 @@ export default function ProductsPage() {
         ))}
       </div>
 
-      {/* Spring/Winter explanation banner */}
-      <div className="max-w-4xl mx-auto px-4 mb-10">
+      {/* Tea type explanation banner */}
+      <div className="max-w-5xl mx-auto px-4 mb-10">
         <div className="bg-white rounded-2xl border border-stone-100 p-5 flex flex-col sm:flex-row gap-4">
           <div className="flex-1 flex items-start gap-3">
             <span className="text-2xl">🌱</span>
@@ -385,6 +415,14 @@ export default function ProductsPage() {
               <p className="text-xs text-stone-500 leading-relaxed">冬季低溫緩慢生長，茶葉細膩柔和，清香順口無苦澀，適合喜歡清雅花香的您。</p>
             </div>
           </div>
+          <div className="hidden sm:block w-px bg-stone-100" />
+          <div className="flex-1 flex items-start gap-3">
+            <span className="text-2xl">🌸</span>
+            <div>
+              <p className="text-sm font-semibold text-stone-700 mb-1">金萱茶</p>
+              <p className="text-xs text-stone-500 leading-relaxed">金萱品種特有天然奶香，茶湯蜜黃柔順，入口滑嫩無苦澀，奶香餘韻悠長迷人。</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -395,8 +433,6 @@ export default function ProductsPage() {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-
-        {/* Empty state */}
         {filtered.length === 0 && (
           <div className="text-center py-20 text-stone-400">
             <Leaf className="w-10 h-10 mx-auto mb-3 opacity-30" />

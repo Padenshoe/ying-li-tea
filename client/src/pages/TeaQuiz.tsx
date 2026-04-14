@@ -12,13 +12,15 @@ import ContactFooter from "@/components/ContactFooter";
 import { Link } from "wouter";
 
 // ─── Product data (mirrors Products.tsx) ───────────────────────────────────
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/";
 const IMG = {
-  sanlinxi:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_gf0qa6gf0qa6gf0q_b079c890.png",
-  alishan:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_ubybu5ubybu5ubyb_3d5afa9f.jpg",
-  cuifeng:       "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_fumk61fumk61fumk_62be393b.jpg",
-  lishan:        "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_aify73aify73aify_a1bf72fd.png",
-  fushoushan:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png",
-  alishanRoasted:"https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_z5c0tsz5c0tsz5c0_c363d941.jpg",
+  sanlinxi:      CDN + "Gemini_Generated_Image_gf0qa6gf0qa6gf0q_b079c890.png",
+  alishan:       CDN + "Gemini_Generated_Image_ubybu5ubybu5ubyb_3d5afa9f.jpg",
+  cuifeng:       CDN + "Gemini_Generated_Image_fumk61fumk61fumk_62be393b.jpg",
+  lishan:        CDN + "Gemini_Generated_Image_aify73aify73aify_a1bf72fd.png",
+  fushoushan:    CDN + "Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png",
+  alishanRoasted: CDN + "Gemini_Generated_Image_z5c0tsz5c0tsz5c0_c363d941.jpg",
+  jinxuan:       CDN + "jinxuan-1_68efee9c.png",
 };
 
 interface RecommendedProduct {
@@ -45,6 +47,7 @@ const ALL_PRODUCTS: RecommendedProduct[] = [
   { id: "D01", name: "精緻福壽山春茶", nameKey: "product.fushoushan.spring", price: 1750, weight: "150g（四兩）", image: IMG.fushoushan, season: "春茶", reason: "追求頂級高山茶體驗，福壽山春茶的蜜香果香層次最適合您。", notes: ["台灣頂級高山茶，海拔超過兩千五百公尺", "春茶香氣馥郁，蜜香果香層層疊現", "茶湯金黃透亮，滋味醇厚甘甜無比"] },
   { id: "D02", name: "精緻福壽山冬茶", nameKey: "product.fushoushan.winter", price: 1750, weight: "150g（四兩）", image: IMG.fushoushan, season: "冬茶", reason: "追求極致清雅與絲滑口感，福壽山冬茶是送禮自用的頂級之選。", notes: ["冬季極寒高山，茶葉精華高度濃縮", "清雅花香如幽蘭，入口絲滑無比", "回甘持久悠長，是送禮自用的極品"] },
   { id: "RO1", name: "阿里山烘焙茶", nameKey: "product.alishan.roasted", price: 1400, weight: "300g（半斤）", image: IMG.alishanRoasted, season: "烘焙茶", reason: "喜歡焙火香氣與醇厚溫潤口感，阿里山烘焙茶的炭焙工藝最適合您。", notes: ["傳統炭焙工藝，焙火香氣深沉迷人", "茶湯琥珀色澤，口感醇厚溫潤順滑", "焦糖甜香縈繞，暖胃養身四季皆宜"] },
+  { id: "J01", name: "阿里山金萱茶", nameKey: "product.alishan.jinxuan", price: 1600, weight: "300g（半斤）", image: IMG.jinxuan, season: "金萱茶", reason: "您喜歡奶香，阿里山金萱茶天然奶香濃郁，茶湯蜜黃柔順，入口滑嫩無苦澀，是最適合您的選擇。", notes: ["金萱品種特有天然奶香，清甜迷人", "阿里山高海拔栽培，茶湯蜜黃柔順", "入口滑嫩無苦澀，奶香餘韻悠長"] },
 ];
 
 // ─── Quiz questions ─────────────────────────────────────────────────────────
@@ -119,6 +122,11 @@ function recommend(answers: Record<number, string>): RecommendedProduct {
   // answers[4] drink preference is secondary context
   const flavor = answers[5];      // milky / floral / rich
 
+  // Rule 0: 奶香 → 一律金萱茶（最高優先）
+  if (flavor === "milky") {
+    return ALL_PRODUCTS.find((p) => p.id === "J01")!;
+  }
+
   // Rule 1: 香氣 → 一律烘焙茶
   if (texture === "aroma") {
     return ALL_PRODUCTS.find((p) => p.id === "RO1")!;
@@ -182,6 +190,7 @@ const SEASON_COLORS: Record<string, string> = {
   春茶: "bg-emerald-100 text-emerald-800 border-emerald-200",
   冬茶: "bg-sky-100 text-sky-800 border-sky-200",
   烘焙茶: "bg-amber-100 text-amber-800 border-amber-200",
+  金萱茶: "bg-pink-100 text-pink-800 border-pink-200",
 };
 
 // ─── Main component ──────────────────────────────────────────────────────────
