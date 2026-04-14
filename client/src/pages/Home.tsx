@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import MarqueeBanner from "@/components/MarqueeBanner";
 import FeaturedSection from "@/components/FeaturedSection";
 import AboutSection from "@/components/AboutSection";
 import StorefrontSection from "@/components/StorefrontSection";
@@ -27,7 +26,6 @@ export default function Home() {
     <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
       <Navbar />
       <HeroSection />
-      <MarqueeBanner />
       <FeaturedSection />
       <AboutSection />
       <StorefrontSection />

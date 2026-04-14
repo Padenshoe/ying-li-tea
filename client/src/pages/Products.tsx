@@ -29,7 +29,7 @@ interface Product {
   id: string;
   code: string;
   name: string;
-  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶";
+  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包";
   weight: string;
   price: number;
   images: string[];   // first = main, rest = gallery
@@ -177,6 +177,18 @@ const PRODUCTS: Product[] = [
       "入口滑嫩無苦澀，奶香餘韻悠長",
     ],
   },
+  // 阿里山茶包禮盒（新商品）
+  {
+    id: "TB01", code: "TB01", name: "阿里山茶包禮盒", season: "茶包",
+    weight: "60入 × 3g", price: 980,
+    images: [CDN + "teabag-1_dce6dee5.png", CDN + "teabag-2_a91ea8f9.png", CDN + "teabag-3_3aed7707.png"],
+    nameKey: "product.alishan.teabag",
+    notes: [
+      "一心二葉嚴選，純古法炭焙工藝",
+      "日本進口棉紙茶包，耐熱保鮮充氮",
+      "青心烏龍品種，茶湯清亮甘甜順口",
+    ],
+  },
 ];
 
 const SEASON_COLORS: Record<string, string> = {
@@ -184,6 +196,7 @@ const SEASON_COLORS: Record<string, string> = {
   冬茶:  "bg-sky-100 text-sky-800 border-sky-200",
   烘焙茶: "bg-amber-100 text-amber-800 border-amber-200",
   金萱茶: "bg-pink-100 text-pink-800 border-pink-200",
+  茶包:  "bg-orange-100 text-orange-800 border-orange-200",
 };
 
 // ── Image Gallery sub-component ──────────────────────────────────────────────
@@ -356,7 +369,7 @@ function ProductCard({ product }: { product: Product }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶">("全部");
+  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包">("全部");
 
   const filtered = filter === "全部"
     ? PRODUCTS
@@ -377,7 +390,7 @@ export default function ProductsPage() {
 
       {/* Filter tabs */}
       <div className="flex justify-center gap-2 px-4 mb-10 flex-wrap">
-        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶"] as const).map((tab) => (
+        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setFilter(tab)}

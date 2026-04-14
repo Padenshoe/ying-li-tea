@@ -247,3 +247,12 @@
 - [x] Products.tsx：每個商品卡片加入多圖輪播（點擊縮圖切換主圖）
 - [x] Products.tsx：新增阿里山金萱茶 J01（300g / 半斤，NT$1,600，兩張照片）
 - [x] TeaQuiz.tsx：選到「奶香」時推薦結果改為阿里山金萱茶
+
+## 茶包禮盒 + 首頁調整（第七批）
+
+- [x] 上傳三張茶包照片至 CDN
+- [x] FeaturedSection：移除影片，改為三張圖片每 5 秒輪播
+- [x] Products.tsx：新增阿里山茶包禮盒 TB01（60入，NT$980，一心二葉，純古法烘焙）
+- [x] AboutSection：海拔範圍改為 1,000–2,800 公尺
+- [x] CartSection：購物車商品名稱改為中文
+- [x] 首頁刪除第一頁與第二頁之間的 MarqueeBanner（Loop High Mountain Oolong Cold Brew）

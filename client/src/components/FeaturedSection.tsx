@@ -1,29 +1,30 @@
 /*
  * YING-LI TEA — FEATURED PRODUCT SECTION
- * Design: Full-width asymmetric layout. Muted looping video of gift box left, text right.
+ * Design: Full-width asymmetric layout. 3-image auto-slideshow (5s interval) left, text right.
  */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "wouter";
 
-const TEABOX_VIDEO_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/teabox-rotation_67d9b0d7.mp4";
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/";
+const TEABAG_IMAGES = [
+  CDN + "teabag-1_dce6dee5.png",
+  CDN + "teabag-2_a91ea8f9.png",
+  CDN + "teabag-3_3aed7707.png",
+];
 
 export default function FeaturedSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const { t } = useLanguage();
   const [, navigate] = useLocation();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Ensure video plays on mount (autoplay may need user gesture on some browsers)
+  // Auto-advance every 5 seconds
   useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.muted = true;
-      video.play().catch(() => {
-        // Autoplay blocked — video will play on first user interaction
-      });
-    }
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % TEABAG_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -34,8 +35,6 @@ export default function FeaturedSection() {
             entry.target.querySelectorAll(".reveal").forEach((el, i) => {
               setTimeout(() => el.classList.add("visible"), i * 120);
             });
-            // Resume video when section is visible
-            videoRef.current?.play().catch(() => {});
           }
         });
       },
@@ -52,25 +51,36 @@ export default function FeaturedSection() {
       style={{ background: "oklch(0.990 0.004 95)" }}
     >
       <div className="grid md:grid-cols-2 min-h-[650px] md:min-h-[780px]">
-        {/* Video — Left */}
+        {/* Slideshow — Left */}
         <div
-          className="relative overflow-hidden flex items-center justify-center"
+          className="relative overflow-hidden"
           style={{ minHeight: "480px", background: "#F5F1E8" }}
         >
-          <video
-            ref={videoRef}
-            src={TEABOX_VIDEO_URL}
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
+          {TEABAG_IMAGES.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={`阿里山茶包禮盒 ${i + 1}`}
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+              style={{ opacity: i === currentIndex ? 1 : 0 }}
+            />
+          ))}
+
+          {/* Dot indicators */}
+          <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2 z-10">
+            {TEABAG_IMAGES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className="w-2 h-2 rounded-full transition-all duration-300"
+                style={{
+                  background: i === currentIndex ? "oklch(0.500 0.060 145)" : "rgba(255,255,255,0.6)",
+                  transform: i === currentIndex ? "scale(1.3)" : "scale(1)",
+                }}
+                aria-label={`切換至第 ${i + 1} 張照片`}
+              />
+            ))}
+          </div>
 
           {/* Subtle right-edge overlay to blend into the text section */}
           <div
