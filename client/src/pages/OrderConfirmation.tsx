@@ -16,6 +16,7 @@ interface OrderData {
   method: "home" | "711";
   fullName: string;
   phone: string;
+  email?: string;
   address?: string;
   storeCode?: string;
   items: Array<{
@@ -93,13 +94,13 @@ export default function OrderConfirmation() {
               className="font-['Playfair_Display'] font-400 mb-4"
               style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", color: "oklch(0.265 0.015 55)" }}
             >
-              訂單已送出！
+              訂單成功！
             </h1>
             <p
               className="font-['Lato'] font-300 leading-relaxed mb-2"
               style={{ fontSize: "1rem", color: "oklch(0.520 0.020 60)" }}
             >
-              感謝您的訂購，我們已收到您的訂單。
+              感謝您的訂購，我們已收到您的訂單，預計三到五個工作日到貨。
             </p>
             <p
               className="font-['Lato'] font-600"
@@ -153,6 +154,22 @@ export default function OrderConfirmation() {
                   </p>
                 </div>
               </div>
+              {orderData.email && (
+                <div className="mt-4">
+                  <p
+                    className="text-xs font-['Lato'] font-400 tracking-[0.08em] uppercase mb-1"
+                    style={{ color: "oklch(0.550 0.020 60)" }}
+                  >
+                    確認信已寄至
+                  </p>
+                  <p
+                    className="font-['Lato'] font-500 text-sm"
+                    style={{ color: accentGreen }}
+                  >
+                    {orderData.email}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Delivery info */}
@@ -291,7 +308,7 @@ export default function OrderConfirmation() {
               className="font-['Lato'] font-400 text-sm leading-relaxed mb-4"
               style={{ color: "oklch(0.520 0.020 60)" }}
             >
-              我們已收到您的訂單，將在 1-2 個工作天內與您聯繫確認出貨事宜。如有任何問題，歡迎直接聯絡我們：
+              我們已收到您的訂單，預計三到五個工作日到貨。如有任何問題，歡迎直接聯絡我們：
             </p>
             <p
               className="font-['Lato'] font-400 text-sm"

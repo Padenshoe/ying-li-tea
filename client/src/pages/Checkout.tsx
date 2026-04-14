@@ -25,6 +25,7 @@ interface FormState {
   fullName: string;
   gender: "male" | "female" | "other" | "";
   phone: string;
+  email: string;
   deliveryMethod: "home" | "711" | "";
   address: string;
   storeCode: string;
@@ -55,6 +56,7 @@ export default function Checkout() {
     fullName: "",
     gender: "",
     phone: "",
+    email: "",
     deliveryMethod: "",
     address: "",
     storeCode: "",
@@ -78,6 +80,8 @@ export default function Checkout() {
     if (!form.fullName.trim()) errs.fullName = t("checkout.errNameRequired");
     if (!form.gender) errs.gender = t("checkout.errGenderRequired");
     if (!form.phone.trim() || form.phone.trim().length < 8) errs.phone = t("checkout.errPhoneInvalid");
+    if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+      errs.email = t("checkout.errEmailInvalid");
     if (!form.deliveryMethod) errs.deliveryMethod = t("checkout.errDeliveryRequired");
     if (form.deliveryMethod === "home" && !form.address.trim())
       errs.address = t("checkout.errAddressRequired");
@@ -101,6 +105,7 @@ export default function Checkout() {
         fullName: form.fullName.trim(),
         gender: form.gender as "male" | "female" | "other",
         phone: form.phone.trim(),
+        email: form.email.trim() || undefined,
         deliveryMethod: form.deliveryMethod as "home" | "711",
         address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
         storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
@@ -123,6 +128,7 @@ export default function Checkout() {
         method: form.deliveryMethod,
         fullName: form.fullName,
         phone: form.phone,
+        email: form.email.trim() || undefined,
         address: form.address,
         storeCode: form.storeCode,
         items: items.map((item) => ({
@@ -268,7 +274,7 @@ export default function Checkout() {
                   </div>
 
                   {/* Phone */}
-                  <div>
+                  <div className="mb-4">
                     <label htmlFor="phone" className={labelBase} style={{ color: accentGreen }}>
                       {t("checkout.phone")} *
                     </label>
@@ -284,6 +290,25 @@ export default function Checkout() {
                       onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = errors.phone ? borderError : borderDefault; }}
                     />
                     <FieldError msg={errors.phone} />
+                  </div>
+
+                  {/* Email (optional) */}
+                  <div>
+                    <label htmlFor="email" className={labelBase} style={{ color: accentGreen }}>
+                      {t("checkout.email")}
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => set("email", e.target.value)}
+                      placeholder={t("checkout.emailPlaceholder")}
+                      className={inputBase}
+                      style={{ border: errors.email ? borderError : borderDefault }}
+                      onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
+                      onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = errors.email ? borderError : borderDefault; }}
+                    />
+                    <FieldError msg={errors.email} />
                   </div>
                 </div>
 

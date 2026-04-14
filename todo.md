@@ -262,3 +262,9 @@
 - [x] Checkout.tsx：結帳提示文字改為「三到五個工作日到貨」
 - [x] LanguageContext.tsx：更新對應翻譯 key
 - [x] 後端訂單送出後寄送完整訂單資訊至 neil34689@gmail.com（商品、數量、姓名、性別、電話、配送方式、地址、備註）
+
+## 顧客確認信 + Email 欄位（第九批）
+
+- [x] Checkout.tsx：新增 Email 欄位（選填）
+- [x] LanguageContext.tsx：新增 Email 欄位翻譯 key
+- [x] order router：訂單送出後寄送顧客確認信（以迎利茶葉名義），並副本至 yinglitea@gmail.com- [x] 確認訂單成功頁面顯示「訂單成功」訊息

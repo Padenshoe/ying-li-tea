@@ -11,6 +11,7 @@ import { customOrders } from "../../drizzle/schema";
 import { invokeLLM } from "../_core/llm";
 
 const OWNER_EMAIL = "neil34689@gmail.com";
+const STORE_EMAIL = "yinglitea@gmail.com";
 
 // Cart item schema (mirrors CartItem in client)
 const cartItemSchema = z.object({
@@ -29,6 +30,7 @@ export const orderRouter = router({
         fullName: z.string().min(1, "請填寫姓名").max(255),
         gender: z.enum(["male", "female", "other"]),
         phone: z.string().min(8, "請填寫有效電話號碼").max(30),
+        email: z.string().email().optional(),
         deliveryMethod: z.enum(["home", "711"]),
         address: z.string().optional(),
         storeCode: z.string().optional(),
@@ -106,6 +108,9 @@ export const orderRouter = router({
         )
         .join("\n");
 
+      const customerEmailLine = input.email ? `Email：${input.email}` : "";
+
+      // Owner notification email body
       const emailBody = `
 迎利茶 — 新訂單通知
 ═══════════════════════════════
@@ -117,7 +122,7 @@ export const orderRouter = router({
 姓名：${input.fullName}
 性別：${genderLabel}
 聯絡電話：${input.phone}
-
+${customerEmailLine ? customerEmailLine + "\n" : ""}
 ── 配送方式 ──────────────
 ${deliveryLabel}
 ${deliveryDetail}
@@ -134,35 +139,83 @@ ${itemLines}
 請盡快確認並安排出貨。預計三到五個工作日到貨。
       `.trim();
 
-      // Send email via LLM-powered notification (using built-in notification API)
-      // We use the system notification as the email delivery mechanism
+      // Customer confirmation email body
+      const customerEmailBody = `
+親愛的 ${input.fullName} ${genderLabel}，您好！
+
+感謝您向迎利茶葉訂購，我們已收到您的訂單，預計三到五個工作日到貨。
+
+═══════════════════════════════
+訂單編號：#${orderId}
+下單時間：${new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })}
+
+── 配送方式 ──────────────
+${deliveryLabel}
+${deliveryDetail}
+${input.note ? `\n備註：${input.note}` : ""}
+
+── 訂購商品 ──────────────
+${itemLines}
+
+小計：NT$${subtotal.toFixed(0)}
+運費：${shippingLabel}
+總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）
+
+═══════════════════════════════
+如有任何問題，歡迎以 Email 聯絡我們：yinglitea@gmail.com
+
+迎利茶葉 敬上
+      `.trim();
+
+      // Send emails (owner notification + customer confirmation)
       try {
-        // Use the built-in Forge notification API to send email
         const forgeApiUrl = process.env.BUILT_IN_FORGE_API_URL;
         const forgeApiKey = process.env.BUILT_IN_FORGE_API_KEY;
 
         if (forgeApiUrl && forgeApiKey) {
-          const emailPayload = {
-            to: OWNER_EMAIL,
-            subject: `【迎利茶】新訂單 #${orderId} — ${input.fullName} ${genderLabel}`,
-            text: emailBody,
-            html: emailBody.replace(/\n/g, "<br>").replace(/═+/g, "<hr>"),
+          const sendEmail = async (to: string, subject: string, text: string) => {
+            const res = await fetch(`${forgeApiUrl}/v1/notification/email`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${forgeApiKey}`,
+              },
+              body: JSON.stringify({
+                to,
+                subject,
+                text,
+                html: text.replace(/\n/g, "<br>").replace(/═+/g, "<hr>"),
+              }),
+            });
+            if (!res.ok) {
+              const errText = await res.text();
+              console.warn(`[Order] Email to ${to} failed:`, res.status, errText);
+            } else {
+              console.log(`[Order] Email sent to ${to} for order #${orderId}`);
+            }
           };
 
-          const emailRes = await fetch(`${forgeApiUrl}/v1/notification/email`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${forgeApiKey}`,
-            },
-            body: JSON.stringify(emailPayload),
-          });
+          // 1. Owner notification (neil34689@gmail.com)
+          await sendEmail(
+            OWNER_EMAIL,
+            `【迎利茶】新訂單 #${orderId} — ${input.fullName} ${genderLabel}`,
+            emailBody
+          );
 
-          if (!emailRes.ok) {
-            const errText = await emailRes.text();
-            console.warn("[Order] Email send failed:", emailRes.status, errText);
-          } else {
-            console.log(`[Order] Email sent for order #${orderId}`);
+          // 2. Store copy (yinglitea@gmail.com)
+          await sendEmail(
+            STORE_EMAIL,
+            `【迎利茶】新訂單 #${orderId} 副本 — ${input.fullName} ${genderLabel}`,
+            emailBody
+          );
+
+          // 3. Customer confirmation (if email provided)
+          if (input.email) {
+            await sendEmail(
+              input.email,
+              `【迎利茶葉】訂單確認通知 #${orderId}`,
+              customerEmailBody
+            );
           }
         } else {
           console.warn("[Order] Forge API not configured, skipping email");
