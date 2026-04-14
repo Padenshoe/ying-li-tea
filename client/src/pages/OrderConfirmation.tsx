@@ -34,20 +34,25 @@ export default function OrderConfirmation() {
   const { formatPrice } = useCurrency();
   const [location] = useLocation();
 
-  // Parse query params
+  // Parse query params — order data is stored in sessionStorage to avoid URL length limits
   const params = new URLSearchParams(location.split("?")[1] || "");
   const orderId = params.get("orderId");
-  const method = params.get("method") as "home" | "711" | null;
-  const dataStr = params.get("data");
 
   let orderData: OrderData | null = null;
-  if (dataStr) {
+  const storedData = sessionStorage.getItem('yingli_order_confirmation');
+  if (storedData) {
     try {
-      orderData = JSON.parse(decodeURIComponent(dataStr));
+      orderData = JSON.parse(storedData);
+      // Only use stored data if it matches the current orderId
+      if (orderData && String(orderData.orderId) !== String(orderId)) {
+        orderData = null;
+      }
     } catch (e) {
-      console.error("Failed to parse order data:", e);
+      console.error("Failed to parse stored order data:", e);
     }
   }
+
+  const method = orderData?.method ?? null;
 
   if (!orderId || !method || !orderData) {
     return (

@@ -122,7 +122,7 @@ export default function Checkout() {
         shippingFee: currentShipping,
       });
 
-      // Navigate to confirmation page with order data
+      // Store order data in sessionStorage to avoid URL length limits
       const confirmationData = {
         orderId: result.orderId,
         method: form.deliveryMethod,
@@ -140,8 +140,8 @@ export default function Checkout() {
         shippingFee: currentShipping,
         totalAmount: grandTotal,
       };
-      const encodedData = encodeURIComponent(JSON.stringify(confirmationData));
-      navigate(`/order-confirmation?orderId=${result.orderId}&method=${form.deliveryMethod}&data=${encodedData}`);
+      sessionStorage.setItem('yingli_order_confirmation', JSON.stringify(confirmationData));
+      navigate(`/order-confirmation?orderId=${result.orderId}`);
       clearCart();
     } catch (err: any) {
       toast.error(t("checkout.errSubmitFailed"), {

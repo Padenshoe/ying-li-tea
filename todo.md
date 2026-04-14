@@ -268,3 +268,9 @@
 - [x] Checkout.tsx：新增 Email 欄位（選填）
 - [x] LanguageContext.tsx：新增 Email 欄位翻譯 key
 - [x] order router：訂單送出後寄送顧客確認信（以迎利茶葉名義），並副本至 yinglitea@gmail.com- [x] 確認訂單成功頁面顯示「訂單成功」訊息
+
+## 訂單確認頁面資訊遺失修復（第十批）
+
+- [x] 診斷訂單資訊遺失根本原因（URL 參數過長/解析錯誤）
+- [x] 改用 sessionStorage 傳遞訂單資料至確認頁面
+- [x] 確認頁面從 sessionStorage 讀取訂單資料並顯示
