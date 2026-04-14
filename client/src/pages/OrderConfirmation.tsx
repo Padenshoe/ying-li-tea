@@ -3,7 +3,7 @@
  * 顯示訂單編號、商品、配送方式、貨到付款說明
  * 路由：/order-confirmation?orderId=123&method=home
  */
-import { useLocation } from "wouter";
+import { useSearch } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import Navbar from "@/components/Navbar";
@@ -32,10 +32,11 @@ interface OrderData {
 export default function OrderConfirmation() {
   const { t } = useLanguage();
   const { formatPrice } = useCurrency();
-  const [location] = useLocation();
+  const search = useSearch();
 
   // Parse query params — order data is stored in sessionStorage to avoid URL length limits
-  const params = new URLSearchParams(location.split("?")[1] || "");
+  // useSearch() returns the query string (e.g. "orderId=123") without the leading "?"
+  const params = new URLSearchParams(search || "");
   const orderId = params.get("orderId");
 
   let orderData: OrderData | null = null;

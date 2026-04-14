@@ -10,7 +10,6 @@ import { getDb } from "../db";
 import { customOrders } from "../../drizzle/schema";
 import { invokeLLM } from "../_core/llm";
 
-const OWNER_EMAIL = "neil34689@gmail.com";
 const STORE_EMAIL = "yinglitea@gmail.com";
 
 // Cart item schema (mirrors CartItem in client)
@@ -195,21 +194,14 @@ ${itemLines}
             }
           };
 
-          // 1. Owner notification (neil34689@gmail.com)
+          // 1. Store notification (yinglitea@gmail.com)
           await sendEmail(
-            OWNER_EMAIL,
+            STORE_EMAIL,
             `【迎利茶】新訂單 #${orderId} — ${input.fullName} ${genderLabel}`,
             emailBody
           );
 
-          // 2. Store copy (yinglitea@gmail.com)
-          await sendEmail(
-            STORE_EMAIL,
-            `【迎利茶】新訂單 #${orderId} 副本 — ${input.fullName} ${genderLabel}`,
-            emailBody
-          );
-
-          // 3. Customer confirmation (if email provided)
+          // 2. Customer confirmation (if email provided)
           if (input.email) {
             await sendEmail(
               input.email,

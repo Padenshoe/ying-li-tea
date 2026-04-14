@@ -274,3 +274,9 @@
 - [x] 診斷訂單資訊遺失根本原因（URL 參數過長/解析錯誤）
 - [x] 改用 sessionStorage 傳遞訂單資料至確認頁面
 - [x] 確認頁面從 sessionStorage 讀取訂單資料並顯示
+
+## 訂單確認頁修復 + Email 收件人更新（第十一批）
+
+- [x] 深入診斷訂單確認頁面仍顯示「訂單資訊遺失」的原因
+- [x] 修復確認頁面正確讀取訂單資料
+- [x] Email 收件人改為顧客 Email + yinglitea@gmail.com（移除 neil34689@gmail.com）
