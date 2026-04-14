@@ -256,3 +256,9 @@
 - [x] AboutSection：海拔範圍改為 1,000–2,800 公尺
 - [x] CartSection：購物車商品名稱改為中文
 - [x] 首頁刪除第一頁與第二頁之間的 MarqueeBanner（Loop High Mountain Oolong Cold Brew）
+
+## 結帳文字 + 訂單 Email 通知（第八批）
+
+- [x] Checkout.tsx：結帳提示文字改為「三到五個工作日到貨」
+- [x] LanguageContext.tsx：更新對應翻譯 key
+- [x] 後端訂單送出後寄送完整訂單資訊至 neil34689@gmail.com（商品、數量、姓名、性別、電話、配送方式、地址、備註）

@@ -10,7 +10,7 @@ import { getDb } from "../db";
 import { customOrders } from "../../drizzle/schema";
 import { invokeLLM } from "../_core/llm";
 
-const OWNER_EMAIL = "yinglitea@gmail.com";
+const OWNER_EMAIL = "neil34689@gmail.com";
 
 // Cart item schema (mirrors CartItem in client)
 const cartItemSchema = z.object({
@@ -113,16 +113,17 @@ export const orderRouter = router({
 訂單編號：#${orderId}
 下單時間：${new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })}
 
-── 客戶資料 ──────────────────
-姓名：${input.fullName} ${genderLabel}
-電話：${input.phone}
+── 客戶資料 ──────────────
+姓名：${input.fullName}
+性別：${genderLabel}
+聯絡電話：${input.phone}
 
-── 配送方式 ──────────────────
+── 配送方式 ──────────────
 ${deliveryLabel}
 ${deliveryDetail}
-${input.note ? `備註：${input.note}` : ""}
+${input.note ? `\n備註：${input.note}` : ""}
 
-── 訂購商品 ──────────────────
+── 訂購商品 ──────────────
 ${itemLines}
 
 小計：NT$${subtotal.toFixed(0)}
@@ -130,7 +131,7 @@ ${itemLines}
 總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）
 
 ═══════════════════════════════
-請盡快確認並安排出貨。
+請盡快確認並安排出貨。預計三到五個工作日到貨。
       `.trim();
 
       // Send email via LLM-powered notification (using built-in notification API)
