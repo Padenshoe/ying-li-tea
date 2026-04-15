@@ -333,12 +333,7 @@ export default function OrderConfirmation() {
             >
               返回首頁
             </Link>
-            <p
-              className="text-xs font-['Lato'] font-300 text-center mt-4"
-              style={{ color: "oklch(0.550 0.020 60)" }}
-            >
-              訂單編號 #{orderId} 已儲存，您可隨時透過「查詢訂單」功能查看進度
-            </p>
+
           </div>
         </div>
       </main>

@@ -280,3 +280,8 @@
 - [x] 深入診斷訂單確認頁面仍顯示「訂單資訊遺失」的原因
 - [x] 修復確認頁面正確讀取訂單資料
 - [x] Email 收件人改為顧客 Email + yinglitea@gmail.com（移除 neil34689@gmail.com）
+
+## 確認頁文字刪除 + Email 修復（第十二批）
+
+- [x] OrderConfirmation.tsx：刪除底部「訂單編號 #0 已儲存，您可隨時透過「查詢訂單」功能查看進度」文字
+- [x] 排查並修復 Email 寄送 API 404 問題（改用 Resend）

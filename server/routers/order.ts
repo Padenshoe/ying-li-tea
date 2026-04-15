@@ -1,16 +1,19 @@
 /**
  * YING-LI TEA — ORDER ROUTER
  * Handles custom COD orders (non-Stripe).
- * submitOrder: saves to customOrders table and sends email to yinglitea@gmail.com
+ * submitOrder: saves to customOrders table and sends email via Resend
  */
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { Resend } from "resend";
 import { publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { customOrders } from "../../drizzle/schema";
-import { invokeLLM } from "../_core/llm";
 
 const STORE_EMAIL = "yinglitea@gmail.com";
+// Resend requires a verified sender domain. Using onboarding@resend.dev for testing,
+// or a custom domain sender once domain is verified in Resend dashboard.
+const FROM_EMAIL = "迎利茶葉 <onboarding@resend.dev>";
 
 // Cart item schema (mirrors CartItem in client)
 const cartItemSchema = z.object({
@@ -86,7 +89,7 @@ export const orderRouter = router({
         });
       }
 
-      // Build email body
+      // Build email content
       const genderLabel =
         input.gender === "male" ? "先生" : input.gender === "female" ? "女士" : "其他";
       const deliveryLabel =
@@ -99,118 +102,149 @@ export const orderRouter = router({
       const shippingFee = input.shippingFee ?? 0;
       const subtotal = input.totalAmount - shippingFee;
       const shippingLabel = shippingFee === 0 ? "免費" : `NT$${shippingFee}`;
+      const orderTime = new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" });
 
-      const itemLines = input.items
+      const itemRowsHtml = input.items
         .map(
           (item) =>
-            `  • ${item.name} × ${item.quantity}  NT$${(item.price * item.quantity).toFixed(0)}`
+            `<tr>
+              <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;">${item.name}</td>
+              <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:center;">× ${item.quantity}</td>
+              <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:right;">NT$${(item.price * item.quantity).toFixed(0)}</td>
+            </tr>`
         )
+        .join("");
+
+      const itemLinesText = input.items
+        .map((item) => `  • ${item.name} × ${item.quantity}  NT$${(item.price * item.quantity).toFixed(0)}`)
         .join("\n");
 
-      const customerEmailLine = input.email ? `Email：${input.email}` : "";
+      // HTML email template for store notification
+      const storeEmailHtml = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>新訂單通知</title></head>
+<body style="font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f0e8;margin:0;padding:20px;">
+  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+    <div style="background:oklch(0.265 0.015 55);padding:28px 32px;">
+      <h1 style="color:#f5f0e8;margin:0;font-size:20px;font-weight:400;letter-spacing:0.05em;">迎利茶葉 — 新訂單通知</h1>
+      <p style="color:#c8b89a;margin:8px 0 0;font-size:13px;">訂單編號 #${orderId}｜${orderTime}</p>
+    </div>
+    <div style="padding:28px 32px;">
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">客戶資料</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px;">
+        <tr><td style="padding:4px 0;color:#8a7560;width:100px;">姓名</td><td style="padding:4px 0;color:#2d2416;">${input.fullName} ${genderLabel}</td></tr>
+        <tr><td style="padding:4px 0;color:#8a7560;">聯絡電話</td><td style="padding:4px 0;color:#2d2416;">${input.phone}</td></tr>
+        ${input.email ? `<tr><td style="padding:4px 0;color:#8a7560;">Email</td><td style="padding:4px 0;color:#2d2416;">${input.email}</td></tr>` : ""}
+      </table>
 
-      // Owner notification email body
-      const emailBody = `
-迎利茶 — 新訂單通知
-═══════════════════════════════
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">配送方式</h2>
+      <p style="font-size:14px;color:#2d2416;margin:0 0 4px;"><strong>${deliveryLabel}</strong></p>
+      <p style="font-size:14px;color:#5a4a35;margin:0 0 ${input.note ? "4px" : "24px"};">${deliveryDetail}</p>
+      ${input.note ? `<p style="font-size:13px;color:#8a7560;margin:4px 0 24px;">備註：${input.note}</p>` : ""}
 
-訂單編號：#${orderId}
-下單時間：${new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })}
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">訂購商品</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px;">
+        <thead>
+          <tr style="background:#f5f0e8;">
+            <th style="padding:8px 12px;text-align:left;color:#6b5a3e;font-weight:500;">商品</th>
+            <th style="padding:8px 12px;text-align:center;color:#6b5a3e;font-weight:500;">數量</th>
+            <th style="padding:8px 12px;text-align:right;color:#6b5a3e;font-weight:500;">小計</th>
+          </tr>
+        </thead>
+        <tbody>${itemRowsHtml}</tbody>
+      </table>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
+      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計（貨到付款）：NT$${input.totalAmount.toFixed(0)}</div>
+    </div>
+    <div style="background:#f5f0e8;padding:16px 32px;text-align:center;">
+      <p style="font-size:12px;color:#8a7560;margin:0;">請盡快確認並安排出貨，預計三到五個工作日到貨。</p>
+    </div>
+  </div>
+</body>
+</html>`;
 
-── 客戶資料 ──────────────
-姓名：${input.fullName}
-性別：${genderLabel}
-聯絡電話：${input.phone}
-${customerEmailLine ? customerEmailLine + "\n" : ""}
-── 配送方式 ──────────────
-${deliveryLabel}
-${deliveryDetail}
-${input.note ? `\n備註：${input.note}` : ""}
+      // HTML email template for customer confirmation
+      const customerEmailHtml = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>訂單確認通知</title></head>
+<body style="font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f0e8;margin:0;padding:20px;">
+  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+    <div style="background:oklch(0.265 0.015 55);padding:28px 32px;">
+      <h1 style="color:#f5f0e8;margin:0;font-size:20px;font-weight:400;letter-spacing:0.05em;">迎利茶葉 — 訂單確認通知</h1>
+      <p style="color:#c8b89a;margin:8px 0 0;font-size:13px;">訂單編號 #${orderId}｜${orderTime}</p>
+    </div>
+    <div style="padding:28px 32px;">
+      <p style="font-size:15px;color:#2d2416;margin:0 0 24px;">親愛的 ${input.fullName} ${genderLabel}，您好！<br><br>感謝您向迎利茶葉訂購，我們已收到您的訂單，<strong>預計三到五個工作日到貨</strong>。</p>
 
-── 訂購商品 ──────────────
-${itemLines}
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">配送方式</h2>
+      <p style="font-size:14px;color:#2d2416;margin:0 0 4px;"><strong>${deliveryLabel}</strong></p>
+      <p style="font-size:14px;color:#5a4a35;margin:0 0 ${input.note ? "4px" : "24px"};">${deliveryDetail}</p>
+      ${input.note ? `<p style="font-size:13px;color:#8a7560;margin:4px 0 24px;">備註：${input.note}</p>` : ""}
 
-小計：NT$${subtotal.toFixed(0)}
-運費：${shippingLabel}
-總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">訂購商品</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px;">
+        <thead>
+          <tr style="background:#f5f0e8;">
+            <th style="padding:8px 12px;text-align:left;color:#6b5a3e;font-weight:500;">商品</th>
+            <th style="padding:8px 12px;text-align:center;color:#6b5a3e;font-weight:500;">數量</th>
+            <th style="padding:8px 12px;text-align:right;color:#6b5a3e;font-weight:500;">小計</th>
+          </tr>
+        </thead>
+        <tbody>${itemRowsHtml}</tbody>
+      </table>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
+      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計（貨到付款）：NT$${input.totalAmount.toFixed(0)}</div>
+    </div>
+    <div style="background:#f5f0e8;padding:20px 32px;text-align:center;">
+      <p style="font-size:13px;color:#5a4a35;margin:0 0 8px;">如有任何問題，歡迎聯絡我們</p>
+      <a href="mailto:yinglitea@gmail.com" style="font-size:13px;color:#6b5a3e;">yinglitea@gmail.com</a>
+      <p style="font-size:12px;color:#8a7560;margin:12px 0 0;">迎利茶葉 敬上</p>
+    </div>
+  </div>
+</body>
+</html>`;
 
-═══════════════════════════════
-請盡快確認並安排出貨。預計三到五個工作日到貨。
-      `.trim();
-
-      // Customer confirmation email body
-      const customerEmailBody = `
-親愛的 ${input.fullName} ${genderLabel}，您好！
-
-感謝您向迎利茶葉訂購，我們已收到您的訂單，預計三到五個工作日到貨。
-
-═══════════════════════════════
-訂單編號：#${orderId}
-下單時間：${new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })}
-
-── 配送方式 ──────────────
-${deliveryLabel}
-${deliveryDetail}
-${input.note ? `\n備註：${input.note}` : ""}
-
-── 訂購商品 ──────────────
-${itemLines}
-
-小計：NT$${subtotal.toFixed(0)}
-運費：${shippingLabel}
-總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）
-
-═══════════════════════════════
-如有任何問題，歡迎以 Email 聯絡我們：yinglitea@gmail.com
-
-迎利茶葉 敬上
-      `.trim();
-
-      // Send emails (owner notification + customer confirmation)
+      // Send emails via Resend
       try {
-        const forgeApiUrl = process.env.BUILT_IN_FORGE_API_URL;
-        const forgeApiKey = process.env.BUILT_IN_FORGE_API_KEY;
-
-        if (forgeApiUrl && forgeApiKey) {
-          const sendEmail = async (to: string, subject: string, text: string) => {
-            const res = await fetch(`${forgeApiUrl}/v1/notification/email`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${forgeApiKey}`,
-              },
-              body: JSON.stringify({
-                to,
-                subject,
-                text,
-                html: text.replace(/\n/g, "<br>").replace(/═+/g, "<hr>"),
-              }),
-            });
-            if (!res.ok) {
-              const errText = await res.text();
-              console.warn(`[Order] Email to ${to} failed:`, res.status, errText);
-            } else {
-              console.log(`[Order] Email sent to ${to} for order #${orderId}`);
-            }
-          };
+        const resendApiKey = process.env.RESEND_API_KEY;
+        if (!resendApiKey) {
+          console.warn("[Order] RESEND_API_KEY not configured, skipping email");
+        } else {
+          const resend = new Resend(resendApiKey);
 
           // 1. Store notification (yinglitea@gmail.com)
-          await sendEmail(
-            STORE_EMAIL,
-            `【迎利茶】新訂單 #${orderId} — ${input.fullName} ${genderLabel}`,
-            emailBody
-          );
+          const storeResult = await resend.emails.send({
+            from: FROM_EMAIL,
+            to: [STORE_EMAIL],
+            subject: `【迎利茶】新訂單 #${orderId} — ${input.fullName} ${genderLabel}`,
+            html: storeEmailHtml,
+            text: `迎利茶 — 新訂單通知\n訂單編號：#${orderId}\n下單時間：${orderTime}\n\n姓名：${input.fullName} ${genderLabel}\n電話：${input.phone}\n${input.email ? "Email：" + input.email + "\n" : ""}${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）`,
+          });
+          if (storeResult.error) {
+            console.warn("[Order] Store email failed:", storeResult.error);
+          } else {
+            console.log(`[Order] Store email sent for order #${orderId}`, storeResult.data?.id);
+          }
 
           // 2. Customer confirmation (if email provided)
           if (input.email) {
-            await sendEmail(
-              input.email,
-              `【迎利茶葉】訂單確認通知 #${orderId}`,
-              customerEmailBody
-            );
+            const customerResult = await resend.emails.send({
+              from: FROM_EMAIL,
+              to: [input.email],
+              subject: `【迎利茶葉】訂單確認通知 #${orderId}`,
+              html: customerEmailHtml,
+              text: `親愛的 ${input.fullName} ${genderLabel}，您好！\n\n感謝您向迎利茶葉訂購，我們已收到您的訂單，預計三到五個工作日到貨。\n\n訂單編號：#${orderId}\n${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）\n\n如有問題請聯絡：yinglitea@gmail.com\n\n迎利茶葉 敬上`,
+            });
+            if (customerResult.error) {
+              console.warn("[Order] Customer email failed:", customerResult.error);
+            } else {
+              console.log(`[Order] Customer email sent to ${input.email}`, customerResult.data?.id);
+            }
           }
-        } else {
-          console.warn("[Order] Forge API not configured, skipping email");
         }
       } catch (emailErr) {
         // Email failure should NOT block the order confirmation
