@@ -285,3 +285,12 @@
 
 - [x] OrderConfirmation.tsx：刪除底部「訂單編號 #0 已儲存，您可隨時透過「查詢訂單」功能查看進度」文字
 - [x] 排查並修復 Email 寄送 API 404 問題（改用 Resend）
+
+## 顧客 Email 寄送修復（第十三批）
+
+- [ ] 診斷 Resend 顧客確認信未寄出原因（查看日誌）
+- [ ] 修復並驗證 Email 寄送功能
+
+## 更新 Resend 寄件人（第十四批）
+
+- [x] order.ts：寄件人改為「迎利茶葉 <info@yinglitea.co>」

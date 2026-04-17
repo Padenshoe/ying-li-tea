@@ -11,9 +11,8 @@ import { getDb } from "../db";
 import { customOrders } from "../../drizzle/schema";
 
 const STORE_EMAIL = "yinglitea@gmail.com";
-// Resend requires a verified sender domain. Using onboarding@resend.dev for testing,
-// or a custom domain sender once domain is verified in Resend dashboard.
-const FROM_EMAIL = "迎利茶葉 <onboarding@resend.dev>";
+// Verified sender domain: yinglitea.co (verified in Resend dashboard)
+const FROM_EMAIL = "迎利茶葉 <info@yinglitea.co>";
 
 // Cart item schema (mirrors CartItem in client)
 const cartItemSchema = z.object({
