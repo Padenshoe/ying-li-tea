@@ -294,3 +294,8 @@
 ## 更新 Resend 寄件人（第十四批）
 
 - [x] order.ts：寄件人改為「迎利茶葉 <info@yinglitea.co>」
+
+## SEO 修復（第十五批）
+
+- [x] 縮減 meta keywords 至 3–8 個核心關鍵字（目前 10 個）
+- [x] 更新 meta description 長度至 50–160 字元（目前 48 字元）
