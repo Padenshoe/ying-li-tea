@@ -46,7 +46,7 @@ export default function QuoteSection() {
             lineHeight: 1.6,
           }}
         >
-          讓「好茶」變簡單，不是把「茶」變簡單。
+          茶葉的價値，應該讓你看得見。
         </blockquote>
         <span
           className="eyebrow reveal"

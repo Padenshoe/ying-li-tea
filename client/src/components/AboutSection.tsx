@@ -71,7 +71,7 @@ export default function AboutSection() {
             {/* Left — Text */}
             <div className="flex flex-col gap-6">
               <p
-                className="font-['Lato'] font-300 leading-loose reveal"
+                className="font-['Lato'] font-300 leading-loose reveal whitespace-pre-line"
                 style={{ fontSize: "1.0625rem", color: "oklch(0.900 0.010 90)" }}
               >
                 {t("about.description")}
