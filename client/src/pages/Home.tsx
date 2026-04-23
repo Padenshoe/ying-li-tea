@@ -20,7 +20,7 @@ export default function Home() {
   let { user, loading, error, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
-    document.title = "迎利茶 Ying-Li Tea — 台灣烏龍茶、冷泡茶與精緻茶葉禮盒";
+    document.title = "迎利茶葉 Ying-Li Tea — 台灣烏龍茶、冷泡茶與精致茶葉礼盒";
   }, []);
 
   return (

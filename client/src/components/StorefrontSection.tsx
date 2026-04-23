@@ -110,6 +110,25 @@ export default function StorefrontSection() {
 
         {/* CTA */}
         <div className="mt-10 flex flex-col sm:flex-row gap-4 reveal">
+          {/* 預約品茶 — primary CTA */}
+          <a
+            href="https://inline.app/booking/-OgjSjYM3fJVY_dVPxeW:inline-live-4/-OgjSjeasbw8dl8ZPUyc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3.5 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300 inline-block"
+            style={{
+              background: "oklch(0.730 0.070 75)",
+              color: "oklch(0.200 0.020 60)",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "oklch(0.660 0.070 75)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "oklch(0.730 0.070 75)";
+            }}
+          >
+            預約品茶
+          </a>
           <a
             href="#contact"
             onClick={(e) => {

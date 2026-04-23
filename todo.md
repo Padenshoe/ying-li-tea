@@ -308,3 +308,9 @@
 - [x] QuoteSection：引言改為「茶葉的價値，應該讓你看得見」
 - [x] FaqSection：新增「迎利跟其他茶品牌有什麼不同？」問答
 - [x] FaqSection：「會有更多茶葉風味嗎？」答案改為精選二十款說法
+
+## 預約品茶按鈕 & 品牌名稱統一（第十七批）
+
+- [x] StorefrontSection：新增「預約品茶 / Book a Visit」按鈕（連結 inline.app）
+- [x] Navbar：新增「預約品茶 / Book a Visit」連結
+- [x] 統一品牌名稱為「迎利茶葉 / Ying-Li Tea」（footer、page title、LanguageContext）

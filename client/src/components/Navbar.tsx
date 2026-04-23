@@ -37,12 +37,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const BOOK_URL = "https://inline.app/booking/-OgjSjYM3fJVY_dVPxeW:inline-live-4/-OgjSjeasbw8dl8ZPUyc";
+
   const navLinks = [
     { label: t("nav.home"), href: "#home", type: "anchor" },
     { label: t("nav.about"), href: "#about", type: "anchor" },
     { label: "精選商品", href: "/products", type: "route" },
     { label: "專屬選茶", href: "/tea-quiz", type: "route" },
     { label: t("nav.faq"), href: "#faq", type: "anchor" },
+    { label: language === "en" ? "Book a Visit" : "預約品茶", href: BOOK_URL, type: "external" },
   ];
 
   const [location] = useLocation();
@@ -101,6 +104,18 @@ export default function Navbar() {
                 >
                   {link.label}
                 </Link>
+              ) : link.type === "external" ? (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-['Lato'] font-400 tracking-[0.12em] uppercase px-4 py-2 transition-all duration-300 inline-block"
+                  style={{ background: "oklch(0.730 0.070 75)", color: "oklch(0.200 0.020 60)" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.660 0.070 75)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.730 0.070 75)"; }}
+                >
+                  {link.label}
+                </a>
               ) : (
                 <a
                   href={link.href}
@@ -338,6 +353,21 @@ export default function Navbar() {
               >
                 {link.label}
               </Link>
+            ) : link.type === "external" ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-['Lato'] font-400 tracking-wide py-2 px-4 inline-block"
+                style={{
+                  background: "oklch(0.730 0.070 75)",
+                  color: "oklch(0.200 0.020 60)",
+                }}
+              >
+                {link.label}
+              </a>
             ) : (
               <a
                 key={link.href}
