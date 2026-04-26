@@ -22,14 +22,14 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     "hero.title": "Ying-Li Tea — Taiwan's Finest Tea Shop",
-    "hero.tagline": "20 Years of Tea Expertise | Oolong, Red Tea & Green Tea from All Major Taiwan Regions",
+    "hero.tagline": "20 Years of Tea Expertise — Taiwan Oolong Specialists, All Elevations, All Regions",
     "hero.intro": "From Alishan to Dayuling, 1,000 to 2,800 metres elevation — we source oolong from Taiwan's six premier growing regions. Transparent pricing, quality guaranteed. Walk in anytime for a free tasting.",
     "hero.shopNow": "Shop Now",
     "hero.exploreTea": "Explore Our Tea",
 
     // Featured Section
     "featured.label": "Featured Product",
-    "featured.title": "Taiwan Tea Gift Box — Certified Oolong Tea Set",
+    "featured.title": "Premium Alishan Tea Bag Gift Box",
     "featured.description": "Beautifully packaged Taiwanese oolong tea gift sets, perfect for sharing or gifting. Each box contains premium tea selections from our finest regions — a thoughtful way to introduce someone to the art of Taiwanese tea culture.",
     "featured.format": "Format",
     "featured.giftBox": "Gift Box",
@@ -210,14 +210,14 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     "hero.title": "迎利茶葉 — 台灣茶專賣店",
-    "hero.tagline": "二十年茶行，烏龍茶、紅茶、綠茶全台灣產區均有",
+    "hero.tagline": "二十年茶行，台灣烏龍茶專賣，全台灣各海拔均有",
     "hero.intro": "從阿里山到大禹嶺，海拔 1,000 到 2,800 公尺，精選台灣六大產區烏龍茶。透明定價，品質保證，歡迎來店試喝。",
     "hero.shopNow": "立即購買",
     "hero.exploreTea": "探索我們的茶",
 
     // Featured Section
     "featured.label": "精選商品",
-    "featured.title": "台灣茶葉礼盒 — 產銷履歷烏龍茶組",
+    "featured.title": "高級阿里山茶包禮盒",
     "featured.description": "茶包禮盒送禮首選。茶包均選用阿里山一心二葉的茶葉，經傳統烘焙方式保留傳統的特色，結合現代泡茶風格，讓每一口都是高山茶的原汁原味。",
     "featured.format": "包裝形式",
     "featured.giftBox": "60入真空包裝",
