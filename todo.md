@@ -314,3 +314,10 @@
 - [x] StorefrontSection：新增「預約品茶 / Book a Visit」按鈕（連結 inline.app）
 - [x] Navbar：新增「預約品茶 / Book a Visit」連結
 - [x] 統一品牌名稱為「迎利茶葉 / Ying-Li Tea」（footer、page title、LanguageContext）
+
+## SEO 關鍵字全面優化（第十八批）
+
+- [x] 更新 meta keywords：改為台灣茶主軸，6 個核心關鍵字
+- [x] 更新 meta description：重寫為 150 字以內，強調台灣茶全品項、產銷履歷、試喝
+- [x] 更新 H1 標題（Hero 主標題）：加入關鍵字，不只是品牌名
+- [x] 更新 H2 標題（FeaturedSection）：優化「高級阿里山茶包礼盒」
