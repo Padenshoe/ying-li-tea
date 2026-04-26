@@ -328,3 +328,8 @@
 - [x] Featured H2：改回簡潔版本
 - [x] 修正全站簡體字為繁體字（礼盒、試喝等）
 - [x] 修正 meta description 與 title 中的簡體字
+
+## Favicon 設定（第二十批）
+
+- [x] 將迎利 Logo 轉換為 favicon（32x32、16x16、180x180 apple-touch-icon）
+- [x] 上傳至網站 public 目錄並更新 index.html
