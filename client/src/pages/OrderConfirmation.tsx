@@ -3,11 +3,19 @@
  * 顯示訂單編號、商品、配送方式、貨到付款說明
  * 路由：/order-confirmation?orderId=123&method=home
  */
+import { useEffect } from "react";
 import { useSearch } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import Navbar from "@/components/Navbar";
 import { Link } from "wouter";
+
+// Extend Window interface for GTM dataLayer
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
+  }
+}
 
 const accentGreen = "oklch(0.500 0.060 145)";
 
@@ -54,6 +62,18 @@ export default function OrderConfirmation() {
   }
 
   const method = orderData?.method ?? null;
+
+  // Push purchase event to GTM dataLayer once order data is confirmed
+  useEffect(() => {
+    if (!orderId || !orderData) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'purchase',
+      order_id: String(orderId),
+      value: orderData.totalAmount,
+      user_email: orderData.email ?? '',
+    });
+  }, [orderId, orderData?.totalAmount, orderData?.email]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!orderId || !method || !orderData) {
     return (

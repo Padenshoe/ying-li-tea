@@ -333,3 +333,7 @@
 
 - [x] 將迎利 Logo 轉換為 favicon（32x32、16x16、180x180 apple-touch-icon）
 - [x] 上傳至網站 public 目錄並更新 index.html
+
+## GTM dataLayer 購買事件推送（第二十一批）
+
+- [x] /order-confirmation 頁面加入 dataLayer.push：event=purchase、value、order_id、user_email
