@@ -353,3 +353,9 @@
 
 - [x] 修復 Navbar Logo/品牌名稱顯示（目前不見）
 - [x] 確認 Navbar 固定在頂端（position: fixed/sticky），所有頁面隨時可點
+
+## Navbar Logo 修復（第二十四批）
+
+- [x] Logo 垂直置中
+- [x] 移除「迎利茶葉」文字
+- [x] 去掉 Logo 周圍白色正方形背景（mix-blend-mode 或 PNG 處理）
