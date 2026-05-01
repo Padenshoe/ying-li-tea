@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-const accentGreen = "oklch(0.500 0.060 145)";
+const accentGreen = "oklch(0.380 0.070 145)";
 
 interface OrderData {
   orderId: number;
@@ -77,7 +77,7 @@ export default function OrderConfirmation() {
 
   if (!orderId || !method || !orderData) {
     return (
-      <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+      <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
         <Navbar />
         <main className="container pt-32 pb-24 max-w-xl mx-auto text-center">
           <p
@@ -103,7 +103,7 @@ export default function OrderConfirmation() {
     method === "home" ? `收件地址：${orderData.address}` : `7-11 門市：${orderData.storeCode}`;
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
       <Navbar />
 
       <main className="container pt-28 pb-24">

@@ -130,7 +130,7 @@ export default function ContactFooter() {
                 className="font-['Playfair_Display'] font-400 reveal"
                 style={{
                   fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                  color: "oklch(0.962 0.008 90)",
+                  color: "oklch(0.955 0.014 80)",
                   lineHeight: 1.15,
                 }}
               >
@@ -168,7 +168,7 @@ export default function ContactFooter() {
                   >
                     <span
                       className="font-['Lato'] font-400 tracking-[0.1em] uppercase text-sm px-4 py-2 rounded"
-                      style={{ color: "oklch(0.962 0.008 90)", background: "oklch(0.400 0.060 75)" }}
+                      style={{ color: "oklch(0.955 0.014 80)", background: "oklch(0.400 0.060 75)" }}
                     >
                       {language === "zh" ? "在 Google 地圖上查看" : "View on Google Maps"}
                     </span>
@@ -204,9 +204,9 @@ export default function ContactFooter() {
                 <a
                   href={`tel:${STORE_PHONE}`}
                   className="font-['Playfair_Display'] font-400 transition-colors duration-300"
-                  style={{ fontSize: "1.125rem", color: "oklch(0.962 0.008 90)" }}
+                  style={{ fontSize: "1.125rem", color: "oklch(0.955 0.014 80)" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.962 0.008 90)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.955 0.014 80)"; }}
                 >
                   {STORE_PHONE}
                 </a>
@@ -222,9 +222,9 @@ export default function ContactFooter() {
                 <a
                   href="mailto:yinglitea@gmail.com"
                   className="font-['Playfair_Display'] font-400 transition-colors duration-300"
-                  style={{ fontSize: "1.125rem", color: "oklch(0.962 0.008 90)" }}
+                  style={{ fontSize: "1.125rem", color: "oklch(0.955 0.014 80)" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.962 0.008 90)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.955 0.014 80)"; }}
                 >
                   yinglitea@gmail.com
                 </a>
@@ -273,7 +273,7 @@ export default function ContactFooter() {
                 <div className="divider-short mb-6" style={{ background: "oklch(0.730 0.070 75)" }} />
                 <h3
                   className="font-['Playfair_Display'] font-400 mb-2"
-                  style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "oklch(0.962 0.008 90)", lineHeight: 1.2 }}
+                  style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "oklch(0.955 0.014 80)", lineHeight: 1.2 }}
                 >
                   {language === "zh" ? "有任何問題嗎？" : "Have a Question?"}
                 </h3>
@@ -325,7 +325,7 @@ export default function ContactFooter() {
                     className={inputBase}
                     style={{
                       background: "oklch(0.320 0.015 55)",
-                      color: "oklch(0.962 0.008 90)",
+                      color: "oklch(0.955 0.014 80)",
                       border: errors.name ? "1px solid oklch(0.700 0.200 27)" : "1px solid oklch(0.400 0.015 55)",
                     }}
                     onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = "1px solid oklch(0.730 0.070 75)"; }}
@@ -356,7 +356,7 @@ export default function ContactFooter() {
                     className={inputBase}
                     style={{
                       background: "oklch(0.320 0.015 55)",
-                      color: "oklch(0.962 0.008 90)",
+                      color: "oklch(0.955 0.014 80)",
                       border: errors.email ? "1px solid oklch(0.700 0.200 27)" : "1px solid oklch(0.400 0.015 55)",
                     }}
                     onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = "1px solid oklch(0.730 0.070 75)"; }}
@@ -387,7 +387,7 @@ export default function ContactFooter() {
                     className={`${inputBase} resize-none`}
                     style={{
                       background: "oklch(0.320 0.015 55)",
-                      color: "oklch(0.962 0.008 90)",
+                      color: "oklch(0.955 0.014 80)",
                       border: errors.message ? "1px solid oklch(0.700 0.200 27)" : "1px solid oklch(0.400 0.015 55)",
                     }}
                     onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = "1px solid oklch(0.730 0.070 75)"; }}
@@ -405,7 +405,7 @@ export default function ContactFooter() {
                   type="submit"
                   disabled={submitMutation.isPending}
                   className="w-full py-3 text-xs font-['Lato'] font-500 tracking-[0.15em] uppercase transition-all duration-300 border-none cursor-pointer rounded disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}
+                  style={{ background: "oklch(0.380 0.070 145)", color: "#FAFAF7" }}
                   onMouseEnter={(e) => { if (!submitMutation.isPending) (e.currentTarget as HTMLElement).style.opacity = "0.85"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
                 >

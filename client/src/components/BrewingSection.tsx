@@ -22,7 +22,7 @@ function BrewCard({ title, subtitle, steps, videoUrl, accentColor }: BrewCardPro
     <div
       className="flex flex-col rounded-2xl overflow-hidden"
       style={{
-        background: "oklch(0.990 0.004 95)",
+        background: "oklch(0.970 0.012 80)",
         border: "1px solid oklch(0.870 0.018 130)",
         boxShadow: "0 4px 24px oklch(0.265 0.015 55 / 0.06)",
       }}
@@ -113,7 +113,7 @@ export default function BrewingSection() {
         <div className="mb-12 text-center">
           <p
             className="font-['Lato'] font-400 tracking-[0.2em] uppercase text-xs mb-3"
-            style={{ color: "oklch(0.500 0.060 145)" }}
+            style={{ color: "oklch(0.380 0.070 145)" }}
           >
             How To Brew
           </p>
@@ -135,7 +135,7 @@ export default function BrewingSection() {
           </p>
           <div
             className="w-12 h-px mx-auto mt-6"
-            style={{ background: "oklch(0.500 0.060 145)" }}
+            style={{ background: "oklch(0.380 0.070 145)" }}
           />
         </div>
 
@@ -152,7 +152,7 @@ export default function BrewingSection() {
             subtitle="Cold Brew · 清爽甘甜"
             steps={coldSteps}
             videoUrl={COLD_BREW_URL}
-            accentColor="oklch(0.500 0.060 145)"
+            accentColor="oklch(0.380 0.070 145)"
           />
         </div>
       </div>

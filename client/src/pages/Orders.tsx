@@ -38,7 +38,7 @@ function parseItems(raw: string): OrderItem[] {
 
 function StatusBadge({ status, language }: { status: string; language: string }) {
   const labels: Record<string, { en: string; zh: string; color: string }> = {
-    completed: { en: "Completed", zh: "已完成", color: "oklch(0.500 0.060 145)" },
+    completed: { en: "Completed", zh: "已完成", color: "oklch(0.380 0.070 145)" },
     pending:   { en: "Pending",   zh: "待處理",  color: "oklch(0.650 0.120 80)"  },
     failed:    { en: "Failed",    zh: "失敗",    color: "oklch(0.577 0.245 27)"  },
     cancelled: { en: "Cancelled", zh: "已取消",  color: "oklch(0.552 0.016 285)" },
@@ -117,7 +117,7 @@ export default function Orders() {
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
       <Navbar />
 
       <main className="container pt-28 pb-24 max-w-2xl mx-auto">
@@ -125,7 +125,7 @@ export default function Orders() {
         <div className="mb-10">
           <span
             className="eyebrow block mb-3"
-            style={{ color: "oklch(0.500 0.060 145)" }}
+            style={{ color: "oklch(0.380 0.070 145)" }}
           >
             {language === "zh" ? "訂單查詢" : "Order Lookup"}
           </span>
@@ -149,7 +149,7 @@ export default function Orders() {
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-sm font-['Lato'] font-400 mb-10 transition-colors duration-300"
-          style={{ color: "oklch(0.500 0.060 145)" }}
+          style={{ color: "oklch(0.380 0.070 145)" }}
         >
           ← {language === "zh" ? "返回商店" : "Back to Shop"}
         </Link>
@@ -165,7 +165,7 @@ export default function Orders() {
               <label
                 htmlFor="order-id"
                 className="text-xs font-['Lato'] font-400 tracking-[0.1em] uppercase"
-                style={{ color: "oklch(0.500 0.060 145)" }}
+                style={{ color: "oklch(0.380 0.070 145)" }}
               >
                 {language === "zh" ? "訂單編號" : "Order Number"} *
               </label>
@@ -191,7 +191,7 @@ export default function Orders() {
                 }}
                 onFocus={(e) => {
                   (e.currentTarget as HTMLElement).style.border =
-                    "1px solid oklch(0.500 0.060 145)";
+                    "1px solid oklch(0.380 0.070 145)";
                 }}
                 onBlur={(e) => {
                   (e.currentTarget as HTMLElement).style.border = formErrors.orderId
@@ -211,7 +211,7 @@ export default function Orders() {
               <label
                 htmlFor="last-name"
                 className="text-xs font-['Lato'] font-400 tracking-[0.1em] uppercase"
-                style={{ color: "oklch(0.500 0.060 145)" }}
+                style={{ color: "oklch(0.380 0.070 145)" }}
               >
                 {language === "zh" ? "姓氏" : "Last Name"} *
               </label>
@@ -236,7 +236,7 @@ export default function Orders() {
                 }}
                 onFocus={(e) => {
                   (e.currentTarget as HTMLElement).style.border =
-                    "1px solid oklch(0.500 0.060 145)";
+                    "1px solid oklch(0.380 0.070 145)";
                 }}
                 onBlur={(e) => {
                   (e.currentTarget as HTMLElement).style.border = formErrors.lastName
@@ -256,7 +256,7 @@ export default function Orders() {
               type="submit"
               disabled={isLoading || isFetching}
               className="w-full py-3 text-xs font-['Lato'] font-500 tracking-[0.15em] uppercase transition-all duration-300 border-none cursor-pointer rounded disabled:opacity-60 disabled:cursor-not-allowed mt-1"
-              style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}
+              style={{ background: "oklch(0.380 0.070 145)", color: "#FAFAF7" }}
               onMouseEnter={(e) => {
                 if (!isLoading && !isFetching)
                   (e.currentTarget as HTMLElement).style.opacity = "0.85";
@@ -330,7 +330,7 @@ export default function Orders() {
                   <span className="text-xs font-['Lato'] font-400 tracking-[0.1em] uppercase block mb-1" style={{ color: "oklch(0.550 0.020 60)" }}>
                     {language === "zh" ? "總計" : "Total"}
                   </span>
-                  <span className="font-['Lato'] font-600 text-base" style={{ color: "oklch(0.500 0.060 145)" }}>
+                  <span className="font-['Lato'] font-600 text-base" style={{ color: "oklch(0.380 0.070 145)" }}>
                     {formatPrice(convertPrice(parseFloat(order.totalAmount)))}
                   </span>
                 </div>
@@ -362,7 +362,7 @@ export default function Orders() {
                         <div className="flex items-center gap-3 min-w-0">
                           <span
                             className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-['Lato'] font-600 flex-shrink-0"
-                            style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}
+                            style={{ background: "oklch(0.380 0.070 145)", color: "#FAFAF7" }}
                           >
                             {item.quantity}
                           </span>
@@ -386,7 +386,7 @@ export default function Orders() {
                   <span className="font-['Lato'] font-400 text-sm" style={{ color: "oklch(0.520 0.020 60)" }}>
                     {language === "zh" ? "訂單總計" : "Order Total"}
                   </span>
-                  <span className="font-['Playfair_Display'] font-400 text-lg" style={{ color: "oklch(0.500 0.060 145)" }}>
+                  <span className="font-['Playfair_Display'] font-400 text-lg" style={{ color: "oklch(0.380 0.070 145)" }}>
                     {formatPrice(convertPrice(parseFloat(order.totalAmount)))}
                   </span>
                 </div>
@@ -400,7 +400,7 @@ export default function Orders() {
                 <button
                   onClick={handleReset}
                   className="text-xs font-['Lato'] font-400 tracking-[0.1em] uppercase transition-colors duration-300"
-                  style={{ color: "oklch(0.500 0.060 145)", background: "none", border: "none", cursor: "pointer" }}
+                  style={{ color: "oklch(0.380 0.070 145)", background: "none", border: "none", cursor: "pointer" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.7"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
                 >

@@ -30,7 +30,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20" style={{ background: "oklch(0.990 0.004 95)" }}>
+    <div className="min-h-screen pt-32 pb-20" style={{ background: "oklch(0.970 0.012 80)" }}>
       <div className="container max-w-6xl">
         {/* Page Header */}
         <div className="mb-12">
@@ -46,7 +46,7 @@ export default function Cart() {
           </h1>
           <div
             className="w-12 h-0.5"
-            style={{ background: "oklch(0.500 0.060 145)" }}
+            style={{ background: "oklch(0.380 0.070 145)" }}
           />
         </div>
 
@@ -62,7 +62,7 @@ export default function Cart() {
               href="/"
               className="inline-block px-8 py-3 rounded font-['Lato'] font-500 transition-all duration-300"
               style={{
-                background: "oklch(0.500 0.060 145)",
+                background: "oklch(0.380 0.070 145)",
                 color: "#FAFAF7",
               }}
               onMouseEnter={(e) => {
@@ -165,7 +165,7 @@ export default function Cart() {
                       <div className="text-right">
                         <p
                           className="font-['Lato'] font-600 mb-4"
-                          style={{ color: "oklch(0.500 0.060 145)" }}
+                          style={{ color: "oklch(0.380 0.070 145)" }}
                         >
                           {formatPrice(convertPrice(item.price * item.quantity))}
                         </p>
@@ -196,8 +196,8 @@ export default function Cart() {
                   className="inline-block mt-6 px-6 py-2 rounded font-['Lato'] font-500 transition-all duration-300"
                   style={{
                     background: "transparent",
-                    border: "1px solid oklch(0.500 0.060 145)",
-                    color: "oklch(0.500 0.060 145)",
+                    border: "1px solid oklch(0.380 0.070 145)",
+                    color: "oklch(0.380 0.070 145)",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145 / 0.1)";
@@ -248,7 +248,7 @@ export default function Cart() {
                   <span className="font-['Lato'] font-600" style={{ color: "oklch(0.265 0.015 55)" }}>
                     {language === "en" ? "Total" : "總計"}
                   </span>
-                  <span className="font-['Playfair_Display'] font-400 text-xl" style={{ color: "oklch(0.500 0.060 145)" }}>
+                  <span className="font-['Playfair_Display'] font-400 text-xl" style={{ color: "oklch(0.380 0.070 145)" }}>
                     {formatPrice(convertedTotal)}
                   </span>
                 </div>
@@ -258,7 +258,7 @@ export default function Cart() {
                   onClick={handleCheckout}
                   className="w-full py-3 rounded font-['Lato'] font-600 transition-all duration-300"
                   style={{
-                    background: "oklch(0.500 0.060 145)",
+                    background: "oklch(0.380 0.070 145)",
                     color: "#FAFAF7",
                   }}
                   onMouseEnter={(e) => {

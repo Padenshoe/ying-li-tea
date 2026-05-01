@@ -147,7 +147,7 @@ export default function Navbar() {
               className="px-2.5 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
               style={{
                 background:
-                  language === "zh" ? "oklch(0.500 0.060 145)" : "transparent",
+                  language === "zh" ? "oklch(0.380 0.070 145)" : "transparent",
                 color: language === "zh" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
               }}
             >
@@ -159,7 +159,7 @@ export default function Navbar() {
               className="px-2.5 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
               style={{
                 background:
-                  language === "en" ? "oklch(0.500 0.060 145)" : "transparent",
+                  language === "en" ? "oklch(0.380 0.070 145)" : "transparent",
                 color: language === "en" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
               }}
             >
@@ -174,11 +174,11 @@ export default function Navbar() {
               className="relative p-2 rounded-lg transition-all duration-300 hover:bg-gray-100"
               aria-label="Shopping cart"
             >
-              <ShoppingBag size={20} style={{ color: "oklch(0.500 0.060 145)" }} />
+              <ShoppingBag size={20} style={{ color: "oklch(0.380 0.070 145)" }} />
               {totalItems > 0 && (
                 <span
                   className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-['Lato'] font-600 flex items-center justify-center text-white"
-                  style={{ background: "oklch(0.500 0.060 145)" }}
+                  style={{ background: "oklch(0.380 0.070 145)" }}
                 >
                   {totalItems}
                 </span>
@@ -224,7 +224,7 @@ export default function Navbar() {
                             <p className="font-['Lato'] text-xs" style={{ color: "oklch(0.552 0.016 285.938)" }}>
                               {formatPrice(convertPrice(item.price))} × {item.quantity}
                             </p>
-                            <p className="font-['Lato'] text-xs font-600 mt-1" style={{ color: "oklch(0.500 0.060 145)" }}>
+                            <p className="font-['Lato'] text-xs font-600 mt-1" style={{ color: "oklch(0.380 0.070 145)" }}>
                               {formatPrice(convertPrice(item.price * item.quantity))}
                             </p>
                           </div>
@@ -244,7 +244,7 @@ export default function Navbar() {
                         <span className="font-['Lato'] font-600" style={{ color: "oklch(0.265 0.015 55)" }}>
                           {language === "en" ? "Total" : "總計"}
                         </span>
-                        <span className="font-['Lato'] font-600" style={{ color: "oklch(0.500 0.060 145)" }}>
+                        <span className="font-['Lato'] font-600" style={{ color: "oklch(0.380 0.070 145)" }}>
                           {formatPrice(convertedTotal)}
                         </span>
                       </div>
@@ -257,7 +257,7 @@ export default function Navbar() {
                       }}
                       className="block w-full text-center py-2 rounded font-['Lato'] font-500 text-sm transition-all duration-300 border-none cursor-pointer"
                       style={{
-                        background: "oklch(0.500 0.060 145)",
+                        background: "oklch(0.380 0.070 145)",
                         color: "#FAFAF7",
                       }}
                       onMouseEnter={(e) => {
@@ -302,7 +302,7 @@ export default function Navbar() {
         className={`md:hidden transition-all duration-400 overflow-hidden ${
           menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
-        style={{ background: "oklch(0.990 0.004 95)" }}
+        style={{ background: "oklch(0.970 0.012 80)" }}
       >
         <div className="px-4 md:px-6 py-6 flex flex-col gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
           {/* Mobile language toggle */}
@@ -319,7 +319,7 @@ export default function Navbar() {
               className="px-3 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
               style={{
                 background:
-                  language === "zh" ? "oklch(0.500 0.060 145)" : "transparent",
+                  language === "zh" ? "oklch(0.380 0.070 145)" : "transparent",
                 color: language === "zh" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
               }}
             >
@@ -331,7 +331,7 @@ export default function Navbar() {
               className="px-3 py-1 rounded-full text-[11px] font-['Lato'] font-600 tracking-wide transition-all duration-200"
               style={{
                 background:
-                  language === "en" ? "oklch(0.500 0.060 145)" : "transparent",
+                  language === "en" ? "oklch(0.380 0.070 145)" : "transparent",
                 color: language === "en" ? "#FAFAF7" : "oklch(0.400 0.015 55)",
               }}
             >

@@ -43,7 +43,7 @@ export default function FaqSection() {
       id="faq"
       ref={sectionRef}
       className="py-24 md:py-36"
-      style={{ background: "oklch(0.990 0.004 95)" }}
+      style={{ background: "oklch(0.970 0.012 80)" }}
     >
       <div className="container">
         <div className="grid md:grid-cols-5 gap-12 md:gap-20">
@@ -90,7 +90,7 @@ export default function FaqSection() {
                     style={{
                       fontSize: "1.0625rem",
                       color: openIndex === idx
-                        ? "oklch(0.500 0.060 145)"
+                        ? "oklch(0.380 0.070 145)"
                         : "oklch(0.265 0.015 55)",
                     }}
                   >
@@ -99,7 +99,7 @@ export default function FaqSection() {
                   {/* Plus / Minus icon */}
                   <span
                     className="flex-shrink-0 w-5 h-5 relative"
-                    style={{ color: "oklch(0.500 0.060 145)" }}
+                    style={{ color: "oklch(0.380 0.070 145)" }}
                   >
                     <span
                       className="absolute top-1/2 left-0 w-full h-px transition-all duration-300"

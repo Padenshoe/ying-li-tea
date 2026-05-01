@@ -7,16 +7,16 @@ import { useEffect, useRef } from "react";
 
 const promises = [
   {
-    zh: "二十年茶行背景，不是網路新創品牌",
-    en: "20 years of tea business heritage — not a new online startup",
+    zh: "20 年茶農背景，不是網路新創品牌",
+    en: "20 years of tea farming heritage — not a new online startup",
   },
   {
     zh: "透明定價——什麼價格買什麼等級的茶，清楚標示",
     en: "Transparent pricing — every grade clearly labelled so you know what you're paying for",
   },
   {
-    zh: "歡迎來店試喝，不買沒關係",
-    en: "Walk in for a free tasting — no purchase necessary",
+    zh: "誠邀品鑑，感受高海拔烏龍的獨特風韻",
+    en: "Taste the difference — experience the unique character of high-altitude oolong",
   },
 ];
 

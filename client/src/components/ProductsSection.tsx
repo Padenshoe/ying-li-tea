@@ -11,18 +11,21 @@ import { useCart } from "@/contexts/CartContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 const TEA_BAGS_IMG   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/茶包禮盒1_94ff1fac.jpg";
+const TEA_BAGS_IMG2  = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/teabag-2_a91ea8f9.png";
 const TEA_LEAVES_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03035_d872272f.jpg";
+const TEA_LEAVES_IMG2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03057_345e1efd.jpg";
 const TEA_CUP_IMG    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03057_345e1efd.jpg";
+const TEA_CUP_IMG2   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03035_d872272f.jpg";
 
 // All prices in TWD
 const products = [
-  { id: 1, nameKey: "product.teaBagGiftBox",  tagKey: "product.teaBagGiftBoxTag",  descKey: "product.teaBagGiftBoxDesc",  priceTWD: 980,  image: TEA_BAGS_IMG   },
-  { id: 2, nameKey: "product.alishan",         tagKey: "product.alishanTag",         descKey: "product.alishanDesc",         priceTWD: 1100, image: TEA_LEAVES_IMG },
-  { id: 3, nameKey: "product.alishanRoasted",  tagKey: "product.alishanRoastedTag",  descKey: "product.alishanRoastedDesc",  priceTWD: 1400, image: TEA_CUP_IMG    },
-  { id: 4, nameKey: "product.cuifeng",         tagKey: "product.cuifengTag",         descKey: "product.cuifengDesc",         priceTWD: 1300, image: TEA_LEAVES_IMG },
-  { id: 5, nameKey: "product.lishan",          tagKey: "product.lishanTag",          descKey: "product.lishanDesc",          priceTWD: 950,  image: TEA_CUP_IMG    },
-  { id: 6, nameKey: "product.fushoushan",      tagKey: "product.fushoushanTag",      descKey: "product.fushoushanDesc",      priceTWD: 1750, image: TEA_LEAVES_IMG },
-  { id: 7, nameKey: "product.shanlinxi",       tagKey: "product.shanlinxiTag",       descKey: "product.shanlinxiDesc",       priceTWD: 400,  image: TEA_CUP_IMG    },
+  { id: 1, nameKey: "product.teaBagGiftBox",  tagKey: "product.teaBagGiftBoxTag",  descKey: "product.teaBagGiftBoxDesc",  priceTWD: 980,  image: TEA_BAGS_IMG,   image2: TEA_BAGS_IMG2   },
+  { id: 2, nameKey: "product.alishan",         tagKey: "product.alishanTag",         descKey: "product.alishanDesc",         priceTWD: 1100, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
+  { id: 3, nameKey: "product.alishanRoasted",  tagKey: "product.alishanRoastedTag",  descKey: "product.alishanRoastedDesc",  priceTWD: 1400, image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
+  { id: 4, nameKey: "product.cuifeng",         tagKey: "product.cuifengTag",         descKey: "product.cuifengDesc",         priceTWD: 1300, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
+  { id: 5, nameKey: "product.lishan",          tagKey: "product.lishanTag",          descKey: "product.lishanDesc",          priceTWD: 950,  image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
+  { id: 6, nameKey: "product.fushoushan",      tagKey: "product.fushoushanTag",      descKey: "product.fushoushanDesc",      priceTWD: 1750, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
+  { id: 7, nameKey: "product.shanlinxi",       tagKey: "product.shanlinxiTag",       descKey: "product.shanlinxiDesc",       priceTWD: 400,  image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
 ];
 
 export default function ProductsSection() {
@@ -106,7 +109,7 @@ export default function ProductsSection() {
       id="products"
       ref={sectionRef}
       className="py-24 md:py-36"
-      style={{ background: "oklch(0.990 0.004 95)" }}
+      style={{ background: "oklch(0.970 0.012 80)" }}
     >
       <div className="container">
         {/* Section Header */}
@@ -143,7 +146,7 @@ export default function ProductsSection() {
                     onClick={() => setCurrency(c)}
                     className="px-4 py-1.5 text-xs font-['Lato'] font-400 tracking-wider transition-all duration-200"
                     style={{
-                      background: currency === c ? "oklch(0.500 0.060 145)" : "transparent",
+                      background: currency === c ? "oklch(0.380 0.070 145)" : "transparent",
                       color: currency === c ? "#FAFAF7" : "oklch(0.520 0.020 60)",
                     }}
                   >
@@ -165,7 +168,7 @@ export default function ProductsSection() {
             style={{
               opacity: canScrollLeft ? 1 : 0.25,
               pointerEvents: canScrollLeft ? "auto" : "none",
-              color: "oklch(0.500 0.060 145)",
+              color: "oklch(0.380 0.070 145)",
             }}
             aria-label="Scroll left"
           >
@@ -178,10 +181,10 @@ export default function ProductsSection() {
             disabled={!canScrollLeft}
             className="md:hidden absolute left-0 top-1/3 -translate-y-1/2 z-10 p-2 rounded-full shadow-md transition-all duration-200"
             style={{
-              background: "oklch(0.990 0.004 95)",
+              background: "oklch(0.970 0.012 80)",
               opacity: canScrollLeft ? 1 : 0.2,
               pointerEvents: canScrollLeft ? "auto" : "none",
-              color: "oklch(0.500 0.060 145)",
+              color: "oklch(0.380 0.070 145)",
             }}
             aria-label="Previous"
           >
@@ -192,10 +195,10 @@ export default function ProductsSection() {
             disabled={!canScrollRight}
             className="md:hidden absolute right-0 top-1/3 -translate-y-1/2 z-10 p-2 rounded-full shadow-md transition-all duration-200"
             style={{
-              background: "oklch(0.990 0.004 95)",
+              background: "oklch(0.970 0.012 80)",
               opacity: canScrollRight ? 1 : 0.2,
               pointerEvents: canScrollRight ? "auto" : "none",
-              color: "oklch(0.500 0.060 145)",
+              color: "oklch(0.380 0.070 145)",
             }}
             aria-label="Next"
           >
@@ -238,22 +241,29 @@ export default function ProductsSection() {
                   scrollSnapAlign: "center",
                 }}
               >
-                {/* Image Area */}
+                {/* Image Area — hover swaps to second image */}
                 <div
                   className="overflow-hidden mb-5 relative"
                   style={{ aspectRatio: "3/4" }}
                 >
+                  {/* Primary image */}
                   <img
                     src={product.image}
                     alt={t(product.nameKey)}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                  />
+                  {/* Secondary image — shown on hover */}
+                  <img
+                    src={product.image2}
+                    alt={t(product.nameKey)}
+                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
                   />
                   {/* Tag Badge */}
                   <span
                     className="absolute top-4 left-4 eyebrow px-3 py-1"
                     style={{
-                      background: "oklch(0.990 0.004 95)",
-                      color: "oklch(0.500 0.060 145)",
+                      background: "oklch(0.970 0.012 80)",
+                      color: "oklch(0.380 0.070 145)",
                     }}
                   >
                     {t(product.tagKey)}
@@ -289,12 +299,12 @@ export default function ProductsSection() {
                     <button
                       onClick={() => handleAddToCart(product)}
                       className="text-xs font-['Lato'] font-400 tracking-[0.15em] uppercase px-4 py-2 transition-all duration-300"
-                      style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}
+                      style={{ background: "oklch(0.380 0.070 145)", color: "#FAFAF7" }}
                       onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.background = "oklch(0.420 0.060 145)";
+                        (e.currentTarget as HTMLElement).style.background = "oklch(0.320 0.070 145)";
                       }}
                       onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
+                        (e.currentTarget as HTMLElement).style.background = "oklch(0.380 0.070 145)";
                       }}
                     >
                       {t("products.addToCart")}
@@ -313,7 +323,7 @@ export default function ProductsSection() {
             style={{
               opacity: canScrollRight ? 1 : 0.25,
               pointerEvents: canScrollRight ? "auto" : "none",
-              color: "oklch(0.500 0.060 145)",
+              color: "oklch(0.380 0.070 145)",
             }}
             aria-label="Scroll right"
           >
@@ -330,7 +340,7 @@ export default function ProductsSection() {
               className="w-2 h-2 rounded-full transition-all duration-300"
               style={{
                 background: idx === activeIndex
-                  ? "oklch(0.500 0.060 145)"
+                  ? "oklch(0.380 0.070 145)"
                   : "oklch(0.800 0.020 95)",
                 transform: idx === activeIndex ? "scale(1.3)" : "scale(1)",
               }}

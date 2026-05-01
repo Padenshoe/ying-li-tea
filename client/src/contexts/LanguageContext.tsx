@@ -210,8 +210,8 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     "hero.title": "迎利茶葉 — 台灣茶專賣店",
-    "hero.tagline": "二十年茶行，台灣烏龍茶專賣",
-    "hero.intro": "從阿里山到大禹嶺，海拔 1,000 到 2,800 公尺，精選台灣六大產區烏龍茶。透明定價，品質保證，歡迎來店試喝。",
+    "hero.tagline": "二十年茶農背景，台灣高山茶專賣",
+    "hero.intro": "從阿里山到大禹嶺，海拔 1,000 到 2,800 公尺，精選台灣六大產區高山茶。透明定價，品質保證，歡迎來店試喝。",
     "hero.shopNow": "立即購買",
     "hero.exploreTea": "探索我們的茶",
 
@@ -233,7 +233,7 @@ const translations: Record<Language, Record<string, string>> = {
     "about.certification": "認證",
     "about.certificationValue": "官方認證",
     "about.specialization": "專業",
-    "about.specializationValue": "烏龍茶",
+    "about.specializationValue": "高山茶",
     "about.range": "海拔範圍",
     "about.rangeValue": "1,000–2,800 公尺",
     "about.formats": "茶葉形式",
@@ -256,7 +256,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Products Section
     "products.label": "我們的收藏",
-    "products.title": "台灣烏龍茶",
+    "products.title": "台灣高山茶",
     "products.titleEmph": "適合每一種口味",
     "products.description": "從入門級到高級，所有海拔高度，全部經過官方認證。真空包裝茶葉、冷泡茶和禮盒組合。",
     "products.addToCart": "加入購物車",

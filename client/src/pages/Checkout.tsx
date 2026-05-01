@@ -16,7 +16,7 @@ const inputBase =
   "w-full font-['Lato'] font-300 text-sm rounded px-4 py-3 outline-none transition-all duration-300 bg-[oklch(0.975_0.004_95)] text-[oklch(0.265_0.015_55)]";
 const labelBase =
   "block text-xs font-['Lato'] font-400 tracking-[0.1em] uppercase mb-1.5";
-const accentGreen = "oklch(0.500 0.060 145)";
+const accentGreen = "oklch(0.380 0.070 145)";
 const borderDefault = "1px solid oklch(0.840 0.015 90)";
 const borderFocus = `1px solid ${accentGreen}`;
 const borderError = "1px solid oklch(0.700 0.200 27)";
@@ -158,7 +158,7 @@ export default function Checkout() {
   // ── Empty cart ────────────────────────────────────────────────────────────
   if (items.length === 0) {
     return (
-      <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+      <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
         <Navbar />
         <main className="container pt-32 pb-24 max-w-xl mx-auto text-center">
           <p
@@ -181,7 +181,7 @@ export default function Checkout() {
 
   // ── Main form ─────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
       <Navbar />
 
       <main className="container pt-28 pb-24">

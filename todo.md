@@ -337,3 +337,14 @@
 ## GTM dataLayer 購買事件推送（第二十一批）
 
 - [x] /order-confirmation 頁面加入 dataLayer.push：event=purchase、value、order_id、user_email
+
+## 首頁批次更新（第二十二批）
+
+- [x] 文案：「烏龍茶」改為「高山茶」（Hero 副標題、說明文字等）
+- [x] 文案：「迎利承諾」第三點改為「誠邀品鑑，感受高海拔烏龍的獨特風韻」，背景改為「20年茶農背景」
+- [x] 互動：精選商品圖片 hover 自動換第二張照片
+- [x] 互動：首頁第二張茶包「立即購買」跳轉至精選商品阿里山茶包區塊
+- [x] 互動：點擊「專屬選茶」自動捲至頁面最頂端
+- [x] 字體：標題改用仿宋體（含 Google Fonts 引入）
+- [x] 配色：「立即購買」按鈕改為深橄欖綠 Deep Moss Green
+- [x] 配色：全站白色背景改為暖米色 Warm Beige（含精選商品區塊）

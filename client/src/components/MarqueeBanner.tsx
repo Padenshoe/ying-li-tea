@@ -28,7 +28,7 @@ export default function MarqueeBanner() {
   return (
     <div
       className="overflow-hidden py-3 select-none"
-      style={{ background: "oklch(0.500 0.060 145)" }}
+      style={{ background: "oklch(0.380 0.070 145)" }}
     >
       <div
         className="flex whitespace-nowrap"

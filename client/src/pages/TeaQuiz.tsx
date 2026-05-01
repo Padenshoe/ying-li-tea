@@ -2,7 +2,7 @@
  * 專屬選茶 — Tea Recommendation Quiz
  * 5 questions → recommend 1 product → add to cart
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { ShoppingCart, Check, ChevronRight, RotateCcw, Leaf } from "lucide-react";
@@ -203,6 +203,11 @@ export default function TeaQuizPage() {
   const { addItem } = useCart();
   const { toast } = useToast();
 
+  // Scroll to top on mount so the intro screen is immediately visible
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
   const handleAnswer = (qId: number, value: string) => {
     const newAnswers = { ...answers, [qId]: value };
     setAnswers(newAnswers);
@@ -246,7 +251,7 @@ export default function TeaQuizPage() {
   const progress = currentQ === 0 ? 0 : currentQ === 6 ? 100 : Math.round((currentQ / QUESTIONS.length) * 100);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
       <Navbar />
 
       <div className="pt-24 pb-20 px-4">
@@ -268,14 +273,14 @@ export default function TeaQuizPage() {
                   className="w-20 h-20 rounded-full flex items-center justify-center"
                   style={{ background: "oklch(0.960 0.012 145)" }}
                 >
-                  <Leaf className="w-9 h-9" style={{ color: "oklch(0.500 0.060 145)" }} />
+                  <Leaf className="w-9 h-9" style={{ color: "oklch(0.380 0.070 145)" }} />
                 </div>
               </div>
 
               <Button
                 onClick={() => setCurrentQ(1)}
                 className="px-10 py-3 text-base font-medium"
-                style={{ background: "oklch(0.500 0.060 145)" }}
+                style={{ background: "oklch(0.380 0.070 145)" }}
               >
                 開始選茶
                 <ChevronRight className="w-4 h-4 ml-1" />
@@ -297,7 +302,7 @@ export default function TeaQuizPage() {
                   <div className="h-1.5 bg-stone-100 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500"
-                      style={{ width: `${progress}%`, background: "oklch(0.500 0.060 145)" }}
+                      style={{ width: `${progress}%`, background: "oklch(0.380 0.070 145)" }}
                     />
                   </div>
                 </div>
@@ -318,7 +323,7 @@ export default function TeaQuizPage() {
                           color: "oklch(0.400 0.015 55)",
                         }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.500 0.060 145)";
+                          (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.380 0.070 145)";
                           (e.currentTarget as HTMLElement).style.background = "oklch(0.975 0.008 145)";
                         }}
                         onMouseLeave={(e) => {
@@ -382,7 +387,7 @@ export default function TeaQuizPage() {
                     className="rounded-xl p-4 mb-5"
                     style={{ background: "oklch(0.975 0.008 145)" }}
                   >
-                    <p className="text-xs font-semibold mb-1" style={{ color: "oklch(0.500 0.060 145)" }}>
+                    <p className="text-xs font-semibold mb-1" style={{ color: "oklch(0.380 0.070 145)" }}>
                       為什麼推薦這款？
                     </p>
                     <p className="text-sm text-stone-600 leading-relaxed">{result.reason}</p>
@@ -430,7 +435,7 @@ export default function TeaQuizPage() {
                         ? "bg-emerald-600 hover:bg-emerald-600 text-white"
                         : ""
                     }`}
-                    style={added ? {} : { background: "oklch(0.500 0.060 145)" }}
+                    style={added ? {} : { background: "oklch(0.380 0.070 145)" }}
                   >
                     {added ? (
                       <>
@@ -458,7 +463,7 @@ export default function TeaQuizPage() {
                 </button>
                 <Link href="/products">
                   <span className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl border text-sm transition-colors cursor-pointer hover:bg-stone-50"
-                    style={{ borderColor: "oklch(0.500 0.060 145)", color: "oklch(0.500 0.060 145)" }}
+                    style={{ borderColor: "oklch(0.380 0.070 145)", color: "oklch(0.380 0.070 145)" }}
                   >
                     查看所有商品
                     <ChevronRight className="w-4 h-4" />

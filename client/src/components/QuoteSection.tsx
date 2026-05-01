@@ -30,7 +30,7 @@ export default function QuoteSection() {
     <section
       ref={sectionRef}
       className="py-20 md:py-28"
-      style={{ background: "oklch(0.962 0.008 90)" }}
+      style={{ background: "oklch(0.955 0.014 80)" }}
     >
       <div className="container flex flex-col items-center text-center gap-6">
         <span
@@ -50,7 +50,7 @@ export default function QuoteSection() {
         </blockquote>
         <span
           className="eyebrow reveal"
-          style={{ color: "oklch(0.500 0.060 145)" }}
+          style={{ color: "oklch(0.380 0.070 145)" }}
         >
           — 迎利的理念
         </span>

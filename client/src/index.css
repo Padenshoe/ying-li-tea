@@ -53,13 +53,13 @@
   --radius: 0.25rem;
 
   /* Ying-Li Brand Colors in OKLCH */
-  --background:         oklch(0.990 0.004 95);     /* #FAFAF7 warm white */
+  --background:         oklch(0.970 0.012 80);     /* Warm Beige 暖米色 */
   --foreground:         oklch(0.265 0.015 55);      /* #3A3530 warm charcoal */
-  --card:               oklch(0.962 0.008 90);      /* #F2EDE4 cream */
+  --card:               oklch(0.955 0.014 80);      /* slightly deeper warm beige for cards */
   --card-foreground:    oklch(0.265 0.015 55);
   --popover:            oklch(0.990 0.004 95);
   --popover-foreground: oklch(0.265 0.015 55);
-  --primary:            oklch(0.500 0.060 145);     /* #6B7F5E soft moss */
+  --primary:            oklch(0.380 0.070 145);     /* Deep Moss Green 深橄欖綠 */
   --primary-foreground: oklch(0.990 0.004 95);
   --secondary:          oklch(0.840 0.030 140);     /* #C8D5C0 pale sage */
   --secondary-foreground: oklch(0.265 0.015 55);
@@ -71,7 +71,7 @@
   --destructive-foreground: oklch(0.985 0 0);
   --border:             oklch(0.870 0.018 130);     /* pale sage border */
   --input:              oklch(0.870 0.018 130);
-  --ring:               oklch(0.500 0.060 145);
+  --ring:               oklch(0.380 0.070 145);
 }
 
 @layer base {
@@ -86,9 +86,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-family: 'Noto Serif TC', 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
     color: oklch(0.265 0.015 55);
   }
   button:not(:disabled),
@@ -149,7 +149,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: oklch(0.500 0.060 145);
+    color: oklch(0.380 0.070 145);
   }
 
   /* Scroll reveal animation */

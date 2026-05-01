@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { ShoppingCart, Check, Leaf, Minus, Plus, ChevronLeft, ChevronRight } from "lucide-react";
@@ -370,13 +370,30 @@ function ProductCard({ product }: { product: Product }) {
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
   const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包">("全部");
+  const productRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Handle ?focus=TB01 (or any product id) from homepage CTA
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const focusId = params.get("focus");
+    if (!focusId) return;
+    const target = PRODUCTS.find((p) => p.id === focusId);
+    if (!target) return;
+    // Switch filter to show the target product
+    setFilter(target.season as any);
+    // Scroll after filter update renders
+    setTimeout(() => {
+      const el = productRefs.current[focusId];
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 150);
+  }, []);
 
   const filtered = filter === "全部"
     ? PRODUCTS
     : PRODUCTS.filter((p) => p.season === filter);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
       <Navbar />
 
       {/* Page header */}
@@ -443,7 +460,9 @@ export default function ProductsPage() {
       <div className="max-w-6xl mx-auto px-4 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div key={product.id} ref={(el) => { productRefs.current[product.id] = el; }}>
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
         {filtered.length === 0 && (

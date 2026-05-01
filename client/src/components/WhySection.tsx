@@ -70,7 +70,7 @@ export default function WhySection() {
       id="why"
       ref={sectionRef}
       className="py-24 md:py-36"
-      style={{ background: "oklch(0.962 0.008 90)" }}
+      style={{ background: "oklch(0.955 0.014 80)" }}
     >
       <div className="container">
         {/* Header */}
@@ -98,7 +98,7 @@ export default function WhySection() {
               style={{ transitionDelay: `${idx * 80}ms` }}
             >
               {/* Icon */}
-              <div style={{ color: "oklch(0.500 0.060 145)" }}>
+              <div style={{ color: "oklch(0.380 0.070 145)" }}>
                 {icons[idx]}
               </div>
               {/* Divider */}

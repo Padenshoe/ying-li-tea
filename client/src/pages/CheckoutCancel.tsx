@@ -104,7 +104,7 @@ export default function CheckoutCancel() {
             href="/"
             className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
             style={{
-              background: "oklch(0.500 0.060 145)",
+              background: "oklch(0.380 0.070 145)",
               color: "#FAFAF7",
             }}
             onMouseEnter={(e) => {
@@ -121,8 +121,8 @@ export default function CheckoutCancel() {
             className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
             style={{
               background: "transparent",
-              border: "1px solid oklch(0.500 0.060 145)",
-              color: "oklch(0.500 0.060 145)",
+              border: "1px solid oklch(0.380 0.070 145)",
+              color: "oklch(0.380 0.070 145)",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145 / 0.1)";

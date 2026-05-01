@@ -48,7 +48,7 @@ export default function FeaturedSection() {
     <section
       ref={sectionRef}
       className="py-0 overflow-hidden"
-      style={{ background: "oklch(0.990 0.004 95)" }}
+      style={{ background: "oklch(0.970 0.012 80)" }}
     >
       <div className="grid md:grid-cols-2 min-h-[650px] md:min-h-[780px]">
         {/* Slideshow — Left */}
@@ -74,7 +74,7 @@ export default function FeaturedSection() {
                 onClick={() => setCurrentIndex(i)}
                 className="w-2 h-2 rounded-full transition-all duration-300"
                 style={{
-                  background: i === currentIndex ? "oklch(0.500 0.060 145)" : "rgba(255,255,255,0.6)",
+                  background: i === currentIndex ? "oklch(0.380 0.070 145)" : "rgba(255,255,255,0.6)",
                   transform: i === currentIndex ? "scale(1.3)" : "scale(1)",
                 }}
                 aria-label={`切換至第 ${i + 1} 張照片`}
@@ -87,7 +87,7 @@ export default function FeaturedSection() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to right, transparent 70%, oklch(0.990 0.004 95) 100%)",
+                "linear-gradient(to right, transparent 70%, oklch(0.970 0.012 80) 100%)",
             }}
           />
         </div>
@@ -132,7 +132,7 @@ export default function FeaturedSection() {
                 className="flex flex-col gap-1 border-l pl-4"
                 style={{ borderColor: "oklch(0.870 0.018 130)" }}
               >
-                <span className="eyebrow" style={{ color: "oklch(0.500 0.060 145)" }}>
+                <span className="eyebrow" style={{ color: "oklch(0.380 0.070 145)" }}>
                   {detail.label}
                 </span>
                 <span
@@ -148,14 +148,14 @@ export default function FeaturedSection() {
           {/* CTA */}
           <div className="flex gap-4 reveal">
             <button
-              onClick={() => navigate("/products")}
+              onClick={() => navigate("/products?focus=TB01")}
               className="px-7 py-3 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300"
-              style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}
+              style={{ background: "oklch(0.420 0.055 140)", color: "#FAFAF7" }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "oklch(0.420 0.060 145)";
+                (e.currentTarget as HTMLElement).style.background = "oklch(0.350 0.055 140)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
+                (e.currentTarget as HTMLElement).style.background = "oklch(0.420 0.055 140)";
               }}
             >
               {t("hero.shopNow")}

@@ -35,7 +35,7 @@ export default function CartSection() {
           </h2>
           <div
             className="w-12 h-px"
-            style={{ background: "oklch(0.500 0.060 145)" }}
+            style={{ background: "oklch(0.380 0.070 145)" }}
           />
         </div>
 
@@ -160,7 +160,7 @@ export default function CartSection() {
                   </span>
                   <span
                     className="font-['Playfair_Display'] font-600"
-                    style={{ fontSize: "1.5rem", color: "oklch(0.500 0.060 145)" }}
+                    style={{ fontSize: "1.5rem", color: "oklch(0.380 0.070 145)" }}
                   >
                     {formatPrice(convertPrice(total))}
                   </span>
@@ -168,7 +168,7 @@ export default function CartSection() {
 
                 <button
                   className="w-full py-3 rounded font-['Lato'] font-500 tracking-wide transition-all duration-300 flex items-center justify-center gap-2"
-                  style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7", cursor: "pointer" }}
+                  style={{ background: "oklch(0.380 0.070 145)", color: "#FAFAF7", cursor: "pointer" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.9"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
                   onClick={() => navigate("/checkout")}

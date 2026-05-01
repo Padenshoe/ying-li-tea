@@ -44,14 +44,14 @@ export default function StorefrontSection() {
       id="storefront"
       ref={sectionRef}
       className="py-20 md:py-28 overflow-hidden"
-      style={{ background: "oklch(0.990 0.004 95)" }}
+      style={{ background: "oklch(0.970 0.012 80)" }}
     >
       <div className="container">
         {/* Section Header */}
         <div className="mb-12 reveal">
           <span
             className="eyebrow"
-            style={{ color: "oklch(0.500 0.060 145)", letterSpacing: "0.18em" }}
+            style={{ color: "oklch(0.380 0.070 145)", letterSpacing: "0.18em" }}
           >
             親臨迎利
           </span>
@@ -138,14 +138,14 @@ export default function StorefrontSection() {
             }}
             className="px-8 py-3.5 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300 inline-block"
             style={{
-              background: "oklch(0.500 0.060 145)",
+              background: "oklch(0.380 0.070 145)",
               color: "#FAFAF7",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "oklch(0.420 0.060 145)";
+              (e.currentTarget as HTMLElement).style.background = "oklch(0.320 0.070 145)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
+              (e.currentTarget as HTMLElement).style.background = "oklch(0.380 0.070 145)";
             }}
           >
             聯絡我們

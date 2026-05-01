@@ -101,14 +101,14 @@ export default function HeroSection() {
             onClick={() => navigate("/products")}
             className="px-8 py-3.5 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300"
             style={{
-              background: "oklch(0.500 0.060 145)",
+              background: "oklch(0.380 0.070 145)",
               color: "#FAFAF7",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "oklch(0.420 0.060 145)";
+              (e.currentTarget as HTMLElement).style.background = "oklch(0.320 0.070 145)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145)";
+              (e.currentTarget as HTMLElement).style.background = "oklch(0.380 0.070 145)";
             }}
           >
             {t("hero.shopNow")}

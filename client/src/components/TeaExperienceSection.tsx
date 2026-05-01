@@ -43,7 +43,7 @@ export default function TeaExperienceSection() {
         <div className="mb-12 reveal">
           <span
             className="eyebrow"
-            style={{ color: "oklch(0.500 0.060 145)", letterSpacing: "0.18em" }}
+            style={{ color: "oklch(0.380 0.070 145)", letterSpacing: "0.18em" }}
           >
             茶室體驗
           </span>

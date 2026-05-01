@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.990 0.004 95)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
       <Navbar />
       <HeroSection />
       <FeaturedSection />

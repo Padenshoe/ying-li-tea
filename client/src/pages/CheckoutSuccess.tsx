@@ -31,7 +31,7 @@ export default function CheckoutSuccess() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#FAFAF7]">
         <div className="text-center">
-          <Loader2 size={48} className="animate-spin mx-auto mb-4" style={{ color: "oklch(0.500 0.060 145)" }} />
+          <Loader2 size={48} className="animate-spin mx-auto mb-4" style={{ color: "oklch(0.380 0.070 145)" }} />
           <p className="font-['Lato']" style={{ color: "oklch(0.552 0.016 285.938)" }}>
             {language === "en" ? "Loading order details..." : "載入訂單詳情..."}
           </p>
@@ -50,7 +50,7 @@ export default function CheckoutSuccess() {
           <p className="font-['Lato'] mb-6" style={{ color: "oklch(0.552 0.016 285.938)" }}>
             {language === "en" ? "Unable to retrieve order details" : "無法取得訂單詳情"}
           </p>
-          <Link href="/" className="inline-block px-6 py-3 rounded font-['Lato'] font-500" style={{ background: "oklch(0.500 0.060 145)", color: "#FAFAF7" }}>
+          <Link href="/" className="inline-block px-6 py-3 rounded font-['Lato'] font-500" style={{ background: "oklch(0.380 0.070 145)", color: "#FAFAF7" }}>
             {language === "en" ? "Return to Home" : "返回首頁"}
           </Link>
         </div>
@@ -63,7 +63,7 @@ export default function CheckoutSuccess() {
       <div className="container max-w-2xl">
         {/* Success Icon */}
         <div className="text-center mb-8">
-          <CheckCircle size={64} style={{ color: "oklch(0.500 0.060 145)" }} className="mx-auto mb-4" />
+          <CheckCircle size={64} style={{ color: "oklch(0.380 0.070 145)" }} className="mx-auto mb-4" />
         </div>
 
         {/* Success Message */}
@@ -114,7 +114,7 @@ export default function CheckoutSuccess() {
               <span className="font-['Lato']" style={{ color: "oklch(0.552 0.016 285.938)" }}>
                 {language === "en" ? "Status" : "狀態"}
               </span>
-              <span className="font-['Lato'] font-500" style={{ color: "oklch(0.500 0.060 145)" }}>
+              <span className="font-['Lato'] font-500" style={{ color: "oklch(0.380 0.070 145)" }}>
                 {orderDetails?.status === "completed"
                   ? language === "en"
                     ? "Completed"
@@ -205,7 +205,7 @@ export default function CheckoutSuccess() {
             href="/"
             className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
             style={{
-              background: "oklch(0.500 0.060 145)",
+              background: "oklch(0.380 0.070 145)",
               color: "#FAFAF7",
             }}
             onMouseEnter={(e) => {
@@ -222,8 +222,8 @@ export default function CheckoutSuccess() {
             className="px-8 py-3 rounded font-['Lato'] font-500 text-center transition-all duration-300"
             style={{
               background: "transparent",
-              border: "1px solid oklch(0.500 0.060 145)",
-              color: "oklch(0.500 0.060 145)",
+              border: "1px solid oklch(0.380 0.070 145)",
+              color: "oklch(0.380 0.070 145)",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLElement).style.background = "oklch(0.500 0.060 145 / 0.1)";
