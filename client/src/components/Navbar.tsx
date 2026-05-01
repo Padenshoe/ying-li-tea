@@ -10,7 +10,7 @@ import { useCart } from "@/contexts/CartContext";
 import { Link, useLocation } from "wouter";
 import { ShoppingBag } from "lucide-react";
 
-const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-512_72ed00b9.png";
 
 // Fallback map: product ID → nameKey for items stored before nameKey was added
 const PRODUCT_NAME_KEYS: Record<string, string> = {
@@ -88,8 +88,14 @@ export default function Navbar() {
           <img
             src={LOGO}
             alt="Ying-Li Logo"
-            className="w-16 md:w-20 h-auto transition-transform duration-300 group-hover:scale-110"
+            className="w-10 md:w-12 h-auto transition-transform duration-300 group-hover:scale-110"
           />
+          <span
+            className="hidden sm:block text-sm font-medium tracking-widest"
+            style={{ fontFamily: "'Noto Serif TC', serif", color: "oklch(0.265 0.015 55)" }}
+          >
+            迎利茶葉
+          </span>
         </a>
 
         {/* Desktop Nav Links — inline with logo */}

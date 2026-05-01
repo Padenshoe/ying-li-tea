@@ -348,3 +348,8 @@
 - [x] 字體：標題改用仿宋體（含 Google Fonts 引入）
 - [x] 配色：「立即購買」按鈕改為深橄欖綠 Deep Moss Green
 - [x] 配色：全站白色背景改為暖米色 Warm Beige（含精選商品區塊）
+
+## Navbar 修復（第二十三批）
+
+- [x] 修復 Navbar Logo/品牌名稱顯示（目前不見）
+- [x] 確認 Navbar 固定在頂端（position: fixed/sticky），所有頁面隨時可點
