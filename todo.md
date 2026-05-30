@@ -366,3 +366,8 @@
 - [x] 在 App.tsx 註冊路由
 - [x] 在 Footer（ContactFooter）加入退貨政策連結
 - [x] 建立 MiniFooter 元件，在 Cart、Checkout、OrderConfirmation 頁面底部加入退貨政策連結
+
+## 價格與結帳修改（第二十六批）
+
+- [x] 阿里山金萱茶葉價改為 800（Products.tsx 金萱茶錯字修正 + TeaQuiz.tsx 同步更新）
+- [x] 結帳頁面加入信用卡付款說明，導向 MOMO 購買連結

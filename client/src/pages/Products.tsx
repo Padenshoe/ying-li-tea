@@ -168,7 +168,7 @@ const PRODUCTS: Product[] = [
   // 阿里山金萱茶（新商品）
   {
     id: "J01", code: "J01", name: "阿里山金萱茶", season: "金萱茶",
-    weight: "300g（半斤）", price: 1600,
+    weight: "300g（半斤）", price: 800,
     images: [IMG.jinxuan1, IMG.jinxuan2],
     nameKey: "product.alishan.jinxuan",
     notes: [

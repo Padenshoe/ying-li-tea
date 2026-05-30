@@ -47,7 +47,7 @@ const ALL_PRODUCTS: RecommendedProduct[] = [
   { id: "D01", name: "精緻福壽山春茶", nameKey: "product.fushoushan.spring", price: 1750, weight: "150g（四兩）", image: IMG.fushoushan, season: "春茶", reason: "追求頂級高山茶體驗，福壽山春茶的蜜香果香層次最適合您。", notes: ["台灣頂級高山茶，海拔超過兩千五百公尺", "春茶香氣馥郁，蜜香果香層層疊現", "茶湯金黃透亮，滋味醇厚甘甜無比"] },
   { id: "D02", name: "精緻福壽山冬茶", nameKey: "product.fushoushan.winter", price: 1750, weight: "150g（四兩）", image: IMG.fushoushan, season: "冬茶", reason: "追求極致清雅與絲滑口感，福壽山冬茶是送禮自用的頂級之選。", notes: ["冬季極寒高山，茶葉精華高度濃縮", "清雅花香如幽蘭，入口絲滑無比", "回甘持久悠長，是送禮自用的極品"] },
   { id: "RO1", name: "阿里山烘焙茶", nameKey: "product.alishan.roasted", price: 1400, weight: "300g（半斤）", image: IMG.alishanRoasted, season: "烘焙茶", reason: "喜歡焙火香氣與醇厚溫潤口感，阿里山烘焙茶的炭焙工藝最適合您。", notes: ["傳統炭焙工藝，焙火香氣深沉迷人", "茶湯琥珀色澤，口感醇厚溫潤順滑", "焦糖甜香縈繞，暖胃養身四季皆宜"] },
-  { id: "J01", name: "阿里山金萱茶", nameKey: "product.alishan.jinxuan", price: 1600, weight: "300g（半斤）", image: IMG.jinxuan, season: "金萱茶", reason: "您喜歡奶香，阿里山金萱茶天然奶香濃郁，茶湯蜜黃柔順，入口滑嫩無苦澀，是最適合您的選擇。", notes: ["金萱品種特有天然奶香，清甜迷人", "阿里山高海拔栽培，茶湯蜜黃柔順", "入口滑嫩無苦澀，奶香餘韻悠長"] },
+  { id: "J01", name: "阿里山金萱茶", nameKey: "product.alishan.jinxuan", price: 800, weight: "300g（半斤）", image: IMG.jinxuan, season: "金萱茶", reason: "您喜歡奶香，阿里山金萱茶天然奶香濃郁，茶湯蜜黃柔順，入口滑嫩無苦澀，是最適合您的選擇。", notes: ["金萱品種特有天然奶香，清甜迷人", "阿里山高海拔栽培，茶湯蜜黃柔順", "入口滑嫩無苦澀，奶香餘韻悠長"] },
 ];
 
 // ─── Quiz questions ─────────────────────────────────────────────────────────

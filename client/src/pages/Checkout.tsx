@@ -546,6 +546,23 @@ export default function Checkout() {
                         {t("checkout.paymentCod")}
                       </span>
                     </div>
+                    {/* 信用卡付款說明 */}
+                    <div
+                      className="mt-2 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed"
+                      style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: "oklch(0.380 0.060 145)" }}
+                    >
+                      💳 如需使用信用卡付款，請前往{" "}
+                      <a
+                        href="https://www.momoshop.com.tw/TP/TP0009399/main?entpCode=TP0009399"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline font-500 hover:opacity-75 transition-opacity"
+                        style={{ color: "oklch(0.380 0.070 145)" }}
+                      >
+                        MOMO 購物網站
+                      </a>{" "}
+                      購買
+                    </div>
                     <div
                       className="flex justify-between pt-3 mt-1"
                       style={{ borderTop: "1px solid oklch(0.870 0.018 130)" }}
