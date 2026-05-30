@@ -36,13 +36,13 @@ interface RecommendedProduct {
 }
 
 const ALL_PRODUCTS: RecommendedProduct[] = [
-  { id: "S01", name: "杉林溪春茶", nameKey: "product.sanlinxi.spring", price: 400, weight: "150g（四兩）", image: IMG.sanlinxi, season: "春茶", reason: "口味偏重、喜歡回甘，杉林溪春茶的濃郁茶氣與持久回甘最適合您。", notes: ["茶湯金黃透亮，入口濃郁甘醇", "花香與蜜香交融，回甘持久悠長", "春季嫩芽精製，茶氣飽滿厚實"] },
+  { id: "S03", name: "杉林溪春茶", nameKey: "product.sanlinxi.spring", price: 400, weight: "150g（四兩）", image: IMG.sanlinxi, season: "春茶", reason: "口味偏重、喜歡回甘，杉林溪春茶的濃郁茶氣與持久回甘最適合您。", notes: ["茶湯金黃透亮，入口濃郁甘醇", "花香與蜜香交融，回甘持久悠長", "春季嫩芽精製，茶氣飽滿厚實"] },
   { id: "S02", name: "杉林溪冬茶", nameKey: "product.sanlinxi.winter", price: 400, weight: "150g（四兩）", image: IMG.sanlinxi, season: "冬茶", reason: "口味清淡、喜歡清香，杉林溪冬茶的淡雅花香與清甜喉韻最適合您。", notes: ["茶湯清澈淡雅，入口清香順口", "冬季低溫慢長，茶葉細膩柔和", "清新花香縈繞，喉韻清甜爽口"] },
-  { id: "A01", name: "阿里山春茶", nameKey: "product.alishan.spring", price: 1100, weight: "300g（半斤）", image: IMG.alishan, season: "春茶", reason: "喜歡奶香花香交融的層次感，阿里山春茶的蜜綠茶湯與奶香最適合您。", notes: ["高山雲霧孕育，茶湯蜜綠清亮", "春芽飽滿鮮嫩，滋味濃郁回甘", "奶香與花香並存，層次豐富迷人"] },
+  { id: "A03", name: "阿里山春茶", nameKey: "product.alishan.spring", price: 1100, weight: "300g（半斤）", image: IMG.alishan, season: "春茶", reason: "喜歡奶香花香交融的層次感，阿里山春茶的蜜綠茶湯與奶香最適合您。", notes: ["高山雲霧孕育，茶湯蜜綠清亮", "春芽飽滿鮮嫩，滋味濃郁回甘", "奶香與花香並存，層次豐富迷人"] },
   { id: "A02", name: "阿里山冬茶", nameKey: "product.alishan.winter", price: 1100, weight: "300g（半斤）", image: IMG.alishan, season: "冬茶", reason: "喜歡滑順口感、淡雅花香，阿里山冬茶的絲滑茶湯與清揚香氣最適合您。", notes: ["冬季低溫緩慢生長，香氣格外清揚", "茶湯清澈柔順，入喉絲滑無澀感", "淡雅花香持久，回甘清甜舒暢"] },
-  { id: "R01", name: "翠峰春茶", nameKey: "product.cuifeng.spring", price: 1300, weight: "300g（半斤）", image: IMG.cuifeng, season: "春茶", reason: "喜歡蘭花香氣與醇厚滋味，翠峰春茶的中央山脈特選茶葉最適合您。", notes: ["中央山脈特選，茶湯翠綠鮮活", "春茶氣息濃郁，蘭花香氣撲鼻", "滋味醇厚甘甜，回韻悠長持久"] },
+  { id: "R03", name: "翠峰春茶", nameKey: "product.cuifeng.spring", price: 1300, weight: "300g（半斤）", image: IMG.cuifeng, season: "春茶", reason: "喜歡蘭花香氣與醇厚滋味，翠峰春茶的中央山脈特選茶葉最適合您。", notes: ["中央山脈特選，茶湯翠綠鮮活", "春茶氣息濃郁，蘭花香氣撲鼻", "滋味醇厚甘甜，回韻悠長持久"] },
   { id: "R02", name: "翠峰冬茶", nameKey: "product.cuifeng.winter", price: 1300, weight: "300g（半斤）", image: IMG.cuifeng, season: "冬茶", reason: "喜歡清爽不苦澀的口感，翠峰冬茶的青草香氣與甘潤喉韻最適合您。", notes: ["冬季山嵐輕撫，茶葉清香細膩", "入口清爽不苦澀，喉韻甘潤舒適", "淡淡青草香氣，令人心曠神怡"] },
-  { id: "L01", name: "精緻梨山春茶", nameKey: "product.lishan.spring", price: 950, weight: "150g（四兩）", image: IMG.lishan, season: "春茶", reason: "喜歡蜜香花香交織的高山茶，梨山春茶的海拔兩千公尺孕育最適合您。", notes: ["海拔兩千公尺以上，高山冷涼孕育", "春茶滋味濃郁飽滿，蜜香花香交織", "入口甘甜醇厚，回甘持久令人回味"] },
+  { id: "L03", name: "精緻梨山春茶", nameKey: "product.lishan.spring", price: 950, weight: "150g（四兩）", image: IMG.lishan, season: "春茶", reason: "喜歡蜜香花香交織的高山茶，梨山春茶的海拔兩千公尺孕育最適合您。", notes: ["海拔兩千公尺以上，高山冷涼孕育", "春茶滋味濃郁飽滿，蜜香花香交織", "入口甘甜醇厚，回甘持久令人回味"] },
   { id: "L02", name: "精緻梨山冬茶", nameKey: "product.lishan.winter", price: 950, weight: "150g（四兩）", image: IMG.lishan, season: "冬茶", reason: "喜歡如蘭清香與柔順口感，梨山冬茶的細膩茶葉最適合您。", notes: ["冬季高山嚴寒，茶葉緩慢積累精華", "清香淡雅如蘭，口感柔順無苦澀", "喉韻清甜悠長，餘香在口中縈繞"] },
   { id: "D01", name: "精緻福壽山春茶", nameKey: "product.fushoushan.spring", price: 1750, weight: "150g（四兩）", image: IMG.fushoushan, season: "春茶", reason: "追求頂級高山茶體驗，福壽山春茶的蜜香果香層次最適合您。", notes: ["台灣頂級高山茶，海拔超過兩千五百公尺", "春茶香氣馥郁，蜜香果香層層疊現", "茶湯金黃透亮，滋味醇厚甘甜無比"] },
   { id: "D02", name: "精緻福壽山冬茶", nameKey: "product.fushoushan.winter", price: 1750, weight: "150g（四兩）", image: IMG.fushoushan, season: "冬茶", reason: "追求極致清雅與絲滑口感，福壽山冬茶是送禮自用的頂級之選。", notes: ["冬季極寒高山，茶葉精華高度濃縮", "清雅花香如幽蘭，入口絲滑無比", "回甘持久悠長，是送禮自用的極品"] },
@@ -135,7 +135,7 @@ function recommend(answers: Record<number, string>): RecommendedProduct {
   // Rule 2: 幾乎沒在喝茶 → 阿里山（依口味選春/冬）
   if (frequency === "rarely") {
     if (taste === "heavy" || texture === "aftertaste" || flavor === "rich") {
-      return ALL_PRODUCTS.find((p) => p.id === "A01")!; // 阿里山春茶
+      return ALL_PRODUCTS.find((p) => p.id === "A03")!; // 阿里山春茶
     }
     return ALL_PRODUCTS.find((p) => p.id === "A02")!; // 阿里山冬茶
   }
@@ -143,8 +143,8 @@ function recommend(answers: Record<number, string>): RecommendedProduct {
   // Rule 3: 濃厚 → 春茶（依頻率選等級）
   if (flavor === "rich") {
     if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;   // 福壽山春茶
-    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;  // 梨山春茶
-    return ALL_PRODUCTS.find((p) => p.id === "R01")!; // 翠峰春茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L03")!;  // 梨山春茶
+    return ALL_PRODUCTS.find((p) => p.id === "R03")!; // 翠峰春茶
   }
 
   // Rule 4a: 清淡 → 冬茶（依頻率選等級）
@@ -158,17 +158,17 @@ function recommend(answers: Record<number, string>): RecommendedProduct {
   // Rule 4b: 重口味 → 春茶（依頻率選等級）
   if (taste === "heavy") {
     if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;   // 福壽山春茶
-    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;  // 梨山春茶
-    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R01")!; // 翠峰春茶
-    return ALL_PRODUCTS.find((p) => p.id === "A01")!; // 阿里山春茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L03")!;  // 梨山春茶
+    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R03")!; // 翠峰春茶
+    return ALL_PRODUCTS.find((p) => p.id === "A03")!; // 阿里山春茶
   }
 
   // Rule 5a: 回甘 → 春茶（依頻率選等級）
   if (texture === "aftertaste") {
     if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;   // 福壽山春茶
-    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;  // 梨山春茶
-    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R01")!; // 翠峰春茶
-    return ALL_PRODUCTS.find((p) => p.id === "A01")!; // 阿里山春茶
+    if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L03")!;  // 梨山春茶
+    if (frequency === "monthly") return ALL_PRODUCTS.find((p) => p.id === "R03")!; // 翠峰春茶
+    return ALL_PRODUCTS.find((p) => p.id === "A03")!; // 阿里山春茶
   }
 
   // Rule 5b: 滑順 → 冬茶（依頻率選等級）
@@ -181,7 +181,7 @@ function recommend(answers: Record<number, string>): RecommendedProduct {
 
   // Default: medium taste → 依頻率選等級，春冬各半
   if (frequency === "daily") return ALL_PRODUCTS.find((p) => p.id === "D01")!;
-  if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L01")!;
+  if (frequency === "weekly") return ALL_PRODUCTS.find((p) => p.id === "L03")!;
   return ALL_PRODUCTS.find((p) => p.id === "A02")!; // 阿里山冬茶 fallback
 }
 

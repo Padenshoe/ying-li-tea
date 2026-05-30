@@ -40,7 +40,7 @@ interface Product {
 const PRODUCTS: Product[] = [
   // 杉林溪
   {
-    id: "S01", code: "S01", name: "杉林溪春茶", season: "春茶",
+    id: "S03", code: "S03", name: "杉林溪春茶", season: "春茶",
     weight: "150g（四兩）", price: 400,
     images: [IMG.sanlinxi],
     nameKey: "product.sanlinxi.spring",
@@ -63,7 +63,7 @@ const PRODUCTS: Product[] = [
   },
   // 阿里山
   {
-    id: "A01", code: "A01", name: "阿里山春茶", season: "春茶",
+    id: "A03", code: "A03", name: "阿里山春茶", season: "春茶",
     weight: "300g（半斤）", price: 1100,
     images: [IMG.alishan, IMG.alishanExtra],
     nameKey: "product.alishan.spring",
@@ -86,7 +86,7 @@ const PRODUCTS: Product[] = [
   },
   // 翠峰
   {
-    id: "R01", code: "R01", name: "翠峰春茶", season: "春茶",
+    id: "R03", code: "R03", name: "翠峰春茶", season: "春茶",
     weight: "300g（半斤）", price: 1300,
     images: [IMG.cuifeng, IMG.cuifengExtra],
     nameKey: "product.cuifeng.spring",
@@ -109,7 +109,7 @@ const PRODUCTS: Product[] = [
   },
   // 梨山
   {
-    id: "L01", code: "L01", name: "精緻梨山春茶", season: "春茶",
+    id: "L03", code: "L03", name: "精緻梨山春茶", season: "春茶",
     weight: "150g（四兩）", price: 950,
     images: [IMG.lishan, IMG.lishanExtra],
     nameKey: "product.lishan.spring",
