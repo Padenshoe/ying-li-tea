@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>迎利茶葉 Yingli Tea</title>
+    <link>https://yinglitea.co/products</link>
+    <description>台灣高山烏龍茶 - 迎利茶葉產品目錄</description>
+
+    <item>
+      <g:id>S03</g:id>
+      <g:title>杉林溪春茶 150g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>台灣杉林溪高山春茶，海拔1500公尺以上，清香甘甜、回甘持久，無農藥殘留檢驗合格。每包150g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>400 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>高山茶清香甘甜</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣杉林溪</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>150g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>S02</g:id>
+      <g:title>杉林溪冬茶 150g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>台灣杉林溪高山冬茶，冬季低溫慢長，茶湯醇厚飽滿、香氣幽長，無農藥殘留檢驗合格。每包150g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>400 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>冬摘醇厚飽滿</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣杉林溪</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>150g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>A03</g:id>
+      <g:title>阿里山春茶 300g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>台灣阿里山高山春茶，花香清揚、滋味甘醇，無農藥殘留檢驗合格。每包300g，適合家庭日飲或商務送禮。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>1100 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>花香清揚 滋味甘醇</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣阿里山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>300g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>A02</g:id>
+      <g:title>阿里山冬茶 300g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>台灣阿里山高山冬茶，湯色金黃、滋味濃郁回甘，無農藥殘留檢驗合格。每包300g，適合家庭日飲或商務送禮。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>1100 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>湯色金黃 濃郁回甘</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣阿里山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>300g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>R03</g:id>
+      <g:title>翠峰春茶 300g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>宜蘭翠峰高山春茶，雲霧茶園孕育，茶湯清澈甘甜、花果香明顯，無農藥殘留檢驗合格。每包300g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>1300 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>花果香明顯 清澈甘甜</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣翠峰</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>300g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>R02</g:id>
+      <g:title>翠峰冬茶 300g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>宜蘭翠峰高山冬茶，冬摘精製，茶湯飽滿醇厚、回甘悠長，無農藥殘留檢驗合格。每包300g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>1300 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>醇厚飽滿 回甘悠長</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣翠峰</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>300g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>L03</g:id>
+      <g:title>梨山春茶 150g｜迎利茶葉 頂級高山烏龍茶</g:title>
+      <g:description>台灣梨山高山春茶，海拔2000公尺以上，茶湯清透甘甜、冷後不苦澀，無農藥殘留檢驗合格。每包150g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>950 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>海拔2000公尺 清透甘甜</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣梨山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>150g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>L02</g:id>
+      <g:title>梨山冬茶 150g｜迎利茶葉 頂級高山烏龍茶</g:title>
+      <g:description>台灣梨山高山冬茶，冬季低溫孕育，茶香濃郁持久、滋味圓潤，無農藥殘留檢驗合格。每包150g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>950 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>香氣濃郁 滋味圓潤</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣梨山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>150g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>D01</g:id>
+      <g:title>福壽山春茶 150g｜迎利茶葉 頂級高山烏龍茶</g:title>
+      <g:description>福壽山農場春茶，海拔2500公尺，茶湯蜜香甘甜、品質卓越，無農藥殘留檢驗合格。每包150g，送禮自用兩相宜。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>1750 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>海拔2500公尺 蜜香甘甜</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣福壽山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>150g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>D02</g:id>
+      <g:title>福壽山冬茶 150g｜迎利茶葉 頂級高山烏龍茶</g:title>
+      <g:description>福壽山農場冬茶，冬摘精製，湯色蜜黃、香氣幽雅持久，無農藥殘留檢驗合格。每包150g，送禮自用兩相宜。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>1750 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>湯色蜜黃 香氣幽雅</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣福壽山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>150g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>R01</g:id>
+      <g:title>阿里山烘焙茶 300g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>阿里山高山茶傳統炭焙工藝，茶湯琥珀色、焙火香醇厚甘潤，無農藥殘留檢驗合格。每包300g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>1400 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>傳統炭焙 焙火香醇</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣阿里山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>300g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>J01</g:id>
+      <g:title>阿里山金萱茶 300g｜迎利茶葉 高山烏龍茶</g:title>
+      <g:description>阿里山金萱品種，天然奶香濃郁、茶湯滑順甘甜，無添加香料，無農藥殘留檢驗合格。每包300g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>800 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>天然奶香 無添加香料</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>品種</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>金萱</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>300g</g:unit_pricing_measure>
+    </item>
+
+    <item>
+      <g:id>TB01</g:id>
+      <g:title>阿里山茶包禮盒 150g｜迎利茶葉 高山烏龍茶包</g:title>
+      <g:description>阿里山高山烏龍三角茶包，沖泡方便、香氣不減，精美禮盒包裝適合送禮。每盒150g。</g:description>
+      <g:link>https://yinglitea.co/products</g:link>
+      <g:image_link>https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/Gemini_Generated_Image_dmtfc8dmtfc8dmtf_4fe395c2.png</g:image_link>
+      <g:price>980 TWD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Yingli Tea</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:product_highlight>沖泡方便 精美禮盒</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>產地</g:section_name>
+        <g:attribute_name>茶葉</g:attribute_name>
+        <g:attribute_value>台灣阿里山</g:attribute_value>
+      </g:product_detail>
+      <g:unit_pricing_measure>150g</g:unit_pricing_measure>
+    </item>
+
+  </channel>
+</rss>
