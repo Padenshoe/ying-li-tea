@@ -471,13 +471,24 @@ export default function ContactFooter() {
             ))}
           </nav>
 
-          {/* Copyright */}
-          <p
-            className="text-xs font-['Lato'] font-300 tracking-wide"
-            style={{ color: "oklch(0.440 0.010 90)" }}
-          >
-            © {new Date().getFullYear()} Ying-Li. All rights reserved.
-          </p>
+          {/* Refund Policy + Copyright */}
+          <div className="flex flex-col items-center sm:items-end gap-2">
+            <a
+              href="/refund-policy"
+              className="text-xs font-['Lato'] font-400 tracking-[0.12em] uppercase transition-colors duration-300 underline underline-offset-2"
+              style={{ color: "oklch(0.500 0.010 90)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.010 90)"; }}
+            >
+              退貨與退款政策
+            </a>
+            <p
+              className="text-xs font-['Lato'] font-300 tracking-wide"
+              style={{ color: "oklch(0.440 0.010 90)" }}
+            >
+              © {new Date().getFullYear()} Ying-Li. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </>

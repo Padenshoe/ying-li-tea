@@ -10,6 +10,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { trpc } from "@/lib/trpc";
 import { Link, useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
+import MiniFooter from "@/components/MiniFooter";
 import { toast } from "sonner";
 
 const inputBase =
@@ -602,6 +603,7 @@ export default function Checkout() {
           </form>
         </div>
       </main>
+      <MiniFooter />
     </div>
   );
 }

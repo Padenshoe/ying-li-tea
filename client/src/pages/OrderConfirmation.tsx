@@ -8,6 +8,7 @@ import { useSearch } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import Navbar from "@/components/Navbar";
+import MiniFooter from "@/components/MiniFooter";
 import { Link } from "wouter";
 
 // Extend Window interface for GTM dataLayer
@@ -357,6 +358,7 @@ export default function OrderConfirmation() {
           </div>
         </div>
       </main>
+      <MiniFooter />
     </div>
   );
 }

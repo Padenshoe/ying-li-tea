@@ -359,3 +359,10 @@
 - [x] Logo 垂直置中
 - [x] 移除「迎利茶葉」文字
 - [x] 去掉 Logo 周圍白色正方形背景（mix-blend-mode 或 PNG 處理）
+
+## 退貨與退款政策頁面（第二十五批）
+
+- [x] 建立 /refund-policy 頁面（RefundPolicy.tsx）
+- [x] 在 App.tsx 註冊路由
+- [x] 在 Footer（ContactFooter）加入退貨政策連結
+- [x] 建立 MiniFooter 元件，在 Cart、Checkout、OrderConfirmation 頁面底部加入退貨政策連結

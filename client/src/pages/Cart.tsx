@@ -2,10 +2,12 @@
  * YING-LI TEA — SHOPPING CART PAGE
  * Full cart display with item management and checkout
  */
+import React from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link, useLocation } from "wouter";
+import MiniFooter from "@/components/MiniFooter";
 
 // Fallback map: product ID → nameKey for items stored before nameKey was added
 const PRODUCT_NAME_KEYS: Record<string, string> = {
@@ -298,6 +300,7 @@ export default function Cart() {
           </div>
         )}
       </div>
+      <MiniFooter />
     </div>
   );
 }

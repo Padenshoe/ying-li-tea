@@ -17,6 +17,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import BackToTop from "./components/BackToTop";
 import ProductsPage from "./pages/Products";
 import TeaQuizPage from "./pages/TeaQuiz";
+import RefundPolicy from "./pages/RefundPolicy";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -30,6 +31,7 @@ function Router() {
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/products"} component={ProductsPage} />
       <Route path={"/tea-quiz"} component={TeaQuizPage} />
+      <Route path={"/refund-policy"} component={RefundPolicy} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
