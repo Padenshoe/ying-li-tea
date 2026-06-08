@@ -7,8 +7,8 @@ import { useEffect, useRef } from "react";
 
 const promises = [
   {
-    zh: "20 年茶農背景，不是網路新創品牌",
-    en: "20 years of tea farming heritage — not a new online startup",
+    zh: "30 年茶農背景，創立於 1994 年，不是網路新創品牌",
+    en: "30 years of tea farming heritage, est. 1994 — not a new online startup",
   },
   {
     zh: "透明定價——什麼價格買什麼等級的茶，清楚標示",

@@ -371,3 +371,17 @@
 
 - [x] 阿里山金萱茶葉價改為 800（Products.tsx 金萱茶錯字修正 + TeaQuiz.tsx 同步更新）
 - [x] 結帳頁面加入信用卡付款說明，導向 MOMO 購買連結
+
+## 三十年茶農背景 + 統編欄位（第二十七批）
+
+- [x] LanguageContext：Hero tagline 改為「三十年茶農背景，創立於 1994 年」（中英文）
+- [x] LanguageContext：About、FAQ 相關「二十年」全部改為「三十年，創立於 1994 年」（共 8 處）
+- [x] PromiseSection：「20 年茶農背景」改為「30 年茶農背景，創立於 1994 年」
+- [x] HeroSection tagline：加入 lineHeight/alignItems 修正數字垂直對齊
+- [x] QuoteSection：「茶葉的價値，應該讓你看得見。」改為 whiteSpace:nowrap 不換行
+- [x] schema.ts：customOrders 新增 taxId 欄位（varchar 20，nullable）
+- [x] order.ts：submitOrder input schema 新增 taxId 選填、DB 插入、email 模板顯示統一編號
+- [x] Checkout.tsx：FormState/初始值/submitOrder 呼叫新增 taxId，UI 加入統一編號選填欄位
+- [x] LanguageContext：新增 checkout.taxId / checkout.taxIdPlaceholder 中英文翻譯
+- [x] pnpm db:push 成功（migration 0004_silly_miss_america.sql）
+- [x] TypeScript 零錯誤，37 個測試全部通過

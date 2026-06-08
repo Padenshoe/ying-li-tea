@@ -61,6 +61,12 @@ export default function HeroSection() {
             color: "#F2EDE4",
             letterSpacing: "0.02em",
             textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            lineHeight: 1,
+            display: "flex",
+            alignItems: "center",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "0.25em",
             opacity: 0,
             animation: "fadeInUp 0.9s ease-out 0.5s forwards",
           }}

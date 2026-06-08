@@ -22,7 +22,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     "hero.title": "Ying-Li Tea — Taiwan's Finest Tea Shop",
-    "hero.tagline": "20 Years of Tea Expertise — Taiwan Oolong Specialists",
+    "hero.tagline": "30 Years of Tea Expertise — Est. 1994, Taiwan Oolong Specialists",
     "hero.intro": "From Alishan to Dayuling, 1,000 to 2,800 metres elevation — we source oolong from Taiwan's six premier growing regions. Transparent pricing, quality guaranteed. Walk in anytime for a free tasting.",
     "hero.shopNow": "Shop Now",
     "hero.exploreTea": "Explore Our Tea",
@@ -40,7 +40,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // About Section
     "about.title": "About Ying-Li",
-    "about.description": "Ying-Li grew from a tea business with over twenty years of roots in the Taiwanese tea market. We source directly from six high-mountain growing regions — Shanlinxi, Alishan, Cuifeng, Lishan, Fushoushan, and Dayuling — and every tea comes with an official production and sales traceability certificate, fully transparent.\n\nOur shop is our open door to customers. No tea knowledge required, no reservation needed. Walk in, have a cup, and buy only if you like it.",
+    "about.description": "Ying-Li grew from a tea business established in 1994, with over thirty years of roots in the Taiwanese tea market. We source directly from six high-mountain growing regions — Shanlinxi, Alishan, Cuifeng, Lishan, Fushoushan, and Dayuling — and every tea comes with an official production and sales traceability certificate, fully transparent.\n\nOur shop is our open door to customers. No tea knowledge required, no reservation needed. Walk in, have a cup, and buy only if you like it.",
     "about.teaRegions": "Tea Regions",
     "about.certification": "Certification",
     "about.certificationValue": "Official",
@@ -119,7 +119,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.description": "Everything you need to know about our teas, sourcing, and how to enjoy them at their best.",
     "faq.title": "Frequently Asked Questions",
     "faq.q1": "What makes Ying-Li different from other tea brands?",
-    "faq.a1": "Behind Ying-Li is a tea business that has been operating for over twenty years — not just an online tea brand. We insist on transparent pricing: every tea's growing region, elevation, and grade are clearly labelled so you know exactly what you're buying. Questions? Come visit us in person — we'll walk you through everything.",
+    "faq.a1": "Behind Ying-Li is a tea business established in 1994, operating for over thirty years — not just an online tea brand. We insist on transparent pricing: every tea's growing region, elevation, and grade are clearly labelled so you know exactly what you're buying. Questions? Come visit us in person — we'll walk you through everything.",
     "faq.q2": "How should I brew Ying-Li tea?",
     "faq.a2": "Hot Brew: Tea-to-water ratio 1:18, recommended water temperature 90–95°C, steep for 60–80 seconds. Can be re-steeped multiple times — the fragrance deepens with each brew.\n\nCold Brew: Place tea leaves in cold water and refrigerate for 6–8 hours. Naturally sweet and smooth, with a more delicate milky aroma — perfect for summer.",
     "faq.q3": "Are your teas organic?",
@@ -138,7 +138,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q5": "Are more tea flavors coming?",
     "faq.a5": "We currently offer around twenty carefully selected Taiwan high-mountain oolong teas. Our range is intentionally focused — every tea on our shelves has been personally tasted and quality-verified by us.",
     "faq.q6": "What makes Ying-Li different from other tea brands?",
-    "faq.a6": "Behind Ying-Li is a tea business that has been operating for over twenty years — not just an online tea brand. We insist on transparent pricing: every tea's growing region, elevation, and grade are clearly labelled so you know exactly what you're buying. Questions? Come visit us in person — we'll walk you through everything.",
+    "faq.a6": "Behind Ying-Li is a tea business established in 1994, operating for over thirty years — not just an online tea brand. We insist on transparent pricing: every tea's growing region, elevation, and grade are clearly labelled so you know exactly what you're buying. Questions? Come visit us in person — we'll walk you through everything.",
 
     "cart.title": "Shopping Cart",
     "cart.orderSummary": "Order Summary",
@@ -167,6 +167,8 @@ const translations: Record<Language, Record<string, string>> = {
     "checkout.email": "Email (optional — for order confirmation)",
     "checkout.emailPlaceholder": "your@email.com",
     "checkout.errEmailInvalid": "Please enter a valid email address",
+    "checkout.taxId": "Tax ID / Uniform Invoice Number (optional)",
+    "checkout.taxIdPlaceholder": "e.g. 12345678",
     "checkout.deliveryMethod": "Delivery Method",
     "checkout.deliveryHomeTitle": "Home Delivery (Cash on Delivery)",
     "checkout.deliveryHomeDesc": "Deliver to your specified address and pay upon receipt",
@@ -210,7 +212,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     "hero.title": "迎利茶葉 — 台灣茶專賣店",
-    "hero.tagline": "二十年茶農背景，台灣高山茶專賣",
+    "hero.tagline": "三十年茶農背景，創立於 1994 年，台灣高山茶專賣",
     "hero.intro": "從阿里山到大禹嶺，海拔 1,000 到 2,800 公尺，精選台灣六大產區高山茶。透明定價，品質保證，歡迎來店試喝。",
     "hero.shopNow": "立即購買",
     "hero.exploreTea": "探索我們的茶",
@@ -228,7 +230,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // About Section
     "about.title": "關於迎利",
-    "about.description": "迎利前身是深耕台灣茶葉市場逾二十年的茶行。我們從台灣六大高山產區直接採購——杉林溪、阿里山、翠峰、梨山、福壽山、大禹嶺——所有茶葉均附產銷履歷認證，公開透明。\n\n門市是我們開放給消費者的那扇窗。不用懂茶、不用預約，走進來喝一杯，喜歡再買。",
+    "about.description": "迎利前身是創立於 1994 年、深耕台灣茶葉市場逾三十年的茶行。我們從台灣六大高山產區直接採購——杉林溪、阿里山、翠峰、梨山、福壽山、大禹嶺——所有茶葉均附產銷履歷認證，公開透明。\n\n門市是我們開放給消費者的那扇窗。不用懂茶、不用預約，走進來喝一杯，喜歡再買。",
     "about.teaRegions": "茶葉產區",
     "about.certification": "認證",
     "about.certificationValue": "官方認證",
@@ -307,7 +309,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.description": "關於我們的茶葉、產地來源，以及如何以最佳方式享用，您需要知道的一切。",
     "faq.title": "常見問題",
     "faq.q1": "迎利跟其他茶品牌有什麼不同？",
-    "faq.a1": "迎利背後是一間運作逾二十年的茶行，不是單純的網路賣茶品牌。我們堅持透明定價，每一款茶的產區、海拔、等級都清楚標示，讓你知道自己在買什麼。有疑問歡迎直接來店，我們會親自為你介紹。",
+    "faq.a1": "迎利背後是一間創立於 1994 年、運作逾三十年的茶行，不是單純的網路賣茶品牌。我們堅持透明定價，每一款茶的產區、海拔、等級都清楚標示，讓你知道自己在買什麼。有疑問歡迎直接來店，我們會親自為你介紹。",
      "faq.q2": "如何沖泡迎利茶？",
     "faq.a2": "熱泡：茶葉與水比例 1:18，建議水溫 90–95°C，浸泡 60–80 秒，可回沖多次，越泡越顯茶香。\n\n冷泡：將茶葉放入冷水中，置於冰箱冷藏 6–8 小時，清甜順口，茶香更加細致，夏日首選。",
     "faq.q3": "你們的茶是有機的嗎？",
@@ -326,7 +328,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q5": "會有更多茶葉風味嗎？",
     "faq.a5": "目前我們精選約二十款台灣高山烏龍茶，品項不多，但每一款都是我們親自挑選、確認品質的茶葉。",
     "faq.q6": "迎利跟其他茶品牌有什麼不同？",
-    "faq.a6": "迎利背後是一間運作逾二十年的茶行，不是單純的網路賣茶品牌。我們堅持透明定價，每一款茶的產區、海拔、等級都清楚標示，讓你知道自己在買什麼。有疑問歡迎直接來店，我們會親自為你介紹。",
+    "faq.a6": "迎利背後是一間創立於 1994 年、運作逾三十年的茶行，不是單純的網路賣茶品牌。我們堅持透明定價，每一款茶的產區、海拔、等級都清楚標示，讓你知道自己在買什麼。有疑問歡迎直接來店，我們會親自為你介紹。",
 
     "cart.title": "購物車",
     "cart.orderSummary": "訂單摘要",
@@ -354,7 +356,9 @@ const translations: Record<Language, Record<string, string>> = {
     "checkout.phonePlaceholder": "例：0912-345-678",
     "checkout.email": "Email（選填，用於寄送訂單確認信）",
     "checkout.emailPlaceholder": "your@email.com",
-    "checkout.errEmailInvalid": "請填寫有效的 Email 地址",
+    "checkout.errEmailInvalid": "請輸入有效的 Email 地址",
+    "checkout.taxId": "統一編號（選填）",
+    "checkout.taxIdPlaceholder": "例：12345678，公司行號圖利可填入",
     "checkout.deliveryMethod": "配送方式",
     "checkout.deliveryHomeTitle": "宅配（貨到付款）",
     "checkout.deliveryHomeDesc": "送到您指定的地址，收貨時付款",

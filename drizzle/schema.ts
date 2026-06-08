@@ -74,6 +74,8 @@ export const customOrders = mysqlTable("customOrders", {
   deliveryMethod: mysqlEnum("deliveryMethod", ["home", "711"]).notNull(),
   address: text("address"),          // used for home delivery
   storeCode: varchar("storeCode", { length: 255 }), // 7-11 store name / code
+  // Optional tax ID (for B2B customers)
+  taxId: varchar("taxId", { length: 20 }),
   // Order
   items: text("items").notNull(),    // JSON string of CartItem[]
   totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),

@@ -27,6 +27,7 @@ interface FormState {
   gender: "male" | "female" | "other" | "";
   phone: string;
   email: string;
+  taxId: string;
   deliveryMethod: "home" | "711" | "";
   address: string;
   storeCode: string;
@@ -58,6 +59,7 @@ export default function Checkout() {
     gender: "",
     phone: "",
     email: "",
+    taxId: "",
     deliveryMethod: "",
     address: "",
     storeCode: "",
@@ -107,6 +109,7 @@ export default function Checkout() {
         gender: form.gender as "male" | "female" | "other",
         phone: form.phone.trim(),
         email: form.email.trim() || undefined,
+        taxId: form.taxId.trim() || undefined,
         deliveryMethod: form.deliveryMethod as "home" | "711",
         address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
         storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
@@ -310,6 +313,24 @@ export default function Checkout() {
                       onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = errors.email ? borderError : borderDefault; }}
                     />
                     <FieldError msg={errors.email} />
+                  </div>
+
+                  {/* Tax ID (optional) */}
+                  <div>
+                    <label htmlFor="taxId" className={labelBase} style={{ color: accentGreen }}>
+                      {t("checkout.taxId")}
+                    </label>
+                    <input
+                      id="taxId"
+                      type="text"
+                      value={form.taxId}
+                      onChange={(e) => set("taxId", e.target.value)}
+                      placeholder={t("checkout.taxIdPlaceholder")}
+                      className={inputBase}
+                      style={{ border: borderDefault }}
+                      onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
+                      onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = borderDefault; }}
+                    />
                   </div>
                 </div>
 

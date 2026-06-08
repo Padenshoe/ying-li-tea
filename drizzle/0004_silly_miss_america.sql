@@ -1,0 +1,1 @@
+ALTER TABLE `customOrders` ADD `taxId` varchar(20);

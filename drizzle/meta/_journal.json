@@ -29,6 +29,13 @@
       "when": 1775036685061,
       "tag": "0003_thick_thing",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1780898395375,
+      "tag": "0004_silly_miss_america",
+      "breakpoints": true
     }
   ]
 }

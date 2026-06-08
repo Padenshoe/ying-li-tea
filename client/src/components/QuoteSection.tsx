@@ -42,7 +42,8 @@ export default function QuoteSection() {
           style={{
             fontSize: "clamp(1.25rem, 3.5vw, 2.25rem)",
             color: "oklch(0.265 0.015 55)",
-            maxWidth: "24ch",
+            maxWidth: "none",
+            whiteSpace: "nowrap",
             lineHeight: 1.6,
           }}
         >
