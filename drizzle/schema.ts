@@ -87,4 +87,35 @@ export const customOrders = mysqlTable("customOrders", {
 export type CustomOrder = typeof customOrders.$inferSelect;
 export type InsertCustomOrder = typeof customOrders.$inferInsert;
 
-// TODO: Add your additional tables here
+// ECPay credit card orders
+export const ecpayOrders = mysqlTable("ecpayOrders", {
+  id: int("id").autoincrement().primaryKey(),
+  // ECPay trade number (unique per transaction)
+  merchantTradeNo: varchar("merchantTradeNo", { length: 20 }).notNull().unique(),
+  // ECPay returned trade number
+  tradeNo: varchar("tradeNo", { length: 20 }),
+  // Customer info
+  fullName: varchar("fullName", { length: 255 }).notNull(),
+  gender: mysqlEnum("gender", ["male", "female", "other"]).notNull(),
+  phone: varchar("phone", { length: 30 }).notNull(),
+  email: varchar("email", { length: 320 }),
+  taxId: varchar("taxId", { length: 20 }),
+  // Delivery
+  deliveryMethod: mysqlEnum("deliveryMethod", ["home", "711"]).notNull(),
+  address: text("address"),
+  storeCode: varchar("storeCode", { length: 255 }),
+  // Order
+  items: text("items").notNull(),
+  totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),
+  shippingFee: decimal("shippingFee", { precision: 10, scale: 2 }).default("0").notNull(),
+  note: text("note"),
+  // Payment status
+  status: mysqlEnum("status", ["pending", "paid", "failed", "cancelled"]).default("pending").notNull(),
+  rtnCode: int("rtnCode"),           // ECPay RtnCode (1 = success)
+  rtnMsg: varchar("rtnMsg", { length: 200 }),
+  paymentDate: varchar("paymentDate", { length: 20 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type EcpayOrder = typeof ecpayOrders.$inferSelect;
+export type InsertEcpayOrder = typeof ecpayOrders.$inferInsert;

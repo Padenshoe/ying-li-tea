@@ -36,6 +36,13 @@
       "when": 1780898395375,
       "tag": "0004_silly_miss_america",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1781254799506,
+      "tag": "0005_faulty_omega_sentinel",
+      "breakpoints": true
     }
   ]
 }

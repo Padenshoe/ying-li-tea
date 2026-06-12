@@ -385,3 +385,16 @@
 - [x] LanguageContext：新增 checkout.taxId / checkout.taxIdPlaceholder 中英文翻譯
 - [x] pnpm db:push 成功（migration 0004_silly_miss_america.sql）
 - [x] TypeScript 零錯誤，37 個測試全部通過
+
+## ECPay 信用卡金流串接（第二十八批）
+
+- [x] 研究 ECPay API 文件（CheckMacValue SHA256 計算機制）
+- [x] 設定 ECPay 正式環境金鑰（ECPAY_MERCHANT_ID / ECPAY_HASH_KEY / ECPAY_HASH_IV）
+- [x] 新增 ecpayOrders 資料表至 schema.ts 並執行 db:push（5 個資料表，migration 成功）
+- [x] 建立 server/routers/ecpay.ts（createPayment / getOrderStatus / handleEcpayReturn）
+- [x] 在 server/_core/index.ts 新增 /api/ecpay/return Express 路由（POST，供 ECPay 回調）
+- [x] 重構 Checkout.tsx：新增付款方式選擇（貨到付款 / 信用卡），移除 MOMO 連結
+- [x] 建立 EcpayResult.tsx 付款結果頁面（輪詢狀態 / 成功 / 失敗 / 逾時）
+- [x] 在 App.tsx 新增 /checkout/result 路由
+- [x] 撰寫 server/ecpay.test.ts（4 個測試全部通過）
+- [x] 41 個測試全部通過，TypeScript 零錯誤，db:push 成功

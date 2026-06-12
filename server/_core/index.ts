@@ -8,6 +8,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { handleStripeWebhook } from "../stripeWebhook";
+import { handleEcpayReturn } from "../routers/ecpay";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -34,6 +35,20 @@ async function startServer() {
   // CRITICAL: Stripe webhook MUST be registered with express.raw() BEFORE express.json()
   // so the raw body is available for signature verification
   app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
+
+  // ECPay ReturnURL — server-side payment result callback
+  // ECPay POSTs form data here; must respond with "1|OK"
+  app.post("/api/ecpay/return", express.urlencoded({ extended: true }), async (req, res) => {
+    try {
+      const result = await handleEcpayReturn(req.body as Record<string, string>);
+      res.set("Content-Type", "text/plain");
+      res.send(result);
+    } catch (err) {
+      console.error("[ECPay Return] Unexpected error:", err);
+      res.set("Content-Type", "text/plain");
+      res.send("0|Error");
+    }
+  });
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));

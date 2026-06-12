@@ -1,7 +1,8 @@
 /*
  * YING-LI TEA — 結帳頁面
- * 自訂表單：姓名、性別、電話、配送方式（宅配/7-11 店到店）、地址/門市
- * 貨到付款，送出後通知店主
+ * 付款方式：
+ *   1. 貨到付款（COD）— 原有流程
+ *   2. 信用卡（ECPay）— 導向綠界付款頁面
  */
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
@@ -21,6 +22,8 @@ const accentGreen = "oklch(0.380 0.070 145)";
 const borderDefault = "1px solid oklch(0.840 0.015 90)";
 const borderFocus = `1px solid ${accentGreen}`;
 const borderError = "1px solid oklch(0.700 0.200 27)";
+
+type PaymentMethod = "cod" | "credit";
 
 interface FormState {
   fullName: string;
@@ -45,8 +48,8 @@ function FieldError({ msg }: { msg?: string }) {
   );
 }
 
-const SHIPPING_THRESHOLD = 2000; // TWD
-const SHIPPING_FEE = 130; // TWD
+const SHIPPING_THRESHOLD = 2000;
+const SHIPPING_FEE = 130;
 
 export default function Checkout() {
   const { items, total, clearCart } = useCart();
@@ -54,6 +57,7 @@ export default function Checkout() {
   const { formatPrice, convertPrice } = useCurrency();
   const [, navigate] = useLocation();
 
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cod");
   const [form, setForm] = useState<FormState>({
     fullName: "",
     gender: "",
@@ -66,8 +70,10 @@ export default function Checkout() {
     note: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const submitOrder = trpc.order.submitOrder.useMutation();
+  const createEcpayPayment = trpc.ecpay.createPayment.useMutation();
 
   // Shipping fee: 7-11 always free; home delivery free if total >= NT$2000
   const shippingFee = (deliveryMethod: string) => {
@@ -94,15 +100,8 @@ export default function Checkout() {
     return Object.keys(errs).length === 0;
   }
 
-  // ── Submit ────────────────────────────────────────────────────────────────
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (items.length === 0) {
-      toast.error(t("checkout.errCartEmpty"));
-      return;
-    }
-    if (!validate()) return;
-
+  // ── COD Submit ────────────────────────────────────────────────────────────
+  async function handleCodSubmit() {
     try {
       const result = await submitOrder.mutateAsync({
         fullName: form.fullName.trim(),
@@ -126,7 +125,6 @@ export default function Checkout() {
         shippingFee: currentShipping,
       });
 
-      // Store order data in sessionStorage to avoid URL length limits
       const confirmationData = {
         orderId: result.orderId,
         method: form.deliveryMethod,
@@ -144,13 +142,91 @@ export default function Checkout() {
         shippingFee: currentShipping,
         totalAmount: grandTotal,
       };
-      sessionStorage.setItem('yingli_order_confirmation', JSON.stringify(confirmationData));
+      sessionStorage.setItem("yingli_order_confirmation", JSON.stringify(confirmationData));
       navigate(`/order-confirmation?orderId=${result.orderId}`);
       clearCart();
     } catch (err: any) {
       toast.error(t("checkout.errSubmitFailed"), {
         description: err?.message ?? t("checkout.errUnknown"),
       });
+    }
+  }
+
+  // ── ECPay Credit Card Submit ───────────────────────────────────────────────
+  async function handleCreditSubmit() {
+    try {
+      setIsRedirecting(true);
+      const result = await createEcpayPayment.mutateAsync({
+        fullName: form.fullName.trim(),
+        gender: form.gender as "male" | "female" | "other",
+        phone: form.phone.trim(),
+        email: form.email.trim() || undefined,
+        taxId: form.taxId.trim() || undefined,
+        deliveryMethod: form.deliveryMethod as "home" | "711",
+        address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
+        storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
+        note: form.note.trim() || undefined,
+        items: items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          nameKey: item.nameKey,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+        })),
+        totalAmount: grandTotal,
+        shippingFee: currentShipping,
+        returnBaseUrl: window.location.origin,
+      });
+
+      // Store merchantTradeNo for result page polling
+      sessionStorage.setItem("yingli_ecpay_trade_no", result.merchantTradeNo);
+      // Store cart items for result page display
+      sessionStorage.setItem(
+        "yingli_ecpay_cart",
+        JSON.stringify({
+          items: items.map((item) => ({
+            name: item.nameKey ? t(item.nameKey) : item.name,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          subtotal: total,
+          shippingFee: currentShipping,
+          totalAmount: grandTotal,
+          fullName: form.fullName,
+          deliveryMethod: form.deliveryMethod,
+          address: form.address,
+          storeCode: form.storeCode,
+        })
+      );
+
+      // Write the auto-submit form into a hidden iframe and submit
+      // This opens ECPay in the current tab
+      const formContainer = document.createElement("div");
+      formContainer.innerHTML = result.formHtml;
+      document.body.appendChild(formContainer);
+      clearCart();
+    } catch (err: any) {
+      setIsRedirecting(false);
+      toast.error("付款建立失敗，請稍後再試", {
+        description: err?.message ?? "未知錯誤",
+      });
+    }
+  }
+
+  // ── Main Submit ───────────────────────────────────────────────────────────
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (items.length === 0) {
+      toast.error(t("checkout.errCartEmpty"));
+      return;
+    }
+    if (!validate()) return;
+
+    if (paymentMethod === "cod") {
+      await handleCodSubmit();
+    } else {
+      await handleCreditSubmit();
     }
   }
 
@@ -179,6 +255,23 @@ export default function Checkout() {
             {t("checkout.backToShop")}
           </Link>
         </main>
+      </div>
+    );
+  }
+
+  // ── Redirecting overlay ───────────────────────────────────────────────────
+  if (isRedirecting) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.970 0.012 80)" }}>
+        <div className="text-center">
+          <div
+            className="w-12 h-12 rounded-full border-2 border-t-transparent animate-spin mx-auto mb-4"
+            style={{ borderColor: `${accentGreen} transparent transparent transparent` }}
+          />
+          <p className="font-['Lato'] font-300 text-sm" style={{ color: "oklch(0.520 0.020 60)" }}>
+            正在前往綠界付款頁面，請稍候...
+          </p>
+        </div>
       </div>
     );
   }
@@ -297,7 +390,7 @@ export default function Checkout() {
                   </div>
 
                   {/* Email (optional) */}
-                  <div>
+                  <div className="mb-4">
                     <label htmlFor="email" className={labelBase} style={{ color: accentGreen }}>
                       {t("checkout.email")}
                     </label>
@@ -334,6 +427,81 @@ export default function Checkout() {
                   </div>
                 </div>
 
+                {/* Section: 付款方式 */}
+                <div
+                  className="rounded-xl p-6"
+                  style={{ background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
+                >
+                  <h2
+                    className="font-['Lato'] font-600 text-sm tracking-[0.08em] uppercase mb-5"
+                    style={{ color: "oklch(0.265 0.015 55)" }}
+                  >
+                    付款方式
+                  </h2>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {([
+                      {
+                        value: "cod" as PaymentMethod,
+                        title: "貨到付款",
+                        desc: "收到貨物時以現金付款，安全便利",
+                        icon: "💵",
+                      },
+                      {
+                        value: "credit" as PaymentMethod,
+                        title: "信用卡付款",
+                        desc: "透過綠界科技安全刷卡，支援 VISA / MasterCard / JCB",
+                        icon: "💳",
+                      },
+                    ]).map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setPaymentMethod(opt.value)}
+                        className="text-left p-4 rounded-lg transition-all duration-200"
+                        style={{
+                          border:
+                            paymentMethod === opt.value
+                              ? `1.5px solid ${accentGreen}`
+                              : borderDefault,
+                          background:
+                            paymentMethod === opt.value
+                              ? `${accentGreen}10`
+                              : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-lg">{opt.icon}</span>
+                          <span
+                            className="font-['Lato'] font-600 text-sm"
+                            style={{
+                              color:
+                                paymentMethod === opt.value
+                                  ? accentGreen
+                                  : "oklch(0.265 0.015 55)",
+                            }}
+                          >
+                            {opt.title}
+                          </span>
+                        </div>
+                        <div
+                          className="font-['Lato'] font-300 text-xs leading-relaxed"
+                          style={{ color: "oklch(0.550 0.020 60)" }}
+                        >
+                          {opt.desc}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  {paymentMethod === "credit" && (
+                    <div
+                      className="mt-3 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed"
+                      style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: "oklch(0.380 0.060 145)" }}
+                    >
+                      點擊「前往付款」後，您將被導向綠界科技安全付款頁面完成刷卡。付款完成後將自動返回本網站。
+                    </div>
+                  )}
+                </div>
+
                 {/* Section: 配送方式 */}
                 <div
                   className="rounded-xl p-6"
@@ -365,7 +533,6 @@ export default function Checkout() {
                         type="button"
                         onClick={() => {
                           set("deliveryMethod", opt.value);
-                          // Clear the other field
                           if (opt.value === "home") set("storeCode", "");
                           else set("address", "");
                         }}
@@ -564,25 +731,8 @@ export default function Checkout() {
                         {t("checkout.paymentMethod")}
                       </span>
                       <span className="font-['Lato'] font-400" style={{ color: "oklch(0.265 0.015 55)" }}>
-                        {t("checkout.paymentCod")}
+                        {paymentMethod === "cod" ? "貨到付款" : "信用卡"}
                       </span>
-                    </div>
-                    {/* 信用卡付款說明 */}
-                    <div
-                      className="mt-2 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed"
-                      style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: "oklch(0.380 0.060 145)" }}
-                    >
-                      💳 如需使用信用卡付款，請前往{" "}
-                      <a
-                        href="https://www.momoshop.com.tw/TP/TP0009399/main?entpCode=TP0009399"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="underline font-500 hover:opacity-75 transition-opacity"
-                        style={{ color: "oklch(0.380 0.070 145)" }}
-                      >
-                        MOMO 購物網站
-                      </a>{" "}
-                      購買
                     </div>
                     <div
                       className="flex justify-between pt-3 mt-1"
@@ -604,24 +754,30 @@ export default function Checkout() {
                   <div className="px-6 pb-6">
                     <button
                       type="submit"
-                      disabled={submitOrder.isPending}
+                      disabled={submitOrder.isPending || createEcpayPayment.isPending}
                       className="w-full py-3.5 text-xs font-['Lato'] font-500 tracking-[0.15em] uppercase transition-all duration-300 rounded border-none cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       style={{ background: accentGreen, color: "#FAFAF7" }}
                       onMouseEnter={(e) => {
-                        if (!submitOrder.isPending)
+                        if (!submitOrder.isPending && !createEcpayPayment.isPending)
                           (e.currentTarget as HTMLElement).style.opacity = "0.85";
                       }}
                       onMouseLeave={(e) => {
                         (e.currentTarget as HTMLElement).style.opacity = "1";
                       }}
                     >
-                      {submitOrder.isPending ? t("checkout.submitting") : t("checkout.submit")}
+                      {submitOrder.isPending || createEcpayPayment.isPending
+                        ? t("checkout.submitting")
+                        : paymentMethod === "credit"
+                        ? "前往付款"
+                        : t("checkout.submit")}
                     </button>
                     <p
                       className="text-xs font-['Lato'] font-300 text-center mt-3"
                       style={{ color: "oklch(0.550 0.020 60)" }}
                     >
-                      {t("checkout.submitHint")}
+                      {paymentMethod === "credit"
+                        ? "您將被導向綠界科技安全付款頁面"
+                        : t("checkout.submitHint")}
                     </p>
                   </div>
                 </div>
