@@ -205,12 +205,20 @@ export default function Checkout() {
         })
       );
 
-      // Write the auto-submit form into a hidden iframe and submit
-      // This opens ECPay in the current tab
-      const formContainer = document.createElement("div");
-      formContainer.innerHTML = result.formHtml;
-      document.body.appendChild(formContainer);
+      // Open ECPay payment page in current tab
+      // Use a new window/document.write approach so body onload fires correctly
       clearCart();
+      const win = window.open("", "_self");
+      if (win) {
+        win.document.open();
+        win.document.write(result.formHtml);
+        win.document.close();
+      } else {
+        // Fallback: create blob URL and navigate
+        const blob = new Blob([result.formHtml], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+        window.location.href = url;
+      }
     } catch (err: any) {
       setIsRedirecting(false);
       toast.error("付款建立失敗，請稍後再試", {
