@@ -355,7 +355,6 @@ export default function Checkout() {
                       {([
                         { value: "male", label: t("checkout.genderMale") },
                         { value: "female", label: t("checkout.genderFemale") },
-                        { value: "other", label: t("checkout.genderOther") },
                       ] as const).map((opt) => (
                         <button
                           key={opt.value}
@@ -459,82 +458,7 @@ export default function Checkout() {
                   </div>
                 </div>
 
-                {/* Section: 付款方式 */}
-                <div
-                  className="rounded-xl p-6"
-                  style={{ background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
-                >
-                  <h2
-                    className="font-['Lato'] font-600 text-sm tracking-[0.08em] uppercase mb-5"
-                    style={{ color: "oklch(0.265 0.015 55)" }}
-                  >
-                    付款方式
-                  </h2>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {([
-                      {
-                        value: "cod" as PaymentMethod,
-                        title: "貨到付款",
-                        desc: "收到貨物時以現金付款，安全便利",
-                        icon: "💵",
-                      },
-                      {
-                        value: "credit" as PaymentMethod,
-                        title: "信用卡付款",
-                        desc: "支援 VISA / MasterCard / JCB",
-                        icon: "💳",
-                      },
-                    ]).map((opt) => (
-                      <button
-                        key={opt.value}
-                        type="button"
-                        onClick={() => setPaymentMethod(opt.value)}
-                        className="text-left p-4 rounded-lg transition-all duration-200"
-                        style={{
-                          border:
-                            paymentMethod === opt.value
-                              ? `1.5px solid ${accentGreen}`
-                              : borderDefault,
-                          background:
-                            paymentMethod === opt.value
-                              ? `${accentGreen}10`
-                              : "transparent",
-                        }}
-                      >
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-lg">{opt.icon}</span>
-                          <span
-                            className="font-['Lato'] font-600 text-sm"
-                            style={{
-                              color:
-                                paymentMethod === opt.value
-                                  ? accentGreen
-                                  : "oklch(0.265 0.015 55)",
-                            }}
-                          >
-                            {opt.title}
-                          </span>
-                        </div>
-                        <div
-                          className="font-['Lato'] font-300 text-xs leading-relaxed"
-                          style={{ color: "oklch(0.550 0.020 60)" }}
-                        >
-                          {opt.desc}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                  {paymentMethod === "credit" && (
-                    <div
-                      className="mt-3 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed"
-                      style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: "oklch(0.380 0.060 145)" }}
-                    >
-                      點擊「前往付款」後，您將被導向綠界科技安全付款頁面完成刷卡。付款完成後將自動返回本網站。
-                    </div>
-                  )}
-                </div>
-
-                {/* Section: 配送方式 */}
+                {/* Section: 配送方式（先顯示） */}
                 <div
                   className="rounded-xl p-6"
                   style={{ background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
@@ -638,18 +562,89 @@ export default function Checkout() {
                         className={inputBase}
                         style={{ border: errors.storeCode ? borderError : borderDefault }}
                         onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
-                        onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = errors.storeCode ? borderError : borderDefault; }}
+                        onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = borderDefault; }}
                       />
-                      <p
-                        className="text-xs font-['Lato'] font-300 mt-1"
-                        style={{ color: "oklch(0.550 0.020 60)" }}
-                      >
-                        {t("checkout.storeCodeHelp")}
-                      </p>
                       <FieldError msg={errors.storeCode} />
                     </div>
                   )}
                 </div>
+
+                {/* Section: 付款方式（後顯示） */}
+                <div
+                  className="rounded-xl p-6"
+                  style={{ background: "#FAFAF7", border: "1px solid oklch(0.870 0.018 130)" }}
+                >
+                  <h2
+                    className="font-['Lato'] font-600 text-sm tracking-[0.08em] uppercase mb-5"
+                    style={{ color: "oklch(0.265 0.015 55)" }}
+                  >
+                    付款方式
+                  </h2>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {([
+                      {
+                        value: "cod" as PaymentMethod,
+                        title: "貨到付款",
+                        desc: "收到貨物時以現金付款，安全便利",
+                        icon: "💵",
+                      },
+                      {
+                        value: "credit" as PaymentMethod,
+                        title: "信用卡付款",
+                        desc: "支援 VISA / MasterCard / JCB",
+                        icon: "💳",
+                      },
+                    ]).map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setPaymentMethod(opt.value)}
+                        className="text-left p-4 rounded-lg transition-all duration-200"
+                        style={{
+                          border:
+                            paymentMethod === opt.value
+                              ? `1.5px solid ${accentGreen}`
+                              : borderDefault,
+                          background:
+                            paymentMethod === opt.value
+                              ? `${accentGreen}10`
+                              : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-lg">{opt.icon}</span>
+                          <span
+                            className="font-['Lato'] font-600 text-sm"
+                            style={{
+                              color:
+                                paymentMethod === opt.value
+                                  ? accentGreen
+                                  : "oklch(0.265 0.015 55)",
+                            }}
+                          >
+                            {opt.title}
+                          </span>
+                        </div>
+                        <div
+                          className="font-['Lato'] font-300 text-xs leading-relaxed"
+                          style={{ color: "oklch(0.550 0.020 60)" }}
+                        >
+                          {opt.desc}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  {paymentMethod === "credit" && (
+                    <div
+                      className="mt-3 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed"
+                      style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: "oklch(0.380 0.060 145)" }}
+                    >
+                      點擊「前往付款」後，您將被導向綠界科技安全付款頁面完成刷卡。付款完成後將自動返回本網站。
+                    </div>
+                  )}
+                </div>
+
+
 
                 {/* Section: 備註 */}
                 <div

@@ -93,10 +93,9 @@ export const orderRouter = router({
       }
 
       // Build email content
-      const genderLabel =
-        input.gender === "male" ? "先生" : input.gender === "female" ? "女士" : "其他";
+      const genderLabel = input.gender === "male" ? "先生" : "女士";
       const deliveryLabel =
-        input.deliveryMethod === "home" ? "宅配（貨到付款）" : "7-11 店到店（貨到付款）";
+        input.deliveryMethod === "home" ? "宅配" : "7-11 店到店";
       const deliveryDetail =
         input.deliveryMethod === "home"
           ? `收件地址：${input.address}`
@@ -161,7 +160,7 @@ export const orderRouter = router({
       </table>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
-      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計（貨到付款）：NT$${input.totalAmount.toFixed(0)}</div>
+      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${input.totalAmount.toFixed(0)}</div>
     </div>
     <div style="background:#f5f0e8;padding:16px 32px;text-align:center;">
       <p style="font-size:12px;color:#8a7560;margin:0;">請盡快確認並安排出貨，預計三到五個工作日到貨。</p>
@@ -202,7 +201,7 @@ export const orderRouter = router({
       </table>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
-      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計（貨到付款）：NT$${input.totalAmount.toFixed(0)}</div>
+      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${input.totalAmount.toFixed(0)}</div>
     </div>
     <div style="background:#f5f0e8;padding:20px 32px;text-align:center;">
       <p style="font-size:13px;color:#5a4a35;margin:0 0 8px;">如有任何問題，歡迎聯絡我們</p>
