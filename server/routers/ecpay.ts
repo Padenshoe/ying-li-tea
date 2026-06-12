@@ -287,10 +287,20 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
         .where(eq(ecpayOrders.merchantTradeNo, merchantTradeNo))
         .limit(1);
 
-      if (rows.length && rows[0].email) {
+      if (rows.length) {
         const order = rows[0];
-        const genderLabel =
-          order.gender === "male" ? "先生" : order.gender === "female" ? "女士" : "其他";
+        const genderLabel = order.gender === "male" ? "先生" : "女士";
+        const deliveryLabel = order.deliveryMethod === "home" ? "宅配" : "7-11 店到店";
+        const deliveryDetail =
+          order.deliveryMethod === "home"
+            ? `收件地址：${order.address ?? "（未填）"}`
+            : `7-11 門市：${order.storeCode ?? "（未填）"}`;
+        const shippingFee = parseFloat(order.shippingFee ?? "0");
+        const totalAmount = parseFloat(order.totalAmount ?? "0");
+        const subtotal = totalAmount - shippingFee;
+        const shippingLabel = shippingFee === 0 ? "免費" : `NT$${shippingFee.toFixed(0)}`;
+        const orderTime = new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" });
+
         const items: Array<{ name: string; price: number; quantity: number }> = JSON.parse(order.items);
         const itemRowsHtml = items
           .map(
@@ -306,43 +316,106 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
         const resendApiKey = process.env.RESEND_API_KEY;
         if (resendApiKey) {
           const resend = new Resend(resendApiKey);
-          await resend.emails.send({
-            from: FROM_EMAIL,
-            to: [order.email!],
-            subject: `【迎利茶葉】付款成功確認 #${merchantTradeNo}`,
-            html: `<!DOCTYPE html>
-<html><head><meta charset="utf-8"></head>
+
+          // ── Customer confirmation email ──────────────────────────────────
+          if (order.email) {
+            await resend.emails.send({
+              from: FROM_EMAIL,
+              to: [order.email],
+              subject: `【迎利茶葉】付款成功確認 #${merchantTradeNo}`,
+              html: `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>付款成功確認</title></head>
 <body style="font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f0e8;margin:0;padding:20px;">
   <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
     <div style="background:oklch(0.265 0.015 55);padding:28px 32px;">
-      <h1 style="color:#f5f0e8;margin:0;font-size:20px;font-weight:400;">迎利茶葉 — 付款成功</h1>
-      <p style="color:#c8b89a;margin:8px 0 0;font-size:13px;">訂單編號 ${merchantTradeNo}｜${paymentDate}</p>
+      <h1 style="color:#f5f0e8;margin:0;font-size:20px;font-weight:400;letter-spacing:0.05em;">迎利茶葉 — 付款成功確認</h1>
+      <p style="color:#c8b89a;margin:8px 0 0;font-size:13px;">訂單編號 ${merchantTradeNo}｜${orderTime}</p>
     </div>
     <div style="padding:28px 32px;">
       <p style="font-size:15px;color:#2d2416;margin:0 0 24px;">親愛的 ${order.fullName} ${genderLabel}，您好！<br><br>您的信用卡付款已成功，<strong>預計三到五個工作日到貨</strong>。</p>
+
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">配送方式</h2>
+      <p style="font-size:14px;color:#2d2416;margin:0 0 4px;"><strong>${deliveryLabel}</strong></p>
+      <p style="font-size:14px;color:#5a4a35;margin:0 0 ${order.note ? "4px" : "24px"};">  ${deliveryDetail}</p>
+      ${order.note ? `<p style="font-size:13px;color:#8a7560;margin:4px 0 24px;">備註：${order.note}</p>` : ""}
+
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">訂購商品</h2>
       <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px;">
-        <thead><tr style="background:#f5f0e8;">
-          <th style="padding:8px 12px;text-align:left;color:#6b5a3e;">商品</th>
-          <th style="padding:8px 12px;text-align:center;color:#6b5a3e;">數量</th>
-          <th style="padding:8px 12px;text-align:right;color:#6b5a3e;">小計</th>
-        </tr></thead>
+        <thead>
+          <tr style="background:#f5f0e8;">
+            <th style="padding:8px 12px;text-align:left;color:#6b5a3e;font-weight:500;">商品</th>
+            <th style="padding:8px 12px;text-align:center;color:#6b5a3e;font-weight:500;">數量</th>
+            <th style="padding:8px 12px;text-align:right;color:#6b5a3e;font-weight:500;">小計</th>
+          </tr>
+        </thead>
         <tbody>${itemRowsHtml}</tbody>
       </table>
-      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${order.totalAmount}</div>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
+      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${totalAmount.toFixed(0)}</div>
     </div>
-    <div style="background:#f5f0e8;padding:16px 32px;text-align:center;">
-      <p style="font-size:12px;color:#8a7560;margin:0;">如有問題請聯絡 yinglitea@gmail.com</p>
+    <div style="background:#f5f0e8;padding:20px 32px;text-align:center;">
+      <p style="font-size:13px;color:#5a4a35;margin:0 0 8px;">如有任何問題，歡迎聯絡我們</p>
+      <a href="mailto:yinglitea@gmail.com" style="font-size:13px;color:#6b5a3e;">yinglitea@gmail.com</a>
+      <p style="font-size:12px;color:#8a7560;margin:12px 0 0;">迎利茶葉 敬上</p>
     </div>
   </div>
 </body></html>`,
-          }).catch((e) => console.warn("[ECPay] Email error:", e));
+            }).catch((e) => console.warn("[ECPay] Customer email error:", e));
+          }
 
-          // Also notify store
+          // ── Store notification email ─────────────────────────────────────
           await resend.emails.send({
             from: FROM_EMAIL,
             to: [STORE_EMAIL],
-            subject: `【迎利茶】信用卡訂單付款成功 ${merchantTradeNo}`,
-            html: `<p>訂單 <strong>${merchantTradeNo}</strong> 已付款成功（綠界信用卡）。<br>客戶：${order.fullName} ${genderLabel}，電話：${order.phone}<br>金額：NT$${order.totalAmount}</p>`,
+            subject: `【迎利茶】信用卡訂單付款成功 #${merchantTradeNo}`,
+            html: `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>信用卡訂單通知</title></head>
+<body style="font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f0e8;margin:0;padding:20px;">
+  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+    <div style="background:oklch(0.265 0.015 55);padding:28px 32px;">
+      <h1 style="color:#f5f0e8;margin:0;font-size:20px;font-weight:400;letter-spacing:0.05em;">迎利茶葉 — 信用卡訂單付款成功</h1>
+      <p style="color:#c8b89a;margin:8px 0 0;font-size:13px;">訂單編號 #${merchantTradeNo}｜${orderTime}</p>
+    </div>
+    <div style="padding:28px 32px;">
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">客戶資料</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px;">
+        <tr><td style="padding:4px 0;color:#8a7560;width:100px;">姓名</td><td style="padding:4px 0;color:#2d2416;">${order.fullName} ${genderLabel}</td></tr>
+        <tr><td style="padding:4px 0;color:#8a7560;">聯絡電話</td><td style="padding:4px 0;color:#2d2416;">${order.phone}</td></tr>
+        ${order.email ? `<tr><td style="padding:4px 0;color:#8a7560;">Email</td><td style="padding:4px 0;color:#2d2416;">${order.email}</td></tr>` : ""}
+        ${order.taxId ? `<tr><td style="padding:4px 0;color:#8a7560;">統一編號</td><td style="padding:4px 0;color:#2d2416;">${order.taxId}</td></tr>` : ""}
+        <tr><td style="padding:4px 0;color:#8a7560;">是否需要罐子</td><td style="padding:4px 0;color:#2d2416;">${order.needsJar ? "需要" : "不需要"}</td></tr>
+        <tr><td style="padding:4px 0;color:#8a7560;">付款方式</td><td style="padding:4px 0;color:#2d2416;">信用卡（綠界）</td></tr>
+        <tr><td style="padding:4px 0;color:#8a7560;">綠界交易編號</td><td style="padding:4px 0;color:#2d2416;">${tradeNo}</td></tr>
+      </table>
+
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">配送方式</h2>
+      <p style="font-size:14px;color:#2d2416;margin:0 0 4px;"><strong>${deliveryLabel}</strong></p>
+      <p style="font-size:14px;color:#5a4a35;margin:0 0 ${order.note ? "4px" : "24px"};">  ${deliveryDetail}</p>
+      ${order.note ? `<p style="font-size:13px;color:#8a7560;margin:4px 0 24px;">備註：${order.note}</p>` : ""}
+
+      <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">訂購商品</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px;">
+        <thead>
+          <tr style="background:#f5f0e8;">
+            <th style="padding:8px 12px;text-align:left;color:#6b5a3e;font-weight:500;">商品</th>
+            <th style="padding:8px 12px;text-align:center;color:#6b5a3e;font-weight:500;">數量</th>
+            <th style="padding:8px 12px;text-align:right;color:#6b5a3e;font-weight:500;">小計</th>
+          </tr>
+        </thead>
+        <tbody>${itemRowsHtml}</tbody>
+      </table>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
+      <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
+      <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${totalAmount.toFixed(0)}</div>
+    </div>
+    <div style="background:#f5f0e8;padding:16px 32px;text-align:center;">
+      <p style="font-size:12px;color:#8a7560;margin:0;">請盡快確認並安排出貨，預計三到五個工作日到貨。</p>
+    </div>
+  </div>
+</body></html>`,
           }).catch((e) => console.warn("[ECPay] Store email error:", e));
         }
       }
