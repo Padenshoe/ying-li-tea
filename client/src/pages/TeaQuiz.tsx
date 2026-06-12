@@ -5,11 +5,13 @@
 import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { ShoppingCart, Check, ChevronRight, RotateCcw, Leaf } from "lucide-react";
+import { ShoppingCart, Check, ChevronRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import ContactFooter from "@/components/ContactFooter";
 import { Link } from "wouter";
+
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-final_b762ecd4.png";
 
 // ─── Product data (mirrors Products.tsx) ───────────────────────────────────
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/";
@@ -267,13 +269,13 @@ export default function TeaQuizPage() {
               </p>
               <p className="text-stone-400 text-xs mb-10">約需 1 分鐘</p>
 
-              {/* Decorative tea leaf */}
+              {/* Decorative logo */}
               <div className="flex justify-center mb-10">
                 <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center"
+                  className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden"
                   style={{ background: "oklch(0.960 0.012 145)" }}
                 >
-                  <Leaf className="w-9 h-9" style={{ color: "oklch(0.380 0.070 145)" }} />
+                  <img src={LOGO} alt="迎利茶葉" className="w-full h-full object-cover" />
                 </div>
               </div>
 
@@ -397,7 +399,7 @@ export default function TeaQuizPage() {
                   <div className="space-y-2 mb-6">
                     {result.notes.map((note, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <Leaf className="w-3.5 h-3.5 text-stone-300 mt-0.5 shrink-0" />
+                        <img src={LOGO} alt="" className="w-3.5 h-3.5 mt-0.5 shrink-0 rounded-full object-cover" />
                         <p className="text-xs text-stone-500 leading-relaxed">{note}</p>
                       </div>
                     ))}

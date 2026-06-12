@@ -76,6 +76,8 @@ export const customOrders = mysqlTable("customOrders", {
   storeCode: varchar("storeCode", { length: 255 }), // 7-11 store name / code
   // Optional tax ID (for B2B customers)
   taxId: varchar("taxId", { length: 20 }),
+  // Jar option
+  needsJar: boolean("needsJar").default(false),
   // Order
   items: text("items").notNull(),    // JSON string of CartItem[]
   totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),
@@ -100,6 +102,8 @@ export const ecpayOrders = mysqlTable("ecpayOrders", {
   phone: varchar("phone", { length: 30 }).notNull(),
   email: varchar("email", { length: 320 }),
   taxId: varchar("taxId", { length: 20 }),
+  // Jar option
+  needsJar: boolean("needsJar").default(false),
   // Delivery
   deliveryMethod: mysqlEnum("deliveryMethod", ["home", "711"]).notNull(),
   address: text("address"),

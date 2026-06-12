@@ -31,6 +31,7 @@ interface FormState {
   phone: string;
   email: string;
   taxId: string;
+  needsJar: "yes" | "no" | "";
   deliveryMethod: "home" | "711" | "";
   address: string;
   storeCode: string;
@@ -64,6 +65,7 @@ export default function Checkout() {
     phone: "",
     email: "",
     taxId: "",
+    needsJar: "",
     deliveryMethod: "",
     address: "",
     storeCode: "",
@@ -75,10 +77,11 @@ export default function Checkout() {
   const submitOrder = trpc.order.submitOrder.useMutation();
   const createEcpayPayment = trpc.ecpay.createPayment.useMutation();
 
-  // Shipping fee: 7-11 always free; home delivery free if total >= NT$2000
+  // Shipping fee: 7-11 NT$60 (free if total >= NT$2000); home delivery NT$130 (free if total >= NT$2000)
   const shippingFee = (deliveryMethod: string) => {
-    if (deliveryMethod === "711") return 0;
-    return total >= SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+    if (total >= SHIPPING_THRESHOLD) return 0;
+    if (deliveryMethod === "711") return 60;
+    return SHIPPING_FEE;
   };
   const currentShipping = shippingFee(form.deliveryMethod);
   const grandTotal = total + currentShipping;
@@ -109,6 +112,7 @@ export default function Checkout() {
         phone: form.phone.trim(),
         email: form.email.trim() || undefined,
         taxId: form.taxId.trim() || undefined,
+        needsJar: form.needsJar === "yes",
         deliveryMethod: form.deliveryMethod as "home" | "711",
         address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
         storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
@@ -162,6 +166,7 @@ export default function Checkout() {
         phone: form.phone.trim(),
         email: form.email.trim() || undefined,
         taxId: form.taxId.trim() || undefined,
+        needsJar: form.needsJar === "yes",
         deliveryMethod: form.deliveryMethod as "home" | "711",
         address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
         storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
@@ -409,7 +414,7 @@ export default function Checkout() {
                   </div>
 
                   {/* Tax ID (optional) */}
-                  <div>
+                  <div className="mb-4">
                     <label htmlFor="taxId" className={labelBase} style={{ color: accentGreen }}>
                       {t("checkout.taxId")}
                     </label>
@@ -424,6 +429,33 @@ export default function Checkout() {
                       onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
                       onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = borderDefault; }}
                     />
+                  </div>
+
+                  {/* Jar option (optional) */}
+                  <div>
+                    <label className={labelBase} style={{ color: accentGreen }}>
+                      {t("checkout.needsJar")}
+                    </label>
+                    <div className="flex gap-3">
+                      {([
+                        { value: "yes" as const, label: "需要" },
+                        { value: "no" as const, label: "不需要" },
+                      ]).map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => set("needsJar", opt.value)}
+                          className="flex-1 py-2.5 text-sm font-['Lato'] font-400 rounded transition-all duration-200"
+                          style={{
+                            border: form.needsJar === opt.value ? `1.5px solid ${accentGreen}` : borderDefault,
+                            background: form.needsJar === opt.value ? `${accentGreen}18` : "transparent",
+                            color: form.needsJar === opt.value ? accentGreen : "oklch(0.520 0.020 60)",
+                          }}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -449,7 +481,7 @@ export default function Checkout() {
                       {
                         value: "credit" as PaymentMethod,
                         title: "信用卡付款",
-                        desc: "透過綠界科技安全刷卡，支援 VISA / MasterCard / JCB",
+                        desc: "支援 VISA / MasterCard / JCB",
                         icon: "💳",
                       },
                     ]).map((opt) => (
@@ -748,6 +780,19 @@ export default function Checkout() {
                         NT${grandTotal.toLocaleString()}
                       </span>
                     </div>
+                    {/* Gift cup hint */}
+                    {grandTotal >= 3000 ? (
+                      <div
+                        className="mt-3 px-3 py-2 rounded-lg text-xs font-['Lato'] font-400 text-center"
+                        style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: accentGreen }}
+                      >
+                        🎁 已達標！送品鑑杯一組
+                      </div>
+                    ) : (
+                      <p className="text-xs font-['Lato'] font-300 text-center mt-2" style={{ color: "oklch(0.550 0.020 60)" }}>
+                        {t("checkout.giftCupHint")}（還差 NT${(3000 - grandTotal).toLocaleString()}）
+                      </p>
+                    )}
                   </div>
 
                   {/* Submit button */}

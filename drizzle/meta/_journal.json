@@ -43,6 +43,13 @@
       "when": 1781254799506,
       "tag": "0005_faulty_omega_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1781255551045,
+      "tag": "0006_concerned_sally_floyd",
+      "breakpoints": true
     }
   ]
 }

@@ -358,7 +358,10 @@ const translations: Record<Language, Record<string, string>> = {
     "checkout.emailPlaceholder": "your@email.com",
     "checkout.errEmailInvalid": "請輸入有效的 Email 地址",
     "checkout.taxId": "統一編號（選填）",
-    "checkout.taxIdPlaceholder": "例：12345678，公司行號圖利可填入",
+    "checkout.taxIdPlaceholder": "例：12345678",
+    "checkout.needsJar": "是否需要罐子（選填）",
+    "checkout.needsJarYes": "需要（+NT$0）",
+    "checkout.needsJarNo": "不需要",
     "checkout.deliveryMethod": "配送方式",
     "checkout.deliveryHomeTitle": "宅配（貨到付款）",
     "checkout.deliveryHomeDesc": "送到您指定的地址，收貨時付款",
@@ -391,6 +394,7 @@ const translations: Record<Language, Record<string, string>> = {
     "checkout.errDeliveryRequired": "請選擇配送方式",
     "checkout.errAddressRequired": "宅配需填寫收件地址",
     "checkout.errStoreRequired": "請填寫 7-11 門市名稱",
+    "checkout.giftCupHint": "🎁 滿 NT$3,000 送品鑑杯一組",
   },
 };
 

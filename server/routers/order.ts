@@ -33,6 +33,7 @@ export const orderRouter = router({
         phone: z.string().min(8, "請填寫有效電話號碼").max(30),
         email: z.string().email().optional(),
         taxId: z.string().max(20).optional(),
+        needsJar: z.boolean().optional(),
         deliveryMethod: z.enum(["home", "711"]),
         address: z.string().optional(),
         storeCode: z.string().optional(),
@@ -76,6 +77,7 @@ export const orderRouter = router({
           address: input.address ?? null,
           storeCode: input.storeCode ?? null,
           taxId: input.taxId ?? null,
+          needsJar: input.needsJar ?? false,
           items: JSON.stringify(input.items),
           totalAmount: input.totalAmount.toFixed(2),
           note: input.note ?? null,
@@ -138,6 +140,7 @@ export const orderRouter = router({
         <tr><td style="padding:4px 0;color:#8a7560;">聯絡電話</td><td style="padding:4px 0;color:#2d2416;">${input.phone}</td></tr>
         ${input.email ? `<tr><td style="padding:4px 0;color:#8a7560;">Email</td><td style="padding:4px 0;color:#2d2416;">${input.email}</td></tr>` : ""}
         ${input.taxId ? `<tr><td style="padding:4px 0;color:#8a7560;">統一編號</td><td style="padding:4px 0;color:#2d2416;">${input.taxId}</td></tr>` : ""}
+        <tr><td style="padding:4px 0;color:#8a7560;">是否需要罐子</td><td style="padding:4px 0;color:#2d2416;">${input.needsJar ? "需要" : "不需要"}</td></tr>
       </table>
 
       <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">配送方式</h2>

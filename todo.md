@@ -398,3 +398,13 @@
 - [x] 在 App.tsx 新增 /checkout/result 路由
 - [x] 撰寫 server/ecpay.test.ts（4 個測試全部通過）
 - [x] 41 個測試全部通過，TypeScript 零錯誤，db:push 成功
+
+## 結帳改善 + 選茶頁面 Logo（第二十九批）
+
+- [x] Checkout.tsx：新增「是否需要罐子」選填選項（需要/不需要）
+- [x] Checkout.tsx：店到店運費改為 NT$60（滿 NT$2,000 免運）
+- [x] Checkout.tsx：訂單摘要底部加上「滿 NT$3,000 送品鑑杯一組」提示
+- [x] Checkout.tsx：移除統一編號欄位的「公司行號可填入」說明文字
+- [x] Checkout.tsx：移除信用卡付款說明的「透過綠界科技安全刷卡」第一句
+- [x] TeaQuiz.tsx：葉子圖示改為 Logo 形狀（迎利 Logo 圖片）
+- [x] schema.ts + order.ts + ecpay.ts：新增 needsJar 欄位，資料庫 migration 成功
