@@ -408,3 +408,14 @@
 - [x] Checkout.tsx：移除信用卡付款說明的「透過綠界科技安全刷卡」第一句
 - [x] TeaQuiz.tsx：葉子圖示改為 Logo 形狀（迎利 Logo 圖片）
 - [x] schema.ts + order.ts + ecpay.ts：新增 needsJar 欄位，資料庫 migration 成功
+
+## Google Merchant Center 審核合規優化（第三十一批）
+
+- [x] 更換聯絡信筱：yinglitea@gmail.com → yinglitea@yinglitea.com（Footer、order.ts、ecpay.ts、隱私政策全部更新）
+- [x] 新增運送政策頁面 /shipping-policy.html（3個工作天出貨、出貨後1-2天送達、滿2000免運）
+- [x] 新增服務條款頁面 /terms-of-service.html
+- [x] 更新隱私權政策 /privacy-policy.html 信筱為 yinglitea@yinglitea.com，新增公司統編 footer
+- [x] Footer 新增政策連結：退貨政策、運送政策、隱私權政策、服務條款
+- [x] Footer 新增付款方式標示（VISA、MasterCard、JCB、貨到付款）
+- [x] Footer 新增公司正式資訊：迎利茶葉有限公司 Yingli Tea CO., LTD.、統編 60634714
+- [x] 後端 order.ts / ecpay.ts 發信信筱全部更換為 yinglitea@yinglitea.com

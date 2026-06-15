@@ -220,13 +220,13 @@ export default function ContactFooter() {
                   {t("contact.email")}
                 </span>
                 <a
-                  href="mailto:yinglitea@gmail.com"
+                  href="mailto:yinglitea@yinglitea.com"
                   className="font-['Playfair_Display'] font-400 transition-colors duration-300"
                   style={{ fontSize: "1.125rem", color: "oklch(0.955 0.014 80)" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.955 0.014 80)"; }}
                 >
-                  yinglitea@gmail.com
+                  yinglitea@yinglitea.com
                 </a>
               </div>
 
@@ -471,22 +471,54 @@ export default function ContactFooter() {
             ))}
           </nav>
 
-          {/* Refund Policy + Copyright */}
-          <div className="flex flex-col items-center sm:items-end gap-2">
-            <a
-              href="/refund-policy"
-              className="text-xs font-['Lato'] font-400 tracking-[0.12em] uppercase transition-colors duration-300 underline underline-offset-2"
-              style={{ color: "oklch(0.500 0.010 90)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.010 90)"; }}
-            >
-              退貨與退款政策
-            </a>
+          {/* Policies + Payment + Company Info + Copyright */}
+          <div className="flex flex-col items-center sm:items-end gap-3">
+            {/* Policy Links */}
+            <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center sm:justify-end">
+              {[
+                { label: "退貨與退款政策", href: "/refund-policy" },
+                { label: "運送政策", href: "/shipping-policy.html" },
+                { label: "隱私權政策", href: "/privacy-policy.html" },
+                { label: "服務條款", href: "/terms-of-service.html" },
+              ].map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs font-['Lato'] font-400 tracking-[0.10em] uppercase transition-colors duration-300 underline underline-offset-2"
+                  style={{ color: "oklch(0.500 0.010 90)" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.730 0.070 75)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "oklch(0.500 0.010 90)"; }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Payment Methods */}
+            <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-end">
+              <span className="text-xs font-['Lato'] font-300 tracking-wide" style={{ color: "oklch(0.440 0.010 90)" }}>
+                付款方式：
+              </span>
+              {["VISA", "MasterCard", "JCB", "貨到付款"].map((method) => (
+                <span
+                  key={method}
+                  className="text-xs font-['Lato'] font-500 px-2 py-0.5 rounded"
+                  style={{ background: "oklch(0.320 0.015 55)", color: "oklch(0.780 0.010 60)", border: "1px solid oklch(0.400 0.015 55)" }}
+                >
+                  {method}
+                </span>
+              ))}
+            </div>
+
+            {/* Company Info */}
+            <p className="text-xs font-['Lato'] font-300 tracking-wide text-center sm:text-right" style={{ color: "oklch(0.440 0.010 90)" }}>
+              迎利茶葉有限公司 Yingli Tea CO., LTD. &nbsp;|&nbsp; 統一編號：60634714
+            </p>
             <p
               className="text-xs font-['Lato'] font-300 tracking-wide"
-              style={{ color: "oklch(0.440 0.010 90)" }}
+              style={{ color: "oklch(0.380 0.010 90)" }}
             >
-              © {new Date().getFullYear()} Ying-Li. All rights reserved.
+              © {new Date().getFullYear()} Ying-Li Tea. All rights reserved.
             </p>
           </div>
         </div>

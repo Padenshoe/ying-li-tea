@@ -16,7 +16,7 @@ import { ENV } from "../_core/env";
 import { Resend } from "resend";
 
 const ECPAY_PAYMENT_URL = "https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5";
-const STORE_EMAIL = "yinglitea@gmail.com";
+const STORE_EMAIL = "yinglitea@yinglitea.com";
 const FROM_EMAIL = "迎利茶葉 <info@yinglitea.co>";
 
 // Cart item schema
@@ -357,7 +357,7 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
     </div>
     <div style="background:#f5f0e8;padding:20px 32px;text-align:center;">
       <p style="font-size:13px;color:#5a4a35;margin:0 0 8px;">如有任何問題，歡迎聯絡我們</p>
-      <a href="mailto:yinglitea@gmail.com" style="font-size:13px;color:#6b5a3e;">yinglitea@gmail.com</a>
+      <a href="mailto:yinglitea@yinglitea.com" style="font-size:13px;color:#6b5a3e;">yinglitea@yinglitea.com</a>
       <p style="font-size:12px;color:#8a7560;margin:12px 0 0;">迎利茶葉 敬上</p>
     </div>
   </div>

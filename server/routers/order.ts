@@ -10,7 +10,7 @@ import { publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { customOrders } from "../../drizzle/schema";
 
-const STORE_EMAIL = "yinglitea@gmail.com";
+const STORE_EMAIL = "yinglitea@yinglitea.com";
 // Verified sender domain: yinglitea.co (verified in Resend dashboard)
 const FROM_EMAIL = "迎利茶葉 <info@yinglitea.co>";
 
@@ -205,7 +205,7 @@ export const orderRouter = router({
     </div>
     <div style="background:#f5f0e8;padding:20px 32px;text-align:center;">
       <p style="font-size:13px;color:#5a4a35;margin:0 0 8px;">如有任何問題，歡迎聯絡我們</p>
-      <a href="mailto:yinglitea@gmail.com" style="font-size:13px;color:#6b5a3e;">yinglitea@gmail.com</a>
+      <a href="mailto:yinglitea@yinglitea.com" style="font-size:13px;color:#6b5a3e;">yinglitea@yinglitea.com</a>
       <p style="font-size:12px;color:#8a7560;margin:12px 0 0;">迎利茶葉 敬上</p>
     </div>
   </div>
@@ -220,7 +220,7 @@ export const orderRouter = router({
         } else {
           const resend = new Resend(resendApiKey);
 
-          // 1. Store notification (yinglitea@gmail.com)
+          // 1. Store notification (yinglitea@yinglitea.com)
           const storeResult = await resend.emails.send({
             from: FROM_EMAIL,
             to: [STORE_EMAIL],
@@ -241,7 +241,7 @@ export const orderRouter = router({
               to: [input.email],
               subject: `【迎利茶葉】訂單確認通知 #${orderId}`,
               html: customerEmailHtml,
-              text: `親愛的 ${input.fullName} ${genderLabel}，您好！\n\n感謝您向迎利茶葉訂購，我們已收到您的訂單，預計三到五個工作日到貨。\n\n訂單編號：#${orderId}\n${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）\n\n如有問題請聯絡：yinglitea@gmail.com\n\n迎利茶葉 敬上`,
+              text: `親愛的 ${input.fullName} ${genderLabel}，您好！\n\n感謝您向迎利茶葉訂購，我們已收到您的訂單，預計三到五個工作日到貨。\n\n訂單編號：#${orderId}\n${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）\n\n如有問題請聯絡：yinglitea@yinglitea.com\n\n迎利茶葉 敬上`,
             });
             if (customerResult.error) {
               console.warn("[Order] Customer email failed:", customerResult.error);
