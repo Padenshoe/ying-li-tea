@@ -101,6 +101,8 @@ export const ecpayRouter = router({
         totalAmount: z.number().int().positive(),
         shippingFee: z.number().min(0).default(0),
         returnBaseUrl: z.string().url(), // window.location.origin from frontend
+        promoCode: z.string().optional(),
+        giftItems: z.array(z.string()).optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -142,6 +144,7 @@ export const ecpayRouter = router({
           email: input.email ?? null,
           taxId: input.taxId ?? null,
           needsJar: input.needsJar ?? false,
+          promoCode: input.promoCode ?? null,
           deliveryMethod: input.deliveryMethod,
           address: input.address ?? null,
           storeCode: input.storeCode ?? null,
@@ -302,6 +305,20 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
         const orderTime = new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" });
 
         const items: Array<{ name: string; price: number; quantity: number }> = JSON.parse(order.items);
+
+        // Reconstruct gift items from stored promoCode and totalAmount
+        const ecpayGiftItems: string[] = [
+          ...(order.promoCode === "welcomegift" ? ["小茶包禮盒 (15入)"] : []),
+          ...(totalAmount >= 3000 ? ["品鑑杯一組"] : []),
+        ];
+        const hasEcpayGifts = ecpayGiftItems.length > 0;
+        const ecpayGiftLinesText = hasEcpayGifts
+          ? "\n" + ecpayGiftItems.map((g) => `  🎁 ${g}（贈品）  免費`).join("\n")
+          : "";
+        const ecpayGiftRowsHtml = hasEcpayGifts
+          ? ecpayGiftItems.map((g) => `<tr><td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;color:#4a7c59;">🎁 ${g}（贈品）</td><td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:center;color:#4a7c59;">× 1</td><td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:right;color:#4a7c59;">免費</td></tr>`).join("")
+          : "";
+
         const itemRowsHtml = items
           .map(
             (item) =>
@@ -354,6 +371,7 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
       <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${totalAmount.toFixed(0)}</div>
+      ${hasEcpayGifts ? `<div style="margin-top:16px;padding:12px;background:#f0f9f4;border-radius:8px;border:1px solid #b8ddc8;"><p style="font-size:14px;color:#4a7c59;margin:0 0 6px;font-weight:600;">🎁 贈品：</p>${ecpayGiftItems.map((g) => `<p style="font-size:13px;color:#4a7c59;margin:2px 0;">• ${g}</p>`).join("")}</div>` : ""}
     </div>
     <div style="background:#f5f0e8;padding:20px 32px;text-align:center;">
       <p style="font-size:13px;color:#5a4a35;margin:0 0 8px;">如有任何問題，歡迎聯絡我們</p>
@@ -365,10 +383,10 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
             }).catch((e) => console.warn("[ECPay] Customer email error:", e));
           }
 
-          // ── Store notification email ─────────────────────────────────────
+          // ── Store notification email ───────────────────────────────────────────────────
           await resend.emails.send({
             from: FROM_EMAIL,
-            to: [STORE_EMAIL],
+            to: [STORE_EMAIL, "yinglitea@gmail.com"],
             subject: `【迎利茶】信用卡訂單付款成功 #${merchantTradeNo}`,
             html: `<!DOCTYPE html>
 <html>
@@ -410,6 +428,7 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
       <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${totalAmount.toFixed(0)}</div>
+      ${hasEcpayGifts ? `<div style="margin-top:16px;padding:12px;background:#f0f9f4;border-radius:8px;border:1px solid #b8ddc8;"><p style="font-size:13px;color:#4a7c59;margin:0 0 6px;font-weight:600;">🎁 贈品明細：</p>${ecpayGiftItems.map((g) => `<p style="font-size:13px;color:#4a7c59;margin:2px 0;">• ${g}</p>`).join("")}</div>` : ""}
     </div>
     <div style="background:#f5f0e8;padding:16px 32px;text-align:center;">
       <p style="font-size:12px;color:#8a7560;margin:0;">請盡快確認並安排出貨，預計三到五個工作日到貨。</p>

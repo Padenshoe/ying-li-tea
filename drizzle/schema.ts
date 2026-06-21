@@ -78,6 +78,8 @@ export const customOrders = mysqlTable("customOrders", {
   taxId: varchar("taxId", { length: 20 }),
   // Jar option
   needsJar: boolean("needsJar").default(false),
+  // Promo code
+  promoCode: varchar("promoCode", { length: 100 }),
   // Order
   items: text("items").notNull(),    // JSON string of CartItem[]
   totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),
@@ -85,7 +87,7 @@ export const customOrders = mysqlTable("customOrders", {
   note: text("note"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
+})
 export type CustomOrder = typeof customOrders.$inferSelect;
 export type InsertCustomOrder = typeof customOrders.$inferInsert;
 
@@ -104,6 +106,8 @@ export const ecpayOrders = mysqlTable("ecpayOrders", {
   taxId: varchar("taxId", { length: 20 }),
   // Jar option
   needsJar: boolean("needsJar").default(false),
+  // Promo code
+  promoCode: varchar("promoCode", { length: 100 }),
   // Delivery
   deliveryMethod: mysqlEnum("deliveryMethod", ["home", "711"]).notNull(),
   address: text("address"),

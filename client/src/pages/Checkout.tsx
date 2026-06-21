@@ -73,6 +73,26 @@ export default function Checkout() {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [promoApplied, setPromoApplied] = useState(false);
+  const [promoError, setPromoError] = useState("");
+
+  const VALID_PROMO = "welcomegift";
+  const GIFT_TEA_BOX = "小茶包禮盒 (15入)";
+  const GIFT_CUP = "品鑑杯一組";
+
+  function applyPromo() {
+    const code = promoCode.trim().toLowerCase();
+    if (code === VALID_PROMO) {
+      setPromoApplied(true);
+      setPromoError("");
+    } else if (code === "") {
+      setPromoError("請輸入折扣碼");
+    } else {
+      setPromoApplied(false);
+      setPromoError("折扣碼無效，請確認後再試");
+    }
+  }
 
   const submitOrder = trpc.order.submitOrder.useMutation();
   const createEcpayPayment = trpc.ecpay.createPayment.useMutation();
@@ -85,6 +105,11 @@ export default function Checkout() {
   };
   const currentShipping = shippingFee(form.deliveryMethod);
   const grandTotal = total + currentShipping;
+
+  const gifts: string[] = [
+    ...(promoApplied ? [GIFT_TEA_BOX] : []),
+    ...(grandTotal >= 3000 ? [GIFT_CUP] : []),
+  ];
 
   // ── Validation ────────────────────────────────────────────────────────────
   function validate(): boolean {
@@ -127,6 +152,8 @@ export default function Checkout() {
         })),
         totalAmount: grandTotal,
         shippingFee: currentShipping,
+        promoCode: promoApplied ? VALID_PROMO : undefined,
+        giftItems: gifts.length > 0 ? gifts : undefined,
       });
 
       const confirmationData = {
@@ -182,6 +209,8 @@ export default function Checkout() {
         totalAmount: grandTotal,
         shippingFee: currentShipping,
         returnBaseUrl: window.location.origin,
+        promoCode: promoApplied ? VALID_PROMO : undefined,
+        giftItems: gifts.length > 0 ? gifts : undefined,
       });
 
       // Store merchantTradeNo for result page polling
@@ -439,7 +468,7 @@ export default function Checkout() {
                   </div>
 
                   {/* Jar option (optional) */}
-                  <div>
+                  <div className="mb-4">
                     <label className={labelBase} style={{ color: accentGreen }}>
                       {t("checkout.needsJar")}
                     </label>
@@ -463,6 +492,64 @@ export default function Checkout() {
                         </button>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Promo Code (optional) */}
+                  <div>
+                    <label htmlFor="promoCode" className={labelBase} style={{ color: accentGreen }}>
+                      折扣碼（選填）
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        id="promoCode"
+                        type="text"
+                        value={promoCode}
+                        onChange={(e) => {
+                          setPromoCode(e.target.value);
+                          if (promoApplied) setPromoApplied(false);
+                          if (promoError) setPromoError("");
+                        }}
+                        placeholder="輸入折扣碼"
+                        className={inputBase}
+                        style={{
+                          border: promoApplied
+                            ? `1.5px solid ${accentGreen}`
+                            : promoError
+                            ? borderError
+                            : borderDefault,
+                          flex: 1,
+                        }}
+                        onFocus={(e) => {
+                          if (!promoApplied) (e.currentTarget as HTMLElement).style.border = borderFocus;
+                        }}
+                        onBlur={(e) => {
+                          if (!promoApplied) (e.currentTarget as HTMLElement).style.border = promoError ? borderError : borderDefault;
+                        }}
+                        onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); applyPromo(); } }}
+                      />
+                      <button
+                        type="button"
+                        onClick={applyPromo}
+                        className="px-4 py-2.5 text-xs font-['Lato'] font-500 tracking-[0.08em] uppercase rounded transition-all duration-200 flex-shrink-0"
+                        style={{
+                          background: promoApplied ? accentGreen : "transparent",
+                          color: promoApplied ? "#FAFAF7" : accentGreen,
+                          border: `1.5px solid ${accentGreen}`,
+                        }}
+                      >
+                        {promoApplied ? "✓ 已套用" : "套用"}
+                      </button>
+                    </div>
+                    {promoApplied && (
+                      <p className="text-xs font-['Lato'] font-400 mt-1.5" style={{ color: accentGreen }}>
+                        🎁 已套用：{GIFT_TEA_BOX}
+                      </p>
+                    )}
+                    {promoError && (
+                      <p className="text-xs font-['Lato'] mt-1" style={{ color: "oklch(0.700 0.200 27)" }}>
+                        {promoError}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -783,15 +870,20 @@ export default function Checkout() {
                         NT${grandTotal.toLocaleString()}
                       </span>
                     </div>
-                    {/* Gift cup hint */}
-                    {grandTotal >= 3000 ? (
+                    {/* Gifts summary */}
+                    {gifts.length > 0 && (
                       <div
-                        className="mt-3 px-3 py-2 rounded-lg text-xs font-['Lato'] font-400 text-center"
+                        className="mt-3 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-400"
                         style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: accentGreen }}
                       >
-                        🎁 已達標！送品鑑杯一組
+                        <p className="font-500 mb-1">🎁 贈品：</p>
+                        {gifts.map((g) => (
+                          <p key={g} className="ml-2">• {g}</p>
+                        ))}
                       </div>
-                    ) : (
+                    )}
+                    {/* Gift cup hint when not yet reached */}
+                    {grandTotal < 3000 && (
                       <p className="text-xs font-['Lato'] font-300 text-center mt-2" style={{ color: "oklch(0.550 0.020 60)" }}>
                         {t("checkout.giftCupHint")}（還差 NT${(3000 - grandTotal).toLocaleString()}）
                       </p>

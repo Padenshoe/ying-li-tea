@@ -419,3 +419,11 @@
 - [x] Footer 新增付款方式標示（VISA、MasterCard、JCB、貨到付款）
 - [x] Footer 新增公司正式資訊：迎利茶葉有限公司 Yingli Tea CO., LTD.、統編 60634714
 - [x] 後端 order.ts / ecpay.ts 發信信筱全部更換為 yinglitea@yinglitea.com
+
+## 折扣碼功能（第三十二批）
+
+- [ ] Checkout.tsx：在「是否需要罐子」下方新增折扣碼輸入框，輸入 welcomegift 顯示「✓ 已套用：小茶包禮盒 (15入)」
+- [ ] Checkout.tsx：訂單摘要顯示贈品清單（折扣碼禮盒 + 滿3000品鑑杯）
+- [ ] schema.ts：customOrders / ecpayOrders 新增 promoCode 欄位
+- [ ] order.ts：新增 promoCode 輸入欄位，Email 通知包含贈品資訊，同時通知 yinglitea@gmail.com
+- [ ] ecpay.ts：同步新增 promoCode，付款成功 Email 包含贈品資訊，同時通知 yinglitea@gmail.com

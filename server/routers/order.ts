@@ -41,6 +41,8 @@ export const orderRouter = router({
         items: z.array(cartItemSchema).min(1, "購物車不能為空"),
         totalAmount: z.number().positive(),
         shippingFee: z.number().min(0).optional(),
+        promoCode: z.string().optional(),
+        giftItems: z.array(z.string()).optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -82,6 +84,7 @@ export const orderRouter = router({
           totalAmount: input.totalAmount.toFixed(2),
           note: input.note ?? null,
           status: "pending",
+          promoCode: input.promoCode ?? null,
         });
         orderId = (result as any).insertId ?? 0;
       } catch (err) {
@@ -105,6 +108,16 @@ export const orderRouter = router({
       const subtotal = input.totalAmount - shippingFee;
       const shippingLabel = shippingFee === 0 ? "免費" : `NT$${shippingFee}`;
       const orderTime = new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" });
+
+      // Build gift rows for emails
+      const giftItems = input.giftItems ?? [];
+      const hasGifts = giftItems.length > 0;
+      const giftRowsHtml = hasGifts
+        ? giftItems.map((g) => `<tr><td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;color:#4a7c59;">🎁 ${g}（贈品）</td><td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:center;color:#4a7c59;">× 1</td><td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:right;color:#4a7c59;">免費</td></tr>`).join("")
+        : "";
+      const giftLinesText = hasGifts
+        ? "\n" + giftItems.map((g) => `  🎁 ${g}（贈品）  免費`).join("\n")
+        : "";
 
       const itemRowsHtml = input.items
         .map(
@@ -161,6 +174,7 @@ export const orderRouter = router({
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
       <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${input.totalAmount.toFixed(0)}</div>
+      ${hasGifts ? `<div style="margin-top:16px;padding:12px;background:#f0f9f4;border-radius:8px;border:1px solid #b8ddc8;"><p style="font-size:13px;color:#4a7c59;margin:0 0 6px;font-weight:600;">🎁 贈品明細：</p>${giftItems.map((g) => `<p style="font-size:13px;color:#4a7c59;margin:2px 0;">• ${g}</p>`).join("")}</div>` : ""}
     </div>
     <div style="background:#f5f0e8;padding:16px 32px;text-align:center;">
       <p style="font-size:12px;color:#8a7560;margin:0;">請盡快確認並安排出貨，預計三到五個工作日到貨。</p>
@@ -202,6 +216,7 @@ export const orderRouter = router({
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:4px;">小計：NT$${subtotal.toFixed(0)}</div>
       <div style="text-align:right;font-size:14px;color:#5a4a35;margin-bottom:8px;">運費：${shippingLabel}</div>
       <div style="text-align:right;font-size:18px;color:#2d2416;font-weight:600;border-top:2px solid #2d2416;padding-top:8px;">總計：NT$${input.totalAmount.toFixed(0)}</div>
+      ${hasGifts ? `<div style="margin-top:16px;padding:12px;background:#f0f9f4;border-radius:8px;border:1px solid #b8ddc8;"><p style="font-size:14px;color:#4a7c59;margin:0 0 6px;font-weight:600;">🎁 贈品：</p>${giftItems.map((g) => `<p style="font-size:13px;color:#4a7c59;margin:2px 0;">• ${g}</p>`).join("")}</div>` : ""}
     </div>
     <div style="background:#f5f0e8;padding:20px 32px;text-align:center;">
       <p style="font-size:13px;color:#5a4a35;margin:0 0 8px;">如有任何問題，歡迎聯絡我們</p>
@@ -220,13 +235,13 @@ export const orderRouter = router({
         } else {
           const resend = new Resend(resendApiKey);
 
-          // 1. Store notification (yinglitea@yinglitea.com)
+          // 1. Store notification (yinglitea@yinglitea.com + yinglitea@gmail.com)
           const storeResult = await resend.emails.send({
             from: FROM_EMAIL,
-            to: [STORE_EMAIL],
+            to: [STORE_EMAIL, "yinglitea@gmail.com"],
             subject: `【迎利茶】新訂單 #${orderId} — ${input.fullName} ${genderLabel}`,
             html: storeEmailHtml,
-            text: `迎利茶 — 新訂單通知\n訂單編號：#${orderId}\n下單時間：${orderTime}\n\n姓名：${input.fullName} ${genderLabel}\n電話：${input.phone}\n${input.email ? "Email：" + input.email + "\n" : ""}${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）`,
+            text: `迎利茶 — 新訂單通知\n訂單編號：#${orderId}\n下單時間：${orderTime}\n\n姓名：${input.fullName} ${genderLabel}\n電話：${input.phone}\n${input.email ? "Email：" + input.email + "\n" : ""}${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}${giftLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）`,
           });
           if (storeResult.error) {
             console.warn("[Order] Store email failed:", storeResult.error);
