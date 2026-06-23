@@ -407,7 +407,7 @@ function ProductCard({ product }: { product: Product }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包">("全部");
+  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒">("全部");
   const productRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Handle ?focus=TB01 (or any product id) from homepage CTA
@@ -418,7 +418,7 @@ export default function ProductsPage() {
     const target = PRODUCTS.find((p) => p.id === focusId);
     if (!target) return;
     // Switch filter to show the target product
-    setFilter(target.season as any);
+    setFilter(target.season as "全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒");
     // Scroll after filter update renders
     setTimeout(() => {
       const el = productRefs.current[focusId];
@@ -445,7 +445,7 @@ export default function ProductsPage() {
 
       {/* Filter tabs */}
       <div className="flex justify-center gap-2 px-4 mb-10 flex-wrap">
-        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包"] as const).map((tab) => (
+        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包", "禮盒"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setFilter(tab)}
