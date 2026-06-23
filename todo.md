@@ -10,9 +10,9 @@
 - [x] Create checkout success page with order details
 - [x] Add checkout success route to App.tsx
 - [x] Write unit tests for Stripe checkout functionality
-- [ ] Seed products database with 6 tea products
+- [x] Seed products database with 6 tea products
 - [x] Create checkout cancel page
-- [ ] Implement Stripe webhook handler for payment confirmations
+- [x] Implement Stripe webhook handler for payment confirmations
 - [x] Test complete payment flow from cart to Stripe to success page
 
 ## Website Features (Completed)
@@ -53,7 +53,7 @@
 - [x] Add product images to cart dropdown display
 - [x] Remove currency toggle from navbar
 - [x] Create dedicated Cart page with full cart display
-- [ ] Add currency selection next to each product (not in navbar)
+- [x] Add currency selection next to each product (not in navbar)
 - [x] Display prices in selected currency throughout the site
 
 ## Cart Flow Fix (Completed)
@@ -288,8 +288,8 @@
 
 ## 顧客 Email 寄送修復（第十三批）
 
-- [ ] 診斷 Resend 顧客確認信未寄出原因（查看日誌）
-- [ ] 修復並驗證 Email 寄送功能
+- [x] 診斷 Resend 顧客確認信未寄出原因（查看日誌）
+- [x] 修復並驗證 Email 寄送功能
 
 ## 更新 Resend 寄件人（第十四批）
 
@@ -422,15 +422,15 @@
 
 ## 折扣碼功能（第三十二批）
 
-- [ ] Checkout.tsx：在「是否需要罐子」下方新增折扣碼輸入框，輸入 welcomegift 顯示「✓ 已套用：小茶包禮盒 (15入)」
-- [ ] Checkout.tsx：訂單摘要顯示贈品清單（折扣碼禮盒 + 滿3000品鑑杯）
-- [ ] schema.ts：customOrders / ecpayOrders 新增 promoCode 欄位
-- [ ] order.ts：新增 promoCode 輸入欄位，Email 通知包含贈品資訊，同時通知 yinglitea@gmail.com
-- [ ] ecpay.ts：同步新增 promoCode，付款成功 Email 包含贈品資訊，同時通知 yinglitea@gmail.com
+- [x] Checkout.tsx：在「是否需要罐子」下方新增折扣碼輸入框，輸入 welcomegift 顯示「✓ 已套用：小茶包禮盒 (15入)」
+- [x] Checkout.tsx：訂單摘要顯示贈品清單（折扣碼禮盒 + 滿3000品鑑杯）
+- [x] schema.ts：customOrders / ecpayOrders 新增 promoCode 欄位
+- [x] order.ts：新增 promoCode 輸入欄位，Email 通知包含贈品資訊，同時通知 yinglitea@gmail.com
+- [x] ecpay.ts：同步新增 promoCode，付款成功 Email 包含贈品資訊，同時通知 yinglitea@gmail.com
 
 ## 禮盒商品 + 聯絡表單修正（第三十三批）
 
-- [ ] 首頁底部聯絡表單發送信箱改為 yinglitea@gmail.com
-- [ ] 上傳三張禮盒圖片至 CDN（DSC03096/98/99.webp）
-- [ ] 精選商品新增禮盒項目（半斤裝兩款 + 一斤裝，NT$480）
-- [ ] 商品頁面同步新增禮盒商品
+- [x] 首頁底部聯絡表單發送信箱改為 yinglitea@gmail.com
+- [x] 上傳三張禮盒圖片至 CDN（DSC03096/98/99.webp）
+- [x] 精選商品新增禮盒項目（半斤裝兩款 + 一斤裝，NT$480）
+- [x] 商品頁面同步新增禮盒商品

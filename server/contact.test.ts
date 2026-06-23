@@ -1,14 +1,18 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { TRPCError } from "@trpc/server";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 
-// ── Mock the notifyOwner helper ──────────────────────────────────────────────
-vi.mock("./_core/notification", () => ({
-  notifyOwner: vi.fn().mockResolvedValue(true),
-}));
+// ── Mock the Resend module ───────────────────────────────────────────────────
+const mockSendEmail = vi.fn().mockResolvedValue({ id: "test-email-id" });
 
-import { notifyOwner } from "./_core/notification";
+vi.mock("resend", () => ({
+  Resend: vi.fn().mockImplementation(() => ({
+    emails: {
+      send: mockSendEmail,
+    },
+  })),
+}));
 
 // ── Shared context factory ───────────────────────────────────────────────────
 function createPublicContext(): TrpcContext {
@@ -21,11 +25,18 @@ function createPublicContext(): TrpcContext {
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 describe("contact.submitInquiry", () => {
+  const originalEnv = process.env;
+
   beforeEach(() => {
     vi.clearAllMocks();
+    process.env = { ...originalEnv, RESEND_API_KEY: "test-resend-key" };
   });
 
-  it("sends a notification and returns success for valid input", async () => {
+  afterEach(() => {
+    process.env = originalEnv;
+  });
+
+  it("sends an email and returns success for valid input", async () => {
     const caller = appRouter.createCaller(createPublicContext());
 
     const result = await caller.contact.submitInquiry({
@@ -35,17 +46,17 @@ describe("contact.submitInquiry", () => {
     });
 
     expect(result).toEqual({ success: true });
-    expect(notifyOwner).toHaveBeenCalledOnce();
-    expect(notifyOwner).toHaveBeenCalledWith(
+    expect(mockSendEmail).toHaveBeenCalledOnce();
+    expect(mockSendEmail).toHaveBeenCalledWith(
       expect.objectContaining({
-        title: expect.stringContaining("Alice"),
-        content: expect.stringContaining("alice@example.com"),
+        to: expect.arrayContaining(["yinglitea@gmail.com"]),
+        subject: expect.stringContaining("Alice"),
       })
     );
   });
 
-  it("still returns success when notifyOwner returns false (service unavailable)", async () => {
-    vi.mocked(notifyOwner).mockResolvedValueOnce(false);
+  it("still returns success when RESEND_API_KEY is not set", async () => {
+    delete process.env.RESEND_API_KEY;
 
     const caller = appRouter.createCaller(createPublicContext());
 
@@ -56,10 +67,11 @@ describe("contact.submitInquiry", () => {
     });
 
     expect(result).toEqual({ success: true });
+    expect(mockSendEmail).not.toHaveBeenCalled();
   });
 
-  it("throws INTERNAL_SERVER_ERROR when notifyOwner throws", async () => {
-    vi.mocked(notifyOwner).mockRejectedValueOnce(new Error("Network error"));
+  it("throws INTERNAL_SERVER_ERROR when email sending fails", async () => {
+    mockSendEmail.mockRejectedValueOnce(new Error("Network error"));
 
     const caller = appRouter.createCaller(createPublicContext());
 
