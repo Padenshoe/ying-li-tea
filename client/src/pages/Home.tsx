@@ -9,6 +9,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import FeaturedSection from "@/components/FeaturedSection";
+import GiftBoxSection from "@/components/GiftBoxSection";
 import AboutSection from "@/components/AboutSection";
 import StorefrontSection from "@/components/StorefrontSection";
 import PromiseSection from "@/components/PromiseSection";
@@ -28,6 +29,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <FeaturedSection />
+      <GiftBoxSection />
       <AboutSection />
       <PromiseSection />
       <StorefrontSection />

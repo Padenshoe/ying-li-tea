@@ -427,3 +427,10 @@
 - [ ] schema.ts：customOrders / ecpayOrders 新增 promoCode 欄位
 - [ ] order.ts：新增 promoCode 輸入欄位，Email 通知包含贈品資訊，同時通知 yinglitea@gmail.com
 - [ ] ecpay.ts：同步新增 promoCode，付款成功 Email 包含贈品資訊，同時通知 yinglitea@gmail.com
+
+## 禮盒商品 + 聯絡表單修正（第三十三批）
+
+- [ ] 首頁底部聯絡表單發送信箱改為 yinglitea@gmail.com
+- [ ] 上傳三張禮盒圖片至 CDN（DSC03096/98/99.webp）
+- [ ] 精選商品新增禮盒項目（半斤裝兩款 + 一斤裝，NT$480）
+- [ ] 商品頁面同步新增禮盒商品

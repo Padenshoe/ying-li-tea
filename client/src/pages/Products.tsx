@@ -23,13 +23,16 @@ const IMG = {
   roastedExtra:  CDN + "roasted-extra_82dfc8cc.jpg",
   jinxuan1:      CDN + "jinxuan-1_68efee9c.png",
   jinxuan2:      CDN + "jinxuan-2_a1a4e289.png",
+  giftbox1:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03096_014aba20.webp",
+  giftbox2:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03098_15431a66.webp",
+  giftbox3:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03099_f9b61c50.webp",
 };
 
 interface Product {
   id: string;
   code: string;
   name: string;
-  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包";
+  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒";
   weight: string;
   price: number;
   images: string[];   // first = main, rest = gallery
@@ -189,6 +192,40 @@ const PRODUCTS: Product[] = [
       "青心烏龍品種，茶湯清亮甘甜順口",
     ],
   },
+  // 禮盒系列
+  {
+    id: "GB01", code: "GB01", name: "精選茶葉禮盒（半斤裝）", season: "禮盒",
+    weight: "300g（半斤）", price: 480,
+    images: [IMG.giftbox1],
+    nameKey: "product.giftbox.half",
+    notes: [
+      "精選台灣高山茶，典雅禮盒包裝",
+      "半斤裝，適合送禮自用兩相宜",
+      "可搭配不同茶款，歡迎來電詢問",
+    ],
+  },
+  {
+    id: "GB02", code: "GB02", name: "拾遇茶葉禮盒（半斤裝）", season: "禮盒",
+    weight: "300g（半斤）", price: 480,
+    images: [IMG.giftbox2],
+    nameKey: "product.giftbox.shiyou",
+    notes: [
+      "拾遇系列，質感鐵罐搭配精緻外盒",
+      "半斤裝雙罐組，送禮首選",
+      "可搭配不同茶款，歡迎來電詢問",
+    ],
+  },
+  {
+    id: "GB03", code: "GB03", name: "圓善茶葉禮盒（一斤裝）", season: "禮盒",
+    weight: "600g（一斤）", price: 480,
+    images: [IMG.giftbox3],
+    nameKey: "product.giftbox.full",
+    notes: [
+      "圓善系列，牛皮紙質感外盒四罐組",
+      "一斤裝大份量，適合節慶送禮",
+      "可搭配不同茶款，歡迎來電詢問",
+    ],
+  },
 ];
 
 const SEASON_COLORS: Record<string, string> = {
@@ -197,6 +234,7 @@ const SEASON_COLORS: Record<string, string> = {
   烘焙茶: "bg-amber-100 text-amber-800 border-amber-200",
   金萱茶: "bg-pink-100 text-pink-800 border-pink-200",
   茶包:  "bg-orange-100 text-orange-800 border-orange-200",
+  禮盒:  "bg-rose-100 text-rose-800 border-rose-200",
 };
 
 // ── Image Gallery sub-component ──────────────────────────────────────────────
