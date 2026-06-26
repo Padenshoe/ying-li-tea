@@ -158,7 +158,7 @@ export default function HeroSection() {
             </li>
             <li className="text-xs font-['Noto_Serif_TC'] flex items-center gap-2" style={{ color: "rgba(250,250,247,0.88)" }}>
               <span className="text-[10px]" style={{ color: "oklch(0.730 0.070 75)" }}>✓</span>
-              滿 3,000 送品建杯
+              滿 3,000 送品鑑杯
             </li>
             <li className="text-xs font-['Noto_Serif_TC'] flex items-center gap-2" style={{ color: "rgba(250,250,247,0.88)" }}>
               <span className="text-[10px]" style={{ color: "oklch(0.730 0.070 75)" }}>✓</span>
