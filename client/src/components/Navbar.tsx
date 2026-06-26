@@ -10,7 +10,7 @@ import { useCart } from "@/contexts/CartContext";
 import { Link, useLocation } from "wouter";
 import { ShoppingBag } from "lucide-react";
 
-const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-final_b762ecd4.png";
+const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/yl_logo_transparent_1b24b078.png";
 
 // Fallback map: product ID → nameKey for items stored before nameKey was added
 const PRODUCT_NAME_KEYS: Record<string, string> = {

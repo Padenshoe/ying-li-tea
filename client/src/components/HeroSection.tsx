@@ -138,6 +138,34 @@ export default function HeroSection() {
           </button>
         </div>
 
+        {/* Promo Info Box */}
+        <div
+          className="mt-6 rounded-lg border px-5 py-3.5 text-left max-w-xs w-full"
+          style={{
+            background: "rgba(250,250,247,0.10)",
+            borderColor: "rgba(250,250,247,0.30)",
+            opacity: 0,
+            animation: "fadeInUp 0.9s ease-out 1.1s forwards",
+          }}
+        >
+          <p className="text-[10px] font-['Lato'] font-600 tracking-[0.18em] uppercase mb-2.5" style={{ color: "oklch(0.730 0.070 75)" }}>
+            限時優惠
+          </p>
+          <ul className="space-y-1.5">
+            <li className="text-xs font-['Noto_Serif_TC'] flex items-center gap-2" style={{ color: "rgba(250,250,247,0.88)" }}>
+              <span className="text-[10px]" style={{ color: "oklch(0.730 0.070 75)" }}>✓</span>
+              滿 2,000 免運
+            </li>
+            <li className="text-xs font-['Noto_Serif_TC'] flex items-center gap-2" style={{ color: "rgba(250,250,247,0.88)" }}>
+              <span className="text-[10px]" style={{ color: "oklch(0.730 0.070 75)" }}>✓</span>
+              滿 3,000 送品建杯
+            </li>
+            <li className="text-xs font-['Noto_Serif_TC'] flex items-center gap-2" style={{ color: "rgba(250,250,247,0.88)" }}>
+              <span className="text-[10px]" style={{ color: "oklch(0.730 0.070 75)" }}>✓</span>
+              <span>折扣碼 <span className="font-['Lato'] font-600" style={{ color: "oklch(0.780 0.080 75)" }}>welcomegift</span> 送小茶包禮盒</span>
+            </li>
+          </ul>
+        </div>
 
       </div>
 

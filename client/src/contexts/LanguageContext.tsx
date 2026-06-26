@@ -215,7 +215,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     "hero.title": "迎利茶葉 — 台灣茶專賣店",
-    "hero.tagline": "三十年茶農背景，創立於 1994 年，台灣高山茶專賣",
+    "hero.tagline": "三十年只做一件事：讓你喝得到、也查得到的台灣茶。",
     "hero.intro": "從阿里山到大禹嶺，海拔 1,000 到 2,800 公尺，精選台灣六大產區高山茶。透明定價，品質保證，歡迎來店試喝。",
     "hero.shopNow": "立即購買",
     "hero.exploreTea": "探索我們的茶",
