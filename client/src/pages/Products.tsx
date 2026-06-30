@@ -26,6 +26,10 @@ const IMG = {
   giftbox1:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03096_014aba20.webp",
   giftbox2:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03098_15431a66.webp",
   giftbox3:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03099_f9b61c50.webp",
+  giftboxYuBao:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_2_0af89783.jpg",
+  giftboxJingXuan: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_4_a7f90a5c.jpg",
+  giftboxCaiYun:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_21_b89c77e9.jpg",
+  giftboxYuXi:     "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_18_fe36f223.jpg",
 };
 
 interface Product {
@@ -35,6 +39,7 @@ interface Product {
   season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒";
   weight: string;
   price: number;
+  priceOnRequest?: boolean;  // 價格選填（結帳時議價）
   images: string[];   // first = main, rest = gallery
   notes: [string, string, string];
   nameKey: string;
@@ -226,6 +231,51 @@ const PRODUCTS: Product[] = [
       "可搭配不同茶款，歡迎來電詢問",
     ],
   },
+  // 新款禮盒
+  {
+    id: "GB04", code: "GB04", name: "台灣御寶禮盒", season: "禮盒",
+    weight: "300g（半斤）", price: 220,
+    images: [IMG.giftboxYuBao],
+    nameKey: "product.giftbox.yubao",
+    notes: [
+      "紅黑金配色，氣派典雅的高山茶禮盒",
+      "半斤裝雙罐組，節慶送禮首選",
+      "可搭配不同茶款，歡迎來電詢問",
+    ],
+  },
+  {
+    id: "GB05", code: "GB05", name: "精選茗茶禮盒", season: "禮盒",
+    weight: "300g（半斤）", price: 220,
+    images: [IMG.giftboxJingXuan],
+    nameKey: "product.giftbox.jingxuan",
+    notes: [
+      "青花瓷風格鐵罐，典雅精緻",
+      "半斤裝雙罐組，適合送禮收藏",
+      "可搭配不同茶款，歡迎來電詢問",
+    ],
+  },
+  {
+    id: "GB06", code: "GB06", name: "采韻禮盒", season: "禮盒",
+    weight: "600g（一斤）", price: 480,
+    images: [IMG.giftboxCaiYun],
+    nameKey: "product.giftbox.caiyun",
+    notes: [
+      "采韻系列，質感紅色外盒四罐組",
+      "一斤裝大份量，適合節慶送禮",
+      "可搭配不同茶款，歡迎來電詢問",
+    ],
+  },
+  {
+    id: "GB07", code: "GB07", name: "御璽金賞包裝", season: "禮盒",
+    weight: "依茶款而定", price: 0, priceOnRequest: true,
+    images: [IMG.giftboxYuXi],
+    nameKey: "product.giftbox.yuxi",
+    notes: [
+      "金色御璽包裝，福壽梨山、高山茶、阿里山可選",
+      "包裝形式二選一：精緻鐵罐 或 典雅紙盒",
+      "價格依茶款而定，結帳時填寫需求",
+    ],
+  },
 ];
 
 const SEASON_COLORS: Record<string, string> = {
@@ -361,45 +411,62 @@ function ProductCard({ product }: { product: Product }) {
 
         {/* Price + quantity row */}
         <div className="flex items-center justify-between mb-3 pt-3 border-t border-stone-100">
-          <span className="text-lg font-bold text-stone-800">
-            NT${product.price.toLocaleString()}
-          </span>
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
-              aria-label="減少數量"
-            >
-              <Minus className="w-3 h-3" />
-            </button>
-            <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
-            <button
-              type="button"
-              onClick={() => setQty((q) => Math.min(99, q + 1))}
-              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
-              aria-label="增加數量"
-            >
-              <Plus className="w-3 h-3" />
-            </button>
-          </div>
+          {product.priceOnRequest ? (
+            <span className="text-sm font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+              價格依茶款而定
+            </span>
+          ) : (
+            <span className="text-lg font-bold text-stone-800">
+              NT${product.price.toLocaleString()}
+            </span>
+          )}
+          {!product.priceOnRequest && (
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+                aria-label="減少數量"
+              >
+                <Minus className="w-3 h-3" />
+              </button>
+              <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
+              <button
+                type="button"
+                onClick={() => setQty((q) => Math.min(99, q + 1))}
+                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+                aria-label="增加數量"
+              >
+                <Plus className="w-3 h-3" />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Add to cart */}
-        <Button
-          onClick={handleAddToCart}
-          className={`w-full transition-all duration-200 ${
-            added
-              ? "bg-emerald-600 hover:bg-emerald-600 text-white"
-              : "bg-stone-800 hover:bg-stone-700 text-white"
-          }`}
-        >
-          {added ? (
-            <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
-          ) : (
-            <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
-          )}
-        </Button>
+        {/* Add to cart / inquiry */}
+        {product.priceOnRequest ? (
+          <Button
+            onClick={() => window.location.href = "/checkout?product=" + product.id + "&name=" + encodeURIComponent(product.name)}
+            className="w-full bg-amber-700 hover:bg-amber-800 text-white transition-all duration-200"
+          >
+            <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />結帳時選填價格
+          </Button>
+        ) : (
+          <Button
+            onClick={handleAddToCart}
+            className={`w-full transition-all duration-200 ${
+              added
+                ? "bg-emerald-600 hover:bg-emerald-600 text-white"
+                : "bg-stone-800 hover:bg-stone-700 text-white"
+            }`}
+          >
+            {added ? (
+              <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
+            ) : (
+              <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
+            )}
+          </Button>
+        )}
       </div>
     </div>
   );
