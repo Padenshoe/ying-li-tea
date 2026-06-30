@@ -485,42 +485,53 @@ function ProductCard({ product }: { product: Product }) {
               <>NT${product.price.toLocaleString()}</>
             )}
           </span>
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
-              aria-label="減少數量"
-            >
-              <Minus className="w-3 h-3" />
-            </button>
-            <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
-            <button
-              type="button"
-              onClick={() => setQty((q) => Math.min(99, q + 1))}
-              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
-              aria-label="增加數量"
-            >
-              <Plus className="w-3 h-3" />
-            </button>
-          </div>
+          {!product.priceOnRequest && (
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+                aria-label="減少數量"
+              >
+                <Minus className="w-3 h-3" />
+              </button>
+              <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
+              <button
+                type="button"
+                onClick={() => setQty((q) => Math.min(99, q + 1))}
+                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+                aria-label="增加數量"
+              >
+                <Plus className="w-3 h-3" />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Add to cart */}
-        <Button
-          onClick={handleAddToCart}
-          className={`w-full transition-all duration-200 ${
-            added
-              ? "bg-emerald-600 hover:bg-emerald-600 text-white"
-              : "bg-stone-800 hover:bg-stone-700 text-white"
-          }`}
-        >
-          {added ? (
-            <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
-          ) : (
-            <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
-          )}
-        </Button>
+        {/* Add to cart / inquiry */}
+        {product.priceOnRequest ? (
+          <Button
+            disabled
+            className="w-full bg-stone-800 text-white opacity-80 cursor-not-allowed"
+          >
+            結帳時選填
+          </Button>
+        ) : (
+          <Button
+            onClick={handleAddToCart}
+            className={`w-full transition-all duration-200 ${
+              added
+                ? "bg-emerald-600 hover:bg-emerald-600 text-white"
+                : "bg-stone-800 hover:bg-stone-700 text-white"
+            }`}
+          >
+            {added ? (
+              <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
+            ) : (
+              <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
+            )}
+          </Button>
+        )}
       </div>
     </div>
   );
