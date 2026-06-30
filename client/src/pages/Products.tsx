@@ -288,7 +288,7 @@ const PRODUCTS: Product[] = [
     images: [IMG.dayuling],
     nameKey: "product.dayuling.spring",
     notes: [
-      "台灣最高海拔產區，海拔逾 2,600 公尺",
+      "台灣最高海拔產區，海拔逾 2,800 公尺",
       "茶湯清甲香氣清雅，回甘持久深長",
       "極品收藏首選，適合進階茶友與送禮",
     ],
@@ -478,62 +478,49 @@ function ProductCard({ product }: { product: Product }) {
 
         {/* Price + quantity row */}
         <div className="flex items-center justify-between mb-3 pt-3 border-t border-stone-100">
-          {product.priceOnRequest ? (
-            <span className="text-sm font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
-              價格依茶款而定
-            </span>
-          ) : (
-            <span className="text-lg font-bold text-stone-800">
-              NT${product.price.toLocaleString()}
-            </span>
-          )}
-          {!product.priceOnRequest && (
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => setQty((q) => Math.max(1, q - 1))}
-                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
-                aria-label="減少數量"
-              >
-                <Minus className="w-3 h-3" />
-              </button>
-              <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
-              <button
-                type="button"
-                onClick={() => setQty((q) => Math.min(99, q + 1))}
-                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
-                aria-label="增加數量"
-              >
-                <Plus className="w-3 h-3" />
-              </button>
-            </div>
-          )}
+          <span className="text-lg font-bold text-stone-800">
+            {product.priceOnRequest ? (
+              <span className="text-sm font-medium text-stone-500">包裝示意圖</span>
+            ) : (
+              <>NT${product.price.toLocaleString()}</>
+            )}
+          </span>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+              aria-label="減少數量"
+            >
+              <Minus className="w-3 h-3" />
+            </button>
+            <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
+            <button
+              type="button"
+              onClick={() => setQty((q) => Math.min(99, q + 1))}
+              className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+              aria-label="增加數量"
+            >
+              <Plus className="w-3 h-3" />
+            </button>
+          </div>
         </div>
 
-        {/* Add to cart / inquiry */}
-        {product.priceOnRequest ? (
-          <Button
-            onClick={() => window.location.href = "/checkout?product=" + product.id + "&name=" + encodeURIComponent(product.name)}
-            className="w-full bg-amber-700 hover:bg-amber-800 text-white transition-all duration-200"
-          >
-            <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />結帳時選填價格
-          </Button>
-        ) : (
-          <Button
-            onClick={handleAddToCart}
-            className={`w-full transition-all duration-200 ${
-              added
-                ? "bg-emerald-600 hover:bg-emerald-600 text-white"
-                : "bg-stone-800 hover:bg-stone-700 text-white"
-            }`}
-          >
-            {added ? (
-              <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
-            ) : (
-              <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
-            )}
-          </Button>
-        )}
+        {/* Add to cart */}
+        <Button
+          onClick={handleAddToCart}
+          className={`w-full transition-all duration-200 ${
+            added
+              ? "bg-emerald-600 hover:bg-emerald-600 text-white"
+              : "bg-stone-800 hover:bg-stone-700 text-white"
+          }`}
+        >
+          {added ? (
+            <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
+          ) : (
+            <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
+          )}
+        </Button>
       </div>
     </div>
   );
