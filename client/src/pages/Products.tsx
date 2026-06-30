@@ -30,13 +30,18 @@ const IMG = {
   giftboxJingXuan: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_4_a7f90a5c.jpg",
   giftboxCaiYun:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_21_b89c77e9.jpg",
   giftboxYuXi:     "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_18_fe36f223.jpg",
+  dayuling:        "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_16_d69cbfda.jpg",
+  lishanTieguanyin: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_14_e426b16d.jpg",
+  lishanBlackTea:  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_10_ef1143ed.jpg",
+  lishanPremiumBlack: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_31_4f005544.jpg",
+  shuixianBlackTea: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_32_0b68775e.jpg",
 };
 
 interface Product {
   id: string;
   code: string;
   name: string;
-  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒";
+  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶";
   weight: string;
   price: number;
   priceOnRequest?: boolean;  // 價格選填（結帳時議價）
@@ -272,8 +277,68 @@ const PRODUCTS: Product[] = [
     nameKey: "product.giftbox.yuxi",
     notes: [
       "金色御璽包裝，福壽梨山、高山茶、阿里山可選",
-      "包裝形式二選一：精緻鐵罐 或 典雅紙盒",
-      "價格依茶款而定，結帳時填寫需求",
+      "包裝形式二選一：罐子 或 金賞紙盒",
+      "上圖為包裝示意圖，歡迎來電詢問茶款與價格",
+    ],
+  },
+  // 頂級大禹嶺春茶
+  {
+    id: "DYL01", code: "DYL01", name: "頂級大禹嶺春茶", season: "春茶",
+    weight: "150g（四兩）", price: 3000,
+    images: [IMG.dayuling],
+    nameKey: "product.dayuling.spring",
+    notes: [
+      "台灣最高海拔產區，海拔逾 2,600 公尺",
+      "茶湯清甲香氣清雅，回甘持久深長",
+      "極品收藏首選，適合進階茶友與送禮",
+    ],
+  },
+  // 梨山鐵觀音
+  {
+    id: "LST01", code: "LST01", name: "梨山鐵觀音", season: "春茶",
+    weight: "150g（四兩）", price: 1750,
+    images: [IMG.lishanTieguanyin],
+    nameKey: "product.lishan.tieguanyin",
+    notes: [
+      "傳統鐵觀音品種，梨山鐵觀音制法製作",
+      "花香清雅、音韵魅人，回甘持久",
+      "福壽梨山特選，四兩裝適合品鑑收藏",
+    ],
+  },
+  // 梨山烏龍紅茶
+  {
+    id: "LSBT01", code: "LSBT01", name: "梨山烏龍紅茶", season: "烏龍紅茶",
+    weight: "300g（半斤）", price: 1500,
+    images: [IMG.lishanBlackTea],
+    nameKey: "product.lishan.blacktea",
+    notes: [
+      "紅茶香氣中帶有烏龍茶的尾韻，風味獨特",
+      "梨山高山茶區特製，清香順口",
+      "半斤裝，適合日常品飲與送禮",
+    ],
+  },
+  // 梨山頂級紅茶
+  {
+    id: "LSPB01", code: "LSPB01", name: "梨山頂級紅茶", season: "紅茶",
+    weight: "75g", price: 800,
+    images: [IMG.lishanPremiumBlack],
+    nameKey: "product.lishan.premiumblack",
+    notes: [
+      "頂級梨山紅茶，順口尾韻豐富",
+      "紅茶香氣清雅，口感滑順回甘持久",
+      "75g 鐵罐裝，適合進階茶友與送禮首選",
+    ],
+  },
+  // 水仙紅茶
+  {
+    id: "SXT01", code: "SXT01", name: "水仙紅茶", season: "紅茶",
+    weight: "100g", price: 600,
+    images: [IMG.shuixianBlackTea],
+    nameKey: "product.shuixian.blacktea",
+    notes: [
+      "使用水仙茶種製作的紅茶，風味獨特",
+      "清香順口，温和花香中帶清甘尾韻",
+      "100g 裝，適合日常品飲與初學茶友",
     ],
   },
 ];
@@ -285,6 +350,8 @@ const SEASON_COLORS: Record<string, string> = {
   金萱茶: "bg-pink-100 text-pink-800 border-pink-200",
   茶包:  "bg-orange-100 text-orange-800 border-orange-200",
   禮盒:  "bg-rose-100 text-rose-800 border-rose-200",
+  紅茶:  "bg-red-100 text-red-800 border-red-200",
+  烏龍紅茶: "bg-orange-100 text-orange-800 border-orange-200",
 };
 
 // ── Image Gallery sub-component ──────────────────────────────────────────────
@@ -474,7 +541,7 @@ function ProductCard({ product }: { product: Product }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒">("全部");
+  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶">("全部");
   const productRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Handle ?focus=TB01 (or any product id) from homepage CTA
@@ -485,7 +552,7 @@ export default function ProductsPage() {
     const target = PRODUCTS.find((p) => p.id === focusId);
     if (!target) return;
     // Switch filter to show the target product
-    setFilter(target.season as "全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒");
+    setFilter(target.season as "全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶");
     // Scroll after filter update renders
     setTimeout(() => {
       const el = productRefs.current[focusId];
@@ -512,7 +579,7 @@ export default function ProductsPage() {
 
       {/* Filter tabs */}
       <div className="flex justify-center gap-2 px-4 mb-10 flex-wrap">
-        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包", "禮盒"] as const).map((tab) => (
+        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包", "紅茶", "烏龍紅茶", "禮盒"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setFilter(tab)}

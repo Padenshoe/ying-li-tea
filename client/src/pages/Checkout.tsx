@@ -31,14 +31,11 @@ interface FormState {
   phone: string;
   email: string;
   taxId: string;
-  needsJar: "yes" | "no" | "";
+  needsJar: "jar" | "jinshanBox" | "no" | "";
   deliveryMethod: "home" | "711" | "";
   address: string;
   storeCode: string;
   note: string;
-  // 御璽金賞包裝專用欄位
-  yuxiPackaging: "jar" | "box" | "";
-  yuxiPrice: string;
 }
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
@@ -73,12 +70,9 @@ export default function Checkout() {
     address: "",
     storeCode: "",
     note: "",
-    yuxiPackaging: "",
-    yuxiPrice: "",
   });
 
-  // 判斷購物車中是否有御璽金賞包裝
-  const hasYuxiItem = items.some((item) => item.id === "GB07");
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [promoCode, setPromoCode] = useState("");
@@ -145,14 +139,14 @@ export default function Checkout() {
         phone: form.phone.trim(),
         email: form.email.trim() || undefined,
         taxId: form.taxId.trim() || undefined,
-        needsJar: form.needsJar === "yes",
+        needsJar: form.needsJar === "jar",
         deliveryMethod: form.deliveryMethod as "home" | "711",
         address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
         storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
         note: [
           form.note.trim(),
-          hasYuxiItem && form.yuxiPackaging ? `御璽金賞包裝：${form.yuxiPackaging === "jar" ? "精緻鐵罐" : "典雅紙盒"}` : "",
-          hasYuxiItem && form.yuxiPrice.trim() ? `御璽金賞茶款：${form.yuxiPrice.trim()}` : "",
+          form.needsJar === "jar" ? "包裝需求：罐子" : "",
+          form.needsJar === "jinshanBox" ? "包裝需求：金賞紙盒" : "",
         ].filter(Boolean).join("; ") || undefined,
         items: items.map((item) => ({
           id: item.id,
@@ -205,14 +199,14 @@ export default function Checkout() {
         phone: form.phone.trim(),
         email: form.email.trim() || undefined,
         taxId: form.taxId.trim() || undefined,
-        needsJar: form.needsJar === "yes",
+        needsJar: form.needsJar === "jar",
         deliveryMethod: form.deliveryMethod as "home" | "711",
         address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
         storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
         note: [
           form.note.trim(),
-          hasYuxiItem && form.yuxiPackaging ? `御璽金賞包裝：${form.yuxiPackaging === "jar" ? "精緻鐵罐" : "典雅紙盒"}` : "",
-          hasYuxiItem && form.yuxiPrice.trim() ? `御璽金賞茶款：${form.yuxiPrice.trim()}` : "",
+          form.needsJar === "jar" ? "包裝需求：罐子" : "",
+          form.needsJar === "jinshanBox" ? "包裝需求：金賞紙盒" : "",
         ].filter(Boolean).join("; ") || undefined,
         items: items.map((item) => ({
           id: item.id,
@@ -483,15 +477,16 @@ export default function Checkout() {
                     />
                   </div>
 
-                  {/* Jar option (optional) */}
+                  {/* Jar / box option (optional) */}
                   <div className="mb-4">
                     <label className={labelBase} style={{ color: accentGreen }}>
-                      {t("checkout.needsJar")}
+                      是否需要罐子或紙盒（選填）
                     </label>
                     <div className="flex gap-3">
                       {([
-                        { value: "yes" as const, label: "需要" },
-                        { value: "no" as const, label: "不需要" },
+                        { value: "jar" as const, label: "罐子" },
+                        { value: "jinshanBox" as const, label: "金賞紙盒" },
+                        { value: "no" as const, label: "都不需要" },
                       ]).map((opt) => (
                         <button
                           key={opt.value}
@@ -509,56 +504,6 @@ export default function Checkout() {
                       ))}
                     </div>
                   </div>
-
-                  {/* 御璽金賞包裝選項（僅在購物車有 GB07 時顯示）*/}
-                  {hasYuxiItem && (
-                    <>
-                      <div className="mb-4">
-                        <label className={labelBase} style={{ color: accentGreen }}>
-                          御璽金賞包裝形式（二選一）
-                        </label>
-                        <div className="flex gap-3">
-                          {([
-                            { value: "jar" as const, label: "精緻鐵罐" },
-                            { value: "box" as const, label: "典雅紙盒" },
-                          ]).map((opt) => (
-                            <button
-                              key={opt.value}
-                              type="button"
-                              onClick={() => set("yuxiPackaging", opt.value)}
-                              className="flex-1 py-2.5 text-sm font-['Lato'] font-400 rounded transition-all duration-200"
-                              style={{
-                                border: form.yuxiPackaging === opt.value ? `1.5px solid ${accentGreen}` : borderDefault,
-                                background: form.yuxiPackaging === opt.value ? `${accentGreen}18` : "transparent",
-                                color: form.yuxiPackaging === opt.value ? accentGreen : "oklch(0.520 0.020 60)",
-                              }}
-                            >
-                              {opt.label}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="mb-4">
-                        <label htmlFor="yuxiPrice" className={labelBase} style={{ color: accentGreen }}>
-                          御璽金賞茶款與金額（選填）
-                        </label>
-                        <input
-                          id="yuxiPrice"
-                          type="text"
-                          value={form.yuxiPrice}
-                          onChange={(e) => set("yuxiPrice", e.target.value)}
-                          placeholder="例：阿里山冬茶 NT$1,200 × 1"
-                          className={inputBase}
-                          style={{ border: borderDefault }}
-                          onFocus={(e) => { (e.currentTarget as HTMLElement).style.border = borderFocus; }}
-                          onBlur={(e) => { (e.currentTarget as HTMLElement).style.border = borderDefault; }}
-                        />
-                        <p className="text-xs mt-1" style={{ color: "oklch(0.550 0.020 60)" }}>
-                          價格依選擇茶款而定，可留空由我們與您確認
-                        </p>
-                      </div>
-                    </>
-                  )}
 
                   {/* Promo Code (optional) */}
                   <div>
