@@ -41,7 +41,8 @@ interface Product {
   id: string;
   code: string;
   name: string;
-  season: "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶";
+  season: "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶";
+  featured?: boolean;
   weight: string;
   price: number;
   priceOnRequest?: boolean;  // 價格選填（結帳時議價）
@@ -122,7 +123,7 @@ const PRODUCTS: Product[] = [
   },
   // 梨山
   {
-    id: "L03", code: "L03", name: "精緻梨山春茶", season: "春茶",
+    id: "L03", code: "L03", name: "精致梨山春茶", season: "春茶", featured: true,
     weight: "150g（四兩）", price: 950,
     images: [IMG.lishan, IMG.lishanExtra],
     nameKey: "product.lishan.spring",
@@ -156,7 +157,7 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "D02", code: "D02", name: "精緻福壽山冬茶", season: "冬茶",
+    id: "D02", code: "D02", name: "精致福壽山冬茶", season: "冬茶", featured: true,
     weight: "150g（四兩）", price: 1750,
     images: [IMG.fushoushan, IMG.fushoushanExtra],
     nameKey: "product.fushoushan.winter",
@@ -180,7 +181,7 @@ const PRODUCTS: Product[] = [
   },
   // 阿里山金萱茶（新商品）
   {
-    id: "J01", code: "J01", name: "阿里山金萱茶", season: "金萱茶",
+    id: "J01", code: "J01", name: "阿里山金萱茶", season: "金萱茶", featured: true,
     weight: "300g（半斤）", price: 800,
     images: [IMG.jinxuan1, IMG.jinxuan2],
     nameKey: "product.alishan.jinxuan",
@@ -192,7 +193,7 @@ const PRODUCTS: Product[] = [
   },
   // 阿里山茶包禮盒（新商品）
   {
-    id: "TB01", code: "TB01", name: "阿里山茶包禮盒", season: "茶包",
+    id: "TB01", code: "TB01", name: "阿里山茶包禮盒", season: "茶包", featured: true,
     weight: "60入 × 3g", price: 980,
     images: [CDN + "teabag-1_dce6dee5.png", CDN + "teabag-2_a91ea8f9.png", CDN + "teabag-3_3aed7707.png"],
     nameKey: "product.alishan.teabag",
@@ -238,7 +239,7 @@ const PRODUCTS: Product[] = [
   },
   // 新款禮盒
   {
-    id: "GB04", code: "GB04", name: "台灣御寶禮盒", season: "禮盒",
+    id: "GB04", code: "GB04", name: "台灣御寶禮盒", season: "禮盒", featured: true,
     weight: "300g（半斤）", price: 220,
     images: [IMG.giftboxYuBao],
     nameKey: "product.giftbox.yubao",
@@ -260,7 +261,7 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "GB06", code: "GB06", name: "采韻禮盒", season: "禮盒",
+    id: "GB06", code: "GB06", name: "采韻禮盒", season: "禮盒", featured: true,
     weight: "600g（一斤）", price: 480,
     images: [IMG.giftboxCaiYun],
     nameKey: "product.giftbox.caiyun",
@@ -307,7 +308,7 @@ const PRODUCTS: Product[] = [
   },
   // 梨山烏龍紅茶
   {
-    id: "LSBT01", code: "LSBT01", name: "梨山烏龍紅茶", season: "烏龍紅茶",
+    id: "LSBT01", code: "LSBT01", name: "梨山烏龍紅茶", season: "烏龍紅茶", featured: true,
     weight: "300g（半斤）", price: 1500,
     images: [IMG.lishanBlackTea],
     nameKey: "product.lishan.blacktea",
@@ -344,6 +345,7 @@ const PRODUCTS: Product[] = [
 ];
 
 const SEASON_COLORS: Record<string, string> = {
+  推薦:  "bg-yellow-100 text-yellow-800 border-yellow-300",
   春茶:  "bg-emerald-100 text-emerald-800 border-emerald-200",
   冬茶:  "bg-sky-100 text-sky-800 border-sky-200",
   烘焙茶: "bg-amber-100 text-amber-800 border-amber-200",
@@ -462,47 +464,47 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       {/* Product info */}
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-base font-semibold text-stone-800 mb-1">{product.name}</h3>
-        <p className="text-xs text-stone-400 mb-3">{product.weight}</p>
+      <div className="p-3 sm:p-5 flex flex-col flex-1">
+        <h3 className="text-sm sm:text-base font-semibold text-stone-800 mb-0.5 sm:mb-1 leading-snug">{product.name}</h3>
+        <p className="text-[11px] sm:text-xs text-stone-400 mb-2 sm:mb-3">{product.weight}</p>
 
         {/* Tasting notes */}
-        <div className="space-y-1.5 mb-4 flex-1">
+        <div className="space-y-1 sm:space-y-1.5 mb-3 sm:mb-4 flex-1">
           {product.notes.map((note, i) => (
-            <div key={i} className="flex items-start gap-1.5">
-              <Leaf className="w-3.5 h-3.5 text-stone-300 mt-0.5 shrink-0" />
-              <p className="text-xs text-stone-500 leading-relaxed">{note}</p>
+            <div key={i} className="flex items-start gap-1">
+              <Leaf className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-stone-300 mt-0.5 shrink-0" />
+              <p className="text-[11px] sm:text-xs text-stone-500 leading-relaxed">{note}</p>
             </div>
           ))}
         </div>
 
         {/* Price + quantity row */}
-        <div className="flex items-center justify-between mb-3 pt-3 border-t border-stone-100">
-          <span className="text-lg font-bold text-stone-800">
+        <div className="flex items-center justify-between mb-2 sm:mb-3 pt-2 sm:pt-3 border-t border-stone-100">
+          <span className="text-sm sm:text-lg font-bold text-stone-800">
             {product.priceOnRequest ? (
-              <span className="text-sm font-medium text-stone-500">包裝示意圖</span>
+              <span className="text-[11px] sm:text-sm font-medium text-stone-500">包裝示意圖</span>
             ) : (
               <>NT${product.price.toLocaleString()}</>
             )}
           </span>
           {!product.priceOnRequest && (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1 sm:gap-1.5">
               <button
                 type="button"
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
-                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+                className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
                 aria-label="減少數量"
               >
-                <Minus className="w-3 h-3" />
+                <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               </button>
-              <span className="w-7 text-center text-sm font-semibold text-stone-800 select-none">{qty}</span>
+              <span className="w-5 sm:w-7 text-center text-xs sm:text-sm font-semibold text-stone-800 select-none">{qty}</span>
               <button
                 type="button"
                 onClick={() => setQty((q) => Math.min(99, q + 1))}
-                className="w-7 h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
+                className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors"
                 aria-label="增加數量"
               >
-                <Plus className="w-3 h-3" />
+                <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               </button>
             </div>
           )}
@@ -512,23 +514,23 @@ function ProductCard({ product }: { product: Product }) {
         {product.priceOnRequest ? (
           <Button
             disabled
-            className="w-full bg-stone-800 text-white opacity-80 cursor-not-allowed"
+            className="w-full text-xs sm:text-sm bg-stone-800 text-white opacity-80 cursor-not-allowed h-8 sm:h-10"
           >
             結帳時選填
           </Button>
         ) : (
           <Button
             onClick={handleAddToCart}
-            className={`w-full transition-all duration-200 ${
+            className={`w-full text-xs sm:text-sm h-8 sm:h-10 transition-all duration-200 ${
               added
                 ? "bg-emerald-600 hover:bg-emerald-600 text-white"
                 : "bg-stone-800 hover:bg-stone-700 text-white"
             }`}
           >
             {added ? (
-              <><Check className="w-3.5 h-3.5 mr-1.5" />已加入購物車</>
+              <><Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1"/>已加入</>
             ) : (
-              <><ShoppingCart className="w-3.5 h-3.5 mr-1.5" />加入購物車</>
+              <><ShoppingCart className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1"/>加入購物車</>
             )}
           </Button>
         )}
@@ -539,7 +541,7 @@ function ProductCard({ product }: { product: Product }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [filter, setFilter] = useState<"全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶">("全部");
+  const [filter, setFilter] = useState<"全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶">("全部");
   const productRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Handle ?focus=TB01 (or any product id) from homepage CTA
@@ -550,7 +552,7 @@ export default function ProductsPage() {
     const target = PRODUCTS.find((p) => p.id === focusId);
     if (!target) return;
     // Switch filter to show the target product
-    setFilter(target.season as "全部" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶");
+    setFilter(target.season as "全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶");
     // Scroll after filter update renders
     setTimeout(() => {
       const el = productRefs.current[focusId];
@@ -560,7 +562,7 @@ export default function ProductsPage() {
 
   const filtered = filter === "全部"
     ? PRODUCTS
-    : PRODUCTS.filter((p) => p.season === filter);
+    : PRODUCTS.filter((p) => p.season === filter || (filter === "推薦" && p.featured));
 
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.970 0.012 80)" }}>
@@ -577,7 +579,7 @@ export default function ProductsPage() {
 
       {/* Filter tabs */}
       <div className="flex justify-center gap-2 px-4 mb-10 flex-wrap">
-        {(["全部", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包", "紅茶", "烏龍紅茶", "禮盒"] as const).map((tab) => (
+        {(["全部", "推薦", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包", "紅茶", "烏龍紅茶", "禮盒"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setFilter(tab)}
@@ -590,7 +592,7 @@ export default function ProductsPage() {
             {tab}
             {tab !== "全部" && (
               <span className="ml-1.5 text-xs opacity-60">
-                ({PRODUCTS.filter((p) => p.season === tab).length})
+                ({tab === "推薦" ? PRODUCTS.filter((p) => p.featured).length : PRODUCTS.filter((p) => p.season === tab).length})
               </span>
             )}
           </button>
@@ -628,7 +630,7 @@ export default function ProductsPage() {
 
       {/* Product grid */}
       <div className="max-w-6xl mx-auto px-4 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
           {filtered.map((product) => (
             <div key={product.id} ref={(el) => { productRefs.current[product.id] = el; }}>
               <ProductCard product={product} />
