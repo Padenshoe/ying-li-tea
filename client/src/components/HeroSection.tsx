@@ -36,7 +36,7 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 container flex flex-col items-center text-center px-6">
+      <div className="relative z-10 container flex flex-col items-center text-center px-6 pt-20 md:pt-24">
 
         {/* Brand Name */}
         <h1
@@ -55,18 +55,14 @@ export default function HeroSection() {
 
         {/* Tagline */}
         <p
-          className="font-['Playfair_Display'] italic font-400 mb-8"
+          className="font-['Playfair_Display'] italic font-400 mb-8 max-w-2xl"
           style={{
             fontSize: "clamp(0.9rem, 2.5vw, 1.4rem)",
             color: "#F2EDE4",
             letterSpacing: "0.02em",
             textShadow: "0 1px 4px rgba(0,0,0,0.3)",
-            lineHeight: 1,
-            display: "flex",
-            alignItems: "center",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "0.25em",
+            lineHeight: 1.6,
+            textAlign: "center",
             opacity: 0,
             animation: "fadeInUp 0.9s ease-out 0.5s forwards",
           }}

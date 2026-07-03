@@ -50,6 +50,9 @@ interface Product {
   images: string[];   // first = main, rest = gallery
   notes: [string, string, string];
   nameKey: string;
+  origin?: string;    // 產地
+  altitude?: string;  // 海拔
+  process?: string;   // 製法
 }
 
 const PRODUCTS: Product[] = [
@@ -59,6 +62,7 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 400,
     images: [IMG.sanlinxi],
     nameKey: "product.sanlinxi.spring",
+    origin: "南投竹山", altitude: "1,300 公尺",
     notes: [
       "茶湯金黃透亮，入口濃郁甘醇",
       "花香與蜜香交融，回甘持久悠長",
@@ -70,6 +74,7 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 400,
     images: [IMG.sanlinxi],
     nameKey: "product.sanlinxi.winter",
+    origin: "南投竹山", altitude: "1,300 公尺",
     notes: [
       "茶湯清澈淡雅，入口清香順口",
       "冬季低溫慢長，茶葉細膩柔和",
@@ -82,6 +87,7 @@ const PRODUCTS: Product[] = [
     weight: "300g（半斤）", price: 1100,
     images: [IMG.alishan, IMG.alishanExtra],
     nameKey: "product.alishan.spring",
+    origin: "嘉義阿里山", altitude: "1,500 公尺",
     notes: [
       "高山雲霧孕育，茶湯蜜綠清亮",
       "春芽飽滿鮮嫩，滋味濃郁回甘",
@@ -93,6 +99,7 @@ const PRODUCTS: Product[] = [
     weight: "300g（半斤）", price: 1100,
     images: [IMG.alishan, IMG.alishanExtra],
     nameKey: "product.alishan.winter",
+    origin: "嘉義阿里山", altitude: "1,500 公尺",
     notes: [
       "冬季低溫緩慢生長，香氣格外清揚",
       "茶湯清澈柔順，入喉絲滑無澀感",
@@ -105,8 +112,9 @@ const PRODUCTS: Product[] = [
     weight: "300g（半斤）", price: 1300,
     images: [IMG.cuifeng, IMG.cuifengExtra],
     nameKey: "product.cuifeng.spring",
+    origin: "南投仁愛鄉翠峰", altitude: "1,800 公尺",
     notes: [
-      "中央山脈特選，茶湯翠綠鮮活",
+      "南投仁愛鄉翠峰特選，茶湯翠綠鮮活",
       "春茶氣息濃郁，蘭花香氣撲鼻",
       "滋味醇厚甘甜，回韻悠長持久",
     ],
@@ -116,6 +124,7 @@ const PRODUCTS: Product[] = [
     weight: "300g（半斤）", price: 1300,
     images: [IMG.cuifeng, IMG.cuifengExtra],
     nameKey: "product.cuifeng.winter",
+    origin: "南投仁愛鄉翠峰", altitude: "1,800 公尺",
     notes: [
       "冬季山嵐輕撫，茶葉清香細膩",
       "入口清爽不苦澀，喉韻甘潤舒適",
@@ -128,8 +137,9 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 950,
     images: [IMG.lishan, IMG.lishanExtra],
     nameKey: "product.lishan.spring",
+    origin: "台中梨山新佳陽", altitude: "2,000 公尺以上",
     notes: [
-      "海拔兩千公尺以上，高山冷涼孕育",
+      "梨山新佳陽產區，高山冷涼孕育",
       "春茶滋味濃郁飽滿，蜜香花香交織",
       "入口甘甜醇厚，回甘持久令人回味",
     ],
@@ -139,6 +149,7 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 950,
     images: [IMG.lishan, IMG.lishanExtra],
     nameKey: "product.lishan.winter",
+    origin: "台中梨山新佳陽", altitude: "2,000 公尺以上",
     notes: [
       "冬季高山嚴寒，茶葉緩慢積累精華",
       "清香淡雅如蘭，口感柔順無苦澀",
@@ -151,8 +162,9 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 1750,
     images: [IMG.fushoushan, IMG.fushoushanExtra],
     nameKey: "product.fushoushan.spring",
+    origin: "台中福壽山", altitude: "2,500 公尺以上",
     notes: [
-      "台灣頂級高山茶，海拔超過兩千五百公尺",
+      "福壽山農場產區，海拔超過兩千五百公尺",
       "春茶香氣馥郁，蜜香果香層層疊現",
       "茶湯金黃透亮，滋味醇厚甘甜無比",
     ],
@@ -162,6 +174,7 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 1750,
     images: [IMG.fushoushan, IMG.fushoushanExtra],
     nameKey: "product.fushoushan.winter",
+    origin: "台中福壽山", altitude: "2,500 公尺以上",
     notes: [
       "冬季極寒高山，茶葉精華高度濃縮",
       "清雅花香如幽蘭，入口絲滑無比",
@@ -174,6 +187,7 @@ const PRODUCTS: Product[] = [
     weight: "300g（半斤）", price: 1400,
     images: [IMG.alishanRoasted, IMG.roastedExtra],
     nameKey: "product.alishan.roasted",
+    origin: "嘉義阿里山", altitude: "1,500 公尺",
     notes: [
       "傳統炭焙工藝，焙火香氣深沉迷人",
       "茶湯琥珀色澤，口感醇厚溫潤順滑",
@@ -186,6 +200,7 @@ const PRODUCTS: Product[] = [
     weight: "300g（半斤）", price: 800,
     images: [IMG.jinxuan1, IMG.jinxuan2],
     nameKey: "product.alishan.jinxuan",
+    origin: "嘉義阿里山", altitude: "1,500 公尺",
     notes: [
       "金萱品種特有天然奶香，清甜迷人",
       "阿里山高海拔栽培，茶湯蜜黃柔順",
@@ -289,6 +304,7 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 3000,
     images: [IMG.dayuling],
     nameKey: "product.dayuling.spring",
+    origin: "台中大禹嶺", altitude: "2,800 公尺以上",
     notes: [
       "台灣最高海拔產區，海拔逾 2,800 公尺",
       "茶湯清甲香氣清雅，回甘持久深長",
@@ -301,6 +317,7 @@ const PRODUCTS: Product[] = [
     weight: "150g（四兩）", price: 1750,
     images: [IMG.lishanTieguanyin],
     nameKey: "product.lishan.tieguanyin",
+    origin: "台中梨山新佳陽", altitude: "2,000 公尺以上",
     notes: [
       "傳統鐵觀音品種，梨山鐵觀音制法製作",
       "花香清雅、音韵魅人，回甘持久",
@@ -313,6 +330,7 @@ const PRODUCTS: Product[] = [
     weight: "300g（半斤）", price: 1500,
     images: [IMG.lishanBlackTea],
     nameKey: "product.lishan.blacktea",
+    origin: "台中梨山新佳陽", altitude: "2,000 公尺以上",
     notes: [
       "紅茶香氣中帶有烏龍茶的尾韻，風味獨特",
       "梨山高山茶區特製，清香順口",
@@ -325,6 +343,7 @@ const PRODUCTS: Product[] = [
     weight: "75g", price: 800,
     images: [IMG.lishanPremiumBlack],
     nameKey: "product.lishan.premiumblack",
+    origin: "台中梨山新佳陽", altitude: "2,000 公尺以上",
     notes: [
       "頂級梨山紅茶，順口尾韻豐富",
       "紅茶香氣清雅，口感滑順回甘持久",
@@ -471,7 +490,15 @@ function ProductCard({ product }: { product: Product }) {
           className="text-sm sm:text-base font-semibold text-stone-800 mb-0.5 sm:mb-1 leading-snug cursor-pointer hover:text-stone-600 transition-colors"
           onClick={() => navigate(`/products/${product.id}`)}
         >{product.name}</h3>
-        <p className="text-[11px] sm:text-xs text-stone-400 mb-2 sm:mb-3">{product.weight}</p>
+        <div className="flex items-center gap-1.5 mb-2 sm:mb-3 flex-wrap">
+          <p className="text-[11px] sm:text-xs text-stone-400">{product.weight}</p>
+          {product.origin && (
+            <span className="text-[10px] sm:text-[11px] text-stone-400">· {product.origin}</span>
+          )}
+          {product.altitude && (
+            <span className="text-[10px] sm:text-[11px] text-emerald-600 font-medium">{product.altitude}</span>
+          )}
+        </div>
 
         {/* Tasting notes */}
         <div className="space-y-1 sm:space-y-1.5 mb-3 sm:mb-4 flex-1">
@@ -548,6 +575,11 @@ function ProductCard({ product }: { product: Product }) {
 export default function ProductsPage() {
   const [filter, setFilter] = useState<"全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶">("全部");
   const productRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Scroll to top on page mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
   // Handle ?focus=TB01 (or any product id) from homepage CTA
   useEffect(() => {

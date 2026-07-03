@@ -285,6 +285,11 @@ export default function ProductDetailPage() {
 
   const product = PRODUCTS.find((p) => p.id === id);
 
+  // Scroll to top when product page loads
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [id]);
+
   // SEO: dynamically update page title and meta description
   useEffect(() => {
     if (!product) return;

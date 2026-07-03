@@ -374,7 +374,7 @@ const translations: Record<Language, Record<string, string>> = {
     "checkout.fullNamePlaceholder": "例：陳小明",
     "checkout.gender": "性別",
     "checkout.genderMale": "先生",
-    "checkout.genderFemale": "女士",
+    "checkout.genderFemale": "小姐",
     "checkout.genderOther": "",
     "checkout.phone": "聯絡電話",
     "checkout.phonePlaceholder": "例：0912-345-678",
