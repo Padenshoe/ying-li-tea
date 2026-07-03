@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useLocation } from "wouter";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { ShoppingCart, Check, Leaf, Minus, Plus, ChevronLeft, ChevronRight } from "lucide-react";
@@ -431,6 +432,7 @@ function ProductCard({ product }: { product: Product }) {
   const { toast } = useToast();
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
+  const [, navigate] = useLocation();
 
   const handleAddToCart = () => {
     addItem({
@@ -449,7 +451,7 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-100 hover:shadow-md transition-shadow duration-300 flex flex-col">
       {/* Image gallery with season badge & code overlay */}
-      <div className="relative">
+      <div className="relative cursor-pointer" onClick={() => navigate(`/products/${product.id}`)}>
         <ImageGallery images={product.images} name={product.name} />
         <div className="absolute top-3 left-3 z-20">
           <span className={`text-xs font-medium px-2.5 py-1 rounded-full border ${SEASON_COLORS[product.season]}`}>
@@ -465,7 +467,10 @@ function ProductCard({ product }: { product: Product }) {
 
       {/* Product info */}
       <div className="p-3 sm:p-5 flex flex-col flex-1">
-        <h3 className="text-sm sm:text-base font-semibold text-stone-800 mb-0.5 sm:mb-1 leading-snug">{product.name}</h3>
+        <h3
+          className="text-sm sm:text-base font-semibold text-stone-800 mb-0.5 sm:mb-1 leading-snug cursor-pointer hover:text-stone-600 transition-colors"
+          onClick={() => navigate(`/products/${product.id}`)}
+        >{product.name}</h3>
         <p className="text-[11px] sm:text-xs text-stone-400 mb-2 sm:mb-3">{product.weight}</p>
 
         {/* Tasting notes */}
@@ -553,11 +558,13 @@ export default function ProductsPage() {
     if (!target) return;
     // Switch filter to show the target product
     setFilter(target.season as "全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶");
-    // Scroll after filter update renders
-    setTimeout(() => {
-      const el = productRefs.current[focusId];
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 150);
+    // Use double rAF to ensure DOM has fully rendered after state update
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const el = productRefs.current[focusId];
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
   }, []);
 
   const filtered = filter === "全部"

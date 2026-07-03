@@ -236,13 +236,39 @@ export default function Cart() {
                   </span>
                 </div>
 
-                {/* Shipping Note */}
-                <div className="mb-6 p-3 rounded" style={{ background: "oklch(0.950 0.005 90)" }}>
-                  <p className="font-['Lato'] text-xs" style={{ color: "oklch(0.552 0.016 285.938)" }}>
-                    {language === "en"
-                      ? "Shipping & taxes calculated at checkout"
-                      : "運費和稅金將在結帳時計算"}
-                  </p>
+                {/* Shipping Threshold Notice */}
+                <div
+                  className="mb-6 p-3 rounded"
+                  style={{
+                    background: total >= 2000 ? "oklch(0.950 0.150 145)" : "oklch(0.950 0.005 90)",
+                    border: total >= 2000 ? "1px solid oklch(0.750 0.120 145)" : "none",
+                  }}
+                >
+                  {total >= 2000 ? (
+                    <p className="font-['Lato'] text-xs font-semibold" style={{ color: "oklch(0.380 0.070 145)" }}>
+                      {language === "en" ? "✓ Free shipping applied (NT$2,000+)" : "✓ 已達 NT$2,000 免運門檻！"}
+                    </p>
+                  ) : (
+                    <>
+                      <p className="font-['Lato'] text-xs mb-2" style={{ color: "oklch(0.552 0.016 285.938)" }}>
+                        {language === "en"
+                          ? `Add NT$${(2000 - total).toLocaleString()} more for free shipping`
+                          : `再加購 NT$${(2000 - total).toLocaleString()} 即可享免運`}
+                      </p>
+                      <div className="w-full h-1.5 rounded-full" style={{ background: "oklch(0.870 0.018 130)" }}>
+                        <div
+                          className="h-1.5 rounded-full transition-all duration-300"
+                          style={{
+                            width: `${Math.min(100, (total / 2000) * 100)}%`,
+                            background: "oklch(0.380 0.070 145)",
+                          }}
+                        />
+                      </div>
+                      <p className="font-['Lato'] text-xs mt-1" style={{ color: "oklch(0.700 0.010 90)" }}>
+                        {language === "en" ? "NT$130 shipping fee otherwise" : "未達門檻運費 NT$130"}
+                      </p>
+                    </>
+                  )}
                 </div>
 
                 {/* Total */}

@@ -16,6 +16,7 @@ import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import BackToTop from "./components/BackToTop";
 import ProductsPage from "./pages/Products";
+import ProductDetailPage from "./pages/ProductDetail";
 import TeaQuizPage from "./pages/TeaQuiz";
 import RefundPolicy from "./pages/RefundPolicy";
 import EcpayResult from "./pages/EcpayResult";
@@ -31,6 +32,7 @@ function Router() {
       <Route path={"/checkout"} component={Checkout} />
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/products"} component={ProductsPage} />
+      <Route path={"/products/:id"} component={ProductDetailPage} />
       <Route path={"/tea-quiz"} component={TeaQuizPage} />
       <Route path={"/refund-policy"} component={RefundPolicy} />
       <Route path={"/checkout/result"} component={EcpayResult} />

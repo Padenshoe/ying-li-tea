@@ -18,14 +18,15 @@ const TEA_CUP_IMG    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041
 const TEA_CUP_IMG2   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03035_d872272f.jpg";
 
 // All prices in TWD
+// IDs aligned with Products.tsx to prevent duplicate cart items
 const products = [
-  { id: 1, nameKey: "product.teaBagGiftBox",  tagKey: "product.teaBagGiftBoxTag",  descKey: "product.teaBagGiftBoxDesc",  priceTWD: 980,  image: TEA_BAGS_IMG,   image2: TEA_BAGS_IMG2   },
-  { id: 2, nameKey: "product.alishan",         tagKey: "product.alishanTag",         descKey: "product.alishanDesc",         priceTWD: 1100, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
-  { id: 3, nameKey: "product.alishanRoasted",  tagKey: "product.alishanRoastedTag",  descKey: "product.alishanRoastedDesc",  priceTWD: 1400, image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
-  { id: 4, nameKey: "product.cuifeng",         tagKey: "product.cuifengTag",         descKey: "product.cuifengDesc",         priceTWD: 1300, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
-  { id: 5, nameKey: "product.lishan",          tagKey: "product.lishanTag",          descKey: "product.lishanDesc",          priceTWD: 950,  image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
-  { id: 6, nameKey: "product.fushoushan",      tagKey: "product.fushoushanTag",      descKey: "product.fushoushanDesc",      priceTWD: 1750, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
-  { id: 7, nameKey: "product.shanlinxi",       tagKey: "product.shanlinxiTag",       descKey: "product.shanlinxiDesc",       priceTWD: 400,  image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
+  { id: "TB01", nameKey: "product.teaBagGiftBox",  tagKey: "product.teaBagGiftBoxTag",  descKey: "product.teaBagGiftBoxDesc",  priceTWD: 980,  image: TEA_BAGS_IMG,   image2: TEA_BAGS_IMG2   },
+  { id: "A01",  nameKey: "product.alishan",         tagKey: "product.alishanTag",         descKey: "product.alishanDesc",         priceTWD: 1100, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
+  { id: "A02",  nameKey: "product.alishanRoasted",  tagKey: "product.alishanRoastedTag",  descKey: "product.alishanRoastedDesc",  priceTWD: 1400, image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
+  { id: "C01",  nameKey: "product.cuifeng",         tagKey: "product.cuifengTag",         descKey: "product.cuifengDesc",         priceTWD: 1300, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
+  { id: "L03",  nameKey: "product.lishan",          tagKey: "product.lishanTag",          descKey: "product.lishanDesc",          priceTWD: 950,  image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
+  { id: "D02",  nameKey: "product.fushoushan",      tagKey: "product.fushoushanTag",      descKey: "product.fushoushanDesc",      priceTWD: 1750, image: TEA_LEAVES_IMG,  image2: TEA_LEAVES_IMG2 },
+  { id: "S01",  nameKey: "product.shanlinxi",       tagKey: "product.shanlinxiTag",       descKey: "product.shanlinxiDesc",       priceTWD: 400,  image: TEA_CUP_IMG,    image2: TEA_CUP_IMG2    },
 ];
 
 export default function ProductsSection() {
