@@ -177,7 +177,7 @@ export const orderRouter = router({
       ${hasGifts ? `<div style="margin-top:16px;padding:12px;background:#f0f9f4;border-radius:8px;border:1px solid #b8ddc8;"><p style="font-size:13px;color:#4a7c59;margin:0 0 6px;font-weight:600;">🎁 贈品明細：</p>${giftItems.map((g) => `<p style="font-size:13px;color:#4a7c59;margin:2px 0;">• ${g}</p>`).join("")}</div>` : ""}
     </div>
     <div style="background:#f5f0e8;padding:16px 32px;text-align:center;">
-      <p style="font-size:12px;color:#8a7560;margin:0;">請盡快確認並安排出貨，預計三到五個工作日到貨。</p>
+      <p style="font-size:12px;color:#8a7560;margin:0;">請盡快確認並安排出貨，預計1至3個工作日到貨。</p>
     </div>
   </div>
 </body>
@@ -195,7 +195,7 @@ export const orderRouter = router({
       <p style="color:#c8b89a;margin:8px 0 0;font-size:13px;">訂單編號 #${orderId}｜${orderTime}</p>
     </div>
     <div style="padding:28px 32px;">
-      <p style="font-size:15px;color:#2d2416;margin:0 0 24px;">親愛的 ${input.fullName} ${genderLabel}，您好！<br><br>感謝您向迎利茶葉訂購，我們已收到您的訂單，<strong>預計三到五個工作日到貨</strong>。</p>
+      <p style="font-size:15px;color:#2d2416;margin:0 0 24px;">親愛的 ${input.fullName} ${genderLabel}，您好！<br><br>感謝您向迎利茶葉訂購，我們已收到您的訂單，<strong>預計1至3個工作日到貨</strong>。</p>
 
       <h2 style="font-size:14px;color:#6b5a3e;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid #e8e0d4;padding-bottom:10px;">配送方式</h2>
       <p style="font-size:14px;color:#2d2416;margin:0 0 4px;"><strong>${deliveryLabel}</strong></p>
@@ -256,7 +256,7 @@ export const orderRouter = router({
               to: [input.email],
               subject: `【迎利茶葉】訂單確認通知 #${orderId}`,
               html: customerEmailHtml,
-              text: `親愛的 ${input.fullName} ${genderLabel}，您好！\n\n感謝您向迎利茶葉訂購，我們已收到您的訂單，預計三到五個工作日到貨。\n\n訂單編號：#${orderId}\n${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）\n\n如有問題請聯絡：yinglitea@yinglitea.com\n\n迎利茶葉 敬上`,
+              text: `親愛的 ${input.fullName} ${genderLabel}，您好！\n\n感謝您向迎利茶葉訂購，我們已收到您的訂單，預計1至3個工作日到貨。\n\n訂單編號：#${orderId}\n${deliveryLabel}\n${deliveryDetail}\n${input.note ? "備註：" + input.note + "\n" : ""}\n訂購商品：\n${itemLinesText}\n\n小計：NT$${subtotal.toFixed(0)}\n運費：${shippingLabel}\n總計：NT$${input.totalAmount.toFixed(0)}（貨到付款）\n\n如有問題請聯絡：yinglitea@yinglitea.com\n\n迎利茶葉 敬上`,
             });
             if (customerResult.error) {
               console.warn("[Order] Customer email failed:", customerResult.error);

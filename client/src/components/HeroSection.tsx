@@ -11,7 +11,7 @@ const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC
 const LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/logo-with-text_660e5e0b.png";
 
 export default function HeroSection() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [, navigate] = useLocation();
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
@@ -67,7 +67,15 @@ export default function HeroSection() {
             animation: "fadeInUp 0.9s ease-out 0.5s forwards",
           }}
         >
-          {t("hero.tagline")}
+          {language === "zh" ? (
+            <>
+              三十年只做一件事：讓你喝得到、
+              <br />
+              也查得到的台灣茶。
+            </>
+          ) : (
+            t("hero.tagline")
+          )}
         </p>
 
         {/* Divider */}

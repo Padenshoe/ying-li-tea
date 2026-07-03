@@ -162,32 +162,6 @@ export default function Cart() {
                           </button>
                         </div>
                       </div>
-
-                      {/* Item Total & Remove */}
-                      <div className="text-right">
-                        <p
-                          className="font-['Lato'] font-600 mb-4"
-                          style={{ color: "oklch(0.380 0.070 145)" }}
-                        >
-                          {formatPrice(convertPrice(item.price * item.quantity))}
-                        </p>
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="text-sm px-3 py-1 rounded transition-colors"
-                          style={{
-                            background: "oklch(0.577 0.245 27.325 / 0.1)",
-                            color: "oklch(0.577 0.245 27.325)",
-                          }}
-                          onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLElement).style.background = "oklch(0.577 0.245 27.325 / 0.2)";
-                          }}
-                          onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLElement).style.background = "oklch(0.577 0.245 27.325 / 0.1)";
-                          }}
-                        >
-                          {language === "en" ? "Remove" : "移除"}
-                        </button>
-                      </div>
                     </div>
                   ))}
                 </div>

@@ -127,7 +127,7 @@ export default function OrderConfirmation() {
               className="font-['Lato'] font-300 leading-relaxed mb-2"
               style={{ fontSize: "1rem", color: "oklch(0.520 0.020 60)" }}
             >
-              感謝您的訂購，我們已收到您的訂單，預計三到五個工作日到貨。
+              感謝您的訂購，我們已收到您的訂單，預計1至3個工作日到貨。
             </p>
             <p
               className="font-['Lato'] font-600"
@@ -335,7 +335,7 @@ export default function OrderConfirmation() {
               className="font-['Lato'] font-400 text-sm leading-relaxed mb-4"
               style={{ color: "oklch(0.520 0.020 60)" }}
             >
-              我們已收到您的訂單，預計三到五個工作日到貨。如有任何問題，歡迎直接聯絡我們：
+              我們已收到您的訂單，預計1至3個工作日到貨。如有任何問題，歡迎直接聯絡我們：
             </p>
             <p
               className="font-['Lato'] font-400 text-sm"

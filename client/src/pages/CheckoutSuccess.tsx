@@ -188,8 +188,8 @@ export default function CheckoutSuccess() {
             </li>
             <li>
               • {language === "en"
-                ? "Your order will be processed and shipped within 3-5 business days"
-                : "您的訂單將在3-5個工作日內處理並發貨"}
+                ? "Your order will be processed and shipped within 1-3 business days"
+                : "您的訂單將在1至3個工作日內處理並發貨"}
             </li>
             <li>
               • {language === "en"

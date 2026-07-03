@@ -126,7 +126,7 @@ export default function EcpayResult() {
 
             <div className="px-8 py-6">
               <p className="font-['Lato'] font-300 text-sm mb-6" style={{ color: "oklch(0.520 0.020 60)" }}>
-                感謝您的訂購！我們已收到您的付款，<strong>預計三到五個工作日到貨</strong>。
+                感謝您的訂購！我們已收到您的付款，<strong>預計1至3個工作日到貨</strong>。
                 {cartData?.fullName && ` 確認通知將發送至您填寫的 Email。`}
               </p>
 
