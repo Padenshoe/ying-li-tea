@@ -3,7 +3,7 @@
  * Route: /products/:id
  * Provides individual product landing pages for SEO and Google Shopping.
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
@@ -284,6 +284,26 @@ export default function ProductDetailPage() {
   const [added, setAdded] = useState(false);
 
   const product = PRODUCTS.find((p) => p.id === id);
+
+  // SEO: dynamically update page title and meta description
+  useEffect(() => {
+    if (!product) return;
+    const prevTitle = document.title;
+    document.title = `${product.name} — 迎利茶葉 Ying-Li Tea`;
+    // Update or create meta description
+    let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    const prevDesc = metaDesc?.content ?? "";
+    if (!metaDesc) {
+      metaDesc = document.createElement("meta");
+      metaDesc.name = "description";
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = `${product.name}，${product.description.slice(0, 80)}。迎利茶葉 — 台灣高山茶專賣，三十年茶農背景，產銷履歷保證。`;
+    return () => {
+      document.title = prevTitle;
+      if (metaDesc) metaDesc.content = prevDesc;
+    };
+  }, [product]);
 
   if (!product) {
     return (
