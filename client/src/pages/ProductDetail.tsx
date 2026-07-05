@@ -247,7 +247,7 @@ const PRODUCTS: ProductDetail[] = [
     notes: ["南投縣仁愛鄉農會比賽茶 頭等獎，政府標章認證", "QRcode 可追溯產地，75g × 2 共四兩精緻包裝", "台灣高山茶王等級，花香清雅、回甘悠長"],
   },
   {
-    id: "CT03", name: "和平區梨山茶王三星獎", season: "比賽茶", weight: "150g（四兩）", price: 2500,
+    id: "CT03", name: "和平區梨山茶王三星獎", season: "比賽茶", weight: "150g × 2入（共半斤）", price: 2500,
     images: [IMG.contestHeping3], nameKey: "product.contest.heping.3star",
     description: "2025 梨山茶品評鑑定比賽三星獎，台中市和平區農會認證，產自和平區海拔 2,000 公尺以上產區。QRcode 可追溯產地，梨山茶王等級，蜜香花香交織，回甘持久。",
     origin: "台中和平區", altitude: "2,000 公尺以上", process: "輕發酵・不烘焙",

@@ -382,8 +382,8 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "CT03", code: "CT03", name: "和平區梨山茶王三星獎", season: "比賽茶",
-    weight: "150g（四兩）", price: 2500,
+    id: "CT03", code: "CT03", name: "和平區梨山茶王三星獎", season: "比賽茶", featured: true,
+    weight: "150g × 2入（共半斤）", price: 2500,
     images: [IMG.contestHeping3],
     nameKey: "product.contest.heping.3star",
     origin: "台中和平區", altitude: "2,000 公尺以上",
