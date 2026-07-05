@@ -39,7 +39,10 @@ const IMG = {
   lishanTieguanyin: CDN + "LINE_ALBUM_2026630_260630_14_e426b16d.jpg",
   lishanBlackTea:  CDN + "LINE_ALBUM_2026630_260630_10_ef1143ed.jpg",
   lishanPremiumBlack: CDN + "LINE_ALBUM_2026630_260630_31_4f005544.jpg",
-  shuixianBlackTea: CDN + "LINE_ALBUM_2026630_260630_32_0b68775e.jpg",
+  shuixianBlackTea: CDN + "LINE_ALBUM_2026630_260630_32_0b68755e.jpg",
+  contestLishanTop: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-lishan-top_a9b95b8b.webp",
+  contestRenaiTop:  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-renai-top_e4843144.webp",
+  contestHeping3:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-heping-3star_d5b058e0.webp",
 };
 
 interface ProductDetail {
@@ -222,11 +225,33 @@ const PRODUCTS: ProductDetail[] = [
     notes: ["頂級梨山紅茶，順口尾韻豐富", "紅茶香氣清雅，口感滑順回甘持久", "75g 鐵罐裝，適合進階茶友與送禮首選"],
   },
   {
-    id: "SXT01", name: "水仙紅茶", season: "紅茶", weight: "100g", price: 600,
+  id: "SXT01", name: "水仙紅茶", season: "紅茶", weight: "100g", price: 600,
     images: [IMG.shuixianBlackTea], nameKey: "product.shuixian.blacktea",
     description: "使用水仙茶種製作的紅茶，風味獨特，清香順口，溫和花香中帶清甘尾韻，100g 裝，適合日常品飲與初學茶友。",
     origin: "台灣", altitude: "高山茶區", process: "全發酵・水仙品種",
-    notes: ["使用水仙茶種製作的紅茶，風味獨特", "清香順口，温和花香中帶清甘尾韻", "100g 裝，適合日常品飲與初學茶友"],
+    notes: ["使用水仙茶種製作的紅茶，風味獨特", "清香順口，溫和花香中帶清甘尾韻", "100g 裝，適合日常品飲與初學茶友"],
+  },
+  // ── 農會認證比賽茶 ──────────────────────────────────────────────────────────
+  {
+    id: "CT01", name: "梨山茶王頭等獎禮盒", season: "比賽茶", weight: "150g × 2入（木質禮盒）", price: 10000,
+    images: [IMG.contestLishanTop], nameKey: "product.contest.lishan.top",
+    description: "2025 梨山茶品評鑑定比賽頭等獎，產自台灣最高海拔等級的和平區產區，海拔 2,000 公尺以上。政府標章認證，QRcode 可追溯產地。木質禮盒精製，150g × 2入，是珍藏送禮的極品首選。",
+    origin: "台中和平區", altitude: "2,000 公尺以上", process: "輕發酵・不烘焙",
+    notes: ["2025 梨山茶品評鑑定比賽 頭等獎，政府標章認證", "台灣最高海拔等級和平區產區，木質禮盒精製", "QRcode 可追溯產地，150g × 2入，適合珍藏送禮"],
+  },
+  {
+    id: "CT02", name: "仁愛鄉農會高山茶王頭等獎", season: "比賽茶", weight: "75g × 2（共四兩）", price: 3000,
+    images: [IMG.contestRenaiTop], nameKey: "product.contest.renai.top",
+    description: "南投縣仁愛鄉農會比賽茶頭等獎，產自海拔 1,800 公尺的翠峰高山茶區。政府標章認證，QRcode 可追溯產地。75g × 2 共四兩精緻包裝，花香清雅、回甘悠長。",
+    origin: "南投仁愛鄉", altitude: "1,800 公尺", process: "輕發酵・不烘焙",
+    notes: ["南投縣仁愛鄉農會比賽茶 頭等獎，政府標章認證", "QRcode 可追溯產地，75g × 2 共四兩精緻包裝", "台灣高山茶王等級，花香清雅、回甘悠長"],
+  },
+  {
+    id: "CT03", name: "和平區梨山茶王三星獎", season: "比賽茶", weight: "150g（四兩）", price: 2500,
+    images: [IMG.contestHeping3], nameKey: "product.contest.heping.3star",
+    description: "2025 梨山茶品評鑑定比賽三星獎，台中市和平區農會認證，產自和平區海拔 2,000 公尺以上產區。QRcode 可追溯產地，梨山茶王等級，蜜香花香交織，回甘持久。",
+    origin: "台中和平區", altitude: "2,000 公尺以上", process: "輕發酵・不烘焙",
+    notes: ["2025 梨山茶品評鑑定比賽 三星獎，政府標章認證", "台中市和平區農會認證，QRcode 可追溯產地", "梨山茶王等級，蜜香花香交織，回甘持久"],
   },
 ];
 

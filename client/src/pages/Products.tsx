@@ -27,6 +27,9 @@ const IMG = {
   giftbox1:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03096_014aba20.webp",
   giftbox2:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03098_15431a66.webp",
   giftbox3:      "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/DSC03099_f9b61c50.webp",
+  contestLishanTop: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-lishan-top_a9b95b8b.webp",
+  contestRenaiTop:  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-renai-top_e4843144.webp",
+  contestHeping3:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-heping-3star_d5b058e0.webp",
   giftboxYuBao:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_2_0af89783.jpg",
   giftboxJingXuan: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_4_a7f90a5c.jpg",
   giftboxCaiYun:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_21_b89c77e9.jpg",
@@ -42,7 +45,8 @@ interface Product {
   id: string;
   code: string;
   name: string;
-  season: "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶";
+  season: "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶" | "比賽茶";
+  awardBadge?: string;  // 得獎標章文字，如「頭等獎」
   featured?: boolean;
   weight: string;
   price: number;
@@ -350,6 +354,46 @@ const PRODUCTS: Product[] = [
       "75g 鐵罐裝，適合進階茶友與送禮首選",
     ],
   },
+  // ── 農會認證比賽茶 ──────────────────────────────────────────────────────────
+  {
+    id: "CT01", code: "CT01", name: "梨山茶王頭等獎禮盒", season: "比賽茶", featured: true,
+    weight: "150g × 2入（木質禮盒）", price: 10000,
+    images: [IMG.contestLishanTop],
+    nameKey: "product.contest.lishan.top",
+    origin: "台中和平區", altitude: "2,000 公尺以上",
+    awardBadge: "頭等獎",
+    notes: [
+      "2025 梨山茶品評鑑定比賽 頭等獎，政府標章認證",
+      "台灣最高海拔等級和平區產區，木質禮盒精裝",
+      "QRcode 可追溯產地，150g × 2入，適合珍藏送禮",
+    ],
+  },
+  {
+    id: "CT02", code: "CT02", name: "仁愛鄉農會高山茶王頭等獎", season: "比賽茶", featured: true,
+    weight: "75g × 2（共四兩）", price: 3000,
+    images: [IMG.contestRenaiTop],
+    nameKey: "product.contest.renai.top",
+    origin: "南投仁愛鄉", altitude: "1,800 公尺",
+    awardBadge: "頭等獎",
+    notes: [
+      "南投縣仁愛鄉農會比賽茶 頭等獎，政府標章認證",
+      "QRcode 可追溯產地，75g × 2 共四兩精緻包裝",
+      "台灣高山茶王等級，花香清雅、回甘悠長",
+    ],
+  },
+  {
+    id: "CT03", code: "CT03", name: "和平區梨山茶王三星獎", season: "比賽茶",
+    weight: "150g（四兩）", price: 2500,
+    images: [IMG.contestHeping3],
+    nameKey: "product.contest.heping.3star",
+    origin: "台中和平區", altitude: "2,000 公尺以上",
+    awardBadge: "三星獎",
+    notes: [
+      "2025 梨山茶品評鑑定比賽 三星獎，政府標章認證",
+      "台中市和平區農會認證，QRcode 可追溯產地",
+      "梨山茶王等級，蜜香花香交織，回甘持久",
+    ],
+  },
   // 水仙紅茶
   {
     id: "SXT01", code: "SXT01", name: "水仙紅茶", season: "紅茶",
@@ -374,6 +418,7 @@ const SEASON_COLORS: Record<string, string> = {
   禮盒:  "bg-rose-100 text-rose-800 border-rose-200",
   紅茶:  "bg-red-100 text-red-800 border-red-200",
   烏龍紅茶: "bg-orange-100 text-orange-800 border-orange-200",
+  比賽茶: "bg-yellow-50 text-yellow-900 border-yellow-400",
 };
 
 // ── Image Gallery sub-component ──────────────────────────────────────────────
@@ -482,6 +527,16 @@ function ProductCard({ product }: { product: Product }) {
             {product.code}
           </span>
         </div>
+        {/* Award badge ribbon for contest teas */}
+        {product.awardBadge && (
+          <div className="absolute bottom-3 left-0 z-20">
+            <div className="flex items-center gap-1 bg-gradient-to-r from-yellow-600 to-amber-500 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1 shadow-md" style={{ borderRadius: "0 4px 4px 0" }}>
+              <span>🏆</span>
+              <span>{product.awardBadge}</span>
+              <span className="text-yellow-200 font-normal">· 農會認證</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Product info */}
@@ -573,7 +628,7 @@ function ProductCard({ product }: { product: Product }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [filter, setFilter] = useState<"全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶">("全部");
+  const [filter, setFilter] = useState<"全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶" | "比賽茶">("全部");
   const productRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Scroll to top on page mount
@@ -589,7 +644,7 @@ export default function ProductsPage() {
     const target = PRODUCTS.find((p) => p.id === focusId);
     if (!target) return;
     // Switch filter to show the target product
-    setFilter(target.season as "全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶");
+    setFilter(target.season as "全部" | "推薦" | "春茶" | "冬茶" | "烘焙茶" | "金萱茶" | "茶包" | "禮盒" | "紅茶" | "烏龍紅茶" | "比賽茶");
     // Use double rAF to ensure DOM has fully rendered after state update
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -618,7 +673,7 @@ export default function ProductsPage() {
 
       {/* Filter tabs */}
       <div className="flex justify-center gap-2 px-4 mb-10 flex-wrap">
-        {(["全部", "推薦", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包", "紅茶", "烏龍紅茶", "禮盒"] as const).map((tab) => (
+        {(["全部", "推薦", "比賽茶", "春茶", "冬茶", "烘焙茶", "金萱茶", "茶包", "紅茶", "烏龍紅茶", "禮盒"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setFilter(tab)}
