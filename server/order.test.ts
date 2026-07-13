@@ -65,7 +65,7 @@ describe("order.submitOrder validation", () => {
 // ── Email body builder ────────────────────────────────────────────────────────
 
 function buildEmailBody(input: typeof baseInput, orderId: number) {
-  const genderLabel = input.gender === "male" ? "先生" : input.gender === "female" ? "女士" : "其他";
+  const genderLabel = input.gender === "male" ? "先生" : input.gender === "female" ? "小姐" : "其他";
   const deliveryLabel = input.deliveryMethod === "home" ? "宅配（貨到付款）" : "7-11 店到店（貨到付款）";
   const itemLines = input.items
     .map((item) => `  • ${item.name} × ${item.quantity}  NT$${(item.price * item.quantity).toFixed(0)}`)
@@ -104,7 +104,7 @@ describe("buildEmailBody", () => {
 
   it("uses female label for female gender", () => {
     const body = buildEmailBody({ ...baseInput, gender: "female" }, 1);
-    expect(body).toContain("女士");
+    expect(body).toContain("小姐");
   });
 
   it("uses 7-11 label for 711 delivery method", () => {

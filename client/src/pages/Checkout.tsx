@@ -54,6 +54,8 @@ const SHIPPING_FEE = 130;
 
 export default function Checkout() {
   const { items, total, clearCart } = useCart();
+  // Contest teas (CT prefix) come with their own box — hide the jar/box option
+  const isAllContestTea = items.length > 0 && items.every((item) => item.id?.startsWith("CT"));
   const { t } = useLanguage();
   const { formatPrice, convertPrice } = useCurrency();
   const [, navigate] = useLocation();
@@ -477,7 +479,8 @@ export default function Checkout() {
                     />
                   </div>
 
-                  {/* Jar / box option (optional) */}
+                  {/* Jar / box option — hidden for contest teas (they include their own box) */}
+                  {!isAllContestTea && (
                   <div className="mb-4">
                     <label className={labelBase} style={{ color: accentGreen }}>
                       是否需要罐子或紙盒（選填）
@@ -504,6 +507,7 @@ export default function Checkout() {
                       ))}
                     </div>
                   </div>
+                  )}
 
                   {/* Promo Code (optional) */}
                   <div>

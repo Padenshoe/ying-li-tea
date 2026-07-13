@@ -480,7 +480,7 @@ function ImageGallery({ images, name }: { images: string[]; name: string }) {
                   i === active ? "border-white" : "border-transparent opacity-70 hover:opacity-100"
                 }`}
               >
-                <img src={img} alt="" className="w-full h-full object-cover" />
+                <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </button>
             ))}
           </div>

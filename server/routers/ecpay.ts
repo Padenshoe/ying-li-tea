@@ -292,7 +292,7 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
 
       if (rows.length) {
         const order = rows[0];
-        const genderLabel = order.gender === "male" ? "先生" : "女士";
+        const genderLabel = order.gender === "male" ? "先生" : "小姐";
         const deliveryLabel = order.deliveryMethod === "home" ? "宅配" : "7-11 店到店";
         const deliveryDetail =
           order.deliveryMethod === "home"

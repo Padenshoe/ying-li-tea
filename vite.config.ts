@@ -168,6 +168,21 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    // Chunk splitting for better caching and faster initial load
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React core — rarely changes, long-term cache
+          "vendor-react": ["react", "react-dom"],
+          // UI library
+          "vendor-ui": ["@radix-ui/react-dialog", "@radix-ui/react-tooltip", "@radix-ui/react-select"],
+          // Routing
+          "vendor-router": ["wouter"],
+          // tRPC + React Query
+          "vendor-trpc": ["@trpc/client", "@trpc/react-query", "@tanstack/react-query"],
+        },
+      },
+    },
   },
   server: {
     host: true,

@@ -21,7 +21,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.shopNow": "SHOP NOW",
 
     // Hero Section
-    "hero.title": "Ying-Li Tea — Taiwan's Finest Tea Shop",
+    "hero.title": "Ying-Li Tea — High Mountain Tea Specialist",
     "hero.tagline": "30 Years of Tea Expertise — Est. 1994, Taiwan Oolong Specialists",
     "hero.intro": "From Alishan to Dayuling, 1,000 to 2,800 metres elevation — we source oolong from Taiwan's six premier growing regions. Transparent pricing, quality guaranteed. Walk in anytime for a free tasting.",
     "hero.shopNow": "Shop Now",
@@ -223,7 +223,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.shopNow": "立即購買",
 
     // Hero Section
-    "hero.title": "迎利茶葉 — 台灣茶專賣店",
+    "hero.title": "迎利茶葉 — 高山茶專門店",
     "hero.tagline": "三十年只做一件事：讓你喝得到、也查得到的台灣茶。",
     "hero.intro": "從阿里山到大禹嶺，海拔 1,000 到 2,800 公尺，精選台灣六大產區高山茶。透明定價，品質保證，歡迎來店試喝。",
     "hero.shopNow": "立即購買",

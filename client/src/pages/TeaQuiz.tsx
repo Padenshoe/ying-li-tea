@@ -275,7 +275,7 @@ export default function TeaQuizPage() {
                   className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden"
                   style={{ background: "oklch(0.960 0.012 145)" }}
                 >
-                  <img src={LOGO} alt="迎利茶葉" className="w-full h-full object-cover" />
+                  <img src={LOGO} alt="迎利茶葉" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
               </div>
 
@@ -399,7 +399,7 @@ export default function TeaQuizPage() {
                   <div className="space-y-2 mb-6">
                     {result.notes.map((note, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <img src={LOGO} alt="" className="w-3.5 h-3.5 mt-0.5 shrink-0 rounded-full object-cover" />
+                        <img src={LOGO} alt="" className="w-3.5 h-3.5 mt-0.5 shrink-0 rounded-full object-cover" loading="lazy" decoding="async" />
                         <p className="text-xs text-stone-500 leading-relaxed">{note}</p>
                       </div>
                     ))}
