@@ -137,7 +137,7 @@ const PRODUCTS: Product[] = [
   },
   // 梨山
   {
-    id: "L03", code: "L03", name: "精致梨山春茶", season: "春茶", featured: true,
+    id: "L03", code: "L03", name: "精緻梨山春茶", season: "春茶", featured: true,
     weight: "150g（四兩）", price: 950,
     images: [IMG.lishan, IMG.lishanExtra],
     nameKey: "product.lishan.spring",
@@ -174,7 +174,7 @@ const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "D02", code: "D02", name: "精致福壽山冬茶", season: "冬茶", featured: true,
+    id: "D02", code: "D02", name: "精緻福壽山冬茶", season: "冬茶", featured: true,
     weight: "150g（四兩）", price: 1750,
     images: [IMG.fushoushan, IMG.fushoushanExtra],
     nameKey: "product.fushoushan.winter",
