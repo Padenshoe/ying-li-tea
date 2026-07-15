@@ -422,7 +422,7 @@ const SEASON_COLORS: Record<string, string> = {
 };
 
 // ── Image Gallery sub-component ──────────────────────────────────────────────
-function ImageGallery({ images, name }: { images: string[]; name: string }) {
+function ImageGallery({ images, name, priority = false }: { images: string[]; name: string; priority?: boolean }) {
   const [active, setActive] = useState(0);
 
   const prev = () => setActive((i) => (i - 1 + images.length) % images.length);
@@ -435,7 +435,9 @@ function ImageGallery({ images, name }: { images: string[]; name: string }) {
         src={images[active]}
         alt={`${name} - 照片 ${active + 1}`}
         className="w-full h-full object-cover transition-opacity duration-300"
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "low"}
+        decoding={priority ? "sync" : "async"}
       />
 
       {/* Prev / Next arrows — only shown when there are multiple images */}
@@ -491,7 +493,7 @@ function ImageGallery({ images, name }: { images: string[]; name: string }) {
 }
 
 // ── Product Card ──────────────────────────────────────────────────────────────
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const { addItem } = useCart();
   const { toast } = useToast();
   const [added, setAdded] = useState(false);
@@ -516,7 +518,7 @@ function ProductCard({ product }: { product: Product }) {
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-100 hover:shadow-md transition-shadow duration-300 flex flex-col">
       {/* Image gallery with season badge & code overlay */}
       <div className="relative cursor-pointer" onClick={() => navigate(`/products/${product.id}`)}>
-        <ImageGallery images={product.images} name={product.name} />
+        <ImageGallery images={product.images} name={product.name} priority={priority} />
         <div className="absolute top-3 left-3 z-20">
           <span className={`text-xs font-medium px-2.5 py-1 rounded-full border ${SEASON_COLORS[product.season]}`}>
             {product.season}
@@ -725,9 +727,13 @@ export default function ProductsPage() {
       {/* Product grid */}
       <div className="max-w-6xl mx-auto px-4 pb-20">
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-          {filtered.map((product) => (
-            <div key={product.id} ref={(el) => { productRefs.current[product.id] = el; }}>
-              <ProductCard product={product} />
+          {filtered.map((product, idx) => (
+            <div
+              key={product.id}
+              ref={(el) => { productRefs.current[product.id] = el; }}
+              style={idx >= 8 ? { contentVisibility: 'auto', containIntrinsicSize: '0 360px' } : undefined}
+            >
+              <ProductCard product={product} priority={idx < 4} />
             </div>
           ))}
         </div>
