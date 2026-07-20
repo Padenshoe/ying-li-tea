@@ -9,6 +9,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { handleStripeWebhook } from "../stripeWebhook";
 import { handleEcpayReturn } from "../routers/ecpay";
+import { handleLocalInventoryFeed } from "../localInventoryFeed";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -35,6 +36,9 @@ async function startServer() {
   // CRITICAL: Stripe webhook MUST be registered with express.raw() BEFORE express.json()
   // so the raw body is available for signature verification
   app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
+
+  // Google Merchant Center — Local Inventory Feed (auto-fetched daily)
+  app.get("/yingli_local_inventory_feed.csv", handleLocalInventoryFeed);
 
   // ECPay ReturnURL — server-side payment result callback
   // ECPay POSTs form data here; must respond with "1|OK"
