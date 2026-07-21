@@ -56,6 +56,8 @@ export default function Checkout() {
   const { items, total, clearCart } = useCart();
   // Contest teas (CT prefix) come with their own box — hide the jar/box option
   const isAllContestTea = items.length > 0 && items.every((item) => item.id?.startsWith("CT"));
+  // Gift boxes (GB prefix) already include packaging — auto-set needsJar to 'no' and hide the option
+  const isAllGiftBox = items.length > 0 && items.every((item) => item.id?.startsWith("GB"));
   const { t } = useLanguage();
   const { formatPrice, convertPrice } = useCurrency();
   const [, navigate] = useLocation();
@@ -67,7 +69,8 @@ export default function Checkout() {
     phone: "",
     email: "",
     taxId: "",
-    needsJar: "",
+    // If all items are gift boxes, auto-select 'no' for jar/box
+    needsJar: items.length > 0 && items.every((item) => item.id?.startsWith("GB")) ? "no" : "",
     deliveryMethod: "",
     address: "",
     storeCode: "",
@@ -479,8 +482,8 @@ export default function Checkout() {
                     />
                   </div>
 
-                  {/* Jar / box option — hidden for contest teas (they include their own box) */}
-                  {!isAllContestTea && (
+                  {/* Jar / box option — hidden for contest teas and gift boxes (they include their own packaging) */}
+                  {!isAllContestTea && !isAllGiftBox && (
                   <div className="mb-4">
                     <label className={labelBase} style={{ color: accentGreen }}>
                       是否需要罐子或紙盒（選填）

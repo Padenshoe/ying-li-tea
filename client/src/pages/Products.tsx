@@ -232,32 +232,32 @@ const PRODUCTS: Product[] = [
   // 禮盒系列
   {
     id: "GB01", code: "GB01", name: "精選茶葉禮盒（半斤裝）", season: "禮盒",
-    weight: "300g（半斤）", price: 800,
+    weight: "300g（半斤）", price: 1580,
     images: [IMG.giftbox1],
     nameKey: "product.giftbox.half",
     teaOptions: [
-      { label: "台灣高山烏龍茶", price: 800 },
-      { label: "翠峰烏龍茶", price: 1580 },
-      { label: "梨山新佳陽烏龍茶", price: 2100 },
+      { label: "阿里山春茶", price: 1580 },
+      { label: "梨山新佳陽春茶", price: 2380 },
+      { label: "福壽山春茶", price: 3980 },
     ],
     notes: [
-      "精選台灣高山烏龍茶，典雅禮盒包裝",
+      "精選台灣高山春茶，典雅禮盒包裝",
       "半斤裝，適合送禮自用兩相宜",
       "如需客製不同茶葉，請另外私訊或在結帳備註說明",
     ],
   },
   {
     id: "GB02", code: "GB02", name: "拾遇茶葉禮盒（半斤裝）", season: "禮盒",
-    weight: "300g（半斤）", price: 1300,
+    weight: "300g（半斤）", price: 1580,
     images: [IMG.giftbox2],
     nameKey: "product.giftbox.shiyou",
     teaOptions: [
-      { label: "阿里山春茶", price: 1300 },
-      { label: "梨山新佳陽春茶", price: 2200 },
+      { label: "阿里山春茶", price: 1580 },
+      { label: "梨山新佳陽春茶", price: 2380 },
       { label: "福壽山春茶", price: 3980 },
     ],
     notes: [
-      "拾遇系列，質感鐵罐搜配精致外盒",
+      "拾遇系列，質感鐵罐搭配精緻外盒",
       "半斤裝雙罐組，送禮首選",
       "如需客製不同茶葉，請另外私訊或在結帳備註說明",
     ],
@@ -297,13 +297,13 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "GB05", code: "GB05", name: "精選茗茶禮盒", season: "禮盒",
-    weight: "300g（半斤）", price: 1300,
+    weight: "300g（半斤）", price: 800,
     images: [IMG.giftboxJingXuan],
     nameKey: "product.giftbox.jingxuan",
     teaOptions: [
-      { label: "阿里山春茶", price: 1300 },
-      { label: "梨山新佳陽春茶", price: 2200 },
-      { label: "福壽山春茶", price: 3980 },
+      { label: "台灣高山烏龍茶", price: 800 },
+      { label: "翠峰烏龍茶", price: 1580 },
+      { label: "梨山新佳陽烏龍茶", price: 2100 },
     ],
     notes: [
       "青花瓷風格鐵罐，典雅精致",
