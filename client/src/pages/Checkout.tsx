@@ -802,9 +802,10 @@ export default function Checkout() {
                   {/* Items */}
                   <div className="px-6 py-4 flex flex-col gap-3">
                     {items.map((item) => {
-                      const displayName = item.nameKey ? t(item.nameKey) : item.name;
+                      const baseName = item.nameKey ? t(item.nameKey) : item.name;
+                      const displayName = item.teaChoice ? `${baseName}（${item.teaChoice}）` : baseName;
                       return (
-                        <div key={item.id} className="flex items-center justify-between gap-3">
+                        <div key={item.cartKey} className="flex items-center justify-between gap-3">
                           <div className="flex items-center gap-2 min-w-0">
                             <span
                               className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-['Lato'] font-600 flex-shrink-0"

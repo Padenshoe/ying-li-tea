@@ -77,6 +77,7 @@ export default function ProductsSection() {
   const handleAddToCart = (product: typeof products[0]) => {
     addItem({
       id: product.id.toString(),
+      cartKey: product.id.toString() + "::",
       name: t(product.nameKey),
       nameKey: product.nameKey,  // Store key for re-translation
       price: product.priceTWD,

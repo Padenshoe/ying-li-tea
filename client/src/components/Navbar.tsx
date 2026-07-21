@@ -209,7 +209,7 @@ export default function Navbar() {
                   <>
                     <div className="space-y-3 mb-4 max-h-72 overflow-y-auto">
                       {items.map((item) => (
-                        <div key={item.id} className="flex gap-3 items-start" style={{ borderBottom: "1px solid oklch(0.870 0.018 130)", paddingBottom: "0.75rem" }}>
+                        <div key={item.cartKey} className="flex gap-3 items-start" style={{ borderBottom: "1px solid oklch(0.870 0.018 130)", paddingBottom: "0.75rem" }}>
                           {item.image && (
                             <img
                               src={item.image}
@@ -219,7 +219,9 @@ export default function Navbar() {
                           )}
                           <div className="flex-1 min-w-0">
                             <p className="font-['Lato'] font-500 text-sm truncate" style={{ color: "oklch(0.265 0.015 55)" }}>
-                              {t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}
+                              {item.teaChoice
+                                ? `${t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}（${item.teaChoice}）`
+                                : t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}
                             </p>
                             <p className="font-['Lato'] text-xs" style={{ color: "oklch(0.552 0.016 285.938)" }}>
                               {formatPrice(convertPrice(item.price))} × {item.quantity}
@@ -229,7 +231,7 @@ export default function Navbar() {
                             </p>
                           </div>
                           <button
-                            onClick={() => removeItem(item.id)}
+                            onClick={() => removeItem(item.cartKey)}
                             className="text-xs px-2 py-1 rounded hover:bg-red-50 transition-colors flex-shrink-0"
                             style={{ color: "oklch(0.577 0.245 27.325)" }}
                           >

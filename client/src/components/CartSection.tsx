@@ -56,7 +56,7 @@ export default function CartSection() {
               <div className="space-y-4">
                 {items.map((item) => (
                   <div
-                    key={item.id}
+                    key={item.cartKey}
                     className="flex items-center justify-between p-4 border rounded"
                     style={{ borderColor: "oklch(0.870 0.018 130)" }}
                   >
@@ -65,7 +65,7 @@ export default function CartSection() {
                         className="font-['Lato'] font-500 mb-1"
                         style={{ color: "oklch(0.265 0.015 55)" }}
                       >
-                        {item.name}
+                        {item.teaChoice ? `${item.name}（${item.teaChoice}）` : item.name}
                       </h3>
                       <p
                         className="text-sm font-['Lato']"
@@ -78,7 +78,7 @@ export default function CartSection() {
                     {/* Quantity Controls */}
                     <div className="flex items-center gap-3 mx-4">
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() => updateQuantity(item.cartKey, item.quantity - 1)}
                         className="p-1 rounded hover:bg-gray-100 transition-colors"
                         aria-label="Decrease quantity"
                       >
@@ -91,7 +91,7 @@ export default function CartSection() {
                         {item.quantity}
                       </span>
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() => updateQuantity(item.cartKey, item.quantity + 1)}
                         className="p-1 rounded hover:bg-gray-100 transition-colors"
                         aria-label="Increase quantity"
                       >
@@ -111,7 +111,7 @@ export default function CartSection() {
 
                     {/* Remove Button */}
                     <button
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeItem(item.cartKey)}
                       className="ml-4 p-2 rounded hover:bg-red-50 transition-colors"
                       aria-label="Remove item"
                     >

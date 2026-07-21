@@ -236,6 +236,7 @@ export default function TeaQuizPage() {
     if (!result) return;
     addItem({
       id: result.id,
+      cartKey: result.id + "::",
       name: result.name,
       nameKey: result.nameKey,
       price: result.price,

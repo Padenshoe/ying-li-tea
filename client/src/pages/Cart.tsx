@@ -95,7 +95,7 @@ export default function Cart() {
                 <div className="space-y-6">
                   {items.map((item) => (
                     <div
-                      key={item.id}
+                      key={item.cartKey}
                       className="flex gap-4 pb-6"
                       style={{ borderBottom: "1px solid oklch(0.870 0.018 130)" }}
                     >
@@ -114,7 +114,9 @@ export default function Cart() {
                           className="font-['Lato'] font-600 mb-2"
                           style={{ color: "oklch(0.265 0.015 55)" }}
                         >
-                          {t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}
+                          {item.teaChoice
+                            ? `${t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}（${item.teaChoice}）`
+                            : t(item.nameKey ?? PRODUCT_NAME_KEYS[item.id] ?? item.name)}
                         </h3>
                         <p
                           className="font-['Lato'] text-sm mb-4"
@@ -126,7 +128,7 @@ export default function Cart() {
                         {/* Quantity Controls */}
                         <div className="flex items-center gap-3">
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.cartKey, item.quantity - 1)}
                             className="px-3 py-1 rounded border transition-colors"
                             style={{
                               borderColor: "oklch(0.870 0.018 130)",
@@ -145,7 +147,7 @@ export default function Cart() {
                             {item.quantity}
                           </span>
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.cartKey, item.quantity + 1)}
                             className="px-3 py-1 rounded border transition-colors"
                             style={{
                               borderColor: "oklch(0.870 0.018 130)",

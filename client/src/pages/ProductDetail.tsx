@@ -45,6 +45,11 @@ const IMG = {
   contestHeping3:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-heping-3star_d5b058e0.webp",
 };
 
+interface TeaOption {
+  label: string;  // 茶葉名稱
+  price: number;  // 此茶葉選項的價格
+}
+
 interface ProductDetail {
   id: string;
   name: string;
@@ -52,6 +57,7 @@ interface ProductDetail {
   weight: string;
   price: number;
   priceOnRequest?: boolean;
+  teaOptions?: TeaOption[];  // Tea selection options for gift boxes
   images: string[];
   notes: [string, string, string];
   nameKey: string;
@@ -155,40 +161,70 @@ const PRODUCTS: ProductDetail[] = [
     notes: ["一心二葉嚴選，純古法炭焙工藝", "日本進口棉紙茶包，耐熱保鮮充氮", "青心烏龍品種，茶湯清亮甘甜順口"],
   },
   {
-    id: "GB01", name: "精選茶葉禮盒（半斤裝）", season: "禮盒", weight: "300g（半斤）", price: 480,
+    id: "GB01", name: "精選茶葉禮盒（半斤裝）", season: "禮盒", weight: "300g（半斤）", price: 800,
     images: [IMG.giftbox1], nameKey: "product.giftbox.half",
-    description: "精選台灣高山茶，搭配典雅禮盒包裝，半斤裝，適合送禮自用兩相宜。可搭配不同茶款，歡迎來電詢問。",
-    notes: ["精選台灣高山茶，典雅禮盒包裝", "半斤裝，適合送禮自用兩相宜", "可搭配不同茶款，歡迎來電詢問"],
+    description: "精選台灣高山茶，搜配典雅禮盒包裝，半斤裝，適合送禮自用兩相宜。可從三種高山烏龍茶選擇，如需客製其他茶葉，請另外私訊或在結帳備註說明。",
+    notes: ["精選台灣高山烏龍茶，典雅禮盒包裝", "半斤裝，適合送禮自用兩相宜", "如需客製不同茶葉，請另外私訊或在結帳備註說明"],
+    teaOptions: [
+      { label: "台灣高山烏龍茶", price: 800 },
+      { label: "翠峰烏龍茶", price: 1580 },
+      { label: "梨山新佳陽烏龍茶", price: 2100 },
+    ],
   },
   {
-    id: "GB02", name: "拾遇茶葉禮盒（半斤裝）", season: "禮盒", weight: "300g（半斤）", price: 480,
+    id: "GB02", name: "拾遇茶葉禮盒（半斤裝）", season: "禮盒", weight: "300g（半斤）", price: 1300,
     images: [IMG.giftbox2], nameKey: "product.giftbox.shiyou",
-    description: "拾遇系列，質感鐵罐搭配精緻外盒，半斤裝雙罐組，送禮首選。可搭配不同茶款，歡迎來電詢問。",
-    notes: ["拾遇系列，質感鐵罐搭配精緻外盒", "半斤裝雙罐組，送禮首選", "可搭配不同茶款，歡迎來電詢問"],
+    description: "拾遇系列，質感鐵罐搜配精致外盒，半斤裝雙罐組，送禮首選。可從三種春茶選擇，如需客製其他茶葉，請另外私訊或在結帳備註說明。",
+    notes: ["拾遇系列，質感鐵罐搜配精致外盒", "半斤裝雙罐組，送禮首選", "如需客製不同茶葉，請另外私訊或在結帳備註說明"],
+    teaOptions: [
+      { label: "阿里山春茶", price: 1300 },
+      { label: "梨山新佳陽春茶", price: 2200 },
+      { label: "福壽山春茶", price: 3980 },
+    ],
   },
   {
-    id: "GB03", name: "圓善茶葉禮盒（一斤裝）", season: "禮盒", weight: "600g（一斤）", price: 480,
+    id: "GB03", name: "圓善茶葉禮盒（一斤裝）", season: "禮盒", weight: "600g（一斤）", price: 2680,
     images: [IMG.giftbox3], nameKey: "product.giftbox.full",
-    description: "圓善系列，牛皮紙質感外盒四罐組，一斤裝大份量，適合節慶送禮。可搭配不同茶款，歡迎來電詢問。",
-    notes: ["圓善系列，牛皮紙質感外盒四罐組", "一斤裝大份量，適合節慶送禮", "可搭配不同茶款，歡迎來電詢問"],
+    description: "圓善系列，牛皮紙質感外盒四罐組，一斤裝大份量，適合節慶送禮。可從三種春茶選擇，如需客製其他茶葉，請另外私訊或在結帳備註說明。",
+    notes: ["圓善系列，牛皮紙質感外盒四罐組", "一斤裝大份量，適合節慶送禮", "如需客製不同茶葉，請另外私訊或在結帳備註說明"],
+    teaOptions: [
+      { label: "阿里山春茶", price: 2680 },
+      { label: "梨山新佳陽春茶", price: 4280 },
+      { label: "福壽山春茶", price: 7480 },
+    ],
   },
   {
-    id: "GB04", name: "台灣御寶禮盒", season: "禮盒", weight: "300g（半斤）", price: 220,
+    id: "GB04", name: "台灣御寶禮盒", season: "禮盒", weight: "300g（半斤）", price: 800,
     images: [IMG.giftboxYuBao], nameKey: "product.giftbox.yubao",
-    description: "紅黑金配色，氣派典雅的高山茶禮盒，半斤裝雙罐組，節慶送禮首選。可搭配不同茶款，歡迎來電詢問。",
-    notes: ["紅黑金配色，氣派典雅的高山茶禮盒", "半斤裝雙罐組，節慶送禮首選", "可搭配不同茶款，歡迎來電詢問"],
+    description: "紅黑金配色，氣派典雅的高山茶禮盒，半斤裝雙罐組，節慶送禮首選。可從三種高山烏龍茶選擇，如需客製其他茶葉，請另外私訊或在結帳備註說明。",
+    notes: ["紅黑金配色，氣派典雅的高山茶禮盒", "半斤裝雙罐組，節慶送禮首選", "如需客製不同茶葉，請另外私訊或在結帳備註說明"],
+    teaOptions: [
+      { label: "台灣高山烏龍茶", price: 800 },
+      { label: "翠峰烏龍茶", price: 1580 },
+      { label: "梨山新佳陽烏龍茶", price: 2100 },
+    ],
   },
   {
-    id: "GB05", name: "精選茗茶禮盒", season: "禮盒", weight: "300g（半斤）", price: 220,
+    id: "GB05", name: "精選茗茶禮盒", season: "禮盒", weight: "300g（半斤）", price: 1300,
     images: [IMG.giftboxJingXuan], nameKey: "product.giftbox.jingxuan",
-    description: "青花瓷風格鐵罐，典雅精緻，半斤裝雙罐組，適合送禮收藏。可搭配不同茶款，歡迎來電詢問。",
-    notes: ["青花瓷風格鐵罐，典雅精緻", "半斤裝雙罐組，適合送禮收藏", "可搭配不同茶款，歡迎來電詢問"],
+    description: "青花瓷風格鐵罐，典雅精致，半斤裝雙罐組，適合送禮收藏。可從三種春茶選擇，如需客製其他茶葉，請另外私訊或在結帳備註說明。",
+    notes: ["青花瓷風格鐵罐，典雅精致", "半斤裝雙罐組，適合送禮收藏", "如需客製不同茶葉，請另外私訊或在結帳備註說明"],
+    teaOptions: [
+      { label: "阿里山春茶", price: 1300 },
+      { label: "梨山新佳陽春茶", price: 2200 },
+      { label: "福壽山春茶", price: 3980 },
+    ],
   },
   {
-    id: "GB06", name: "采韻禮盒", season: "禮盒", weight: "600g（一斤）", price: 480,
+    id: "GB06", name: "採韻禮盒", season: "禮盒", weight: "600g（一斤）", price: 2680,
     images: [IMG.giftboxCaiYun], nameKey: "product.giftbox.caiyun",
-    description: "采韻系列，質感紅色外盒四罐組，一斤裝大份量，適合節慶送禮。可搭配不同茶款，歡迎來電詢問。",
-    notes: ["采韻系列，質感紅色外盒四罐組", "一斤裝大份量，適合節慶送禮", "可搭配不同茶款，歡迎來電詢問"],
+    description: "採韻系列，質感紅色外盒四罐組，一斤裝大份量，適合節慶送禮。可從三種春茶選擇，如需客製其他茶葉，請另外私訊或在結帳備註說明。",
+    notes: ["採韻系列，質感紅色外盒四罐組", "一斤裝大份量，適合節慶送禮", "如需客製不同茶葉，請另外私訊或在結帳備註說明"],
+    teaOptions: [
+      { label: "阿里山春茶", price: 2680 },
+      { label: "梨山新佳陽春茶", price: 4280 },
+      { label: "福壽山春茶", price: 7480 },
+    ],
   },
   {
     id: "GB07", name: "御璽金賞包裝", season: "禮盒", weight: "依茶款而定", price: 0, priceOnRequest: true,
@@ -307,6 +343,7 @@ export default function ProductDetailPage() {
   const { toast } = useToast();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [selectedTeaIdx, setSelectedTeaIdx] = useState(0); // Index into product.teaOptions
 
   const product = PRODUCTS.find((p) => p.id === id);
 
@@ -349,22 +386,30 @@ export default function ProductDetailPage() {
     );
   }
 
+  // Compute effective price (use selected tea option if available)
+  const selectedTea = product.teaOptions?.[selectedTeaIdx];
+  const effectivePrice = selectedTea ? selectedTea.price : product.price;
+
   const handleAddToCart = () => {
+    const teaChoice = selectedTea?.label;
     addItem({
       id: product.id,
+      cartKey: product.id + "::" + (teaChoice ?? ""),
       name: product.name,
       nameKey: product.nameKey,
-      price: product.price,
+      teaChoice,
+      price: effectivePrice,
       quantity: qty,
       image: product.images[0],
     });
     setAdded(true);
-    toast({ title: "已加入購物車", description: `${product.name} × ${qty}` });
+    const displayName = teaChoice ? `${product.name}（${teaChoice}）` : product.name;
+    toast({ title: "已加入購物車", description: `${displayName} × ${qty}` });
     setTimeout(() => setAdded(false), 2000);
   };
 
   const FREE_SHIPPING = 2000;
-  const subtotal = product.price * qty;
+  const subtotal = effectivePrice * qty;
   const remaining = FREE_SHIPPING - subtotal;
 
   return (
@@ -412,9 +457,12 @@ export default function ProductDetailPage() {
             ) : (
               <div className="flex items-baseline gap-3">
                 <span className="text-3xl font-bold text-stone-800">
-                  NT${product.price.toLocaleString()}
+                  NT${effectivePrice.toLocaleString()}
                 </span>
                 <span className="text-sm text-stone-500">{product.weight}</span>
+                {product.teaOptions && product.teaOptions.length > 0 && (
+                  <span className="text-xs text-stone-400">（依選茶葉而定）</span>
+                )}
               </div>
             )}
 
@@ -474,6 +522,35 @@ export default function ProductDetailPage() {
             {/* Qty + Add to Cart */}
             {!product.priceOnRequest && (
               <div className="flex flex-col gap-3">
+
+                {/* Tea Selection (for gift boxes) */}
+                {product.teaOptions && product.teaOptions.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    <p className="text-sm font-medium text-stone-700">選擇茶葉</p>
+                    <div className="grid grid-cols-1 gap-2">
+                      {product.teaOptions.map((opt, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSelectedTeaIdx(idx)}
+                          className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-all duration-200 ${
+                            selectedTeaIdx === idx
+                              ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+                              : "border-stone-200 bg-white text-stone-700 hover:border-stone-300 hover:bg-stone-50"
+                          }`}
+                        >
+                          <span className="font-medium">{opt.label}</span>
+                          <span className={`font-bold ${
+                            selectedTeaIdx === idx ? "text-emerald-700" : "text-stone-800"
+                          }`}>
+                            NT${opt.price.toLocaleString()}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-xs text-stone-400">如需客製不同茶葉組合，請另外私訊或在結帳備註說明</p>
+                  </div>
+                )}
+
                 <div className="flex items-center gap-3">
                   <span className="text-sm text-stone-600">數量</span>
                   <div className="flex items-center border border-stone-200 rounded-lg overflow-hidden">
@@ -494,7 +571,7 @@ export default function ProductDetailPage() {
                     </button>
                   </div>
                   <span className="text-sm text-stone-500">
-                    小計 NT${(product.price * qty).toLocaleString()}
+                    小計 NT${(effectivePrice * qty).toLocaleString()}
                   </span>
                 </div>
 

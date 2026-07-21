@@ -2,8 +2,10 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 
 export interface CartItem {
   id: string;
+  cartKey: string;    // Unique key for this cart entry: id + '::' + (teaChoice ?? '') — used for remove/update
   name: string;       // Resolved display name (kept for fallback)
   nameKey?: string;   // Translation key — used to re-translate on language change
+  teaChoice?: string; // Selected tea option label (for gift boxes with tea selection)
   price: number;
   quantity: number;
   image?: string;
@@ -12,14 +14,13 @@ export interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addItem: (item: CartItem) => void;
-  removeItem: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
+  removeItem: (cartKey: string) => void;
+  updateQuantity: (cartKey: string, quantity: number) => void;
   clearCart: () => void;
   total: number;
 }
 
 const CART_STORAGE_KEY = "ying-li-tea-cart";
-
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
@@ -27,7 +28,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     // Initialize from localStorage on first render
     try {
       const stored = localStorage.getItem(CART_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
+      if (!stored) return [];
+      const parsed: CartItem[] = JSON.parse(stored);
+      // Backfill cartKey for items stored before this field was added
+      return parsed.map((item) => ({
+        ...item,
+        cartKey: item.cartKey ?? (item.id + "::" + (item.teaChoice ?? "")),
+      }));
     } catch {
       return [];
     }
@@ -44,10 +51,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = (newItem: CartItem) => {
     setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === newItem.id);
+      const existingItem = prevItems.find((item) => item.cartKey === newItem.cartKey);
       if (existingItem) {
         return prevItems.map((item) =>
-          item.id === newItem.id
+          item.cartKey === newItem.cartKey
             ? { ...item, quantity: item.quantity + newItem.quantity }
             : item
         );
@@ -56,17 +63,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const removeItem = (id: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  const removeItem = (cartKey: string) => {
+    setItems((prevItems) => prevItems.filter((item) => item.cartKey !== cartKey));
   };
 
-  const updateQuantity = (id: string, quantity: number) => {
+  const updateQuantity = (cartKey: string, quantity: number) => {
     if (quantity <= 0) {
-      removeItem(id);
+      removeItem(cartKey);
     } else {
       setItems((prevItems) =>
         prevItems.map((item) =>
-          item.id === id ? { ...item, quantity } : item
+          item.cartKey === cartKey ? { ...item, quantity } : item
         )
       );
     }
