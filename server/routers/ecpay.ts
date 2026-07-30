@@ -27,6 +27,7 @@ const cartItemSchema = z.object({
   price: z.number(),
   quantity: z.number().int().positive(),
   image: z.string().optional(),
+  teaChoice: z.string().optional(), // Selected tea for gift boxes
 });
 
 /**
@@ -304,7 +305,7 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
         const shippingLabel = shippingFee === 0 ? "免費" : `NT$${shippingFee.toFixed(0)}`;
         const orderTime = new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" });
 
-        const items: Array<{ name: string; price: number; quantity: number }> = JSON.parse(order.items);
+        const items: Array<{ name: string; price: number; quantity: number; teaChoice?: string }> = JSON.parse(order.items);
 
         // Reconstruct gift items from stored promoCode and totalAmount
         const ecpayGiftItems: string[] = [
@@ -320,14 +321,14 @@ export async function handleEcpayReturn(body: Record<string, string>): Promise<s
           : "";
 
         const itemRowsHtml = items
-          .map(
-            (item) =>
-              `<tr>
-                <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;">${item.name}</td>
+          .map((item) => {
+            const displayName = item.teaChoice ? `${item.name}（${item.teaChoice}）` : item.name;
+            return `<tr>
+                <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;">${displayName}</td>
                 <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:center;">× ${item.quantity}</td>
                 <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:right;">NT$${(item.price * item.quantity).toFixed(0)}</td>
-              </tr>`
-          )
+              </tr>`;
+          })
           .join("");
 
         const resendApiKey = process.env.RESEND_API_KEY;

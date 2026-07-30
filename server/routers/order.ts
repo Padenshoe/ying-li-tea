@@ -22,6 +22,7 @@ const cartItemSchema = z.object({
   price: z.number(),
   quantity: z.number().int().positive(),
   image: z.string().optional(),
+  teaChoice: z.string().optional(), // Selected tea for gift boxes
 });
 
 export const orderRouter = router({
@@ -97,8 +98,9 @@ export const orderRouter = router({
 
       // Build email content
       const genderLabel = input.gender === "male" ? "先生" : "小姐";
-      // Display order number starts from 101 (offset +100 from DB autoincrement)
-      const displayOrderId = orderId + 100;
+      // Display order number: starts from 101 (offset +100) + random 4-digit suffix for uniqueness
+      const randomSuffix = String(Math.floor(1000 + Math.random() * 9000));
+      const displayOrderId = `${orderId + 100}-${randomSuffix}`;
       const deliveryLabel =
         input.deliveryMethod === "home" ? "宅配" : "7-11 店到店";
       const deliveryDetail =
@@ -122,18 +124,21 @@ export const orderRouter = router({
         : "";
 
       const itemRowsHtml = input.items
-        .map(
-          (item) =>
-            `<tr>
-              <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;">${item.name}</td>
+        .map((item) => {
+          const displayName = item.teaChoice ? `${item.name}（${item.teaChoice}）` : item.name;
+          return `<tr>
+              <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;">${displayName}</td>
               <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:center;">× ${item.quantity}</td>
               <td style="padding:6px 12px;border-bottom:1px solid #e8e0d4;text-align:right;">NT$${(item.price * item.quantity).toFixed(0)}</td>
-            </tr>`
-        )
+            </tr>`;
+        })
         .join("");
 
       const itemLinesText = input.items
-        .map((item) => `  • ${item.name} × ${item.quantity}  NT$${(item.price * item.quantity).toFixed(0)}`)
+        .map((item) => {
+          const displayName = item.teaChoice ? `${item.name}（${item.teaChoice}）` : item.name;
+          return `  • ${displayName} × ${item.quantity}  NT$${(item.price * item.quantity).toFixed(0)}`;
+        })
         .join("\n");
 
       // HTML email template for store notification

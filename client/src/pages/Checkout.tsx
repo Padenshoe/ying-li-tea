@@ -160,13 +160,13 @@ export default function Checkout() {
           price: item.price,
           quantity: item.quantity,
           image: item.image,
+          teaChoice: item.teaChoice,
         })),
         totalAmount: grandTotal,
         shippingFee: currentShipping,
         promoCode: promoApplied ? VALID_PROMO : undefined,
         giftItems: gifts.length > 0 ? gifts : undefined,
       });
-
       const confirmationData = {
         orderId: result.orderId,
         method: form.deliveryMethod,
@@ -220,6 +220,7 @@ export default function Checkout() {
           price: item.price,
           quantity: item.quantity,
           image: item.image,
+          teaChoice: item.teaChoice,
         })),
         totalAmount: grandTotal,
         shippingFee: currentShipping,
