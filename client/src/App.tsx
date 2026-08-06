@@ -23,6 +23,7 @@ const ProductsPage = lazy(() => import("./pages/Products"));
 const ProductDetailPage = lazy(() => import("./pages/ProductDetail"));
 const TeaQuizPage = lazy(() => import("./pages/TeaQuiz"));
 const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
+const MidAutumnCollab = lazy(() => import("./pages/MidAutumnCollab"));
 const EcpayResult = lazy(() => import("./pages/EcpayResult"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -47,6 +48,7 @@ function Router() {
         <Route path={"/products"} component={ProductsPage} />
         <Route path={"/products/:id"} component={ProductDetailPage} />
         <Route path={"/tea-quiz"} component={TeaQuizPage} />
+        <Route path={"/mid-autumn"} component={MidAutumnCollab} />
         <Route path={"/refund-policy"} component={RefundPolicy} />
         <Route path={"/checkout/result"} component={EcpayResult} />
         <Route path={"/404"} component={NotFound} />

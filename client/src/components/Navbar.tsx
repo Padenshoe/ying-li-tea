@@ -43,6 +43,7 @@ export default function Navbar() {
     { label: t("nav.home"), href: "#home", type: "anchor" },
     { label: t("nav.about"), href: "#about", type: "anchor" },
     { label: "精選商品", href: "/products", type: "route" },
+    { label: "中秋聯名禮盒", href: "/mid-autumn", type: "route" },
     { label: "專屬選茶", href: "/tea-quiz", type: "route" },
     { label: t("nav.faq"), href: "#faq", type: "anchor" },
     { label: language === "en" ? "Book a Visit" : "預約品茶", href: BOOK_URL, type: "external" },
