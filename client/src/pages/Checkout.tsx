@@ -776,10 +776,23 @@ export default function Checkout() {
                   >
                     {t("checkout.note")}
                   </h2>
+                  {isAllMidAutumn && (
+                    <div
+                      className="mb-4 p-4 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed space-y-1"
+                      style={{ background: "oklch(0.975 0.008 65)", border: "1px solid oklch(0.870 0.025 65)", color: "oklch(0.520 0.020 60)" }}
+                    >
+                      <p className="font-600" style={{ color: "oklch(0.265 0.015 55)" }}>🏦 匯款資訊</p>
+                      <p>銀行：<strong style={{ color: "oklch(0.265 0.015 55)" }}>合作金庫（006）</strong></p>
+                      <p>帳號：<strong style={{ color: "oklch(0.265 0.015 55)" }}>5193717532709</strong></p>
+                      <p>戶名：<strong style={{ color: "oklch(0.265 0.015 55)" }}>迎利茶葉有限公司</strong></p>
+                      <p className="mt-2" style={{ color: "oklch(0.420 0.140 22)" }}>⚠️ 匯款完成後，請在下方備註填寫<strong>後五碼</strong>方便查帳核對。</p>
+                      <p style={{ color: "oklch(0.420 0.140 22)" }}>📦 統一 9 月初寄出，如需提早寄出請在備註告知。</p>
+                    </div>
+                  )}
                   <textarea
                     value={form.note}
                     onChange={(e) => set("note", e.target.value)}
-                    placeholder={isAllMidAutumn ? "如需匯款，請在此填寫匯款後五碼；其他備註也可在此輸入" : t("checkout.notePlaceholder")}
+                    placeholder={isAllMidAutumn ? "如需匯款請填寫後五碼；如需提早寄出請在此說明" : t("checkout.notePlaceholder")}
                     rows={3}
                     className={`${inputBase} resize-none`}
                     style={{ border: borderDefault }}
@@ -964,7 +977,8 @@ export default function Checkout() {
                     className="mt-4 rounded-xl p-4 text-xs font-['Lato'] font-300 leading-relaxed"
                     style={{ background: "oklch(0.975 0.008 65)", border: "1px solid oklch(0.870 0.025 65)", color: "oklch(0.520 0.020 60)" }}
                   >
-                    🏢 <strong style={{ color: "oklch(0.265 0.015 55)" }}>企業購買滿 32 盒</strong>，即可客製化公司 Logo，歡迎私訊洽詢。
+                    🏢 <strong style={{ color: "oklch(0.265 0.015 55)" }}>企業購買滿 32 盒</strong>，即可客製化公司 Logo，歡迎私訊洽詢。<br />
+                    📦 <strong style={{ color: "oklch(0.265 0.015 55)" }}>統一 9 月初寄出</strong>，如需提早寄出請在備註告知。
                   </div>
                 )}
               </div>

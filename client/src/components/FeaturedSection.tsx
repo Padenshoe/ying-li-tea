@@ -8,9 +8,9 @@ import { useLocation } from "wouter";
 
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/";
 const TEABAG_IMAGES = [
-  CDN + "teabag-1_dce6dee5.png",
-  CDN + "teabag-2_a91ea8f9.png",
-  CDN + "teabag-3_3aed7707.png",
+  "/manus-storage/midautumn_04_1c73177a.jpg",
+  "/manus-storage/midautumn_01_8c4b9476.webp",
+  "/manus-storage/midautumn_02_b8bda480.webp",
 ];
 
 export default function FeaturedSection() {
