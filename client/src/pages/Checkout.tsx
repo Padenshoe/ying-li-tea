@@ -58,11 +58,16 @@ export default function Checkout() {
   const isAllContestTea = items.length > 0 && items.every((item) => item.id?.startsWith("CT"));
   // Gift boxes (GB prefix) already include packaging — auto-set needsJar to 'no' and hide the option
   const isAllGiftBox = items.length > 0 && items.every((item) => item.id?.startsWith("GB"));
+  // Mid-autumn collab (MA prefix) — only credit card, no COD
+  const isAllMidAutumn = items.length > 0 && items.every((item) => item.id?.startsWith("MA"));
   const { t } = useLanguage();
   const { formatPrice, convertPrice } = useCurrency();
   const [, navigate] = useLocation();
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cod");
+  // Mid-autumn items only support credit card (no COD)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
+    items.length > 0 && items.every((item) => item.id?.startsWith("MA")) ? "credit" : "cod"
+  );
   const [form, setForm] = useState<FormState>({
     fullName: "",
     gender: "",
@@ -708,7 +713,7 @@ export default function Checkout() {
                         desc: "支援 VISA / MasterCard / JCB",
                         icon: "💳",
                       },
-                    ]).map((opt) => (
+                    ]).filter((opt) => !(isAllMidAutumn && opt.value === "cod")).map((opt) => (
                       <button
                         key={opt.value}
                         type="button"
@@ -774,7 +779,7 @@ export default function Checkout() {
                   <textarea
                     value={form.note}
                     onChange={(e) => set("note", e.target.value)}
-                    placeholder={t("checkout.notePlaceholder")}
+                    placeholder={isAllMidAutumn ? "如需匯款，請在此填寫匯款後五碼；其他備註也可在此輸入" : t("checkout.notePlaceholder")}
                     rows={3}
                     className={`${inputBase} resize-none`}
                     style={{ border: borderDefault }}
@@ -952,6 +957,16 @@ export default function Checkout() {
                     {t("checkout.continueShopping")}
                   </Link>
                 </div>
+
+                {/* Enterprise CTA — shown when cart contains mid-autumn items */}
+                {isAllMidAutumn && (
+                  <div
+                    className="mt-4 rounded-xl p-4 text-xs font-['Lato'] font-300 leading-relaxed"
+                    style={{ background: "oklch(0.975 0.008 65)", border: "1px solid oklch(0.870 0.025 65)", color: "oklch(0.520 0.020 60)" }}
+                  >
+                    🏢 <strong style={{ color: "oklch(0.265 0.015 55)" }}>企業購買滿 32 盒</strong>，即可客製化公司 Logo，歡迎私訊洽詢。
+                  </div>
+                )}
               </div>
             </div>
           </form>

@@ -5,25 +5,28 @@
  * 8/31 前 9 折優惠
  */
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import MiniFooter from "@/components/MiniFooter";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 
 // ── 圖片路徑（storage proxy）──────────────────────────────────────────────
 const IMG = {
-  p1_1: "/manus-storage/midautumn_01_8c4b9476.webp",  // 阿里山春茶開盒
-  p1_2: "/manus-storage/midautumn_03_3c75f193.webp",  // 開盒阿里山+肉乾
-  p1_3: "/manus-storage/midautumn_02_b8bda480.webp",  // 紅盒外觀
-  p2_1: "/manus-storage/midautumn_01_8c4b9476.webp",  // 開盒（共用）
-  p2_2: "/manus-storage/midautumn_04_1c73177a.jpg",   // 茶包展示
-  p2_3: "/manus-storage/midautumn_02_b8bda480.webp",  // 紅盒外觀
-  p3_1: "/manus-storage/midautumn_05_ed07aff3.webp",  // 大禹嶺開盒
-  p3_2: "/manus-storage/midautumn_06_e5193bf7.webp",  // 大禹嶺+肉乾
-  p3_3: "/manus-storage/midautumn_02_b8bda480.webp",  // 紅盒外觀
+  p1_1: "/manus-storage/midautumn_01_8c4b9476.webp",
+  p1_2: "/manus-storage/midautumn_03_3c75f193.webp",
+  p1_3: "/manus-storage/midautumn_02_b8bda480.webp",
+  p2_1: "/manus-storage/midautumn_01_8c4b9476.webp",
+  p2_2: "/manus-storage/midautumn_04_1c73177a.jpg",
+  p2_3: "/manus-storage/midautumn_02_b8bda480.webp",
+  p3_1: "/manus-storage/midautumn_05_ed07aff3.webp",
+  p3_2: "/manus-storage/midautumn_06_e5193bf7.webp",
+  p3_3: "/manus-storage/midautumn_02_b8bda480.webp",
 };
 
 const accentGold = "oklch(0.620 0.090 65)";
 const accentRed = "oklch(0.420 0.140 22)";
+const accentGreen = "oklch(0.380 0.070 145)";
 const textDark = "oklch(0.265 0.015 55)";
 const textMid = "oklch(0.520 0.020 60)";
 const bgCream = "oklch(0.990 0.004 95)";
@@ -71,7 +74,27 @@ const PRODUCTS: Product[] = [
 
 function ProductCard({ product }: { product: Product }) {
   const [activeImg, setActiveImg] = useState(0);
-  const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+  const [qty, setQty] = useState(1);
+  const { addItem } = useCart();
+  const [, navigate] = useLocation();
+
+  function handleAddToCart() {
+    addItem({
+      id: product.id,
+      cartKey: `${product.id}::`,
+      name: product.name,
+      price: product.price,
+      quantity: qty,
+      image: product.images[0],
+    });
+    toast.success(`已加入購物車`, {
+      description: `${product.name} × ${qty}`,
+      action: {
+        label: "前往結帳",
+        onClick: () => navigate("/checkout"),
+      },
+    });
+  }
 
   return (
     <div
@@ -133,7 +156,7 @@ function ProductCard({ product }: { product: Product }) {
         </ul>
 
         {/* Price */}
-        <div className="mt-auto flex items-end gap-3">
+        <div className="flex items-end gap-3 mb-5">
           <span
             className="font-['Playfair_Display'] font-600"
             style={{ fontSize: "1.75rem", color: accentRed }}
@@ -146,6 +169,49 @@ function ProductCard({ product }: { product: Product }) {
           >
             原價 NT${product.originalPrice.toLocaleString()}
           </span>
+        </div>
+
+        {/* Qty + Add to Cart */}
+        <div className="mt-auto flex items-center gap-3">
+          {/* Quantity selector */}
+          <div
+            className="flex items-center rounded-lg overflow-hidden border"
+            style={{ borderColor: "oklch(0.870 0.018 130)" }}
+          >
+            <button
+              type="button"
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              className="w-9 h-9 flex items-center justify-center text-lg transition-colors duration-200 hover:bg-gray-100"
+              style={{ color: textDark }}
+            >
+              −
+            </button>
+            <span
+              className="w-10 text-center font-['Lato'] font-400 text-sm"
+              style={{ color: textDark }}
+            >
+              {qty}
+            </span>
+            <button
+              type="button"
+              onClick={() => setQty((q) => q + 1)}
+              className="w-9 h-9 flex items-center justify-center text-lg transition-colors duration-200 hover:bg-gray-100"
+              style={{ color: textDark }}
+            >
+              +
+            </button>
+          </div>
+          {/* Add to cart button */}
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="flex-1 py-2.5 rounded-lg text-sm font-['Lato'] font-400 tracking-[0.06em] transition-all duration-300"
+            style={{ background: accentGreen, color: "#FAFAF7" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+          >
+            加入購物車
+          </button>
         </div>
       </div>
     </div>
@@ -187,7 +253,6 @@ export default function MidAutumnCollab() {
             台灣頂級高山茶與萬味軒招牌肉乾的完美結合，以典雅紅金禮盒精裝，<br className="hidden md:block" />
             茶香與肉香交織，獻給最重要的人。
           </p>
-
           {/* Promo banner */}
           <div
             className="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-xl"
@@ -275,7 +340,7 @@ export default function MidAutumnCollab() {
                 </h3>
               </div>
               <p className="text-sm font-['Lato'] font-300 leading-relaxed mb-4" style={{ color: textMid }}>
-                透過本站結帳頁面以信用卡付款，安全便利。
+                將商品加入購物車後，前往結帳頁面以信用卡付款，安全便利。
               </p>
               <Link
                 to="/checkout"
@@ -298,9 +363,19 @@ export default function MidAutumnCollab() {
             className="rounded-2xl p-6 text-sm font-['Lato'] font-300 leading-relaxed space-y-2"
             style={{ background: bgCream, border: `1px solid oklch(0.870 0.018 130)`, color: textMid }}
           >
-            <p><strong style={{ color: textDark }}>大量訂購或客製化需求</strong>，歡迎私訊 IG 或 Email 洽詢。</p>
             <p>📦 <strong style={{ color: textDark }}>滿 NT$2,000 免運費</strong>，未滿則依配送方式收取運費。</p>
             <p>📅 預購商品將於確認付款後 3–5 個工作日出貨。</p>
+            <p>💬 <strong style={{ color: textDark }}>大量訂購或客製化需求</strong>，歡迎私訊 IG 或 Email 洽詢。</p>
+            {/* Enterprise CTA */}
+            <div
+              className="mt-4 pt-4 flex items-start gap-3"
+              style={{ borderTop: `1px solid oklch(0.870 0.018 130)` }}
+            >
+              <span className="text-xl flex-shrink-0">🏢</span>
+              <p>
+                <strong style={{ color: textDark }}>企業購買滿 32 盒</strong>，即可客製化公司 Logo，打造專屬品牌禮盒，歡迎私訊洽詢。
+              </p>
+            </div>
           </div>
         </div>
       </main>
