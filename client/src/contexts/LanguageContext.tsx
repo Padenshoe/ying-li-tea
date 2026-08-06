@@ -29,14 +29,14 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Featured Section
     "featured.label": "Featured Product",
-    "featured.title": "Premium Alishan Tea Bag Gift Box",
-    "featured.description": "Beautifully packaged Taiwanese oolong tea gift sets, perfect for sharing or gifting. Each box contains premium tea selections from our finest regions — a thoughtful way to introduce someone to the art of Taiwanese tea culture.",
+    "featured.title": "Alishan Spring Tea 4 Liang + Wanweixuan Jerky",
+    "featured.description": "A perfect pairing of premium Alishan high-mountain spring tea (150g) and Wanweixuan signature jerky, elegantly presented in our iconic red-gold gift box. A thoughtful Mid-Autumn Festival gift for family and friends.",
     "featured.format": "Format",
-    "featured.giftBox": "Gift Box",
+    "featured.giftBox": "Red-Gold Gift Box",
     "featured.origin": "Origin",
     "featured.taiwan": "Taiwan",
     "featured.perfectFor": "Perfect For",
-    "featured.gifting": "Gifting",
+    "featured.gifting": "Mid-Autumn Gift",
 
     // About Section
     "about.title": "About Ying-Li",
@@ -234,14 +234,14 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Featured Section
     "featured.label": "精選商品",
-    "featured.title": "高級阿里山茶包禮盒",
-    "featured.description": "茶包禮盒送禮首選。茶包均選用阿里山一心二葉的茶葉，經傳統烘焙方式保留傳統的特色，結合現代泡茶風格，讓每一口都是高山茶的原汁原味。",
+    "featured.title": "阿里山春茶 4 兩＋萬味軒肉乾",
+    "featured.description": "嚴選阿里山高山春茶 4 兩（150g），搭配萬味軒招牌肉乾，以迎利典雅紅金禮盒精裝。茶香與肉香交織，中秋送禮首選，送禮自用兩相宜。",
     "featured.format": "包裝形式",
-    "featured.giftBox": "60入真空包裝",
+    "featured.giftBox": "紅金典雅禮盒",
     "featured.origin": "產地",
     "featured.taiwan": "台灣",
     "featured.perfectFor": "適合",
-    "featured.gifting": "自用及送禮",
+    "featured.gifting": "中秋送禮首選",
 
     // About Section
     "about.title": "關於迎利",

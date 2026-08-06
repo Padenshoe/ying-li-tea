@@ -126,13 +126,13 @@ export default function FeaturedSection() {
               className="font-['Playfair_Display'] font-600"
               style={{ fontSize: "1.75rem", color: "oklch(0.380 0.070 145)" }}
             >
-              NT$980
+              NT$880
             </span>
             <span
               className="font-['Lato'] font-300 text-sm"
               style={{ color: "oklch(0.552 0.016 285.938)" }}
             >
-              60入 × 3g
+              阿里山春茶 4 兩 + 萬味軒肉乾
             </span>
           </div>
 
@@ -164,7 +164,7 @@ export default function FeaturedSection() {
           {/* CTA */}
           <div className="flex gap-4 reveal">
             <button
-              onClick={() => navigate("/products/TB01")}
+              onClick={() => navigate("/mid-autumn")}
               className="px-7 py-3 text-xs font-['Lato'] font-400 tracking-[0.18em] uppercase transition-all duration-300"
               style={{ background: "oklch(0.420 0.055 140)", color: "#FAFAF7" }}
               onMouseEnter={(e) => {
