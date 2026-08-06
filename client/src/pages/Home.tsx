@@ -1,7 +1,7 @@
 /*
  * YING-LI TEA — HOME PAGE
  * Section order:
- * Navbar → Hero → Featured Product → Contest Tea → About → Storefront →
+ * Navbar → Hero → Featured Product → About → Storefront →
  * Quote → FAQ → Contact/Footer
  */
 import { useEffect } from "react";
@@ -9,7 +9,6 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import FeaturedSection from "@/components/FeaturedSection";
-import ContestTeaSection from "@/components/ContestTeaSection";
 import AboutSection from "@/components/AboutSection";
 import StorefrontSection from "@/components/StorefrontSection";
 import PromiseSection from "@/components/PromiseSection";
@@ -29,7 +28,6 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <FeaturedSection />
-      <ContestTeaSection />
       <AboutSection />
       <PromiseSection />
       <StorefrontSection />
