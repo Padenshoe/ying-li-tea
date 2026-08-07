@@ -23,7 +23,7 @@ const borderDefault = "1px solid oklch(0.840 0.015 90)";
 const borderFocus = `1px solid ${accentGreen}`;
 const borderError = "1px solid oklch(0.700 0.200 27)";
 
-type PaymentMethod = "cod" | "credit";
+type PaymentMethod = "cod" | "credit" | "transfer";
 
 interface FormState {
   fullName: string;
@@ -66,7 +66,7 @@ export default function Checkout() {
 
   // Mid-autumn items only support credit card (no COD)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
-    items.length > 0 && items.every((item) => item.id?.startsWith("MA")) ? "credit" : "cod"
+    items.length > 0 && items.every((item) => item.id?.startsWith("MA")) ? "transfer" : "cod"
   );
   const [form, setForm] = useState<FormState>({
     fullName: "",
@@ -288,8 +288,80 @@ export default function Checkout() {
 
     if (paymentMethod === "cod") {
       await handleCodSubmit();
+    } else if (paymentMethod === "transfer") {
+      await handleTransferSubmit();
     } else {
       await handleCreditSubmit();
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  // ── Bank Transfer Submit (called from handleSubmit) ───────────────────────
+  async function handleTransferSubmit() {
+    try {
+      const result = await submitOrder.mutateAsync({
+        fullName: form.fullName.trim(),
+        gender: form.gender as "male" | "female" | "other",
+        phone: form.phone.trim(),
+        email: form.email.trim() || undefined,
+        taxId: form.taxId.trim() || undefined,
+        needsJar: form.needsJar === "jar",
+        deliveryMethod: form.deliveryMethod as "home" | "711",
+        address: form.deliveryMethod === "home" ? form.address.trim() : undefined,
+        storeCode: form.deliveryMethod === "711" ? form.storeCode.trim() : undefined,
+        note: [
+          "【付款方式：銀行匯款】請匯款至合作金庫(006) 帳號:5193717532709 戶名:迎利茶葉有限公司，完成後請提供後五碼。",
+          form.note.trim(),
+        ].filter(Boolean).join(" ") || undefined,
+        items: items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          nameKey: item.nameKey,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+          teaChoice: item.teaChoice,
+        })),
+        totalAmount: grandTotal,
+        shippingFee: currentShipping,
+        promoCode: promoApplied ? VALID_PROMO : undefined,
+        giftItems: gifts.length > 0 ? gifts : undefined,
+      });
+      const confirmationData = {
+        orderId: result.orderId,
+        method: form.deliveryMethod,
+        fullName: form.fullName,
+        phone: form.phone,
+        email: form.email.trim() || undefined,
+        address: form.address,
+        storeCode: form.storeCode,
+        items: items.map((item) => ({
+          name: item.nameKey ? t(item.nameKey) : item.name,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        subtotal: total,
+        shippingFee: currentShipping,
+        totalAmount: grandTotal,
+        paymentMethod: "transfer",
+      };
+      sessionStorage.setItem("yingli_order_confirmation", JSON.stringify(confirmationData));
+      navigate(`/order-confirmation?orderId=${result.orderId}`);
+      clearCart();
+    } catch (err: any) {
+      toast.error(t("checkout.errSubmitFailed"), {
+        description: err?.message ?? t("checkout.errUnknown"),
+      });
     }
   }
 
@@ -699,21 +771,27 @@ export default function Checkout() {
                   >
                     付款方式
                   </h2>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {([
-                      {
-                        value: "cod" as PaymentMethod,
-                        title: "貨到付款",
-                        desc: "收到貨物時以現金付款，安全便利",
-                        icon: "💵",
-                      },
-                      {
-                        value: "credit" as PaymentMethod,
-                        title: "信用卡付款",
-                        desc: "支援 VISA / MasterCard / JCB",
-                        icon: "💳",
-                      },
-                    ]).filter((opt) => !(isAllMidAutumn && opt.value === "cod")).map((opt) => (
+                 <div className="grid sm:grid-cols-2 gap-3">
+                   {([
+                     {
+                       value: "cod" as PaymentMethod,
+                       title: "貨到付款",
+                       desc: "收到貨物時以現金付款，安全便利",
+                       icon: "💵",
+                     },
+                     {
+                       value: "credit" as PaymentMethod,
+                       title: "信用卡付款",
+                       desc: "支援 VISA / MasterCard / JCB",
+                       icon: "💳",
+                     },
+                     {
+                       value: "transfer" as PaymentMethod,
+                       title: "銀行匯款",
+                       desc: "合作金庫(006) 帳號 5193717532709",
+                       icon: "🏦",
+                     },
+                    ]).filter((opt) => isAllMidAutumn ? opt.value !== "cod" : opt.value !== "transfer").map((opt) => (
                       <button
                         key={opt.value}
                         type="button"
@@ -753,12 +831,23 @@ export default function Checkout() {
                       </button>
                     ))}
                   </div>
-                  {paymentMethod === "credit" && (
+                 {paymentMethod === "credit" && (
+                   <div
+                     className="mt-3 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed"
+                     style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: "oklch(0.380 0.060 145)" }}
+                   >
+                     點擊「前往付款」後，您將被導向綠界科技安全付款頁面完成刷卡。付款完成後將自動返回本網站。
+                   </div>
+                 )}
+                  {paymentMethod === "transfer" && (
                     <div
-                      className="mt-3 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed"
-                      style={{ background: "oklch(0.960 0.018 130)", border: "1px solid oklch(0.870 0.025 130)", color: "oklch(0.380 0.060 145)" }}
+                      className="mt-3 px-3 py-2.5 rounded-lg text-xs font-['Lato'] font-300 leading-relaxed space-y-1"
+                      style={{ background: "oklch(0.975 0.008 65)", border: "1px solid oklch(0.870 0.025 65)", color: "oklch(0.520 0.020 60)" }}
                     >
-                      點擊「前往付款」後，您將被導向綠界科技安全付款頁面完成刷卡。付款完成後將自動返回本網站。
+                      <p>🏦 <strong style={{ color: "oklch(0.265 0.015 55)" }}>合作金庫（006）</strong></p>
+                      <p>帳號：<strong style={{ color: "oklch(0.265 0.015 55)" }}>5193717532709</strong></p>
+                      <p>戶名：<strong style={{ color: "oklch(0.265 0.015 55)" }}>迎利茶葉有限公司</strong></p>
+                      <p className="mt-1" style={{ color: "oklch(0.420 0.140 22)" }}>⚠️ 下單後請完成匯款，並在備註填寫後五碼方便查帳核對。</p>
                     </div>
                   )}
                 </div>
@@ -891,7 +980,7 @@ export default function Checkout() {
                         {t("checkout.paymentMethod")}
                       </span>
                       <span className="font-['Lato'] font-400" style={{ color: "oklch(0.265 0.015 55)" }}>
-                        {paymentMethod === "cod" ? "貨到付款" : "信用卡"}
+                        {paymentMethod === "cod" ? "貨到付款" : paymentMethod === "transfer" ? "銀行匯款" : "信用卡"}
                       </span>
                     </div>
                     <div
@@ -947,6 +1036,8 @@ export default function Checkout() {
                         ? t("checkout.submitting")
                         : paymentMethod === "credit"
                         ? "前往付款"
+                        : paymentMethod === "transfer"
+                        ? "確認預購"
                         : t("checkout.submit")}
                     </button>
                     <p
@@ -955,6 +1046,8 @@ export default function Checkout() {
                     >
                       {paymentMethod === "credit"
                         ? "您將被導向綠界科技安全付款頁面"
+                        : paymentMethod === "transfer"
+                        ? "下單後請完成匯款並提供後五碼，統一 9 月初寄出"
                         : t("checkout.submitHint")}
                     </p>
                   </div>
