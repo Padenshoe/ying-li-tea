@@ -1,6 +1,6 @@
 /*
  * 中秋聯名禮盒 x 萬味軒
- * 三款聯名禮盒預購頁面
+ * 四款中秋禮盒預購頁面
  * 付款方式：匯款（後五碼查帳）或線上刷卡
  * 8/31 前 9 折優惠
  */
@@ -13,15 +13,18 @@ import { toast } from "sonner";
 
 // ── 圖片路徑（storage proxy）──────────────────────────────────────────────
 const IMG = {
-  p1_1: "/manus-storage/midautumn_01_8c4b9476.webp",
+  p1_1: "/manus-storage/midautumn-alishan-main_0a69028a.jpg",
   p1_2: "/manus-storage/midautumn_03_3c75f193.webp",
   p1_3: "/manus-storage/midautumn_02_b8bda480.webp",
-  p2_1: "/manus-storage/midautumn_01_8c4b9476.webp",
+  p2_1: "/manus-storage/midautumn-alishan-main_0a69028a.jpg",
   p2_2: "/manus-storage/midautumn_04_1c73177a.jpg",
   p2_3: "/manus-storage/midautumn_02_b8bda480.webp",
-  p3_1: "/manus-storage/midautumn_05_ed07aff3.webp",
+  p3_1: "/manus-storage/midautumn-dayuling-main_99655129.jpg",
   p3_2: "/manus-storage/midautumn_06_e5193bf7.webp",
   p3_3: "/manus-storage/midautumn_02_b8bda480.webp",
+  classic1: "/manus-storage/classic-yingli-01_ba413f27.jpg",
+  classic2: "/manus-storage/classic-yingli-02_04dc40cd.jpg",
+  classic3: "/manus-storage/classic-yingli-03_41478a05.jpg",
 };
 
 const accentGold = "oklch(0.620 0.090 65)";
@@ -36,7 +39,8 @@ interface Product {
   id: string;
   name: string;
   price: number;
-  originalPrice: number;
+  originalPrice?: number;
+  promoEligible?: boolean;
   images: string[];
   description: string;
   includes: string[];
@@ -69,6 +73,14 @@ const PRODUCTS: Product[] = [
     images: [IMG.p3_1, IMG.p3_2, IMG.p3_3],
     description: "海拔 2,600 公尺頂級大禹嶺烏龍茶 2 兩（75g），茶湯清冽甘甜，搭配萬味軒肉乾，以迎利典雅紅金禮盒精裝，頂級送禮首選。",
     includes: ["頂級大禹嶺烏龍茶 2 兩（75g）", "萬味軒招牌肉乾", "迎利典雅紅金禮盒"],
+  },
+  {
+    id: "MA04",
+    name: "經典迎利茶葉禮盒",
+    price: 2500,
+    images: [IMG.classic1, IMG.classic2, IMG.classic3],
+    description: "一盒收藏兩款迎利經典高山茶：阿里山茶葉 4 兩與頂級大禹嶺茶葉 2 兩，以紅金禮盒精裝，呈現台灣高山茶的清雅與甘醇。",
+    includes: ["阿里山茶葉 4 兩（150g）", "頂級大禹嶺茶葉 2 兩（75g）", "迎利經典紅金禮盒"],
   },
 ];
 
@@ -109,12 +121,14 @@ function ProductCard({ product }: { product: Product }) {
           className="w-full h-full object-cover transition-opacity duration-300"
         />
         {/* Discount badge */}
-        <div
-          className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-['Lato'] font-600 tracking-wide"
-          style={{ background: accentRed, color: "#FAFAF7" }}
-        >
-          8/31 前 9 折
-        </div>
+        {product.originalPrice && (
+          <div
+            className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-['Lato'] font-600 tracking-wide"
+            style={{ background: accentRed, color: "#FAFAF7" }}
+          >
+            8/31 前 9 折
+          </div>
+        )}
         {/* Thumbnail strip */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
           {product.images.map((img, i) => (
@@ -163,12 +177,14 @@ function ProductCard({ product }: { product: Product }) {
           >
             NT${product.price.toLocaleString()}
           </span>
-          <span
-            className="font-['Lato'] font-300 text-sm line-through mb-1"
-            style={{ color: "oklch(0.700 0.020 60)" }}
-          >
-            原價 NT${product.originalPrice.toLocaleString()}
-          </span>
+          {product.originalPrice && (
+            <span
+              className="font-['Lato'] font-300 text-sm line-through mb-1"
+              style={{ color: "oklch(0.700 0.020 60)" }}
+            >
+              原價 NT${product.originalPrice.toLocaleString()}
+            </span>
+          )}
         </div>
 
         {/* Qty + Add to Cart */}
@@ -266,7 +282,7 @@ export default function MidAutumnCollab() {
         </div>
 
         {/* ── Products Grid ── */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
           {PRODUCTS.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

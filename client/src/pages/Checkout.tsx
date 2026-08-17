@@ -56,8 +56,8 @@ export default function Checkout() {
   const { items, total, clearCart } = useCart();
   // Contest teas (CT prefix) come with their own box — hide the jar/box option
   const isAllContestTea = items.length > 0 && items.every((item) => item.id?.startsWith("CT"));
-  // Gift boxes (GB prefix) already include packaging — auto-set needsJar to 'no' and hide the option
-  const isAllGiftBox = items.length > 0 && items.every((item) => item.id?.startsWith("GB"));
+  // Gift boxes (GB/MA prefixes) already include packaging — auto-set needsJar to 'no' and hide the option
+  const isAllGiftBox = items.length > 0 && items.every((item) => item.id?.startsWith("GB") || item.id?.startsWith("MA"));
   // Mid-autumn collab (MA prefix) — only credit card, no COD
   const isAllMidAutumn = items.length > 0 && items.every((item) => item.id?.startsWith("MA"));
   const { t } = useLanguage();
@@ -75,7 +75,7 @@ export default function Checkout() {
     email: "",
     taxId: "",
     // If all items are gift boxes, auto-select 'no' for jar/box
-    needsJar: items.length > 0 && items.every((item) => item.id?.startsWith("GB")) ? "no" : "",
+    needsJar: items.length > 0 && items.every((item) => item.id?.startsWith("GB") || item.id?.startsWith("MA")) ? "no" : "",
     deliveryMethod: "",
     address: "",
     storeCode: "",

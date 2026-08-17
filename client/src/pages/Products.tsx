@@ -39,6 +39,9 @@ const IMG = {
   lishanBlackTea:  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_10_ef1143ed.jpg",
   lishanPremiumBlack: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_31_4f005544.jpg",
   shuixianBlackTea: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/LINE_ALBUM_2026630_260630_32_0b68775e.jpg",
+  classicYingli1: "/manus-storage/classic-yingli-01_ba413f27.jpg",
+  classicYingli2: "/manus-storage/classic-yingli-02_04dc40cd.jpg",
+  classicYingli3: "/manus-storage/classic-yingli-03_41478a05.jpg",
 };
 
 interface TeaOption {
@@ -388,6 +391,19 @@ const PRODUCTS: Product[] = [
       "頂級梨山紅茶，順口尾韻豐富",
       "紅茶香氣清雅，口感滑順回甘持久",
       "75g 鐵罐裝，適合進階茶友與送禮首選",
+    ],
+  },
+  // 經典迎利茶葉禮盒
+  {
+    id: "MA04", code: "MA04", name: "經典迎利茶葉禮盒", season: "禮盒", featured: true,
+    weight: "阿里山 150g＋大禹嶺 75g（共 225g）", price: 2500,
+    images: [IMG.classicYingli1, IMG.classicYingli2, IMG.classicYingli3],
+    nameKey: "product.giftbox.classic",
+    origin: "嘉義阿里山／台中大禹嶺", altitude: "1,500／2,800 公尺",
+    notes: [
+      "阿里山高山茶 4 兩與頂級大禹嶺茶 2 兩，一盒雙茶",
+      "紅金典雅禮盒精裝，適合重要送禮與企業贈禮",
+      "清雅花香與高冷甘韻兼具，完整品味高山茶特色",
     ],
   },
   // ── 農會認證比賽茶 ──────────────────────────────────────────────────────────

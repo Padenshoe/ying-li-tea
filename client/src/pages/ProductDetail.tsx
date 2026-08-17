@@ -43,6 +43,9 @@ const IMG = {
   contestLishanTop: "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-lishan-top_a9b95b8b.webp",
   contestRenaiTop:  "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-renai-top_e4843144.webp",
   contestHeping3:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663480801041/CszUxC59AMQW9PPYCfQtVP/contest-heping-3star_d5b058e0.webp",
+  classicYingli1: "/manus-storage/classic-yingli-01_ba413f27.jpg",
+  classicYingli2: "/manus-storage/classic-yingli-02_04dc40cd.jpg",
+  classicYingli3: "/manus-storage/classic-yingli-03_41478a05.jpg",
 };
 
 interface TeaOption {
@@ -266,6 +269,13 @@ const PRODUCTS: ProductDetail[] = [
     description: "使用水仙茶種製作的紅茶，風味獨特，清香順口，溫和花香中帶清甘尾韻，100g 裝，適合日常品飲與初學茶友。",
     origin: "台灣", altitude: "高山茶區", process: "全發酵・水仙品種",
     notes: ["使用水仙茶種製作的紅茶，風味獨特", "清香順口，溫和花香中帶清甘尾韻", "100g 裝，適合日常品飲與初學茶友"],
+  },
+  {
+    id: "MA04", name: "經典迎利茶葉禮盒", season: "禮盒", weight: "阿里山 150g＋大禹嶺 75g（共 225g）", price: 2500,
+    images: [IMG.classicYingli1, IMG.classicYingli2, IMG.classicYingli3], nameKey: "product.giftbox.classic",
+    description: "經典迎利茶葉禮盒精選阿里山茶葉 4 兩（150g）與頂級大禹嶺茶葉 2 兩（75g），以紅金禮盒典雅呈現。一次品味阿里山的清雅花香與大禹嶺的高冷甘韻，是重要送禮與企業贈禮的上乘選擇。",
+    origin: "嘉義阿里山／台中大禹嶺", altitude: "1,500／2,800 公尺", process: "輕發酵・不烘焙",
+    notes: ["阿里山茶葉 4 兩與頂級大禹嶺茶葉 2 兩，一盒雙茶", "紅金典雅禮盒精裝，適合重要送禮與企業贈禮", "清雅花香與高冷甘韻兼具，完整品味高山茶特色"],
   },
   // ── 農會認證比賽茶 ──────────────────────────────────────────────────────────
   {
